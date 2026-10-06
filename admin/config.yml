@@ -41,11 +41,17 @@ collections:
     widget: string
     required: false
   - name: hero_image
-    label: Главная фотография
+    label: Главное изображение
     widget: image
     required: false
+  - name: hero_image_ai
+    label: Изображение создано ИИ — не реальная фотография
+    widget: boolean
+    default: false
+    required: false
+    hint: Включи для главного изображения, созданного ИИ. Подпись появится в статье и на карточке Discover после публикации.
   - name: hero_alt
-    label: Описание фотографии
+    label: Описание изображения
     widget: string
     required: false
   - name: body
