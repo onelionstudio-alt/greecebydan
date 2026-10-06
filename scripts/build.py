@@ -1,0 +1,193 @@
+"""Build a deployable static site from Decap's JSON content."""
+import argparse
+import html
+import json
+import re
+import shutil
+from pathlib import Path
+from urllib.parse import urlsplit
+import bleach
+from markdown_it import MarkdownIt
+
+ROOT = Path(__file__).resolve().parents[1]
+SITE_URL = 'https://greecebydan.com'
+RESERVED = {'admin', 'about', 'contact', 'privacy', 'cookies', 'terms',
+            'affiliate-disclosure', 'assets', 'content', 'scripts', 'tests',
+            'oauth-worker', 'templates', '_site', 'index', '404'}
+md = MarkdownIt('commonmark', {'html': False})
+
+def esc(value):
+    return html.escape(str(value), quote=True)
+
+def text(data, key, default=''):
+    value = data.get(key, default)
+    if not isinstance(value, str):
+        raise ValueError(f'{key} must be text')
+    return value.strip()
+
+def url(value, image=False):
+    """Reject executable URLs, traversal, protocol-relative URLs and credentials."""
+    if not isinstance(value, str):
+        raise ValueError('URL must be text')
+    if not value:
+        return ''
+    if any(ord(c) < 33 for c in value) or '\\' in value:
+        raise ValueError(f'Invalid URL: {value!r}')
+    p = urlsplit(value)
+    if image and value.startswith('/assets/') and not p.query and not p.fragment:
+        if any(part in ('.', '..') for part in p.path.split('/')) or '%' in p.path:
+            raise ValueError('Invalid image path')
+        return value
+    if p.scheme == 'https' and p.hostname and not p.username and not p.password:
+        return value
+    raise ValueError('Links must use https://; images may also use /assets/...')
+
+def markdown(value):
+    rendered = md.render(value)
+    rendered = bleach.clean(rendered,
+        tags={'p','h2','h3','h4','ul','ol','li','em','strong','a','blockquote',
+              'br','hr','code','pre','img'},
+        attributes={'a':['href','title'], 'img':['src','alt','title']},
+        protocols={'https','http','mailto'}, strip=True)
+    return re.sub(r'<a href="(https?://)', r'<a rel="noopener noreferrer" href="\1', rendered)
+
+def read(path):
+    data = json.loads(path.read_text(encoding='utf-8'))
+    if not isinstance(data, dict):
+        raise ValueError(f'{path.name} must contain an object')
+    return data
+
+def slug_for(path):
+    slug = path.stem
+    if '..' in path.parts or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', slug) or slug in RESERVED:
+        raise ValueError(f'Invalid or reserved story filename: {slug}')
+    return slug
+
+def header():
+    return '<header class="site-header"><a class="brand" href="/">Greece <em>by Dan</em></a><button class="menu" aria-label="Open menu" aria-expanded="false">Menu</button><nav><a href="/#discover">Places</a><a href="/about/">About</a><a href="/#plan">Plan your trip</a></nav></header>'
+
+def footer(s):
+    links = [('about','About'),('affiliate-disclosure','Affiliate disclosure'),
+             ('privacy','Privacy'),('cookies','Cookies'),('terms','Terms'),('contact','Contact')]
+    return '<footer><a class="brand" href="/">Greece <em>by Dan</em></a><p>'+esc(s['tagline'])+'</p><div>'+''.join(f'<a href="/{p}/">{t}</a>' for p,t in links)+'</div><small>© 2026 '+esc(s['site_title'])+' · '+esc(s['footer_note'])+'</small></footer>'
+
+def page(title, description, route, main, s, image=''):
+    canonical = SITE_URL + route
+    social_image = f'<meta property="og:image" content="{esc(SITE_URL+image if image.startswith("/") else image)}">' if image else ''
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:type" content="'+('website' if route=='/' else 'article')+'">'+social_image+'<link rel="icon" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/style.css"></head><body>'+header()+main+footer(s)+'<script src="/assets/js/main.js"></script></body></html>\n'
+
+def card(story):
+    s=story
+    picture = '<img src="'+esc(s['hero_image'])+'" alt="'+esc(s['hero_alt'])+'" loading="lazy">' if s['hero_image'] else '<span>'+esc(s['greek_name'] or s['title'])+'</span>'
+    return '<a class="feature-card" href="/'+s['slug']+'/"><div class="feature-art">'+picture+'</div><div class="feature-copy"><div><small>'+esc(s['region'])+' · Island story</small><h3>'+esc(s['title'])+'</h3><p>'+esc(s['subtitle'])+'</p></div><b>Explore '+esc(s['title'])+' →</b></div></a>'
+
+def affiliate_links(items):
+    result=[]
+    for item in items:
+        target=url(text(item,'url'))
+        if target:
+            result.append('<p><a href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank">'+esc(text(item,'label'))+' ↗</a></p>')
+    return ''.join(result)
+
+def youtube(value):
+    if not value:
+        return ''
+    value=url(value)
+    p=urlsplit(value)
+    if p.hostname not in {'youtube.com','www.youtube.com','youtu.be','m.youtube.com'}:
+        raise ValueError('YouTube URL must point to YouTube')
+    # A direct link avoids loading third-party tracking until the reader clicks.
+    return '<section class="story-video"><h2>Watch the story</h2><a href="'+esc(value)+'" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></section>'
+
+def build(source=ROOT, output=None):
+    source=Path(source).resolve()
+    output=Path(output or source/'_site').resolve()
+    if output==source or source in output.parents and output.name!='_site':
+        raise ValueError('Build output must be _site or outside the source tree')
+    if output in source.parents:
+        raise ValueError('Output cannot be an ancestor of the source tree')
+    if output.exists():
+        shutil.rmtree(output)
+    output.mkdir(parents=True)
+    settings=read(source/'content/settings/site.json')
+    required=['site_title','description','tagline','hero_eyebrow','hero_title',
+        'hero_emphasis','hero_description','discover_title','manifesto_eyebrow',
+        'manifesto_title','manifesto_note','plan_title','affiliate_disclosure',
+        'about_teaser','about_body','footer_note']
+    s={k:text(settings,k) for k in required}
+    if not s['site_title']:
+        raise ValueError('Site title cannot be empty')
+    links=read(source/'content/settings/links.json').get('items',[])
+    if not isinstance(links,list):
+        raise ValueError('Links items must be a list')
+    stories=[]
+    for path in sorted((source/'content/stories').glob('*.json')):
+        slug=slug_for(path)
+        data=read(path)
+        if not isinstance(data.get('published',False),bool):
+            raise ValueError('Published must be true or false')
+        if not data.get('published',False):
+            continue
+        story={k:text(data,k) for k in ['title','subtitle','region','greek_name',
+            'hero_image','hero_alt','youtube_url','body']}
+        if not story['title'] or not story['body']:
+            raise ValueError(f'{slug}: title and body are required')
+        story['hero_image']=url(story['hero_image'],image=True)
+        story['slug']=slug
+        order=data.get('order',100)
+        if not isinstance(order,(int,float)):
+            raise ValueError('Story order must be numeric')
+        story['order']=order
+        aff=data.get('affiliate_links',[])
+        if not isinstance(aff,list):
+            raise ValueError('affiliate_links must be a list')
+        hero='<img class="story-hero" src="'+esc(story['hero_image'])+'" alt="'+esc(story['hero_alt'])+'">' if story['hero_image'] else ''
+        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+hero+markdown(story['body'])+youtube(story['youtube_url'])
+        story_links=affiliate_links(aff)
+        if not story_links:
+            story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
+        if story_links:
+            article+='<section><h2>Plan your trip</h2>'+story_links+'<p class="note">'+esc(s['affiliate_disclosure'])+'</p></section>'
+        article+='</article></main>'
+        dest=output/slug
+        dest.mkdir()
+        (dest/'index.html').write_text(page(story['title']+' — '+s['site_title'],story['subtitle'],'/'+slug+'/',article,s,story['hero_image']),encoding='utf-8')
+        stories.append(story)
+    stories.sort(key=lambda x:(x['order'],x['title']))
+    plan=[]
+    for item in links:
+        if not isinstance(item.get('enabled',True),bool):
+            raise ValueError('Enabled must be true or false')
+        if not item.get('enabled',True):
+            continue
+        target=url(text(item,'url'))
+        n=len(plan)+1
+        inside='<span>'+f'{n:02}'+'</span><h3>'+esc(text(item,'title'))+'</h3><p>'+esc(text(item,'description'))+'</p>'
+        plan.append('<a href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank">'+inside+'<b>'+esc(text(item,'button'))+'</b></a>' if target else '<div>'+inside+'</div>')
+    home='<main><section class="hero"><div class="eyebrow">'+esc(s['hero_eyebrow'])+'</div><h1>'+esc(s['hero_title'])+'<br><i>'+esc(s['hero_emphasis'])+'</i></h1><p>'+esc(s['hero_description'])+'</p><a class="arrow-link" href="#discover">Explore Greece ↓</a></section><section id="discover" class="section"><div class="section-head"><span>01 / Discover</span><h2>'+esc(s['discover_title'])+'</h2></div><div class="stories-list">'+''.join(map(card,stories))+'</div></section><section class="manifesto"><p>'+esc(s['manifesto_eyebrow'])+'</p><h2>'+esc(s['manifesto_title'])+'</h2><span>'+esc(s['manifesto_note'])+'</span></section><section id="plan" class="section plan"><div class="section-head"><span>02 / Plan</span><h2>'+esc(s['plan_title'])+'</h2></div><div class="plan-grid">'+''.join(plan)+'</div><p class="disclosure">'+esc(s['affiliate_disclosure'])+'</p></section><section class="about-strip"><div><span>Made by Dan</span><h2>'+esc(s['about_teaser'])+'</h2></div><a href="/about/">My story →</a></section></main>'
+    (output/'index.html').write_text(page(s['site_title']+' — A slower Greece',s['description'],'/',home,s),encoding='utf-8')
+    (output/'about').mkdir()
+    (output/'about/index.html').write_text(page('About — '+s['site_title'],s['about_teaser'],'/about/','<main class="page"><span class="kicker">The story</span><h1>About</h1>'+markdown(s['about_body'])+'</main>',s),encoding='utf-8')
+    routes=['/','/about/']+['/'+x['slug']+'/' for x in stories]
+    for name in ['contact','privacy','cookies','terms','affiliate-disclosure']:
+        raw=(source/name/'index.html').read_text(encoding='utf-8')
+        main=re.search(r'<main\b[^>]*>.*?</main>',raw,re.S).group(0)
+        title=re.search(r'<title>(.*?)</title>',raw,re.S).group(1).split(' — ')[0]
+        (output/name).mkdir()
+        (output/name/'index.html').write_text(page(title+' — '+s['site_title'],title+' — '+s['site_title']+'.','/'+name+'/',main,s),encoding='utf-8')
+        routes.append('/'+name+'/')
+    for name in ['assets','admin']:
+        shutil.copytree(source/name,output/name)
+    for name in ['CNAME','favicon.svg','site.webmanifest','404.html']:
+        shutil.copy2(source/name,output/name)
+    (output/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: '+SITE_URL+'/sitemap.xml\n')
+    (output/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE_URL+p+'</loc></url>' for p in routes)+'</urlset>\n')
+    (output/'.nojekyll').touch()
+    print(f'Built {len(stories)} published stories into {output}')
+    return output
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--output',type=Path)
+    args=parser.parse_args()
+    build(output=args.output)

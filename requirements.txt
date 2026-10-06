@@ -1,0 +1,4 @@
+markdown-it-py==4.0.0
+mdurl==0.1.2
+bleach==6.2.0
+webencodings==0.5.1
