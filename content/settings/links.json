@@ -10,7 +10,7 @@
     {
       "title": "Flights",
       "description": "Useful routes and ways to get there — coming soon.",
-      "url": "",
+      "url": "https://kiwi.com",
       "button": "Browse flights ↗",
       "enabled": true
     },
