@@ -5,9 +5,10 @@
   "greek_name": "Σίκινος",
   "published": true,
   "order": 1,
+  "hero_image_ai": true,
   "youtube_url": "",
   "region": "Cyclades",
-  "hero_image": "/assets/images/uploads/u9781686621_sikinos_a_tiny_cycladic_island_of_stone_paths_qui_e85f388f-2baa-4a22-bbc0-f6a39d479553_0.png",
+  "hero_image": "/assets/images/uploads/nn-.png",
   "subtitle": "A tiny Cycladic island of stone paths, quiet coves and one of Greece’s most unusual ancient monuments.",
   "title": "Sikinos"
 }
