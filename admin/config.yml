@@ -1,0 +1,166 @@
+backend:
+  name: github
+  repo: onelionstudio-alt/greecebydan
+  branch: main
+  auth_endpoint: auth
+  auth_scope: public_repo
+media_folder: assets/images/uploads
+public_folder: /assets/images/uploads
+site_url: https://greecebydan.com
+display_url: https://greecebydan.com
+locale: ru
+publish_mode: simple
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+collections:
+- name: stories
+  label: Stories — Истории
+  label_singular: История
+  folder: content/stories
+  create: true
+  extension: json
+  format: json
+  slug: '{{slug}}'
+  identifier_field: title
+  summary: '{{title}} · {{region}}'
+  preview_path: '{{slug}}/'
+  fields:
+  - name: title
+    label: Заголовок
+    widget: string
+  - name: subtitle
+    label: Короткое описание
+    widget: text
+  - name: region
+    label: Остров / регион
+    widget: string
+  - name: greek_name
+    label: Название по-гречески
+    widget: string
+    required: false
+  - name: hero_image
+    label: Главная фотография
+    widget: image
+    required: false
+  - name: hero_alt
+    label: Описание фотографии
+    widget: string
+    required: false
+  - name: body
+    label: Текст статьи
+    widget: markdown
+  - name: youtube_url
+    label: Ссылка на YouTube
+    widget: string
+    required: false
+  - name: affiliate_links
+    label: Партнёрские ссылки
+    widget: list
+    fields:
+    - name: label
+      label: Подпись ссылки
+      widget: string
+    - name: url
+      label: Ссылка
+      widget: string
+      pattern:
+      - ^https://\S+$
+      - Используй полную ссылку https://...
+    required: false
+  - name: order
+    label: Порядок в Discover
+    widget: number
+    value_type: int
+    min: 0
+    default: 100
+  - name: published
+    label: Published — показывать на сайте
+    widget: boolean
+    default: false
+    hint: 'Выключено: статья сохранена, но не отображается на сайте. После включения
+      нажми «Опубликовать».'
+- name: links
+  label: Links — Ссылки
+  files:
+  - name: travel
+    label: Планирование поездки
+    file: content/settings/links.json
+    fields:
+    - name: items
+      label: Карточки со ссылками
+      widget: list
+      fields:
+      - name: title
+        label: Заголовок
+        widget: string
+      - name: description
+        label: Описание
+        widget: text
+      - name: url
+        label: Партнёрская ссылка
+        widget: string
+        required: false
+      - name: button
+        label: Текст кнопки
+        widget: string
+      - name: enabled
+        label: Показывать карточку
+        widget: boolean
+        default: true
+- name: settings
+  label: Settings — Настройки
+  files:
+  - name: site
+    label: Тексты сайта и About
+    file: content/settings/site.json
+    fields:
+    - name: site_title
+      label: Название сайта
+      widget: string
+    - name: description
+      label: Описание для поисковиков
+      widget: text
+    - name: tagline
+      label: Короткий слоган
+      widget: string
+    - name: hero_eyebrow
+      label: Подпись над главным заголовком
+      widget: string
+    - name: hero_title
+      label: Главный заголовок — строка 1
+      widget: string
+    - name: hero_emphasis
+      label: Главный заголовок — строка 2
+      widget: string
+    - name: hero_description
+      label: Описание на первом экране
+      widget: text
+    - name: discover_title
+      label: Заголовок Discover
+      widget: string
+    - name: manifesto_eyebrow
+      label: Подпись над манифестом
+      widget: string
+    - name: manifesto_title
+      label: Манифест
+      widget: text
+    - name: manifesto_note
+      label: Подпись на греческом
+      widget: string
+    - name: plan_title
+      label: Заголовок Plan
+      widget: string
+    - name: affiliate_disclosure
+      label: Партнёрское уведомление
+      widget: text
+    - name: about_teaser
+      label: Коротко о тебе на главной
+      widget: text
+    - name: about_body
+      label: Страница About
+      widget: markdown
+    - name: footer_note
+      label: Подпись внизу сайта
+      widget: string

@@ -1,1 +1,6 @@
-const b=document.querySelector('.menu'),n=document.querySelector('.site-header nav');if(b&&n)b.addEventListener('click',()=>{n.classList.toggle('open');b.setAttribute('aria-expanded',n.classList.contains('open'))});
+const button = document.querySelector('.menu');
+const nav = document.querySelector('.site-header nav');
+button?.addEventListener('click', () => {
+  const open = nav?.classList.toggle('open');
+  button.setAttribute('aria-expanded', String(Boolean(open)));
+});

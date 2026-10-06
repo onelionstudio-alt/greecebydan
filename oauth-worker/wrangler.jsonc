@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "greecebydan-oauth",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-06",
+  "workers_dev": true,
+  "vars": {
+    "ADMIN_ORIGIN": "https://greecebydan.com",
+    "ALLOWED_GITHUB_LOGIN": "onelionstudio-alt",
+    "GITHUB_REPO": "onelionstudio-alt/greecebydan"
+  },
+  "observability": {"enabled": false}
+}

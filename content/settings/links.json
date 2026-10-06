@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "title": "Tours & experiences",
+      "description": "Find things worth doing across Greece.",
+      "url": "https://vi.me/6IQ68",
+      "button": "Browse experiences ↗",
+      "enabled": true
+    },
+    {
+      "title": "Flights",
+      "description": "Useful routes and ways to get there — coming soon.",
+      "url": "",
+      "button": "Browse flights ↗",
+      "enabled": true
+    },
+    {
+      "title": "Places to stay",
+      "description": "Hand-picked options will appear as the guide grows.",
+      "url": "",
+      "button": "Find a stay ↗",
+      "enabled": true
+    }
+  ]
+}
