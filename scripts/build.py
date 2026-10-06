@@ -11,6 +11,7 @@ from markdown_it import MarkdownIt
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = 'https://greecebydan.com'
+AI_IMAGE_LABEL = 'AI-generated image · Not a real photograph'
 RESERVED = {'admin', 'about', 'contact', 'privacy', 'cookies', 'terms',
             'affiliate-disclosure', 'assets', 'content', 'scripts', 'tests',
             'oauth-worker', 'templates', '_site', 'index', '404'}
@@ -79,6 +80,8 @@ def page(title, description, route, main, s, image=''):
 def card(story):
     s=story
     picture = '<img src="'+esc(s['hero_image'])+'" alt="'+esc(s['hero_alt'])+'" loading="lazy">' if s['hero_image'] else '<span>'+esc(s['greek_name'] or s['title'])+'</span>'
+    if s['hero_image'] and s.get('hero_image_ai',False):
+        picture += '<small class="image-ai-badge">'+AI_IMAGE_LABEL+'</small>'
     return '<a class="feature-card" href="/'+s['slug']+'/"><div class="feature-art">'+picture+'</div><div class="feature-copy"><div><small>'+esc(s['region'])+' · Island story</small><h3>'+esc(s['title'])+'</h3><p>'+esc(s['subtitle'])+'</p></div><b>Explore '+esc(s['title'])+' →</b></div></a>'
 
 def affiliate_links(items):
@@ -133,6 +136,9 @@ def build(source=ROOT, output=None):
         if not story['title'] or not story['body']:
             raise ValueError(f'{slug}: title and body are required')
         story['hero_image']=url(story['hero_image'],image=True)
+        story['hero_image_ai']=data.get('hero_image_ai',False)
+        if not isinstance(story['hero_image_ai'],bool):
+            raise ValueError('hero_image_ai must be true or false')
         story['slug']=slug
         order=data.get('order',100)
         if not isinstance(order,(int,float)):
@@ -142,6 +148,8 @@ def build(source=ROOT, output=None):
         if not isinstance(aff,list):
             raise ValueError('affiliate_links must be a list')
         hero='<img class="story-hero" src="'+esc(story['hero_image'])+'" alt="'+esc(story['hero_alt'])+'">' if story['hero_image'] else ''
+        if hero and story['hero_image_ai']:
+            hero='<figure class="story-image">'+hero+'<figcaption class="image-ai-caption">'+AI_IMAGE_LABEL+'</figcaption></figure>'
         article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+hero+markdown(story['body'])+youtube(story['youtube_url'])
         story_links=affiliate_links(aff)
         if not story_links:
