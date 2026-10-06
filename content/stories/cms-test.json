@@ -1,0 +1,9 @@
+{
+  "order": 100,
+  "published": false,
+  "title": "CMS Test",
+  "subtitle": "Testing the editor.",
+  "region": "Test",
+  "greek_name": "Δοκιμή",
+  "body": "`This is a test draft.`"
+}
