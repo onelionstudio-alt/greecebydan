@@ -12,6 +12,7 @@ from markdown_it import MarkdownIt
 ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = 'https://greecebydan.com'
 AI_IMAGE_LABEL = 'AI-generated image · Not a real photograph'
+ANALYTICS = """<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "971422e6b6124de18dd8de4ebeb6149c"}'></script><!-- End Cloudflare Web Analytics -->"""
 RESERVED = {'admin', 'about', 'contact', 'privacy', 'cookies', 'terms',
             'affiliate-disclosure', 'assets', 'content', 'scripts', 'tests',
             'oauth-worker', 'templates', '_site', 'index', '404'}
@@ -188,6 +189,10 @@ def build(source=ROOT, output=None):
         shutil.copytree(source/name,output/name)
     for name in ['CNAME','favicon.svg','site.webmanifest','404.html']:
         shutil.copy2(source/name,output/name)
+    for document in output.rglob('*.html'):
+        if document.relative_to(output).parts[0] != 'admin':
+            markup = document.read_text(encoding='utf-8')
+            document.write_text(markup.replace('</body>', ANALYTICS+'</body>', 1), encoding='utf-8')
     (output/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: '+SITE_URL+'/sitemap.xml\n')
     (output/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE_URL+p+'</loc></url>' for p in routes)+'</urlset>\n')
     (output/'.nojekyll').touch()
