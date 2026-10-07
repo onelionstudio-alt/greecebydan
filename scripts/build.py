@@ -103,6 +103,9 @@ def youtube(value):
     # A direct link avoids loading third-party tracking until the reader clicks.
     return '<section class="story-video"><h2>Watch the story</h2><a href="'+esc(value)+'" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></section>'
 
+def support():
+    return '''<section class="support-coffee" aria-label="Support Greece by Dan"><p>Enjoyed this little corner of Greece? You can buy me a coffee.</p><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="somewhereingreece" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script><noscript><a href="https://www.buymeacoffee.com/somewhereingreece" target="_blank" rel="noopener noreferrer">Buy me a coffee ↗</a></noscript></section>'''
+
 def build(source=ROOT, output=None):
     source=Path(source).resolve()
     output=Path(output or source/'_site').resolve()
@@ -157,7 +160,7 @@ def build(source=ROOT, output=None):
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
         if story_links:
             article+='<section><h2>Plan your trip</h2>'+story_links+'<p class="note">'+esc(s['affiliate_disclosure'])+'</p></section>'
-        article+='</article></main>'
+        article+=support()+'</article></main>'
         dest=output/slug
         dest.mkdir()
         (dest/'index.html').write_text(page(story['title']+' — '+s['site_title'],story['subtitle'],'/'+slug+'/',article,s,story['hero_image']),encoding='utf-8')
@@ -176,7 +179,7 @@ def build(source=ROOT, output=None):
     home='<main><section class="hero"><div class="eyebrow">'+esc(s['hero_eyebrow'])+'</div><h1>'+esc(s['hero_title'])+'<br><i>'+esc(s['hero_emphasis'])+'</i></h1><p>'+esc(s['hero_description'])+'</p><a class="arrow-link" href="#discover">Explore Greece ↓</a></section><section id="discover" class="section"><div class="section-head"><span>01 / Discover</span><h2>'+esc(s['discover_title'])+'</h2></div><div class="stories-list">'+''.join(map(card,stories))+'</div></section><section class="manifesto"><p>'+esc(s['manifesto_eyebrow'])+'</p><h2>'+esc(s['manifesto_title'])+'</h2><span>'+esc(s['manifesto_note'])+'</span></section><section id="plan" class="section plan"><div class="section-head"><span>02 / Plan</span><h2>'+esc(s['plan_title'])+'</h2></div><div class="plan-grid">'+''.join(plan)+'</div><p class="disclosure">'+esc(s['affiliate_disclosure'])+'</p></section><section class="about-strip"><div><span>Made by Dan</span><h2>'+esc(s['about_teaser'])+'</h2></div><a href="/about/">My story →</a></section></main>'
     (output/'index.html').write_text(page(s['site_title']+' — A slower Greece',s['description'],'/',home,s),encoding='utf-8')
     (output/'about').mkdir()
-    (output/'about/index.html').write_text(page('About — '+s['site_title'],s['about_teaser'],'/about/','<main class="page"><span class="kicker">The story</span><h1>About</h1>'+markdown(s['about_body'])+'</main>',s),encoding='utf-8')
+    (output/'about/index.html').write_text(page('About — '+s['site_title'],s['about_teaser'],'/about/','<main class="page"><span class="kicker">The story</span><h1>About</h1>'+markdown(s['about_body'])+support()+'</main>',s),encoding='utf-8')
     routes=['/','/about/']+['/'+x['slug']+'/' for x in stories]
     for name in ['contact','privacy','cookies','terms','affiliate-disclosure']:
         raw=(source/name/'index.html').read_text(encoding='utf-8')
