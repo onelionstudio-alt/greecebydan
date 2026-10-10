@@ -39,7 +39,7 @@ export function recommendations(products, pref) {
     let target;
     try { target = new URL(p.productUrl); } catch { return []; }
     if (target.protocol !== 'https:' || !['viator.com', 'www.viator.com'].includes(target.hostname) || target.username || target.password) return [];
-    if (pref.kind === 'boat' && (/self[- ]drive|without (?:a )?licen[cs]e|bareboat|boat rental|rent a boat|ferry ticket/i.test(content) || !/\b(?:captain|skipper|crew)\b/.test(content))) return [];
+    if (pref.kind === 'boat' && (/self[- ]drive|without (?:a )?(?:licen[cs]e|captain|skipper|crew)|no (?:captain|skipper|crew)|(?:optional|additional|extra)[ -](?:captain|skipper|crew)|(?:captain|skipper|crew) (?:is )?(?:optional|available on request)|bareboat|boat rental|rent a boat|ferry ticket/i.test(content) || !/\b(?:captain|skipper|crew)\b/.test(content))) return [];
     if (pref.kind === 'wine' && !/\b(?:wine|winery|wineries|vineyard)\b/.test(content)) return [];
     const flags = p.flags || [];
     if (pref.style === 'private' && !flags.includes('PRIVATE_TOUR')) return [];
