@@ -1,0 +1,28 @@
+<main class="page concierge" id="greece-concierge">
+  <span class="kicker">A little help from Dan</span>
+  <h1>Your Greece Concierge</h1>
+  <p class="story-subtitle">Less searching. More looking forward to Greece.</p>
+  <p>A day on the water, or a glass of wine somewhere lovely? Choosing should be part of the pleasure. I made these little helpers to make it easier to find an experience that feels right for your trip.</p>
+  <p>Choose a place, tell me what you have in mind, and explore a short list of options from Viator. No endless lists, no pressure — just a starting point for a good day in Greece.</p>
+  <p class="note">If you book through these links, I may earn a commission at no extra cost to you. It helps me keep this little corner of Greece going. <a href="/affiliate-disclosure/">About affiliate links</a>.</p>
+  <div class="concierge-tools">
+    <section class="concierge-tool" aria-labelledby="boat-heading"><span class="kicker">01 / On the water</span><h2 id="boat-heading">Find a boat trip</h2><p>Swimming stops, a sunset, or a boat just for your group. This helper looks for trips with a captain or crew; you won’t be choosing a self-drive rental.</p><a class="arrow-link" href="#concierge-form" data-kind="boat">Find my boat trip ↓</a></section>
+    <section class="concierge-tool" aria-labelledby="wine-heading"><span class="kicker">02 / In the vineyard</span><h2 id="wine-heading">Find a wine experience</h2><p>A relaxed tasting or a day visiting wineries. Discover a different side of Greece, one vineyard at a time.</p><a class="arrow-link" href="#concierge-form" data-kind="wine">Find my wine experience ↓</a></section>
+  </div>
+  <section class="concierge-picker" aria-labelledby="picker-heading"><h2 id="picker-heading">Let’s find your kind of day</h2>
+    <p id="concierge-status" role="status" aria-live="polite">The helpers are being connected. Please check back soon.</p>
+    <form id="concierge-form" hidden>
+      <label>What would you like?<select name="kind"><option value="boat">Boat trip</option><option value="wine">Wine experience</option></select></label>
+      <label>Where in Greece?<select name="destination" required><option value="">Choose an island or place</option></select></label>
+      <label>Your style<select name="style"><option value="any">Open to suggestions</option><option value="private">Private, just our group</option></select></label>
+      <label>What matters most?<select name="mood"><option value="any">Show me a few ideas</option><option value="sunset" data-for="boat">Sunset</option><option value="swimming" data-for="boat">Swimming or snorkelling</option><option value="food" data-for="wine">Wine with food</option><option value="vineyard" data-for="wine">Visiting a vineyard or winery</option></select></label>
+      <label>Starting price per person<select name="budget"><option value="0">Any budget</option><option value="75">Up to €75</option><option value="150">Up to €150</option><option value="300">Up to €300</option></select></label>
+      <label class="concierge-check"><input type="checkbox" name="cancellation"> Prefer free cancellation</label>
+      <button type="submit">Find a few good options →</button>
+    </form>
+    <p class="note">Starting prices are indicative, not a quote for your party or dates. Confirm the final price, availability, meeting point, age limits and cancellation terms on Viator. Travelling with children or needing accessible facilities? Check the operator’s specific requirements before booking.</p>
+    <noscript><p>Please enable JavaScript to use the helpers.</p></noscript>
+    <div id="concierge-results" class="concierge-results" aria-label="Suggested experiences"></div>
+  </section>
+  <section class="concierge-details"><h2>A few things to know</h2><p>These helpers suggest options from the results returned by Viator; they don’t compare every experience in Greece, and a suggestion isn’t a personal inspection or a guarantee. I haven’t personally tried every experience shown here.</p><p>You’ll book on Viator, under the terms shown there. The local tour operator provides the experience. Greece by Dan doesn’t take payments, operate tours or manage bookings. For booking changes or refunds, use Viator’s booking support; for trip arrangements and requirements, contact the operator.</p><p>Prices, itineraries and availability can change. Boat trips also depend on weather and sea conditions. The helpers can’t confirm suitability for your individual needs. Nothing here changes your statutory rights.</p><p>For wine experiences, plan a safe way back and don’t drive after drinking.</p></section>
+</main>

@@ -9,3 +9,8 @@ if (document.querySelector('#stories-catalog')) {
   script.src = '/assets/js/catalog.js';
   document.body.appendChild(script);
 }
+if (document.querySelector('#greece-concierge')) {
+  const script = document.createElement('script');
+  script.src = '/assets/js/concierge.js';
+  document.body.appendChild(script);
+}
