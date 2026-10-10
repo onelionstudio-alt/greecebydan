@@ -14,3 +14,16 @@ if (document.querySelector('#greece-concierge')) {
   script.src = '/assets/js/concierge.js';
   document.body.appendChild(script);
 }
+
+// Reveal contact details on request to reduce basic email harvesting.
+document.querySelectorAll('.email-reveal').forEach((reveal) => {
+  reveal.hidden = false;
+  reveal.addEventListener('click', () => {
+    const address = atob('bXlncmVlY2U=') + '@' + atob('Z3JlZWNlYnlkYW4uY29t');
+    const link = document.createElement('a');
+    link.href = 'mailto:' + address;
+    link.textContent = address;
+    reveal.replaceWith(link);
+    link.focus();
+  }, { once: true });
+});
