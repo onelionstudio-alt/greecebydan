@@ -20,7 +20,7 @@ test('boat filter rejects self-drive, unknown crew, unsafe links and prices', ()
   const good = recommendations([product], pref);
   assert.equal(good.length, 1);
   assert.equal(good[0].url, product.productUrl);
-  for (const change of [{ description: 'Boat rental with captain' }, { description: 'Bareboat self-drive' }, { description: 'A lovely day out' }, { productUrl: 'https://evil.example/tour' }, { productUrl: 'javascript:alert(1)' }, { pricing: { summary: { fromPrice: 100 }, currency: 'USD' } }]) assert.equal(recommendations([{ ...product, ...change }], pref).length, 0);
+  for (const change of [{ description: 'Boat rental with captain' }, { description: 'Bareboat self-drive' }, { description: 'Sail without a captain' }, { description: 'Optional skipper for your sailing day' }, { description: 'Skipper available on request' }, { description: 'A lovely day out' }, { productUrl: 'https://evil.example/tour' }, { productUrl: 'javascript:alert(1)' }, { pricing: { summary: { fromPrice: 100 }, currency: 'USD' } }]) assert.equal(recommendations([{ ...product, ...change }], pref).length, 0);
 });
 test('preferences are enforced and duplicate results removed', () => {
   assert.equal(recommendations([product, product], { ...pref, style: 'private', mood: 'sunset', cancellation: true }).length, 1);
