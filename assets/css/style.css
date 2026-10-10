@@ -9,3 +9,5 @@
 
 /* Keep the search outcome visible immediately below its button. */
 .concierge .concierge-feedback[data-state]{padding:18px 20px;border-left:4px solid var(--blue);background:#edf2f1;font:16px/1.6 Arial,sans-serif;scroll-margin:24px}.concierge .concierge-feedback[data-state=""]{padding:0;border:0;background:none}.concierge .concierge-feedback[data-state="empty"],.concierge .concierge-feedback[data-state="error"]{background:#fff3df;border-color:#92621e}.concierge .concierge-feedback[data-state="loading"]{font-weight:600}
+
+.email-reveal{font:inherit;color:var(--blue);background:transparent;border:1px solid currentColor;border-radius:4px;padding:10px 16px;cursor:pointer}.email-reveal:hover{background:#edf2f1}.email-reveal:focus-visible{outline:2px solid var(--blue);outline-offset:4px}.contact-email a{overflow-wrap:anywhere}
