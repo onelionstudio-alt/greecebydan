@@ -202,6 +202,7 @@ def build(source=ROOT, output=None):
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
         if story_links:
             article+='<section><h2>Plan your trip</h2>'+story_links+'<p class="note">'+esc(s['affiliate_disclosure'])+'</p></section>'
+        article+='''<section class="story-share" aria-label="Share this story" hidden><p>Know someone planning a trip to Greece?</p><div class="story-share-actions"><button type="button" data-share-native hidden>Share this story</button><button type="button" data-share-copy>Copy link</button></div><p class="story-share-status" role="status" aria-live="polite"></p><input class="story-share-link" aria-label="Story link" type="url" readonly hidden></section>'''
         article+=support()+'</article></main>'
         dest=output/slug
         dest.mkdir()
