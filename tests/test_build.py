@@ -72,6 +72,18 @@ class Publishing(unittest.TestCase):
         self.assertIn('href="https://example.com"',safe)
         self.assertEqual(builder.esc('<img src=x onerror=alert(1)>'),'&lt;img src=x onerror=alert(1)&gt;')
 
+    def test_concierge_publishing_and_protected_api_content(self):
+        builder.build(self.root,self.out)
+        page=(self.out/'concierge/index.html').read_text()
+        self.assertIn('Your Greece Concierge',page)
+        self.assertIn('I may earn a commission at no extra cost to you',page)
+        self.assertIn('local tour operator provides the experience',page)
+        self.assertIn('id="concierge-form" hidden',page)
+        self.assertIn('/concierge/',(self.out/'sitemap.xml').read_text())
+        self.assertIn('Disallow: /assets/js/concierge.js',(self.out/'robots.txt').read_text())
+        self.assertNotIn('combinedAverageRating',page)
+        self.assertFalse((self.out/'travel-worker').exists())
+
     def test_catalog_featured_dates_and_drafts(self):
         story=json.loads((self.root/'content/stories/sikinos.json').read_text())
         story.update(title='Catalog only',place='Milos',topics=['Things to Do'],featured=False,published_date='2026-10-10')

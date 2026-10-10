@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = 'https://greecebydan.com'
 AI_IMAGE_LABEL = 'AI-generated image · Not a real photograph'
 ANALYTICS = """<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "971422e6b6124de18dd8de4ebeb6149c"}'></script><!-- End Cloudflare Web Analytics -->"""
-RESERVED = {'admin', 'about', 'stories', 'contact', 'privacy', 'cookies', 'terms',
+RESERVED = {'admin', 'about', 'stories', 'concierge', 'travel-worker', 'contact', 'privacy', 'cookies', 'terms',
             'affiliate-disclosure', 'assets', 'content', 'scripts', 'tests',
             'oauth-worker', 'templates', '_site', 'index', '404'}
 md = MarkdownIt('commonmark', {'html': False})
@@ -67,10 +67,10 @@ def slug_for(path):
     return slug
 
 def header():
-    return '<header class="site-header"><a class="brand" href="/">Greece <em>by Dan</em></a><button class="menu" aria-label="Open menu" aria-expanded="false">Menu</button><nav><a href="/stories/">Stories</a><a href="/about/">About</a><a href="/#plan">Plan your trip</a></nav></header>'
+    return '<header class="site-header"><a class="brand" href="/">Greece <em>by Dan</em></a><button class="menu" aria-label="Open menu" aria-expanded="false">Menu</button><nav><a href="/stories/">Stories</a><a href="/concierge/">Your concierge</a><a href="/about/">About</a><a href="/#plan">Plan your trip</a></nav></header>'
 
 def footer(s):
-    links = [('stories','All stories'),('about','About'),('affiliate-disclosure','Affiliate disclosure'),
+    links = [('stories','All stories'),('concierge','Your concierge'),('about','About'),('affiliate-disclosure','Affiliate disclosure'),
              ('privacy','Privacy'),('cookies','Cookies'),('terms','Terms'),('contact','Contact')]
     return '<footer><a class="brand" href="/">Greece <em>by Dan</em></a><p>'+esc(s['tagline'])+'</p><div>'+''.join(f'<a href="/{p}/">{t}</a>' for p,t in links)+'</div><small>© 2026 '+esc(s['site_title'])+' · '+esc(s['footer_note'])+'</small></footer>'
 
@@ -224,7 +224,10 @@ def build(source=ROOT, output=None):
     (output/'about/index.html').write_text(page('About — '+s['site_title'],s['about_teaser'],'/about/','<main class="page"><span class="kicker">The story</span><h1>About</h1>'+markdown(s['about_body'])+support()+'</main>',s),encoding='utf-8')
     (output/'stories').mkdir()
     (output/'stories/index.html').write_text(page('Stories — '+s['site_title'],'Explore Greek places, food, history and travel stories.','/stories/',catalog(stories),s),encoding='utf-8')
-    routes=['/','/about/','/stories/']+['/'+x['slug']+'/' for x in stories]
+    (output/'concierge').mkdir()
+    concierge=(source/'templates/concierge.html').read_text(encoding='utf-8')
+    (output/'concierge/index.html').write_text(page('Your Greece Concierge — '+s['site_title'],'Find a boat trip or wine experience in Greece with two simple travel helpers.','/concierge/',concierge,s),encoding='utf-8')
+    routes=['/','/about/','/stories/','/concierge/']+['/'+x['slug']+'/' for x in stories]
     for name in ['contact','privacy','cookies','terms','affiliate-disclosure']:
         raw=(source/name/'index.html').read_text(encoding='utf-8')
         main=re.search(r'<main\b[^>]*>.*?</main>',raw,re.S).group(0)
@@ -240,7 +243,7 @@ def build(source=ROOT, output=None):
         if document.relative_to(output).parts[0] != 'admin':
             markup = document.read_text(encoding='utf-8')
             document.write_text(markup.replace('</body>', ANALYTICS+'</body>', 1), encoding='utf-8')
-    (output/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: '+SITE_URL+'/sitemap.xml\n')
+    (output/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /assets/js/concierge.js\nSitemap: '+SITE_URL+'/sitemap.xml\n')
     (output/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE_URL+p+'</loc></url>' for p in routes)+'</urlset>\n')
     (output/'.nojekyll').touch()
     print(f'Built {len(stories)} published stories into {output}')
