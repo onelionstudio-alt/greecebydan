@@ -10,7 +10,6 @@
     <section class="concierge-tool" aria-labelledby="wine-heading"><span class="kicker">02 / In the vineyard</span><h2 id="wine-heading">Find a wine experience</h2><p>A relaxed tasting or a day visiting wineries. Discover a different side of Greece, one vineyard at a time.</p><a class="arrow-link" href="#concierge-form" data-kind="wine">Find my wine experience ↓</a></section>
   </div>
   <section class="concierge-picker" aria-labelledby="picker-heading"><h2 id="picker-heading">Let’s find your kind of day</h2>
-    <p id="concierge-status" role="status" aria-live="polite">The helpers are being connected. Please check back soon.</p>
     <form id="concierge-form" hidden>
       <label>What would you like?<select name="kind"><option value="boat">Boat trip</option><option value="wine">Wine experience</option></select></label>
       <label>Where in Greece?<select name="destination" required><option value="">Choose an island or place</option></select></label>
@@ -20,6 +19,7 @@
       <label class="concierge-check"><input type="checkbox" name="cancellation"> Prefer free cancellation</label>
       <button type="submit">Find a few good options →</button>
     </form>
+    <p id="concierge-status" class="concierge-feedback" role="status" aria-live="polite" tabindex="-1">The helpers are being connected. Please check back soon.</p>
     <p class="note">Starting prices are indicative, not a quote for your party or dates. Confirm the final price, availability, meeting point, age limits and cancellation terms on Viator. Travelling with children or needing accessible facilities? Check the operator’s specific requirements before booking.</p>
     <noscript><p>Please enable JavaScript to use the helpers.</p></noscript>
     <div id="concierge-results" class="concierge-results" aria-label="Suggested experiences"></div>
