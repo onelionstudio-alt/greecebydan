@@ -34,8 +34,106 @@ collections:
     label: Короткое описание
     widget: text
   - name: region
-    label: Остров / регион
-    widget: string
+    label: Регион / группа островов
+    widget: select
+    default: Greece — General
+    options:
+    - Greece — General
+    - Attica
+    - Cyclades
+    - Crete
+    - Dodecanese
+    - Ionian Islands
+    - North Aegean
+    - Sporades
+    - Saronic Islands
+    - Central Macedonia
+    - Eastern Macedonia and Thrace
+    - Western Macedonia
+    - Epirus
+    - Thessaly
+    - Central Greece
+    - Peloponnese
+    - Western Greece
+  - name: place
+    label: Место — остров, город или район
+    widget: select
+    default: Greece — General
+    options:
+    - Greece — General
+    - Athens
+    - Thessaloniki
+    - Santorini
+    - Sikinos
+    - Chios
+    - Mykonos
+    - Milos
+    - Paros
+    - Naxos
+    - Tinos
+    - Syros
+    - Ios
+    - Folegandros
+    - Amorgos
+    - Sifnos
+    - Serifos
+    - Andros
+    - Crete
+    - Chania
+    - Heraklion
+    - Rethymno
+    - Rhodes
+    - Kos
+    - Patmos
+    - Symi
+    - Corfu
+    - Zakynthos
+    - Kefalonia
+    - Lefkada
+    - Lesvos
+    - Samos
+    - Ikaria
+    - Thasos
+    - Skiathos
+    - Skopelos
+    - Alonissos
+    - Hydra
+    - Aegina
+    - Spetses
+    - Meteora
+    - Pelion
+    - Zagori
+    - Ioannina
+    - Nafplio
+    - Mani
+    - Monemvasia
+    - Delphi
+    - Olympia
+    - Multiple places
+  - name: topics
+    label: Темы — можно выбрать несколько
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - Things to Do
+    - Getting Around
+    - Food & Wine
+    - History & Culture
+    - Greek Life
+  - name: published_date
+    label: Дата публикации
+    widget: datetime
+    default: '{{now}}'
+    date_format: YYYY-MM-DD
+    time_format: false
+    picker_utc: true
+    hint: Используется для сортировки «сначала новые». При обновлении статьи сохрани исходную дату.
+  - name: featured
+    label: Показывать на главной
+    widget: boolean
+    default: false
+    hint: На главной показываются до 6 избранных статей по полю «Порядок в Discover». Остальные доступны в Stories.
   - name: greek_name
     label: Название по-гречески
     widget: string

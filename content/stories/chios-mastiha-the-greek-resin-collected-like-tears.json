@@ -6,8 +6,15 @@
   "order": 100,
   "hero_image_ai": false,
   "youtube_url": "https://youtu.be/pryJEOe3x6Q?si=QCdSxwwnk0dTTrN3",
-  "region": "Chios, North Aegean",
+  "region": "North Aegean",
   "hero_image": "/assets/images/uploads/smola-1-.png",
   "subtitle": "On southern Chios, farmers still make tiny cuts in mastic trees and wait for drops of aromatic resin to harden like tears — a tradition found nowhere else quite like this.",
-  "title": "Chios Mastiha: The Greek Resin Collected Like Tears"
+  "title": "Chios Mastiha: The Greek Resin Collected Like Tears",
+  "place": "Chios",
+  "topics": [
+    "Food & Wine",
+    "Greek Life"
+  ],
+  "published_date": "2026-10-07",
+  "featured": true
 }

@@ -11,8 +11,14 @@
   "published": true,
   "order": 100,
   "hero_image_ai": false,
-  "region": "Santorini, Cyclades",
+  "region": "Cyclades",
   "hero_image": "/assets/images/uploads/u9781686621_sun-dried_grapes_and_amber-coloured_vinsanto_from_a234911b-6617-44c3-b8fc-8cb3a8fc095c_2.png",
   "subtitle": "Santorini is famous for crisp Assyrtiko, but its sweetest wines tell an older story — of grapes dried under the Aegean sun, decades in barrel, and a nearly forgotten red called Mezzo.",
-  "title": "Santorini’s Sweet Wines: Sun, Volcanic Soil and a Forgotten Red"
+  "title": "Santorini’s Sweet Wines: Sun, Volcanic Soil and a Forgotten Red",
+  "place": "Santorini",
+  "topics": [
+    "Food & Wine"
+  ],
+  "published_date": "2026-10-08",
+  "featured": true
 }

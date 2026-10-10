@@ -4,8 +4,9 @@ import html
 import json
 import re
 import shutil
+from datetime import date
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlencode
 import bleach
 from markdown_it import MarkdownIt
 
@@ -13,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = 'https://greecebydan.com'
 AI_IMAGE_LABEL = 'AI-generated image · Not a real photograph'
 ANALYTICS = """<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "971422e6b6124de18dd8de4ebeb6149c"}'></script><!-- End Cloudflare Web Analytics -->"""
-RESERVED = {'admin', 'about', 'contact', 'privacy', 'cookies', 'terms',
+RESERVED = {'admin', 'about', 'stories', 'contact', 'privacy', 'cookies', 'terms',
             'affiliate-disclosure', 'assets', 'content', 'scripts', 'tests',
             'oauth-worker', 'templates', '_site', 'index', '404'}
 md = MarkdownIt('commonmark', {'html': False})
@@ -66,10 +67,10 @@ def slug_for(path):
     return slug
 
 def header():
-    return '<header class="site-header"><a class="brand" href="/">Greece <em>by Dan</em></a><button class="menu" aria-label="Open menu" aria-expanded="false">Menu</button><nav><a href="/#discover">Places</a><a href="/about/">About</a><a href="/#plan">Plan your trip</a></nav></header>'
+    return '<header class="site-header"><a class="brand" href="/">Greece <em>by Dan</em></a><button class="menu" aria-label="Open menu" aria-expanded="false">Menu</button><nav><a href="/stories/">Stories</a><a href="/about/">About</a><a href="/#plan">Plan your trip</a></nav></header>'
 
 def footer(s):
-    links = [('about','About'),('affiliate-disclosure','Affiliate disclosure'),
+    links = [('stories','All stories'),('about','About'),('affiliate-disclosure','Affiliate disclosure'),
              ('privacy','Privacy'),('cookies','Cookies'),('terms','Terms'),('contact','Contact')]
     return '<footer><a class="brand" href="/">Greece <em>by Dan</em></a><p>'+esc(s['tagline'])+'</p><div>'+''.join(f'<a href="/{p}/">{t}</a>' for p,t in links)+'</div><small>© 2026 '+esc(s['site_title'])+' · '+esc(s['footer_note'])+'</small></footer>'
 
@@ -83,7 +84,35 @@ def card(story):
     picture = '<img src="'+esc(s['hero_image'])+'" alt="'+esc(s['hero_alt'])+'" loading="lazy">' if s['hero_image'] else '<span>'+esc(s['greek_name'] or s['title'])+'</span>'
     if s['hero_image'] and s.get('hero_image_ai',False):
         picture += '<small class="image-ai-badge">'+AI_IMAGE_LABEL+'</small>'
-    return '<a class="feature-card" href="/'+s['slug']+'/"><div class="feature-art">'+picture+'</div><div class="feature-copy"><div><small>'+esc(s['region'])+' · Island story</small><h3>'+esc(s['title'])+'</h3><p>'+esc(s['subtitle'])+'</p></div><b>Explore '+esc(s['title'])+' →</b></div></a>'
+    return '<a class="feature-card" href="/'+s['slug']+'/"><div class="feature-art">'+picture+'</div><div class="feature-copy"><div><small>'+esc(s.get('place') or s['region'])+' · Greece</small><h3>'+esc(s['title'])+'</h3><p>'+esc(s['subtitle'])+'</p></div><b>Read the story →</b></div></a>'
+
+def story_metadata(story):
+    chips=[]
+    for key, values in [('region',[story['region']]), ('place',[story['place']]), ('topic',story['topics'])]:
+        for value in values:
+            if value:
+                href='/stories/?'+urlencode({key:value})
+                chips.append('<a href="'+esc(href)+'">'+esc(value)+'</a>')
+    return '<nav class="story-tags" aria-label="Explore related stories">'+''.join(chips)+'</nav>'
+
+def catalog(stories):
+    ordered=sorted(stories,key=lambda s:(s['title'].casefold(),s['slug']))
+    ordered.sort(key=lambda s:s['published_date'],reverse=True)
+    def select(name,label,values,all_label):
+        options='<option value="">'+all_label+'</option>'+''.join('<option value="'+esc(v)+'">'+esc(v)+'</option>' for v in sorted(set(values)) if v)
+        return '<label>'+label+'<select name="'+name+'">'+options+'</select></label>'
+    controls='<form class="catalog-controls" hidden role="search" aria-label="Find a story"><label class="catalog-search">Search<input name="q" type="search" placeholder="Search titles, places and topics" autocomplete="off"></label>'
+    controls+=select('region','Region',[s['region'] for s in stories],'All regions')
+    controls+=select('place','Place',[s['place'] for s in stories],'All places')
+    controls+=select('topic','Topic',[t for s in stories for t in s['topics']],'All topics')
+    controls+='<label>Sort by<select name="sort"><option value="newest">Newest first</option><option value="az">Title A–Z</option></select></label><button type="reset">Reset filters</button></form>'
+    cards=[]
+    for s in ordered:
+        attrs={'region':s['region'],'place':s['place'],'topics':json.dumps(s['topics'],ensure_ascii=False),'date':s['published_date'],'title':s['title'],'search':' '.join([s['title'],s['subtitle'],s['region'],s['place'],s['greek_name'],*s['topics']])}
+        data=' '.join('data-'+k+'="'+esc(v)+'"' for k,v in attrs.items())
+        stamp='<time datetime="'+s['published_date']+'">'+date.fromisoformat(s['published_date']).strftime('%d %b %Y')+'</time>' if s['published_date'] else ''
+        cards.append('<div class="catalog-item" '+data+'>'+card(s)+'<div class="catalog-meta">'+stamp+''.join('<span>'+esc(t)+'</span>' for t in s['topics'])+'</div></div>')
+    return '<main class="catalog page" id="stories-catalog"><span class="kicker">Explore Greece</span><h1>Stories from Greece</h1><p class="catalog-intro">Small discoveries, useful details and a slower look at Greece. Find your next story by place or topic.</p>'+controls+'<p class="catalog-count" role="status" aria-live="polite">'+str(len(stories))+' stories</p><div class="catalog-grid">'+''.join(cards)+'</div><p class="catalog-empty" hidden>No stories match these filters. Try another place or topic, or reset the filters.</p><nav class="catalog-pagination" hidden aria-label="Story pages"><button type="button" data-page="previous">← Previous</button><span></span><button type="button" data-page="next">Next →</button></nav><noscript><p>All stories are shown below. Enable JavaScript to search and filter them.</p></noscript></main>'
 
 def affiliate_links(items):
     result=[]
@@ -144,6 +173,19 @@ def build(source=ROOT, output=None):
         if not isinstance(story['hero_image_ai'],bool):
             raise ValueError('hero_image_ai must be true or false')
         story['slug']=slug
+        story['place']=text(data,'place','Greece — General')
+        story['topics']=data.get('topics',[])
+        if not isinstance(story['topics'],list) or any(not isinstance(t,str) or not t.strip() for t in story['topics']):
+            raise ValueError('topics must be a list of non-empty text values')
+        story['topics']=list(dict.fromkeys(t.strip() for t in story['topics']))
+        story['featured']=data.get('featured',True)
+        if not isinstance(story['featured'],bool):
+            raise ValueError('featured must be true or false')
+        story['published_date']=text(data,'published_date')
+        if story['published_date']:
+            if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',story['published_date']):
+                raise ValueError('published_date must use YYYY-MM-DD')
+            date.fromisoformat(story['published_date'])
         order=data.get('order',100)
         if not isinstance(order,(int,float)):
             raise ValueError('Story order must be numeric')
@@ -154,7 +196,7 @@ def build(source=ROOT, output=None):
         hero='<img class="story-hero" src="'+esc(story['hero_image'])+'" alt="'+esc(story['hero_alt'])+'">' if story['hero_image'] else ''
         if hero and story['hero_image_ai']:
             hero='<figure class="story-image">'+hero+'<figcaption class="image-ai-caption">'+AI_IMAGE_LABEL+'</figcaption></figure>'
-        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+hero+markdown(story['body'])+youtube(story['youtube_url'])
+        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+story_metadata(story)+hero+markdown(story['body'])+youtube(story['youtube_url'])
         story_links=affiliate_links(aff)
         if not story_links:
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
@@ -176,11 +218,13 @@ def build(source=ROOT, output=None):
         n=len(plan)+1
         inside='<span>'+f'{n:02}'+'</span><h3>'+esc(text(item,'title'))+'</h3><p>'+esc(text(item,'description'))+'</p>'
         plan.append('<a href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank">'+inside+'<b>'+esc(text(item,'button'))+'</b></a>' if target else '<div>'+inside+'</div>')
-    home='<main><section class="hero"><div class="eyebrow">'+esc(s['hero_eyebrow'])+'</div><h1>'+esc(s['hero_title'])+'<br><i>'+esc(s['hero_emphasis'])+'</i></h1><p>'+esc(s['hero_description'])+'</p><a class="arrow-link" href="#discover">Explore Greece ↓</a></section><section id="discover" class="section"><div class="section-head"><span>01 / Discover</span><h2>'+esc(s['discover_title'])+'</h2></div><div class="stories-list">'+''.join(map(card,stories))+'</div></section><section class="manifesto"><p>'+esc(s['manifesto_eyebrow'])+'</p><h2>'+esc(s['manifesto_title'])+'</h2><span>'+esc(s['manifesto_note'])+'</span></section><section id="plan" class="section plan"><div class="section-head"><span>02 / Plan</span><h2>'+esc(s['plan_title'])+'</h2></div><div class="plan-grid">'+''.join(plan)+'</div><p class="disclosure">'+esc(s['affiliate_disclosure'])+'</p></section><section class="about-strip"><div><span>Made by Dan</span><h2>'+esc(s['about_teaser'])+'</h2></div><a href="/about/">My story →</a></section></main>'
+    home='<main><section class="hero"><div class="eyebrow">'+esc(s['hero_eyebrow'])+'</div><h1>'+esc(s['hero_title'])+'<br><i>'+esc(s['hero_emphasis'])+'</i></h1><p>'+esc(s['hero_description'])+'</p><a class="arrow-link" href="#discover">Explore Greece ↓</a></section><section id="discover" class="section"><div class="section-head"><span>01 / Discover</span><h2>'+esc(s['discover_title'])+'</h2></div><div class="stories-list">'+''.join(map(card,[s for s in stories if s['featured']][:6]))+'</div><a class="browse-stories" href="/stories/">Browse all stories →</a></section><section class="manifesto"><p>'+esc(s['manifesto_eyebrow'])+'</p><h2>'+esc(s['manifesto_title'])+'</h2><span>'+esc(s['manifesto_note'])+'</span></section><section id="plan" class="section plan"><div class="section-head"><span>02 / Plan</span><h2>'+esc(s['plan_title'])+'</h2></div><div class="plan-grid">'+''.join(plan)+'</div><p class="disclosure">'+esc(s['affiliate_disclosure'])+'</p></section><section class="about-strip"><div><span>Made by Dan</span><h2>'+esc(s['about_teaser'])+'</h2></div><a href="/about/">My story →</a></section></main>'
     (output/'index.html').write_text(page(s['site_title']+' — A slower Greece',s['description'],'/',home,s),encoding='utf-8')
     (output/'about').mkdir()
     (output/'about/index.html').write_text(page('About — '+s['site_title'],s['about_teaser'],'/about/','<main class="page"><span class="kicker">The story</span><h1>About</h1>'+markdown(s['about_body'])+support()+'</main>',s),encoding='utf-8')
-    routes=['/','/about/']+['/'+x['slug']+'/' for x in stories]
+    (output/'stories').mkdir()
+    (output/'stories/index.html').write_text(page('Stories — '+s['site_title'],'Explore Greek places, food, history and travel stories.','/stories/',catalog(stories),s),encoding='utf-8')
+    routes=['/','/about/','/stories/']+['/'+x['slug']+'/' for x in stories]
     for name in ['contact','privacy','cookies','terms','affiliate-disclosure']:
         raw=(source/name/'index.html').read_text(encoding='utf-8')
         main=re.search(r'<main\b[^>]*>.*?</main>',raw,re.S).group(0)

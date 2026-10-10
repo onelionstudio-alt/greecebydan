@@ -10,5 +10,12 @@
   "region": "Cyclades",
   "hero_image": "/assets/images/uploads/nn-.png",
   "subtitle": "A tiny Cycladic island of stone paths, quiet coves and one of Greece’s most unusual ancient monuments.",
-  "title": "Sikinos"
+  "title": "Sikinos",
+  "place": "Sikinos",
+  "topics": [
+    "Things to Do",
+    "History & Culture"
+  ],
+  "published_date": "2026-10-06",
+  "featured": true
 }
