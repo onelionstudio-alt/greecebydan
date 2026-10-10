@@ -11,8 +11,15 @@
   "published": true,
   "order": 100,
   "hero_image_ai": true,
-  "region": "Thessaloniki, Central Macedonia",
+  "region": "Central Macedonia",
   "hero_image": "/assets/images/uploads/thessaloniki-above-hippodrome-below.png",
   "subtitle": "Thousands of people walk through central Thessaloniki every day without realizing that beneath the streets once stood a vast Roman hippodrome — and the scene of one of the darkest events in the city’s history.",
-  "title": "The Lost Hippodrome Beneath Thessaloniki"
+  "title": "The Lost Hippodrome Beneath Thessaloniki",
+  "place": "Thessaloniki",
+  "topics": [
+    "History & Culture",
+    "Things to Do"
+  ],
+  "published_date": "2026-10-06",
+  "featured": true
 }

@@ -72,11 +72,55 @@ class Publishing(unittest.TestCase):
         self.assertIn('href="https://example.com"',safe)
         self.assertEqual(builder.esc('<img src=x onerror=alert(1)>'),'&lt;img src=x onerror=alert(1)&gt;')
 
+    def test_catalog_featured_dates_and_drafts(self):
+        story=json.loads((self.root/'content/stories/sikinos.json').read_text())
+        story.update(title='Catalog only',place='Milos',topics=['Things to Do'],featured=False,published_date='2026-10-10')
+        self.write('content/stories/catalog-only.json',story)
+        builder.build(self.root,self.out)
+        home=(self.out/'index.html').read_text()
+        catalog=(self.out/'stories/index.html').read_text()
+        self.assertNotIn('href="/catalog-only/"',home)
+        self.assertIn('href="/catalog-only/"',catalog)
+        self.assertIn('data-place="Milos"',catalog)
+        self.assertIn('data-date="2026-10-10"',catalog)
+        self.assertNotIn('CMS Test',catalog)
+        self.assertIn('https://greecebydan.com/stories/',(self.out/'sitemap.xml').read_text())
+        article=(self.out/'catalog-only/index.html').read_text()
+        self.assertIn('/stories/?place=Milos',article)
+        self.assertIn('/stories/?topic=Things+to+Do',article)
+        self.assertNotIn('Island story',catalog)
+        self.assertIn('Browse all stories',home)
+        for i in range(8):
+            story.update(title=f'Featured {i}',featured=True,order=i)
+            self.write(f'content/stories/featured-{i}.json',story)
+        builder.build(self.root,self.out)
+        self.assertEqual((self.out/'index.html').read_text().count('class="feature-card"'),6)
+        story['published']=False
+        self.write('content/stories/catalog-only.json',story)
+        builder.build(self.root,self.out)
+        self.assertNotIn('/catalog-only/',(self.out/'stories/index.html').read_text())
+        self.assertFalse((self.out/'catalog-only').exists())
+
+    def test_catalog_metadata_validation_and_escaping(self):
+        story=json.loads((self.root/'content/stories/sikinos.json').read_text())
+        for changes in [{'topics':'History'}, {'topics':[1]}, {'featured':'yes'}, {'published_date':'2026-02-30'}, {'published_date':'2026-1-1'}]:
+            with self.subTest(changes=changes):
+                self.write('content/stories/sikinos.json',{**story,**changes})
+                with self.assertRaises(ValueError):
+                    builder.build(self.root,self.out)
+        story.update(title='<script>unsafe</script>',place='A "quoted" place',topics=['Food & Wine'])
+        self.write('content/stories/sikinos.json',story)
+        builder.build(self.root,self.out)
+        catalog=(self.out/'stories/index.html').read_text()
+        self.assertNotIn('<script>unsafe</script>',catalog)
+        self.assertIn('data-place="A &quot;quoted&quot; place"',catalog)
+        self.assertIn('/stories/?topic=Food+%26+Wine',(self.out/'sikinos/index.html').read_text())
+
     def test_unsafe_urls_and_reserved_slugs_are_rejected(self):
         for unsafe in ['javascript:alert(1)','//evil.example/a','https://a.example/\nfile','https://user:pass@example.com','/assets/../secret','/assets/%2e%2e/secret']:
             with self.subTest(unsafe=unsafe),self.assertRaises(ValueError):
                 builder.url(unsafe,image=True)
-        for name in ['admin','about','../escape','Milos']:
+        for name in ['admin','about','stories','../escape','Milos']:
             with self.subTest(name=name),self.assertRaises(ValueError):
                 builder.slug_for(Path(name+'.json'))
 
