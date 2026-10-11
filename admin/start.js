@@ -23,6 +23,7 @@ window.CMS_MANUAL_INIT = true;
     script.onerror = () => { status.textContent = 'Не удалось загрузить редактор. Обнови страницу или проверь соединение.'; };
     script.onload = () => {
       window.CMS.registerPreviewStyle('/assets/css/style.css');
+      window.CMS.registerEditorComponent(window.affiliateButtonComponent);
       window.CMS.init({config: {backend: {base_url: endpoint.origin}}});
       document.getElementById('setup').hidden = true;
     };
