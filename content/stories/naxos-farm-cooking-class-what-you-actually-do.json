@@ -8,11 +8,13 @@
   "affiliate_links": [
     {
       "label": "Naxos:Half-day cooking class at Basiliko Farm",
-      "url": "https://www.viator.com/tours/Naxos/Naxos-Half-day-cooking-class-at-Basiliko/d50250-177192P1?pid=P00320497&mcid=42383&medium=link&medium_version=selector"
+      "url": "https://www.viator.com/tours/Naxos/Naxos-Half-day-cooking-class-at-Basiliko/d50250-177192P1?pid=P00320497&mcid=42383&medium=link&medium_version=selector",
+      "button_label": "View class & availability"
     },
     {
       "label": "Naxos Perivoli Farm Experience & Wood-fire Cooking Class",
-      "url": "https://www.viator.com/tours/Naxos/Perivoli-Naxian-Farm-Experience-and-wood-cooking-lesson/d50250-420115P1?pid=P00320497&mcid=42383&medium=link&medium_version=selector"
+      "url": "https://www.viator.com/tours/Naxos/Perivoli-Naxian-Farm-Experience-and-wood-cooking-lesson/d50250-420115P1?pid=P00320497&mcid=42383&medium=link&medium_version=selector",
+      "button_label": "View class & availability"
     }
   ],
   "greek_name": "Μάθημα μαγειρικής στη Νάξο",

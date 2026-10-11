@@ -16,3 +16,5 @@
 
 /* Contextual affiliate action inside a story. */
 .page .affiliate-cta{margin:24px 0 32px}.page a.affiliate-button{display:inline-block;max-width:100%;padding:13px 20px;border:1px solid var(--blue);border-radius:4px;background:var(--blue);color:var(--white);font:600 15px/1.5 Arial,sans-serif;text-decoration:none;overflow-wrap:anywhere;min-height:48px}.page a.affiliate-button:hover{background:var(--ink);border-color:var(--ink)}.page a.affiliate-button:focus-visible{outline:3px solid var(--blue);outline-offset:4px}.page .story-affiliate-disclosure{font:13px/1.6 Arial,sans-serif;color:#5f6965;margin:24px 0}
+
+.affiliate-options{display:grid;gap:24px;margin-top:24px}.affiliate-option{min-width:0}.page .affiliate-option-title{font:20px/1.5 Georgia,serif;margin:0 0 12px;overflow-wrap:anywhere}.story-plan{margin-top:40px}.story-plan .note{margin-bottom:24px}
