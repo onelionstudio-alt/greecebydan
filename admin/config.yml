@@ -164,8 +164,13 @@ collections:
     widget: list
     fields:
     - name: label
-      label: Подпись ссылки
+      label: Название предложения
       widget: string
+    - name: button_label
+      label: Текст кнопки (необязательно, на английском)
+      widget: string
+      required: false
+      hint: По умолчанию — View options & availability
     - name: url
       label: Ссылка
       widget: string

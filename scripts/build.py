@@ -124,7 +124,9 @@ def affiliate_links(items):
     for item in items:
         target=url(text(item,'url'))
         if target:
-            result.append('<p><a href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank">'+esc(text(item,'label'))+' ↗</a></p>')
+            label=text(item,'label')
+            button=text(item,'button_label','View options & availability') or 'View options & availability'
+            result.append('<div class="affiliate-option"><p class="affiliate-option-title">'+esc(label)+'</p><a class="affiliate-button" href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank" aria-label="'+esc(button+' — '+label)+'">'+esc(button)+' <span aria-hidden="true">↗</span></a></div>')
     return ''.join(result)
 
 def youtube(value):
@@ -206,7 +208,7 @@ def build(source=ROOT, output=None):
         if not story_links:
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
         if story_links:
-            article+='<section><h2>Plan your trip</h2>'+story_links+'<p class="note">'+esc(s['affiliate_disclosure'])+'</p></section>'
+            article+='<section class="story-plan"><h2>Plan your trip</h2><p class="note">'+esc(s['affiliate_disclosure'])+'</p><div class="affiliate-options">'+story_links+'</div></section>'
         article+='''<section class="story-share" aria-label="Share this story" hidden><p>Know someone planning a trip to Greece?</p><div class="story-share-actions"><button type="button" data-share-native hidden>Share this story</button><button type="button" data-share-copy>Copy link</button></div><p class="story-share-status" role="status" aria-live="polite"></p><input class="story-share-link" aria-label="Story link" type="url" readonly hidden></section>'''
         article+=support()+'</article></main>'
         dest=output/slug
