@@ -11,6 +11,22 @@ spec=importlib.util.spec_from_file_location('builder',ROOT/'scripts/build.py')
 builder=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
 
+class AffiliateButtons(unittest.TestCase):
+    def test_button_is_explicit_and_escaped(self):
+        output = builder.markdown('[See wine & sunset](https://example.com/tour?a=1&b=2 "affiliate-button")')
+        self.assertIn('class="affiliate-button"', output)
+        self.assertIn('rel="sponsored noopener noreferrer"', output)
+        self.assertIn('See wine &amp; sunset', output)
+        self.assertIn('?a=1&amp;b=2', output)
+        ordinary = builder.markdown('[Read source](https://example.com)')
+        self.assertNotIn('affiliate-button', ordinary)
+        inline = builder.markdown('See [wine](https://example.com "affiliate-button") for details.')
+        self.assertNotIn('class="affiliate-button"', inline)
+
+    def test_non_https_button_is_rejected(self):
+        with self.assertRaises(ValueError):
+            builder.markdown('[Book](http://example.com "affiliate-button")')
+
 class Publishing(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory()

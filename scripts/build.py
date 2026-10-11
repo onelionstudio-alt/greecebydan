@@ -52,7 +52,12 @@ def markdown(value):
               'br','hr','code','pre','img'},
         attributes={'a':['href','title'], 'img':['src','alt','title']},
         protocols={'https','http','mailto'}, strip=True)
-    return re.sub(r'<a href="(https?://)', r'<a rel="noopener noreferrer" href="\1', rendered)
+    rendered = re.sub(r'<a href="(https?://)', r'<a rel="noopener noreferrer" href="\1', rendered)
+    def button(match):
+        target = url(html.unescape(match.group(1)))
+        label = match.group(2)
+        return '<p class="affiliate-cta"><a class="affiliate-button" href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank">'+label+' <span aria-hidden="true">↗</span></a></p>'
+    return re.sub(r'<p><a rel="noopener noreferrer" href="([^"]+)" title="affiliate-button">([^<]+)</a></p>', button, rendered)
 
 def read(path):
     data = json.loads(path.read_text(encoding='utf-8'))
@@ -196,7 +201,7 @@ def build(source=ROOT, output=None):
         hero='<img class="story-hero" src="'+esc(story['hero_image'])+'" alt="'+esc(story['hero_alt'])+'">' if story['hero_image'] else ''
         if hero and story['hero_image_ai']:
             hero='<figure class="story-image">'+hero+'<figcaption class="image-ai-caption">'+AI_IMAGE_LABEL+'</figcaption></figure>'
-        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+story_metadata(story)+hero+markdown(story['body'])+youtube(story['youtube_url'])
+        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] else '')+markdown(story['body'])+youtube(story['youtube_url'])
         story_links=affiliate_links(aff)
         if not story_links:
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
