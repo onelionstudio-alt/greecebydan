@@ -1,5 +1,7 @@
 """Build a deployable static site from Decap's JSON content."""
 import argparse
+import hashlib
+from io import BytesIO
 import html
 import json
 import re
@@ -9,6 +11,7 @@ from pathlib import Path
 from urllib.parse import urlsplit, urlencode
 import bleach
 from markdown_it import MarkdownIt
+from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = 'https://greecebydan.com'
@@ -84,9 +87,56 @@ def page(title, description, route, main, s, image=''):
     social_image = f'<meta property="og:image" content="{esc(SITE_URL+image if image.startswith("/") else image)}">' if image else ''
     return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="impact-site-verification" value="37535e28-c2d5-49a4-9c33-0cbce4256c05"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:type" content="'+('website' if route=='/' else 'article')+'">'+social_image+'<link rel="icon" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/style.css"></head><body>'+header()+main+footer(s)+'<script src="/assets/js/main.js"></script></body></html>\n'
 
+def prepare_image(source, output, value, cache):
+    """Keep originals; produce responsive WebP derivatives for local raster heroes."""
+    if value in cache:
+        return cache[value]
+    if not value.startswith('/assets/'):
+        return None
+    path=source/value.lstrip('/')
+    if not path.is_file() or path.suffix.lower() not in {'.png','.jpg','.jpeg','.webp'}:
+        return None
+    with Image.open(path) as original:
+        if getattr(original, 'is_animated', False):
+            return None
+        image=ImageOps.exif_transpose(original).convert('RGBA' if 'A' in original.getbands() else 'RGB')
+        width,height=image.size
+        identity=hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+        folder=output/'assets/images/optimized'
+        folder.mkdir(parents=True,exist_ok=True)
+        variants=[]
+        for size in sorted({min(width, limit) for limit in (480, 960, 1600)}):
+            resized=image.resize((size,max(1,round(height*size/width))),Image.Resampling.LANCZOS)
+            filename=identity+'-'+str(size)+'.webp'
+            encoded=BytesIO()
+            resized.save(encoded,'WEBP',quality=85,method=6)
+            (folder/filename).write_bytes(encoded.getvalue())
+            variants.append(('/assets/images/optimized/'+filename,size))
+    result={'width':width,'height':height,'variants':variants}
+    cache[value]=result
+    return result
+
+
+def story_image(story, hero=False):
+    value=story['hero_image']
+    if not value:
+        return ''
+    attrs=' class="story-hero" fetchpriority="high"' if hero else ' loading="lazy"'
+    attrs+=' decoding="async"'
+    metadata=story.get('_image')
+    sizes='(max-width: 900px) 88vw, 800px' if hero else '(max-width: 600px) 84vw, (max-width: 900px) 50vw, 700px'
+    if metadata:
+        attrs+=' width="'+str(metadata['width'])+'" height="'+str(metadata['height'])+'"'
+    fallback='<img src="'+esc(value)+'" alt="'+esc(story['hero_alt'])+'"'+attrs+'>'
+    if not metadata:
+        return fallback
+    srcset=', '.join(path+' '+str(width)+'w' for path,width in metadata['variants'])
+    return '<picture><source type="image/webp" srcset="'+esc(srcset)+'" sizes="'+sizes+'">'+fallback+'</picture>'
+
+
 def card(story):
     s=story
-    picture = '<img src="'+esc(s['hero_image'])+'" alt="'+esc(s['hero_alt'])+'" loading="lazy">' if s['hero_image'] else '<span>'+esc(s['greek_name'] or s['title'])+'</span>'
+    picture = story_image(s) if s['hero_image'] else '<span>'+esc(s['greek_name'] or s['title'])+'</span>'
     if s['hero_image'] and s.get('hero_image_ai',False):
         picture += '<small class="image-ai-badge">'+AI_IMAGE_LABEL+'</small>'
     return '<a class="feature-card" href="/'+s['slug']+'/"><div class="feature-art">'+picture+'</div><div class="feature-copy"><div><small>'+esc(s.get('place') or s['region'])+' · Greece</small><h3>'+esc(s['title'])+'</h3><p>'+esc(s['subtitle'])+'</p></div><b>Read the story →</b></div></a>'
@@ -152,6 +202,7 @@ def build(source=ROOT, output=None):
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
+    image_cache={}
     settings=read(source/'content/settings/site.json')
     required=['site_title','description','tagline','hero_eyebrow','hero_title',
         'hero_emphasis','hero_description','discover_title','manifesto_eyebrow',
@@ -176,6 +227,7 @@ def build(source=ROOT, output=None):
         if not story['title'] or not story['body']:
             raise ValueError(f'{slug}: title and body are required')
         story['hero_image']=url(story['hero_image'],image=True)
+        story['_image']=prepare_image(source,output,story['hero_image'],image_cache)
         story['hero_image_ai']=data.get('hero_image_ai',False)
         if not isinstance(story['hero_image_ai'],bool):
             raise ValueError('hero_image_ai must be true or false')
@@ -200,7 +252,7 @@ def build(source=ROOT, output=None):
         aff=data.get('affiliate_links',[])
         if not isinstance(aff,list):
             raise ValueError('affiliate_links must be a list')
-        hero='<img class="story-hero" src="'+esc(story['hero_image'])+'" alt="'+esc(story['hero_alt'])+'">' if story['hero_image'] else ''
+        hero=story_image(story,hero=True)
         if hero and story['hero_image_ai']:
             hero='<figure class="story-image">'+hero+'<figcaption class="image-ai-caption">'+AI_IMAGE_LABEL+'</figcaption></figure>'
         article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] else '')+markdown(story['body'])+youtube(story['youtube_url'])
@@ -244,7 +296,7 @@ def build(source=ROOT, output=None):
         (output/name/'index.html').write_text(page(title+' — '+s['site_title'],title+' — '+s['site_title']+'.','/'+name+'/',main,s),encoding='utf-8')
         routes.append('/'+name+'/')
     for name in ['assets','admin']:
-        shutil.copytree(source/name,output/name)
+        shutil.copytree(source/name,output/name,dirs_exist_ok=True)
     for name in ['CNAME','favicon.svg','site.webmanifest','404.html']:
         shutil.copy2(source/name,output/name)
     for document in output.rglob('*.html'):
