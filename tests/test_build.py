@@ -11,6 +11,29 @@ spec=importlib.util.spec_from_file_location('builder',ROOT/'scripts/build.py')
 builder=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
 
+class ResponsiveImages(unittest.TestCase):
+    def test_derivatives_decode_and_preserve_original(self):
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);source=root/'source';output=root/'out'
+            image=source/'assets/sample.png';image.parent.mkdir(parents=True)
+            Image.new('RGB',(1200,675),'teal').save(image)
+            before=image.read_bytes();cache={}
+            result=builder.prepare_image(source,output,'/assets/sample.png',cache)
+            self.assertEqual([width for _,width in result['variants']],[480,960,1200])
+            for name,width in result['variants']:
+                with Image.open(output/name.lstrip('/')) as decoded:
+                    decoded.load();self.assertEqual(decoded.width,width)
+            self.assertEqual(before,image.read_bytes())
+            story={'hero_image':'/assets/sample.png','hero_alt':'Sea','_image':result}
+            markup=builder.story_image(story,hero=True)
+            self.assertIn('srcset=',markup)
+            self.assertIn('fetchpriority="high"',markup)
+            self.assertIn('width="1200" height="675"',markup)
+            self.assertNotIn('loading="lazy"',markup)
+            self.assertIn('loading="lazy"',builder.story_image(story))
+            self.assertIs(result,builder.prepare_image(source,output,'/assets/sample.png',cache))
+
 class AffiliateButtons(unittest.TestCase):
     def test_button_is_explicit_and_escaped(self):
         output = builder.markdown('[See wine & sunset](https://example.com/tour?a=1&b=2 "affiliate-button")')
