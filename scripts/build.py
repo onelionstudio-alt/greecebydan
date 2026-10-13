@@ -6,6 +6,7 @@ import html
 import json
 import re
 import shutil
+import subprocess
 from datetime import date
 from pathlib import Path
 from urllib.parse import urlsplit, urlencode
@@ -82,10 +83,11 @@ def footer(s):
              ('privacy','Privacy'),('cookies','Cookies'),('terms','Terms'),('contact','Contact')]
     return '<footer><a class="brand" href="/">Greece <em>by Dan</em></a><p>'+esc(s['tagline'])+'</p><div>'+''.join(f'<a href="/{p}/">{t}</a>' for p,t in links)+'</div><small>© 2026 '+esc(s['site_title'])+' · '+esc(s['footer_note'])+'</small></footer>'
 
-def page(title, description, route, main, s, image=''):
+def page(title, description, route, main, s, image='', structured=None):
     canonical = SITE_URL + route
+    schema='<script type="application/ld+json">'+json.dumps(structured,ensure_ascii=False).replace('<', '\\u003c')+'</script>' if structured else ''
     social_image = f'<meta property="og:image" content="{esc(SITE_URL+image if image.startswith("/") else image)}">' if image else ''
-    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="impact-site-verification" value="37535e28-c2d5-49a4-9c33-0cbce4256c05"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:type" content="'+('website' if route=='/' else 'article')+'">'+social_image+'<link rel="icon" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/style.css"></head><body>'+header()+main+footer(s)+'<script src="/assets/js/main.js"></script></body></html>\n'
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="impact-site-verification" value="37535e28-c2d5-49a4-9c33-0cbce4256c05"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:type" content="'+('website' if route=='/' else 'article')+'">'+social_image+schema+'<link rel="icon" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/style.css"></head><body>'+header()+main+footer(s)+'<script src="/assets/js/main.js"></script></body></html>\n'
 
 def prepare_image(source, output, value, cache):
     """Keep originals; produce responsive WebP derivatives for local raster heroes."""
@@ -192,6 +194,56 @@ def youtube(value):
 def support():
     return '''<section class="support-coffee" aria-label="Support Greece by Dan"><p>Enjoyed this little corner of Greece? You can buy me a coffee.</p><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="somewhereingreece" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script><noscript><a href="https://www.buymeacoffee.com/somewhereingreece" target="_blank" rel="noopener noreferrer">Buy me a coffee ↗</a></noscript></section>'''
 
+def content_modified(source, path):
+    """Only use complete Git history; never invent modification dates."""
+    try:
+        shallow=subprocess.run(['git','rev-parse','--is-shallow-repository'],cwd=source,capture_output=True,text=True,check=True).stdout.strip()
+        if shallow != 'false':
+            return ''
+        stamp=subprocess.run(['git','log','-1','--format=%cs','--',path],cwd=source,capture_output=True,text=True,check=True).stdout.strip()
+        if stamp:
+            date.fromisoformat(stamp)
+        return stamp
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        return ''
+
+
+def article_schema(story, settings):
+    data={'@context':'https://schema.org','@type':'Article',
+          'headline':story['title'],'description':story['subtitle'],
+          'mainEntityOfPage':SITE_URL+'/'+story['slug']+'/', 'inLanguage':'en',
+          'author':{'@type':'Person','@id':SITE_URL+'/about/#dan','name':'Dan','url':SITE_URL+'/about/'},
+          'publisher':{'@type':'Organization','name':settings['site_title'],'url':SITE_URL+'/'}}
+    if story['hero_image']:
+        data['image']=SITE_URL+story['hero_image'] if story['hero_image'].startswith('/') else story['hero_image']
+    if story['published_date']:
+        data['datePublished']=story['published_date']
+    if story.get('modified_date'):
+        data['dateModified']=story['modified_date']
+    return data
+
+
+def byline(story):
+    result='<p class="story-byline">Written by <a href="/about/" rel="author">Dan</a>'
+    if story['published_date']:
+        result+=' · <time datetime="'+story['published_date']+'">'+date.fromisoformat(story['published_date']).strftime('%d %b %Y')+'</time>'
+    if story.get('modified_date') and story['modified_date']>story['published_date']:
+        result+=' · Updated <time datetime="'+story['modified_date']+'">'+date.fromisoformat(story['modified_date']).strftime('%d %b %Y')+'</time>'
+    return result+'</p>'
+
+
+def related_stories(story, stories):
+    def relevance(other):
+        same_place=story['place']==other['place'] and story['place'] not in {'','Greece — General'}
+        shared=set(story['topics']) & set(other['topics'])
+        return 10*same_place+len(shared)
+    matches=[other for other in stories if other['slug']!=story['slug'] and relevance(other)]
+    matches.sort(key=lambda other:(-relevance(other),other['title']))
+    if not matches:
+        return ''
+    return '<nav class="related-stories" aria-label="Related stories"><h2>Keep exploring</h2><ul>'+''.join('<li><a href="/'+other['slug']+'/">'+esc(other['title'])+'</a></li>' for other in matches[:3])+'</ul></nav>'
+
+
 def build(source=ROOT, output=None):
     source=Path(source).resolve()
     output=Path(output or source/'_site').resolve()
@@ -241,6 +293,7 @@ def build(source=ROOT, output=None):
         if not isinstance(story['featured'],bool):
             raise ValueError('featured must be true or false')
         story['published_date']=text(data,'published_date')
+        story['modified_date']=content_modified(source,str(path.relative_to(source)))
         if story['published_date']:
             if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',story['published_date']):
                 raise ValueError('published_date must use YYYY-MM-DD')
@@ -255,7 +308,7 @@ def build(source=ROOT, output=None):
         hero=story_image(story,hero=True)
         if hero and story['hero_image_ai']:
             hero='<figure class="story-image">'+hero+'<figcaption class="image-ai-caption">'+AI_IMAGE_LABEL+'</figcaption></figure>'
-        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] else '')+markdown(story['body'])+youtube(story['youtube_url'])
+        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+byline(story)+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] else '')+markdown(story['body'])+'<!--RELATED_STORIES-->'+youtube(story['youtube_url'])
         story_links=affiliate_links(aff)
         if not story_links:
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
@@ -265,8 +318,11 @@ def build(source=ROOT, output=None):
         article+=support()+'</article></main>'
         dest=output/slug
         dest.mkdir()
-        (dest/'index.html').write_text(page(story['title']+' — '+s['site_title'],story['subtitle'],'/'+slug+'/',article,s,story['hero_image']),encoding='utf-8')
+        (dest/'index.html').write_text(page(story['title']+' — '+s['site_title'],story['subtitle'],'/'+slug+'/',article,s,story['hero_image'],article_schema(story,s)),encoding='utf-8')
         stories.append(story)
+    for story in stories:
+        document=output/story['slug']/'index.html'
+        document.write_text(document.read_text(encoding='utf-8').replace('<!--RELATED_STORIES-->',related_stories(story,stories)),encoding='utf-8')
     stories.sort(key=lambda x:(x['order'],x['title']))
     plan=[]
     for item in links:
@@ -281,7 +337,7 @@ def build(source=ROOT, output=None):
     home='<main><section class="hero"><div class="eyebrow">'+esc(s['hero_eyebrow'])+'</div><h1>'+esc(s['hero_title'])+'<br><i>'+esc(s['hero_emphasis'])+'</i></h1><p>'+esc(s['hero_description'])+'</p><a class="arrow-link" href="#discover">Explore Greece ↓</a></section><section id="discover" class="section"><div class="section-head"><span>01 / Discover</span><h2>'+esc(s['discover_title'])+'</h2></div><div class="stories-list">'+''.join(map(card,[s for s in stories if s['featured']][:6]))+'</div><a class="browse-stories" href="/stories/">Browse all stories →</a></section><section class="manifesto"><p>'+esc(s['manifesto_eyebrow'])+'</p><h2>'+esc(s['manifesto_title'])+'</h2><span>'+esc(s['manifesto_note'])+'</span></section><section id="plan" class="section plan"><div class="section-head"><span>02 / Plan</span><h2>'+esc(s['plan_title'])+'</h2></div><div class="plan-grid">'+''.join(plan)+'</div><p class="disclosure">'+esc(s['affiliate_disclosure'])+'</p></section><section class="about-strip"><div><span>Made by Dan</span><h2>'+esc(s['about_teaser'])+'</h2></div><a href="/about/">My story →</a></section></main>'
     (output/'index.html').write_text(page(s['site_title']+' — A slower Greece',s['description'],'/',home,s),encoding='utf-8')
     (output/'about').mkdir()
-    (output/'about/index.html').write_text(page('About — '+s['site_title'],s['about_teaser'],'/about/','<main class="page"><span class="kicker">The story</span><h1>About</h1>'+markdown(s['about_body'])+support()+'</main>',s),encoding='utf-8')
+    (output/'about/index.html').write_text(page('About — '+s['site_title'],s['about_teaser'],'/about/','<main class="page"><span class="kicker">The story</span><h1 id="dan">About</h1>'+markdown(s['about_body'])+support()+'</main>',s),encoding='utf-8')
     (output/'stories').mkdir()
     (output/'stories/index.html').write_text(page('Stories — '+s['site_title'],'Explore Greek places, food, history and travel stories.','/stories/',catalog(stories),s),encoding='utf-8')
     (output/'concierge').mkdir()
@@ -304,7 +360,8 @@ def build(source=ROOT, output=None):
             markup = document.read_text(encoding='utf-8')
             document.write_text(markup.replace('</body>', ANALYTICS+'</body>', 1), encoding='utf-8')
     (output/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /assets/js/concierge.js\nSitemap: '+SITE_URL+'/sitemap.xml\n')
-    (output/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE_URL+p+'</loc></url>' for p in routes)+'</urlset>\n')
+    modified={'/'+story['slug']+'/':story['modified_date'] for story in stories if story['modified_date']}
+    (output/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE_URL+p+'</loc>'+('<lastmod>'+modified[p]+'</lastmod>' if p in modified else '')+'</url>' for p in routes)+'</urlset>\n')
     (output/'.nojekyll').touch()
     print(f'Built {len(stories)} published stories into {output}')
     return output
