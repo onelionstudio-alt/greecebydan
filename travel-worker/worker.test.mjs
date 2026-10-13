@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import worker, { greekDestinations, category, preferences, recommendations } from './worker.mjs';
+import worker, { greekDestinations, category, preferences, recommendations, impactCoverage } from './worker.mjs';
 const destinations = [{ destinationId: 1, name: 'Europe', type: 'CONTINENT' }, { destinationId: 2, parentDestinationId: 1, name: 'Greece', type: 'COUNTRY' }, { destinationId: 3, parentDestinationId: 2, name: 'Cyclades' }, { destinationId: 4, parentDestinationId: 3, name: 'Milos' }, { destinationId: 5, parentDestinationId: 1, name: 'Rome' }];
 const pref = { kind: 'boat', destination: '4', style: 'any', mood: 'any', budget: 0, cancellation: false };
 const product = { productCode: 'X', title: 'Milos sailing', description: 'A captain and crew, sunset swimming.', flags: ['PRIVATE_TOUR', 'FREE_CANCELLATION'], productUrl: 'https://www.viator.com/tours/Milos/tour?pid=P123&medium=api', pricing: { summary: { fromPrice: 100 }, currency: 'EUR' }, reviews: { combinedAverageRating: 4.8, totalReviews: 120 } };
@@ -77,5 +77,55 @@ test('mock integration bounds endpoint calls and keeps attribution unchanged', a
     const failed = await worker.fetch(request(pref), env);
     assert.equal(failed.status, 502);
     assert.ok(!(await failed.text()).includes('test-secret'));
+  } finally { globalThis.fetch = original; }
+});
+
+test('Impact diagnostics expose coverage only and validate tracking destinations', () => {
+  const tracked = 'https://click-and-boat.pxf.io/c/123/456/19914?u=https%3A%2F%2Fwww.clickandboat.com%2Fen%2Fboat-rental%2Fcorfu%2Fmotorboat%2Fboat';
+  const result = impactCoverage({ '@uri': '/private-token', '@total': '12315', Items: [
+    { Name: 'Boat', Description: 'Private content', Url: tracked, CurrentPrice: '18', Currency: 'EUR', Text1: '', Numeric1: '0' },
+    { Name: 'Other', Url: tracked.replace('www.clickandboat.com', 'evil.example'), AuthToken: 'secret', Uri: '/private-token' }
+  ] });
+  assert.equal(result.totalItems, 12315);
+  assert.equal(result.populatedFields.Name, 2);
+  assert.equal(result.populatedFields.Text1, 0);
+  assert.equal(result.populatedFields.Numeric1, 1);
+  assert.equal(result.trackedClickAndBoatLinks, 1);
+  assert.deepEqual(result.sampleDestinationSlugs, ['corfu']);
+  assert.ok(!JSON.stringify(result).includes('Private content') && !JSON.stringify(result).includes('secret'));
+  assert.throws(() => impactCoverage({}));
+});
+
+test('Impact check uses fixed catalog, scoped credentials, bounded requests and safe errors', async () => {
+  const original = globalThis.fetch;
+  const env = { IMPACT_ACCOUNT_SID: 'test-sid', IMPACT_ACCESS_TOKEN: 'test-impact-secret', SEARCH_LIMIT: { limit: async () => ({ success: true }) } };
+  const req = (init = {}) => new Request('https://worker.example/impact/check', init);
+  const calls = [];
+  globalThis.fetch = async (url, init) => {
+    calls.push({ url, init });
+    return Response.json(url.includes('/Items?') ? { '@total': '1', Items: [{ Name: 'Sample boat' }] } : { Id: '18365', CampaignId: '19914', Uri: '/test-sid' });
+  };
+  try {
+    assert.equal((await worker.fetch(req(), {})).status, 503);
+    assert.equal((await worker.fetch(req({ method: 'POST' }), env)).status, 405);
+    assert.equal((await worker.fetch(req({ headers: { Origin: 'https://evil.example' } }), env)).status, 403);
+    assert.equal(calls.length, 0);
+    const response = await worker.fetch(req(), env);
+    assert.equal(response.status, 200);
+    const body = await response.text();
+    assert.equal(JSON.parse(body).connected, true);
+    assert.ok(!body.includes('test-sid') && !body.includes('test-impact-secret'));
+    assert.equal(calls.length, 2);
+    assert.equal(calls[1].url, 'https://api.impact.com/Mediapartners/test-sid/Catalogs/18365/Items?Page=1&PageSize=25');
+    assert.equal(calls[0].init.headers.Authorization, 'Basic ' + btoa('test-sid:test-impact-secret'));
+    assert.equal(calls[0].init.redirect, 'error');
+    for (const status of [401, 403, 404, 429, 500]) {
+      globalThis.fetch = async () => new Response('test-impact-secret raw upstream details', { status });
+      const failed = await worker.fetch(req(), env);
+      assert.equal(failed.status, 502);
+      assert.ok(!(await failed.text()).includes('test-impact-secret'));
+    }
+    globalThis.fetch = async () => Response.json({ Id: '999', CampaignId: '19914' });
+    assert.match(await (await worker.fetch(req(), env)).text(), /Unexpected Click&Boat catalog/);
   } finally { globalThis.fetch = original; }
 });

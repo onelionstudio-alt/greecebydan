@@ -77,6 +77,69 @@ async function cached(request, env, path, ttl, body) {
   return data;
 }
 
+const IMPACT_CATALOG = '18365'; // CAB_EN_GS, supplied Click&Boat feed.
+const IMPACT_PROGRAM = '19914';
+const IMPACT_FIELDS = ['Name', 'Description', 'Url', 'ImageUrl', 'CurrentPrice', 'Currency', 'StockAvailability', 'Category', 'SubCategory', 'Bullets', 'Labels', 'Text1', 'Text2', 'Text3', 'Numeric1', 'Numeric2', 'Numeric3', 'Money1', 'Money2', 'Money3'];
+
+export function impactCoverage(data) {
+  if (!Array.isArray(data.Items)) throw new Error('Unexpected catalog schema');
+  const items = data.Items.slice(0, 25).filter(item => item && typeof item === 'object' && !Array.isArray(item));
+  const populated = value => typeof value === 'string' ? value.trim().length > 0 : Array.isArray(value) ? value.length > 0 : typeof value === 'number' && Number.isFinite(value);
+  const fields = Object.fromEntries(IMPACT_FIELDS.map(field => [field, items.filter(item => populated(item[field])).length]));
+  const destinations = new Set();
+  let trackingLinks = 0;
+  for (const item of items) {
+    try {
+      const tracking = new URL(item.Url);
+      if (tracking.protocol !== 'https:' || tracking.hostname !== 'click-and-boat.pxf.io' || tracking.username || tracking.password) continue;
+      const target = new URL(tracking.searchParams.get('u'));
+      if (target.protocol !== 'https:' || !['clickandboat.com', 'www.clickandboat.com'].includes(target.hostname) || target.username || target.password) continue;
+      trackingLinks++;
+      const match = target.pathname.match(/^\/en\/boat-rental\/([a-z0-9-]{1,64})\//);
+      if (match) destinations.add(match[1]);
+    } catch { /* No guessed destination or attribution. */ }
+  }
+  const total = Number(data['@total']);
+  return { sampledItems: items.length, totalItems: Number.isSafeInteger(total) && total >= 0 ? total : null, populatedFields: fields, trackedClickAndBoatLinks: trackingLinks, sampleDestinationSlugs: [...destinations].sort(), scope: 'First page only; destinations are URL slugs, not verified Greek locations.', availability: 'Catalog stock is not availability for travel dates.' };
+}
+
+async function impact(path, env) {
+  const response = await fetch(`https://api.impact.com/Mediapartners/${encodeURIComponent(env.IMPACT_ACCOUNT_SID)}/Catalogs/${IMPACT_CATALOG}${path}`, {
+    headers: { Authorization: 'Basic ' + btoa(`${env.IMPACT_ACCOUNT_SID}:${env.IMPACT_ACCESS_TOKEN}`), Accept: 'application/json' },
+    redirect: 'error', signal: AbortSignal.timeout(10000)
+  });
+  if (!response.ok) {
+    const error = new Error('Impact unavailable');
+    error.upstreamStatus = response.status;
+    throw error;
+  }
+  return response.json();
+}
+
+async function impactCheck(request, env, origin) {
+  if (request.method !== 'GET') return reply({ error: 'Method not allowed' }, 405, origin);
+  if (!env.IMPACT_ACCOUNT_SID || !env.IMPACT_ACCESS_TOKEN || !env.SEARCH_LIMIT?.limit) return reply({ connected: false, error: 'Impact setup incomplete' }, 503, origin);
+  const { success } = await env.SEARCH_LIMIT.limit({ key: request.headers.get('CF-Connecting-IP') || 'unknown' });
+  if (!success) return reply({ error: 'Please try again shortly' }, 429, origin);
+  // Cache only a safe summary. Never cache or return credential-bearing API URIs.
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${env.IMPACT_ACCOUNT_SID}:${env.IMPACT_ACCESS_TOKEN}`));
+  const key = new Request(new URL('/internal-impact-check/' + Array.from(new Uint8Array(digest), n => n.toString(16).padStart(2, '0')).join(''), request.url));
+  const cache = globalThis.caches?.default;
+  const hit = await cache?.match(key);
+  if (hit) return reply(await hit.json(), 200, origin);
+  try {
+    const catalog = await impact('', env);
+    if (String(catalog.Id) !== IMPACT_CATALOG || String(catalog.CampaignId) !== IMPACT_PROGRAM) return reply({ connected: false, error: 'Unexpected Click&Boat catalog' }, 502, origin);
+    const data = await impact('/Items?Page=1&PageSize=25', env);
+    const summary = { connected: true, catalogId: IMPACT_CATALOG, programId: IMPACT_PROGRAM, catalog: 'CAB_EN_GS', checkedAt: new Date().toISOString(), ...impactCoverage(data) };
+    if (cache) await cache.put(key, Response.json(summary, { headers: { 'Cache-Control': 'public, max-age=300', 'X-Robots-Tag': 'noindex' } }));
+    return reply(summary, 200, origin);
+  } catch (error) {
+    const messages = { 401: 'Impact credentials rejected', 403: 'Impact access or scopes denied', 404: 'Click&Boat catalog not accessible', 429: 'Impact rate limit reached' };
+    return reply({ connected: false, error: messages[error.upstreamStatus] || 'Impact check temporarily unavailable' }, 502, origin);
+  }
+}
+
 export default {
   async fetch(request, env) {
     const route = new URL(request.url).pathname;
@@ -84,6 +147,8 @@ export default {
     if (route === '/robots.txt') return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain' } });
     const ready = Boolean(env.VIATOR_API_KEY && env.SEARCH_LIMIT?.limit);
     if (route === '/health' && request.method === 'GET') return reply({ ready }, 200, origin);
+    // A browser can open this fixed diagnostic URL directly; no raw catalog content.
+    if (route === '/impact/check' && (!origin || origin === SITE)) return impactCheck(request, env, origin);
     if (origin !== SITE) return reply({ error: 'Origin not allowed' }, 403);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...headers(origin), 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Max-Age': '86400' } });
     if (!['/destinations', '/search'].includes(route)) return reply({ error: 'Not found' }, 404, origin);
