@@ -115,7 +115,7 @@ async function impact(path, env) {
   try {
     response = await fetch(`https://api.impact.com/Mediapartners/${encodeURIComponent(sid)}/Catalogs/${IMPACT_CATALOG}${path}`, {
       headers: { Authorization: 'Basic ' + btoa(`${sid}:${token}`), Accept: 'application/json' },
-      redirect: 'error', signal: AbortSignal.timeout(15000)
+      redirect: 'manual', signal: AbortSignal.timeout(15000)
     });
   } catch (cause) {
     const error = new Error('Impact request failed');
@@ -125,6 +125,7 @@ async function impact(path, env) {
   if (!response.ok) {
     const error = new Error('Impact unavailable');
     error.upstreamStatus = response.status;
+    if (response.status >= 300 && response.status < 400) error.safeCode = 'upstream_redirect';
     throw error;
   }
   try { return await response.json(); } catch {
@@ -161,7 +162,7 @@ async function impactCheck(request, env, origin) {
     return reply(summary, 200, origin);
   } catch (error) {
     const messages = { 401: 'Impact credentials rejected', 403: 'Impact access or scopes denied', 404: 'Click&Boat catalog not accessible', 429: 'Impact rate limit reached' };
-    const codes = { credential_format: 'Impact credential format is invalid', timeout: 'Impact request timed out', network_or_redirect: 'Impact connection failed or redirected', invalid_json: 'Impact response was not valid JSON' };
+    const codes = { credential_format: 'Impact credential format is invalid', timeout: 'Impact request timed out', network_or_redirect: 'Impact connection failed or redirected', upstream_redirect: 'Impact redirected the API request; redirect not followed', invalid_json: 'Impact response was not valid JSON' };
     return reply({ connected: false, stage, code: error.safeCode || (error.upstreamStatus ? 'upstream_http' : 'check_failed'), ...(error.upstreamStatus ? { upstreamStatus: error.upstreamStatus } : {}), error: messages[error.upstreamStatus] || codes[error.safeCode] || 'Impact check temporarily unavailable' }, 502, origin);
   }
 }
