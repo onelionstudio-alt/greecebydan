@@ -11,6 +11,25 @@ spec=importlib.util.spec_from_file_location('builder',ROOT/'scripts/build.py')
 builder=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
 
+class SearchFoundation(unittest.TestCase):
+    def test_related_stories_only_link_relevant_published_candidates(self):
+        current={'slug':'wine','place':'Santorini','topics':['Food & Wine']}
+        candidates=[current,{'slug':'food','place':'Santorini','topics':['Food & Wine'],'title':'Tomatoes'}, {'slug':'sparta','place':'Sparta','topics':['History & Culture'],'title':'Sparta'}]
+        markup=builder.related_stories(current,candidates)
+        self.assertIn('href="/food/"',markup)
+        self.assertNotIn('href="/sparta/"',markup)
+        self.assertNotIn('href="/wine/"',markup)
+
+    def test_article_schema_escapes_script_markup(self):
+        story={'title':'</script><script>bad</script>','subtitle':'Sea','slug':'wine','hero_image':'','published_date':'2026-10-10','modified_date':'2026-10-12'}
+        data=builder.article_schema(story,{'site_title':'Greece by Dan'})
+        self.assertEqual(data['author']['name'],'Dan')
+        page=builder.page('Story','Sea','/wine/','<main>Text</main>',{'site_title':'Greece by Dan','tagline':'Greece','footer_note':''},structured=data)
+        import re
+        block=re.search(r'<script type="application/ld\+json">(.*?)</script>',page).group(1)
+        self.assertEqual(json.loads(block)['headline'],story['title'])
+        self.assertNotIn('</script>',block)
+
 class ResponsiveImages(unittest.TestCase):
     def test_derivatives_decode_and_preserve_original(self):
         from PIL import Image
