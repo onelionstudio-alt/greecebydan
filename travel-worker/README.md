@@ -36,3 +36,18 @@ https://partnerresources.viator.com/travel-commerce/technical-guide/
 https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/
 
 Run `node --test travel-worker/worker.test.mjs` from the repository root. Mock tests cannot validate an actual key or live taxonomy. Live validation requires the user's secret deployment.
+
+## Impact / Click&Boat access check
+
+Add `IMPACT_ACCOUNT_SID` and `IMPACT_ACCESS_TOKEN` as encrypted Worker Secrets, then redeploy this `worker.mjs`. The token needs read-only access to retrieve a catalog and list its items. The SID must come from the same scoped token as the Auth Token; the numeric partner ID is not an Account SID.
+
+Open `/impact/check` directly in a browser. It makes two fixed GET requests to Click&Boat program `19914`, catalog `18365` (`CAB_EN_GS` from the supplied feed). It verifies the catalog identity, samples the first 25 items and returns only field coverage, safe destination slugs extracted from validated tracking links, total count when supplied, and the check timestamp. It does not expose raw items, descriptions, secrets or Impact resource URIs. Successful summaries are cached for five minutes with a credential fingerprint; there is no catalog crawl or follow-up pagination. The existing per-IP limiter also applies to this route. As with the concierge routes, this is abuse mitigation rather than authentication; the diagnostic summary is public.
+
+`connected: true` proves these two API reads succeeded. It does not prove Greek coverage, skipper inclusion, licences, passenger capacity, a price unit or date availability. Empty fields in this first-page sample do not establish absence throughout the catalog. No Click&Boat recommendations are enabled in the public concierge until the live data is assessed. `InStock` must never be used as boat availability for a travel date.
+
+The GitHub Pages workflow publishes the static site only; changing the Worker source in GitHub does **not** deploy it to Cloudflare. In Cloudflare open `greecebydan-travel-api` → Edit code, replace the source with this file and select Deploy, preserving existing secrets and the limiter binding. Both Viator and Impact logic are in this one file.
+
+Official API reference:
+https://integrations.impact.com/partner-api-reference/readme/authentication
+https://integrations.impact.com/partner-api-reference/reference/catalogs/catalogs
+https://integrations.impact.com/partner-api-reference/readme/pagination
