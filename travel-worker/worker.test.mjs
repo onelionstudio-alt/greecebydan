@@ -98,12 +98,12 @@ test('Impact diagnostics expose coverage only and validate tracking destinations
 
 test('Impact check uses fixed catalog, scoped credentials, bounded requests and safe errors', async () => {
   const original = globalThis.fetch;
-  const env = { IMPACT_ACCOUNT_SID: 'test-sid', IMPACT_ACCESS_TOKEN: 'test-impact-secret', SEARCH_LIMIT: { limit: async () => ({ success: true }) } };
+  const env = { IMPACT_ACCOUNT_SID: 'IRtestSID', IMPACT_ACCESS_TOKEN: 'test-impact-secret', SEARCH_LIMIT: { limit: async () => ({ success: true }) } };
   const req = (init = {}) => new Request('https://worker.example/impact/check', init);
   const calls = [];
   globalThis.fetch = async (url, init) => {
     calls.push({ url, init });
-    return Response.json(url.includes('/Items?') ? { '@total': '1', Items: [{ Name: 'Sample boat' }] } : { Id: '18365', CampaignId: '19914', Uri: '/test-sid' });
+    return Response.json(url.includes('/Items?') ? { '@total': '1', Items: [{ Name: 'Sample boat' }] } : { Id: '18365', CampaignId: '19914', Uri: '/IRtestSID' });
   };
   try {
     assert.equal((await worker.fetch(req(), {})).status, 503);
@@ -114,18 +114,45 @@ test('Impact check uses fixed catalog, scoped credentials, bounded requests and 
     assert.equal(response.status, 200);
     const body = await response.text();
     assert.equal(JSON.parse(body).connected, true);
-    assert.ok(!body.includes('test-sid') && !body.includes('test-impact-secret'));
+    assert.ok(!body.includes('IRtestSID') && !body.includes('test-impact-secret'));
     assert.equal(calls.length, 2);
-    assert.equal(calls[1].url, 'https://api.impact.com/Mediapartners/test-sid/Catalogs/18365/Items?Page=1&PageSize=25');
-    assert.equal(calls[0].init.headers.Authorization, 'Basic ' + btoa('test-sid:test-impact-secret'));
+    assert.equal(calls[1].url, 'https://api.impact.com/Mediapartners/IRtestSID/Catalogs/18365/Items?Page=1&PageSize=25');
+    assert.equal(calls[0].init.headers.Authorization, 'Basic ' + btoa('IRtestSID:test-impact-secret'));
     assert.equal(calls[0].init.redirect, 'error');
     for (const status of [401, 403, 404, 429, 500]) {
       globalThis.fetch = async () => new Response('test-impact-secret raw upstream details', { status });
       const failed = await worker.fetch(req(), env);
       assert.equal(failed.status, 502);
-      assert.ok(!(await failed.text()).includes('test-impact-secret'));
+      const body = await failed.json();
+      assert.equal(body.stage, 'catalog');
+      assert.equal(body.upstreamStatus, status);
+      assert.ok(!JSON.stringify(body).includes('test-impact-secret'));
     }
+    globalThis.fetch = async () => new Response('not JSON, test-impact-secret');
+    assert.equal((await (await worker.fetch(req(), env)).json()).code, 'invalid_json');
+    globalThis.fetch = async () => { throw new DOMException('test-impact-secret', 'TimeoutError'); };
+    assert.equal((await (await worker.fetch(req(), env)).json()).code, 'timeout');
+    globalThis.fetch = async () => { throw new Error('test-impact-secret'); };
+    assert.equal((await (await worker.fetch(req(), env)).json()).code, 'network_or_redirect');
+    globalThis.fetch = async url => Response.json(url.includes('/Items?') ? { Items: {} } : { Id: '18365', CampaignId: '19914' });
+    const schema = await (await worker.fetch(req(), env)).json();
+    assert.equal(schema.stage, 'items');
+    assert.equal(schema.code, 'items_schema');
+    assert.equal((await (await worker.fetch(req(), { ...env, IMPACT_ACCOUNT_SID: 'bad SID' })).json()).code, 'credential_format');
     globalThis.fetch = async () => Response.json({ Id: '999', CampaignId: '19914' });
     assert.match(await (await worker.fetch(req(), env)).text(), /Unexpected Click&Boat catalog/);
   } finally { globalThis.fetch = original; }
+});
+
+test('Impact summary succeeds even when the cache cannot write', async () => {
+  const originalFetch = globalThis.fetch;
+  const originalCache = globalThis.caches;
+  globalThis.caches = { default: { match: async () => { throw new Error('Cache unavailable'); }, put: async () => { throw new Error('Cache unavailable'); } } };
+  globalThis.fetch = async url => Response.json(url.includes('/Items?') ? { Items: [] } : { Id: '18365', CampaignId: '19914' });
+  try {
+    const env = { IMPACT_ACCOUNT_SID: ' IRtestSID\n', IMPACT_ACCESS_TOKEN: ' test-impact-secret\n', SEARCH_LIMIT: { limit: async () => ({ success: true }) } };
+    const response = await worker.fetch(new Request('https://worker.example/impact/check'), env);
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).connected, true);
+  } finally { globalThis.fetch = originalFetch; globalThis.caches = originalCache; }
 });
