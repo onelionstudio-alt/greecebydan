@@ -118,7 +118,12 @@ test('Impact check uses fixed catalog, scoped credentials, bounded requests and 
     assert.equal(calls.length, 2);
     assert.equal(calls[1].url, 'https://api.impact.com/Mediapartners/IRtestSID/Catalogs/18365/Items?Page=1&PageSize=25');
     assert.equal(calls[0].init.headers.Authorization, 'Basic ' + btoa('IRtestSID:test-impact-secret'));
-    assert.equal(calls[0].init.redirect, 'error');
+    assert.equal(calls[0].init.redirect, 'manual');
+    globalThis.fetch = async () => new Response(null, { status: 302, headers: { Location: 'https://other.example/private' } });
+    const redirect = await (await worker.fetch(req(), env)).json();
+    assert.equal(redirect.code, 'upstream_redirect');
+    assert.equal(redirect.upstreamStatus, 302);
+    assert.ok(!JSON.stringify(redirect).includes('other.example'));
     for (const status of [401, 403, 404, 429, 500]) {
       globalThis.fetch = async () => new Response('test-impact-secret raw upstream details', { status });
       const failed = await worker.fetch(req(), env);
