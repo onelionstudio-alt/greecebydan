@@ -104,16 +104,34 @@ export function impactCoverage(data) {
 }
 
 async function impact(path, env) {
-  const response = await fetch(`https://api.impact.com/Mediapartners/${encodeURIComponent(env.IMPACT_ACCOUNT_SID)}/Catalogs/${IMPACT_CATALOG}${path}`, {
-    headers: { Authorization: 'Basic ' + btoa(`${env.IMPACT_ACCOUNT_SID}:${env.IMPACT_ACCESS_TOKEN}`), Accept: 'application/json' },
-    redirect: 'error', signal: AbortSignal.timeout(10000)
-  });
+  const sid = String(env.IMPACT_ACCOUNT_SID).trim();
+  const token = String(env.IMPACT_ACCESS_TOKEN).trim();
+  if (!/^[A-Za-z0-9]+$/.test(sid) || !/^[\x21-\x7E]+$/.test(token)) {
+    const error = new Error('Invalid credential format');
+    error.safeCode = 'credential_format';
+    throw error;
+  }
+  let response;
+  try {
+    response = await fetch(`https://api.impact.com/Mediapartners/${encodeURIComponent(sid)}/Catalogs/${IMPACT_CATALOG}${path}`, {
+      headers: { Authorization: 'Basic ' + btoa(`${sid}:${token}`), Accept: 'application/json' },
+      redirect: 'error', signal: AbortSignal.timeout(15000)
+    });
+  } catch (cause) {
+    const error = new Error('Impact request failed');
+    error.safeCode = ['TimeoutError', 'AbortError'].includes(cause?.name) ? 'timeout' : 'network_or_redirect';
+    throw error;
+  }
   if (!response.ok) {
     const error = new Error('Impact unavailable');
     error.upstreamStatus = response.status;
     throw error;
   }
-  return response.json();
+  try { return await response.json(); } catch {
+    const error = new Error('Impact returned invalid JSON');
+    error.safeCode = 'invalid_json';
+    throw error;
+  }
 }
 
 async function impactCheck(request, env, origin) {
@@ -125,18 +143,26 @@ async function impactCheck(request, env, origin) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${env.IMPACT_ACCOUNT_SID}:${env.IMPACT_ACCESS_TOKEN}`));
   const key = new Request(new URL('/internal-impact-check/' + Array.from(new Uint8Array(digest), n => n.toString(16).padStart(2, '0')).join(''), request.url));
   const cache = globalThis.caches?.default;
-  const hit = await cache?.match(key);
-  if (hit) return reply(await hit.json(), 200, origin);
+  try {
+    const hit = await cache?.match(key);
+    if (hit) return reply(await hit.json(), 200, origin);
+  } catch { /* Cache failure must not prevent the API check. */ }
+  let stage = 'catalog';
   try {
     const catalog = await impact('', env);
-    if (String(catalog.Id) !== IMPACT_CATALOG || String(catalog.CampaignId) !== IMPACT_PROGRAM) return reply({ connected: false, error: 'Unexpected Click&Boat catalog' }, 502, origin);
+    if (!catalog || String(catalog.Id) !== IMPACT_CATALOG || String(catalog.CampaignId) !== IMPACT_PROGRAM) return reply({ connected: false, stage, code: 'catalog_identity', error: 'Unexpected Click&Boat catalog' }, 502, origin);
+    stage = 'items';
     const data = await impact('/Items?Page=1&PageSize=25', env);
+    if (!data || !Array.isArray(data.Items)) return reply({ connected: false, stage, code: 'items_schema', error: 'Unexpected catalog item format', hasItems: Boolean(data && Object.hasOwn(data, 'Items')), itemsType: data?.Items === null ? 'null' : typeof data?.Items }, 502, origin);
     const summary = { connected: true, catalogId: IMPACT_CATALOG, programId: IMPACT_PROGRAM, catalog: 'CAB_EN_GS', checkedAt: new Date().toISOString(), ...impactCoverage(data) };
-    if (cache) await cache.put(key, Response.json(summary, { headers: { 'Cache-Control': 'public, max-age=300', 'X-Robots-Tag': 'noindex' } }));
+    try {
+      if (cache) await cache.put(key, Response.json(summary, { headers: { 'Cache-Control': 'public, max-age=300', 'X-Robots-Tag': 'noindex' } }));
+    } catch { /* Successful authentication remains successful without caching. */ }
     return reply(summary, 200, origin);
   } catch (error) {
     const messages = { 401: 'Impact credentials rejected', 403: 'Impact access or scopes denied', 404: 'Click&Boat catalog not accessible', 429: 'Impact rate limit reached' };
-    return reply({ connected: false, error: messages[error.upstreamStatus] || 'Impact check temporarily unavailable' }, 502, origin);
+    const codes = { credential_format: 'Impact credential format is invalid', timeout: 'Impact request timed out', network_or_redirect: 'Impact connection failed or redirected', invalid_json: 'Impact response was not valid JSON' };
+    return reply({ connected: false, stage, code: error.safeCode || (error.upstreamStatus ? 'upstream_http' : 'check_failed'), ...(error.upstreamStatus ? { upstreamStatus: error.upstreamStatus } : {}), error: messages[error.upstreamStatus] || codes[error.safeCode] || 'Impact check temporarily unavailable' }, 502, origin);
   }
 }
 
