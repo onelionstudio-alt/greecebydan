@@ -11,7 +11,7 @@ display_url: https://greecebydan.com
 locale: ru
 publish_mode: simple
 slug:
-  encoding: ascii
+  encoding: unicode
   clean_accents: true
   sanitize_replacement: '-'
 collections:
