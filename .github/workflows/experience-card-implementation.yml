@@ -1,0 +1,41 @@
+name: Experience Card implementation QA (no deployment)
+on:
+  push:
+    branches: [feat/experience-card-v3]
+    paths: ['assets/**', 'travel-worker/**', 'tests/**', 'scripts/**', 'templates/**', '.github/workflows/experience-card-implementation.yml']
+permissions:
+  contents: read
+jobs:
+  card-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Build reviewed frontend
+        run: |
+          python -m pip install -r requirements.txt
+          python scripts/build.py
+      - name: Install isolated QA tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/card-qa" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/card-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Browser regression and accessibility
+        env:
+          NODE_PATH: ${{ runner.temp }}/card-qa/node_modules
+        run: node tests/browser-cards.cjs
+      - name: Branch frontend against real staging backend (no deploy)
+        env:
+          NODE_PATH: ${{ runner.temp }}/card-qa/node_modules
+        run: node tests/browser-staging-live.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: experience-card-implementation-evidence
+          path: docs/experience-card-implementation/evidence/

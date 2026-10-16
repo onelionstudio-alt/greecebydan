@@ -256,3 +256,20 @@ test('wine requires explicit tasting activity and rejects uncertain or conflicti
     assert.equal(recommendations([p], { ...pref, kind: 'wine' }).length, expected ? 1 : 0, description);
   }
 });
+
+test('selection evidence is additive, source-labelled and preserves legacy identity and filters', () => {
+  const c = recommendations([product], { ...pref, style: 'private', cancellation: true })[0];
+  assert.equal(c.url, product.productUrl);
+  assert.equal(c.currency, 'EUR');
+  assert.equal(typeof c.reason, 'string');
+  assert.deepEqual(c.selectionEvidence, [
+    {code:'crew',evidence:{source:'viator_listing',field:'description',value:'captain'}},
+    {code:'private',evidence:{source:'viator_listing',field:'flags',value:'PRIVATE_TOUR'}},
+    {code:'cancellation',evidence:{source:'viator_listing',field:'flags',value:'FREE_CANCELLATION'}}
+  ]);
+  const wine = recommendations([{...product,title:'A wine tasting',description:'Taste local wines.'}],{...pref,kind:'wine'})[0];
+  assert.deepEqual(wine.selectionEvidence,[{code:'wine_tasting',evidence:{source:'viator_listing',field:'title',value:'wine tasting'}}]);
+  for (const description of ['Wine tasting is optional.', 'Wine tasting is not included.', 'A tasting of local wines costs extra.']) {
+    assert.equal(recommendations([{...product,title:'Wine tour',description}],{...pref,kind:'wine'}).length,0);
+  }
+});
