@@ -1,24 +1,26 @@
-{"profiles":[
-  {
-    "source": "wine-santorini",
-    "kind": "wine",
-    "place": "santorini",
-    "profile": "wine-choice",
-    "articles": [
-      "how-to-taste-santorini-wine-without-driving",
-      "santorini-s-sweet-wines-sun-volcanic-soil-and-a-forgotten-red"
-    ],
-    "label": "Compare Santorini wine experiences"
-  },
-  {
-    "source": "boat-milos",
-    "kind": "boat",
-    "place": "milos",
-    "profile": "boat-choice",
-    "articles": [
-      "milos-kleftiko-sailboat-or-speedboat"
-    ],
-    "label": "Compare Milos boat trips"
-  }
-]
+{
+  "profiles": [
+    {
+      "source": "wine-santorini",
+      "kind": "wine",
+      "place": "santorini",
+      "profile": "wine-choice",
+      "articles": [
+        "how-to-taste-santorini-wine-without-driving",
+        "santorini-s-sweet-wines-sun-volcanic-soil-and-a-forgotten-red"
+      ],
+      "label": "Compare Santorini wine experiences"
+    },
+    {
+      "source": "boat-milos",
+      "kind": "boat",
+      "place": "milos",
+      "profile": "boat-choice",
+      "articles": [
+        "milos-kleftiko-sailboat-or-speedboat",
+        "milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose"
+      ],
+      "label": "Compare Milos boat trips"
+    }
+  ]
 }

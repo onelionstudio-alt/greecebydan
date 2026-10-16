@@ -39,9 +39,22 @@ class AdvisorContext(unittest.TestCase):
         self.assertEqual(urlsplit(href).path,'/concierge/')
         self.assertEqual(parse_qs(urlsplit(href).query),{'kind':['wine'],'place':['santorini'],'profile':['wine-choice'],'source':['wine-santorini']})
         self.assertEqual(builder.advisor_entry(ROOT,'sikinos'),'')
-        # Corrupt Milos/Feta record must not acquire a boat CTA before restoration.
-        self.assertEqual(builder.advisor_entry(ROOT,'milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose'),'')
+        self.assertIn('data-advisor-source="boat-milos"',builder.advisor_entry(ROOT,'milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose'))
+        self.assertEqual(builder.advisor_entry(ROOT,'greek-feta-sheeps-milk-wooden-barrels-and-a-taste-of-place'),'')
         self.assertIn('href="/concierge/">Plan your trip',builder.header())
+
+class EditorialIntegrity(unittest.TestCase):
+    def test_feta_record_preserved_and_tour_codes_not_mixed(self):
+        feta=json.loads((ROOT/'content/stories/greek-feta-sheeps-milk-wooden-barrels-and-a-taste-of-place.json').read_text())
+        original=json.loads((ROOT/'docs/audit-iteration-1/feta-proposed.json').read_text())
+        self.assertEqual(feta,original)
+        milos=json.loads((ROOT/'content/stories/milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose.json').read_text())
+        self.assertEqual(milos['place'],'Milos')
+        self.assertNotIn('349808P1',milos['body'])
+        for code in ['420612P1','32830P6','272308P1']:
+            self.assertEqual(sum(code in x['url'] for x in milos['affiliate_links']),1)
+        self.assertIn('passenger cap needs confirmation',milos['body'])
+        self.assertIn('No date-specific availability or final price has been confirmed',milos['body'])
 
 class ResponsiveImages(unittest.TestCase):
     def test_derivatives_decode_and_preserve_original(self):
@@ -156,6 +169,23 @@ class Publishing(unittest.TestCase):
         self.assertTrue((self.out/'assets/data/advisor-contexts.json').exists())
         wine=(self.out/'how-to-taste-santorini-wine-without-driving/index.html').read_text()
         self.assertIn('data-advisor-source="wine-santorini"',wine)
+        milos_slug='milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose'
+        feta_slug='greek-feta-sheeps-milk-wooden-barrels-and-a-taste-of-place'
+        milos=(self.out/milos_slug/'index.html').read_text()
+        feta=(self.out/feta_slug/'index.html').read_text()
+        for slug,document in [(milos_slug,milos),(feta_slug,feta)]:
+            self.assertEqual(document.count('rel="canonical"'),1)
+            self.assertIn('rel="canonical" href="https://greecebydan.com/'+slug+'/',document)
+            self.assertIn('https://greecebydan.com/'+slug+'/',(self.out/'sitemap.xml').read_text())
+        self.assertIn('Milos Boat Tours If You Get Seasick',milos)
+        self.assertNotIn('Greek Feta: Sheep',milos)
+        self.assertIn('data-advisor-source="boat-milos"',milos)
+        self.assertIn('Greek Feta: Sheep',feta)
+        self.assertNotIn('data-advisor-source="boat-milos"',feta)
+        self.assertIn('/assets/images/uploads/greek-feta-barrels.png',feta)
+        self.assertNotIn('349808P1',milos)
+        self.assertNotIn('searchResults/all',milos)
+        self.assertIn('272308P1?pid=P00320497&amp;mcid=42383',milos)
         self.assertNotIn('combinedAverageRating',page)
         self.assertFalse((self.out/'travel-worker').exists())
 

@@ -11,6 +11,7 @@
     "Chromium viewport 1366px: home/catalog/article/concierge horizontal overflow PASS",
     "Photo loads only from allowed host; broken photo removed; collector failure does not block affiliate action: PASS",
     "Unknown URL context ignored; mobile menu works; no page JS errors: PASS",
+    "Restored Milos article opens Milos Boat profile; Feta has independent identity without a boat CTA: PASS",
     "Do Not Track disables helper interaction events: PASS"
   ],
   "events": [
@@ -193,6 +194,15 @@
       "kind": "boat",
       "productCode": "",
       "count": 1
+    },
+    {
+      "v": 1,
+      "name": "advisor_open",
+      "source": "boat-milos",
+      "placement": "article",
+      "kind": "boat",
+      "productCode": "",
+      "count": 0
     }
   ]
 }

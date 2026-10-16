@@ -1,6 +1,6 @@
-# Редакционная правка — ожидает согласования
+# Редакционное предложение — согласовано и реализовано в ветке PR
 
-Никакие файлы в `content/stories` в этой ветке не изменены.
+Разделение Milos/Feta согласовано пользователем 16 октября 2026 и реализовано в ветке PR. План ниже сохранён как история предложения; актуальный результат и проверка туров — в [editorial-verification-2026-10-16.md](editorial-verification-2026-10-16.md). Дополнение Privacy отдельно не согласовывалось и остаётся предложением.
 
 1. Вернуть `milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose.json` к первой опубликованной версии `72e29b5`. Полное предлагаемое содержание: [milos-proposed.json](milos-proposed.json).
 2. Сохранить текущую статью о фете без изменения текста и партнёрских ссылок как `content/stories/greek-feta-sheeps-milk-wooden-barrels-and-a-taste-of-place.json`. Полная копия: [feta-proposed.json](feta-proposed.json).

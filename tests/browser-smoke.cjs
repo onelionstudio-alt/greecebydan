@@ -131,6 +131,16 @@ const server = http.createServer((req, res) => {
     assert.equal(await page.locator('.menu').getAttribute('aria-expanded'), 'true');
     assert.equal(errors.length, 0, errors.join('\n'));
     report.push('Unknown URL context ignored; mobile menu works; no page JS errors: PASS');
+    await page.goto(base + '/milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose/');
+    assert.match(await page.locator('h1').innerText(), /Milos Boat Tours/);
+    await page.locator('[data-advisor-source="boat-milos"]').click();
+    await page.locator('#concierge-form:not([hidden])').waitFor();
+    assert.equal(await page.locator('[name=destination]').inputValue(), '4');
+    assert.equal(await page.locator('[name=kind]').inputValue(), 'boat');
+    await page.goto(base + '/greek-feta-sheeps-milk-wooden-barrels-and-a-taste-of-place/');
+    assert.match(await page.locator('h1').innerText(), /Greek Feta/);
+    assert.equal(await page.locator('[data-advisor-source="boat-milos"]').count(), 0);
+    report.push('Restored Milos article opens Milos Boat profile; Feta has independent identity without a boat CTA: PASS');
     await page.context().addInitScript(() => Object.defineProperty(navigator,'doNotTrack',{get:()=> '1'}));
     await page.goto(base + article);
     const prior = events.length;

@@ -1,25 +1,25 @@
-✔ Cloudflare entry ignores ExecutionContext and health reports readiness without secrets (5.464155ms)
-✔ OAuth requests use PKCE, unpredictable state, secure cookie and fixed public scope (7.201281ms)
-✔ Unknown site/provider and CSRF mismatch cannot reach the token endpoint (2.443337ms)
-✔ Expired session is rejected (1.200517ms)
-✔ Successful callback verifies account and repository and only hands token to exact opener (3.809609ms)
-✔ Wrong account or missing push rights cannot obtain a CMS token (2.36423ms)
-✔ Refresh requires the admin Origin and re-verifies identity (2.050198ms)
-✔ destination hierarchy includes Greek descendants only (8.378906ms)
-✔ preferences reject unknown filters, non-Greek-looking IDs and wrong types (0.309536ms)
-✔ category comes from live names, absent taxonomy fails closed (0.192063ms)
-✔ boat filter rejects self-drive, unknown crew, unsafe links and prices (1.701154ms)
-✔ preferences are enforced and duplicate results removed (0.636137ms)
-✔ wine, ordering and maximum three alternatives (1.571063ms)
-✔ health, robots, CORS, setup and rate limiting fail safely (5.344819ms)
-✔ mock integration bounds endpoint calls and keeps attribution unchanged (9.550199ms)
-✔ Impact diagnostics expose coverage only and validate tracking destinations (0.674172ms)
-✔ Impact check uses fixed catalog, scoped credentials, bounded requests and safe errors (13.070773ms)
-✔ Impact summary succeeds even when the cache cannot write (1.282158ms)
-✔ negation and conditional claims cannot become positive matches (1.696898ms)
-✔ card DTO preserves product identity and unknown facts; images are opt-in (0.368282ms)
-✔ event endpoint stores allowlisted aggregates only and fails independently (2.231856ms)
-✔ search works without a functioning cache (1.951843ms)
+✔ Cloudflare entry ignores ExecutionContext and health reports readiness without secrets (7.012283ms)
+✔ OAuth requests use PKCE, unpredictable state, secure cookie and fixed public scope (8.890738ms)
+✔ Unknown site/provider and CSRF mismatch cannot reach the token endpoint (2.733805ms)
+✔ Expired session is rejected (1.676358ms)
+✔ Successful callback verifies account and repository and only hands token to exact opener (4.187474ms)
+✔ Wrong account or missing push rights cannot obtain a CMS token (2.352213ms)
+✔ Refresh requires the admin Origin and re-verifies identity (1.694935ms)
+✔ destination hierarchy includes Greek descendants only (8.977235ms)
+✔ preferences reject unknown filters, non-Greek-looking IDs and wrong types (0.446537ms)
+✔ category comes from live names, absent taxonomy fails closed (0.274785ms)
+✔ boat filter rejects self-drive, unknown crew, unsafe links and prices (2.083277ms)
+✔ preferences are enforced and duplicate results removed (0.848379ms)
+✔ wine, ordering and maximum three alternatives (1.659984ms)
+✔ health, robots, CORS, setup and rate limiting fail safely (6.629629ms)
+✔ mock integration bounds endpoint calls and keeps attribution unchanged (16.313475ms)
+✔ Impact diagnostics expose coverage only and validate tracking destinations (0.976247ms)
+✔ Impact check uses fixed catalog, scoped credentials, bounded requests and safe errors (15.320723ms)
+✔ Impact summary succeeds even when the cache cannot write (1.39253ms)
+✔ negation and conditional claims cannot become positive matches (1.785027ms)
+✔ card DTO preserves product identity and unknown facts; images are opt-in (0.528578ms)
+✔ event endpoint stores allowlisted aggregates only and fails independently (2.762396ms)
+✔ search works without a functioning cache (2.415126ms)
 ℹ tests 22
 ℹ suites 0
 ℹ pass 22
@@ -27,4 +27,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 131.702321
+ℹ duration_ms 145.251762
