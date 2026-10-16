@@ -72,6 +72,15 @@ const server = http.createServer((req, res) => {
     assert.equal(await page.locator('.concierge-result a').getAttribute('href'),product.url);
     await page.locator('.concierge-result a').click();
     assert.deepEqual(forbiddenRequests,[]);
+    for (const [basis, expected] of [[undefined, /Price basis not confirmed/], ['unknown', /Price basis not confirmed/], ['per_person', /€123.00 per person/], ['per_group', /€123.00 per group/], ['invented', /Price basis not confirmed/], ['__proto__', /Price basis not confirmed/]]) {
+      product.fromPrice = 123; product.priceBasis = basis;
+      await page.locator('#concierge-form button').click();
+      await page.locator('#concierge-form button:not([disabled])').waitFor();
+      const text = await page.locator('.concierge-result').innerText();
+      assert.match(text, expected);
+      if (!['per_person', 'per_group'].includes(basis)) assert.doesNotMatch(text, /per person|per group/);
+    }
+    delete product.fromPrice; delete product.priceBasis;
     product.image = null; previewFeatures = true;
     report.push('DISABLED RELEASE: no event/beacon/photo/BMC-widget requests; affiliate action works: PASS');
     const article = '/how-to-taste-santorini-wine-without-driving/';

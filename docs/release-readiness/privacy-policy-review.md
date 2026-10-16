@@ -32,3 +32,24 @@
 - [EDPB technical scope 2/2023](https://www.edpb.europa.eu/documents/guideline/guidelines-22023-on-technical-scope-of-art-53-of-eprivacy-directive_en): охват шире cookies, оценка exemptions по ситуации.
 - [Cloudflare Web Analytics FAQ](https://developers.cloudflare.com/web-analytics/faq/): manual vs automatic insertion.
 - [Analytics Engine retention](https://developers.cloudflare.com/analytics/analytics-engine/limits/): три месяца при включении dataset.
+
+## Scope of the remaining launch gate (analytics OFF)
+
+The deferred Safety/Liability framework and a future analytics consent UI are not
+prerequisites for this narrow release while optional collection is demonstrably
+off. A generic lawyer approval of every possible jurisdiction is not asserted
+as a universal legal requirement. The unresolved factual gate is the operator's
+identity/contact details and the actual infrastructure/email processing
+arrangements: confirm providers, retention criteria, processing locations and
+applicable safeguards, then align the public notice. Assess territorial scope
+and any representative requirement for this actual operation, rather than
+inventing a representative or assuming every EU visitor triggers one.
+
+For the off release, verify both ordinary browser traffic and dashboard automatic
+RUM injection; a disabled event endpoint alone cannot prove no requests. Optional
+analytics consent, API-image licence approval and analytics retention setup may
+wait until those features are proposed for activation. They must remain off.
+
+Primary references rechecked 16 October: [EDPB legal grounds/transparency](https://www.edpb.europa.eu/sme/be-compliant/process-personal-data-lawfully_en),
+[GDPR Articles 3, 13, 27 and 44](https://eur-lex.europa.eu/eli/reg/2016/679/oj),
+[Cloudflare automatic beacon injection](https://developers.cloudflare.com/web-analytics/get-started/).

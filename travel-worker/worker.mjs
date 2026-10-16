@@ -39,6 +39,22 @@ export function mentioned(content, terms) {
   return new RegExp(`\\b${subject}\\b`, 'i').test(text) && !negative.test(text);
 }
 
+// Search summary prices have no verified booking-unit metadata in this adapter.
+// Do not infer a unit from title, PRIVATE_TOUR, UNIT, or a website price label:
+// search fromPrice may be normalised differently from the bookable unit price.
+export function priceBasis() { return 'unknown'; }
+
+export function includesWineTasting(product) {
+  const text = `${product.title || ''}. ${product.description || ''}`;
+  const activity = 'wine[ -]+tastings?|tastings? of (?:local |Greek )?wines?';
+  if (!mentioned(text, activity)) return false;
+  // Reject conflicting/optional tasting claims even when the title is positive.
+  // Sentence-wide conservative check: uncertainty is never an inclusion claim.
+  return !text.split(/[.!?;]/).some(sentence =>
+    /(?:tast(?:e|es|ed|ing)|winery|wineries)/i.test(sentence) &&
+    /\b(?:no|not|without|excluding|optional|extra|additional|surcharge|request|may|might|could|can|depending|subject|purchase|purchased|fee|payable|cost|own expense)\b/i.test(sentence));
+}
+
 export function cardDetails(product, imagesApproved = false) {
   const duration = product.duration;
   const valid = n => Number.isFinite(n) && n > 0 && n <= 43200;
@@ -68,7 +84,7 @@ export function recommendations(products, pref, imagesApproved = false) {
     try { target = new URL(p.productUrl); } catch { return []; }
     if (target.protocol !== 'https:' || !['viator.com', 'www.viator.com'].includes(target.hostname) || target.username || target.password) return [];
     if (pref.kind === 'boat' && (/self[- ]drive|without (?:a )?(?:licen[cs]e|captain|skipper|crew)|no (?:captain|skipper|crew)|(?:optional|additional|extra)[ -](?:captain|skipper|crew)|(?:captain|skipper|crew) (?:is )?(?:optional|available on request)|bareboat|boat rental|rent a boat|ferry ticket/i.test(content) || !mentioned(content, 'captain|skipper|crew'))) return [];
-    if (pref.kind === 'wine' && !mentioned(content, 'wine|winery|wineries|vineyard')) return [];
+    if (pref.kind === 'wine' && !includesWineTasting(p)) return [];
     const flags = p.flags || [];
     if (pref.style === 'private' && !flags.includes('PRIVATE_TOUR')) return [];
     if (pref.cancellation && !flags.includes('FREE_CANCELLATION')) return [];
@@ -78,11 +94,11 @@ export function recommendations(products, pref, imagesApproved = false) {
     if (!Number.isFinite(price) || price < 0 || p.pricing.currency !== 'EUR' || (pref.budget && price > pref.budget)) return [];
     const rating = Number(p.reviews?.combinedAverageRating) || 0;
     const reviews = Number(p.reviews?.totalReviews) || 0;
-    const reasons = [pref.kind === 'boat' ? 'The listing mentions a captain or crew.' : 'A wine experience in your selected destination.'];
+    const reasons = [pref.kind === 'boat' ? 'The listing mentions a captain or crew.' : 'The listing explicitly describes wine tasting. Confirm inclusions for your selected option on Viator.'];
     if (pref.style === 'private') reasons.push('Listed as a private experience.');
     if (pref.mood !== 'any') reasons.push({ sunset: 'Sunset is mentioned in the listing.', swimming: 'Swimming or snorkelling is mentioned.', food: 'Food or a pairing is mentioned.', vineyard: 'A winery or vineyard is mentioned.' }[pref.mood]);
     if (pref.cancellation) reasons.push('Listed with free cancellation; check the deadline.');
-    return [{ productCode: p.productCode, ...cardDetails(p, imagesApproved), title: p.title, url: p.productUrl, fromPrice: price, rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
+    return [{ productCode: p.productCode, ...cardDetails(p, imagesApproved), title: p.title, url: p.productUrl, fromPrice: price, priceBasis: priceBasis(p), rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
   }).sort((a, b) => b.score - a.score || a.fromPrice - b.fromPrice).slice(0, 3).map(({ score, ...p }) => p);
 }
 

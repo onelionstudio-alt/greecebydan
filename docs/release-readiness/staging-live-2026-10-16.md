@@ -33,7 +33,7 @@ the 15-minute product cache may explain this and the repeat is not independent
 fresh upstream verification. Dates, bookable places and a party-specific quote
 were not checked or claimed. No bookings or payments were made.
 
-The production UI was separately owner-tested for both categories. Its Milos
+The owner also tested the new bundled PR staging UI for both categories (preview source metadata bbd77807a609f9037963a8d4076bf329c1417ecb). Article context, results and first affiliate transitions were reported successful. The owner reported apiPhotos=false, interactionEvents=false, zero visible API photos, and POST /events returned 503 Events disabled. This confirms the older bundle, not the subsequent price/Wine correction. The production UI was separately owner-tested for both categories. Its Milos
 345728P2 link initially led to a destination catalogue with the selected product,
 and a subsequent click reached the matching product detail URL. This does not
 complete the new PR frontend's staging journey. URL parameters do not establish
@@ -60,21 +60,68 @@ spoofing/CAPTCHA bypass. Account-side diagnostics or Cloudflare support may be
 needed for independent automation. Health does not call Viator in the reviewed
 source, so its 1010 cannot be an upstream API response from that implementation.
 
-## Additional release blockers found in the real walkthrough
+## Focused correction: price and Wine
 
-1. **Price unit:** production concierge labelled 424217P3 as per person while the
-   owner's Viator screenshot labels its starting price per group. The PR client
-   likewise hard-codes `per person`; Worker only reads `pricing.summary.fromPrice`
-   and does not establish its basis. Do not assume this is merely FX or a valid
-   per-person conversion. The price-unit display and budget semantics need a
-   focused fix plus real data validation before release.
-2. **Wine relevance:** 424217P3 (`Hiden gems private tour`) appears in wine
-   results. Its title alone does not establish included tasting. The listing
-   details/inclusions/optional costs must be checked; it has not been proved
-   either a false positive or an included wine experience by these screenshots.
-3. **Full PR UI journey:** not yet owner-tested on remote staging. Client flags,
-   event endpoint hard-off, contextual article links, mobile, filter/empty/error
-   states and actual product-detail landings remain to be tested there.
+- Removed unconditional per-person labels. The search adapter returns
+  `priceBasis: unknown` because this integration has no verified unit metadata
+  for the summary amount. The frontend supports explicit per_person/per_group,
+  but missing, unknown and unrecognised values show neither unit and explain
+  that the pricing unit/party size/final price must be checked on Viator.
+- Do not map PRIVATE_TOUR, a title mentioning group, or pricingInfo UNIT directly
+  onto a search summary's basis. A booking-unit price and a normalised summary
+  amount are not automatically interchangeable. No division/multiplication or
+  currency conversion is invented.
+- The budget control now explicitly compares advertised starting amounts with
+  varying bases. It is neither a per-person budget nor a whole-party quote.
+- Wine needs an explicit wine-tasting activity in the listing text. Wine with
+  lunch, a winery visit or a wine category alone is insufficient. Negative,
+  optional, paid-extra and conditional tasting sentences veto the candidate.
+  This is conservative source-reported matching, not operator verification.
+- 424217P3 is not an established tasting recommendation. If its live text lacks
+  qualifying evidence it is excluded; no allowlist is used to force it through.
+
+Viator's [technical guide](https://docs.viator.com/partner-api/technical/) and
+[pricing guide](https://partnerresources.viator.com/travel-commerce/pricing/?source=specs)
+distinguish unit pricing and from-price concepts. The transactional
+[certification guide](https://partnerresources.viator.com/travel-commerce/certification/)
+is not treated as proof of this Basic search payload's pricing unit or as a
+new mandatory booking certification requirement for this click-out integration.
+
+## Remaining release gates
+
+1. Upload the regenerated `staging-preview.generated.mjs` ONLY to the existing
+   staging Worker via Cloudflare Workers & Pages → staging Worker → Edit code →
+   Deploy. Keep both feature variables false. Do not touch the production Worker.
+   No assistant-accessible Cloudflare deployment credential is available.
+2. Run `tests/staging-e2e.cjs` from a machine with normal staging access and
+   Playwright Chromium, from this branch's repository root. It checks current
+   API/client hashes, restored Milos and Santorini article contexts, real search
+   responses, neutral price labels, Wine reasons, mobile-sized overflow, exact
+   affiliate href and product identity after click, and ordinary client traffic
+   before separately probing disabled /events. A blocked partner page or no
+   confirmed Wine matches requires review, never synthetic replacement results.
+   Also inspect live Wine listings/inclusions for the returned products; the
+   regex is not a substitute for final editorial confirmation. Do not book.
+3. Confirm no auto-injected RUM/beacon in the Cloudflare dashboard and in browser
+   Network with Preserve log across both paths. Expect no ordinary /events,
+   cloudflareinsights/beacon or media.tacdn.com requests. The intentional endpoint
+   diagnostic alone should return 503 Events disabled. Old endpoint refusal
+   does not establish absence of ordinary client requests in the new bundle.
+4. Close the factual privacy gate in `privacy-policy-review.md`: operator legal
+   identity/contact and actual infrastructure/email processing arrangements,
+   retention criteria and applicable transfers; align the public notice.
+
+Real iOS/Android devices were not available. Playwright's 390px touch viewport
+is emulation, not a physical-device test. This is a disclosed residual UX risk,
+not evidence of a known device defect. Optional analytics consent and API-image
+approval may wait until those features are proposed for activation; they remain
+off. Commission settlement and date-specific booking availability are outside
+this no-purchase release test and are not promised to visitors.
+
+Local Chromium installation was attempted but the browser download was not a
+valid archive. The PR CI now runs the synthetic browser regressions separately;
+those are not described as a real staging E2E pass. Work's Cloudflare 1010 still
+prevents independent real staging verification from this environment.
 
 ## Isolated preview package
 

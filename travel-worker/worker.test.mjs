@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import worker, { greekDestinations, category, preferences, recommendations, impactCoverage } from './worker.mjs';
+import worker, { greekDestinations, category, preferences, recommendations, impactCoverage, priceBasis, includesWineTasting } from './worker.mjs';
 const destinations = [{ destinationId: 1, name: 'Europe', type: 'CONTINENT' }, { destinationId: 2, parentDestinationId: 1, name: 'Greece', type: 'COUNTRY' }, { destinationId: 3, parentDestinationId: 2, name: 'Cyclades' }, { destinationId: 4, parentDestinationId: 3, name: 'Milos' }, { destinationId: 5, parentDestinationId: 1, name: 'Rome' }];
 const pref = { kind: 'boat', destination: '4', style: 'any', mood: 'any', budget: 0, cancellation: false };
 const product = { productCode: 'X', title: 'Milos sailing', description: 'A captain and crew, sunset swimming.', flags: ['PRIVATE_TOUR', 'FREE_CANCELLATION'], productUrl: 'https://www.viator.com/tours/Milos/tour?pid=P123&medium=api', pricing: { summary: { fromPrice: 100 }, currency: 'EUR' }, reviews: { combinedAverageRating: 4.8, totalReviews: 120 } };
@@ -29,7 +29,7 @@ test('preferences are enforced and duplicate results removed', () => {
   assert.equal(recommendations([{ ...product, description: 'Crew on board' }], { ...pref, mood: 'swimming' }).length, 0);
 });
 test('wine, ordering and maximum three alternatives', () => {
-  const wine = { ...product, title: 'Winery tour', description: 'Wine paired with cheese.' };
+  const wine = { ...product, title: 'Wine tasting tour', description: 'Wine tasting paired with cheese is included.' };
   assert.equal(recommendations([wine], { ...pref, kind: 'wine', mood: 'food' }).length, 1);
   const data = Array.from({ length: 5 }, (_, i) => ({ ...product, productCode: `P${i}`, reviews: { combinedAverageRating: 4 + i / 10, totalReviews: 100 } }));
   const result = recommendations(data, pref);
@@ -218,4 +218,36 @@ test('search works without a functioning cache', async () => {
     const response = await worker.fetch(request, { VIATOR_API_KEY: 'secret', SEARCH_LIMIT: { limit: async () => ({ success: true }) } });
     assert.equal(response.status, 200); assert.equal((await response.json()).products.length, 1);
   } finally { globalThis.fetch = originalFetch; globalThis.caches = originalCaches; }
+});
+
+
+test('search price basis stays unknown without evidence, including private/unit products', () => {
+  for (const extra of [{}, { pricingInfo: { type: 'PER_PERSON' } }, { pricingInfo: { type: 'UNIT' } }, { title: 'Private boat per group' }]) {
+    assert.equal(priceBasis({ ...product, ...extra }), 'unknown');
+    assert.equal(recommendations([{ ...product, ...extra }], pref)[0].priceBasis, 'unknown');
+  }
+  assert.equal(recommendations([product], { ...pref, budget: 150 }).length, 1);
+  assert.equal(recommendations([product], { ...pref, budget: 75 }).length, 0);
+});
+
+test('wine requires explicit tasting activity and rejects uncertain or conflicting inclusions', () => {
+  const cases = [
+    ['Hiden gems private tour', 'Visit Oia and a winery. Wine with lunch.', false],
+    ['Wine tour', 'Visit vineyards and enjoy the sunset.', false],
+    ['Wine tasting', 'Wine tasting is not included.', false],
+    ['Wine tasting', 'Optional wine tasting at extra cost.', false],
+    ['Island tour', 'You may taste wines at your own expense.', false],
+    ['Wine tasting', 'Tasting subject to availability.', false],
+    ['Wine tasting', 'Winery visit only, without tasting.', false],
+    ['Wine tasting', 'Wine tasting surcharge payable locally.', false],
+    ['Wine tasting', 'Tasting on request.', false],
+    ['Premium wine tour', 'Includes wine tasting at two wineries.', true],
+    ['Cooking Class and Wine Tasting', 'Cook local dishes with your host.', true],
+    ['Wine tour', 'Tasting of local wines is included.', true]
+  ];
+  for (const [title, description, expected] of cases) {
+    const p = { ...product, title, description };
+    assert.equal(includesWineTasting(p), expected, description);
+    assert.equal(recommendations([p], { ...pref, kind: 'wine' }).length, expected ? 1 : 0, description);
+  }
 });

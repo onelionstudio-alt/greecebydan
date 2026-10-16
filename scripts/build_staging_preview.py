@@ -122,8 +122,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--site', type=Path, default=ROOT / '_site')
     parser.add_argument('--output', type=Path, default=ROOT / 'docs/release-readiness/staging-preview.generated.mjs')
+    parser.add_argument('--source-commit', help='Reviewed source commit recorded in preview metadata')
     args = parser.parse_args()
-    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    commit = args.source_commit or subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    if len(commit) != 40 or any(c not in '0123456789abcdef' for c in commit):
+        raise ValueError('source commit must be a full SHA-1')
     output = package(args.site, (ROOT / 'travel-worker/worker.mjs').read_text(), commit)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(output)

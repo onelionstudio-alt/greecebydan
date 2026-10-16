@@ -107,7 +107,11 @@
         node('dd', d && Number.isFinite(d.min) && Number.isFinite(d.max) && d.min > 0 && d.max >= d.min ? (d.min === d.max ? minutes(d.min) : `${minutes(d.min)}–${minutes(d.max)}`) : 'Check duration on Viator', facts);
         node('dt', 'Departure', facts);
         node('dd', 'Confirm the meeting point and any pickup on Viator', facts);
-        if (Number.isFinite(product.fromPrice)) node('p', `From ${new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(product.fromPrice)} per person · indicative starting price`, article);
+        if (Number.isFinite(product.fromPrice)) {
+          const basis = product.priceBasis === 'per_person' ? ' per person' : product.priceBasis === 'per_group' ? ' per group' : '';
+          node('p', `From ${new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(product.fromPrice)}${basis} · indicative starting price`, article);
+          if (!basis) node('p', 'Price basis not confirmed. Check the pricing unit, party size and final price on Viator.', article);
+        }
         if (product.rating && product.reviews) node('p', `${product.rating.toFixed(1)}/5 · ${product.reviews} reviews across Viator and Tripadvisor`, article);
         let target;
         try { target = new URL(product.url); } catch { return; }
