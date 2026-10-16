@@ -9,3 +9,17 @@ namespace_id = "1047"
 [ratelimits.simple]
 limit = 20
 period = 60
+
+# Enable only after reviewing docs/audit-iteration-1/editorial-proposal.md,
+# privacy text, account entitlements and collection settings. Not deployed here.
+# [[analytics_engine_datasets]]
+# binding = "INTERACTIONS"
+# dataset = "greecebydan_interactions"
+# [[ratelimits]]
+# name = "EVENT_LIMIT"
+# namespace_id = "1048"
+# [ratelimits.simple]
+# limit = 60
+# period = 60
+# [vars]
+# VIATOR_IMAGES_APPROVED = "true" # Only after account/photo permission verification.

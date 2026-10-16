@@ -161,3 +161,59 @@ test('Impact summary succeeds even when the cache cannot write', async () => {
     assert.equal((await response.json()).connected, true);
   } finally { globalThis.fetch = originalFetch; globalThis.caches = originalCache; }
 });
+
+test('negation and conditional claims cannot become positive matches', () => {
+  for (const description of ['Skipper not included. Captain not provided.', 'No crew on board.', 'Captain is optional.', 'Crew is unavailable.', 'Skipper available at extra cost.']) {
+    assert.equal(recommendations([{ ...product, description }], pref).length, 0, description);
+  }
+  for (const description of ['Crew on board. No swimming allowed.', 'Crew on board. Swimming is not permitted.', 'Crew on board. Snorkelling is unavailable.', 'Crew on board. Swimming depends on weather.', 'Crew on board. We do not stop for swimming.']) {
+    assert.equal(recommendations([{ ...product, description }], { ...pref, mood: 'swimming' }).length, 0, description);
+  }
+  assert.equal(recommendations([{ ...product, description: 'Crew on board. Swimming and snorkelling stops included.' }], { ...pref, mood: 'swimming' }).length, 1);
+  for (const description of ['Wine tasting. No food included.', 'Wine tasting. Meals are not provided.', 'Wine tasting. Dinner costs extra.']) {
+    assert.equal(recommendations([{ ...product, title: 'Wine tour', description }], { ...pref, kind: 'wine', mood: 'food' }).length, 0, description);
+  }
+  assert.equal(recommendations([{ ...product, description: 'Crew on board. No sunset cruise.' }], { ...pref, mood: 'sunset' }).length, 0);
+});
+
+test('card DTO preserves product identity and unknown facts; images are opt-in', async () => {
+  const { cardDetails } = await import('./worker.mjs');
+  const image = { isCover: true, variants: [{ url: 'https://media.tacdn.com/media/attractions-splice-spp-720x480/example.jpg', width: 720, height: 480 }] };
+  const p = { ...product, duration: { fixedDurationInMinutes: 240 }, images: [image] };
+  const result = recommendations([p], pref)[0];
+  assert.equal(result.productCode, product.productCode);
+  assert.equal(result.url, product.productUrl);
+  assert.deepEqual(result.durationMinutes, { min: 240, max: 240 });
+  assert.equal(result.image, null);
+  assert.equal(result.departure, null);
+  assert.deepEqual(cardDetails(p, true).image, image.variants[0]);
+  assert.equal(cardDetails({ ...p, images: [{ ...image, variants: [{ ...image.variants[0], url: 'https://evil.example/photo' }] }] }, true).image, null);
+  assert.equal(cardDetails({ duration: { fixedDurationInMinutes: -1 } }).durationMinutes, null);
+  assert.deepEqual(cardDetails({ duration: { variableDurationFromMinutes: 120, variableDurationToMinutes: 180 } }).durationMinutes, { min: 120, max: 180 });
+});
+
+test('event endpoint stores allowlisted aggregates only and fails independently', async () => {
+  const e = { v: 1, name: 'affiliate_click', source: 'boat-milos', placement: 'concierge', kind: 'boat', productCode: 'P12', count: 0 };
+  const writes = [];
+  const env = { INTERACTIONS: { writeDataPoint: point => writes.push(point) }, EVENT_LIMIT: { limit: async () => ({ success: true }) } };
+  const req = (data, origin = 'https://greecebydan.com') => new Request('https://worker.example/events', { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+  assert.equal((await worker.fetch(req(e), env)).status, 204);
+  assert.deepEqual(writes, [{ indexes: ['affiliate_click'], blobs: ['1', 'boat-milos', 'concierge', 'boat', 'P12'], doubles: [0] }]);
+  for (const change of [{ ip: '1.2.3.4' }, { source: 'medical-condition' }, { url: 'https://viator.com/?tracking=private' }, { productCode: '<script>' }, { count: 999 }, { name: 'unknown' }]) assert.equal((await worker.fetch(req({ ...e, ...change }), env)).status, 400);
+  assert.equal(writes.length, 1);
+  assert.equal((await worker.fetch(req(e), {})).status, 503);
+  assert.equal((await worker.fetch(req(e, 'https://evil.example'), env)).status, 403);
+  assert.equal((await worker.fetch(req({ ...e, source: 'x'.repeat(1000) }), env)).status, 413);
+  assert.equal((await worker.fetch(req(e), { ...env, EVENT_LIMIT: { limit: async () => ({ success: false }) } })).status, 429);
+});
+
+test('search works without a functioning cache', async () => {
+  const originalFetch = globalThis.fetch; const originalCaches = globalThis.caches;
+  globalThis.caches = { default: { match: async () => { throw new Error('cache'); }, put: async () => { throw new Error('cache'); } } };
+  globalThis.fetch = async url => Response.json(url.endsWith('/destinations') ? { destinations } : url.endsWith('/products/tags') ? { tags: [{ tagId: 10, allNamesByLocale: { en: 'Sailing' } }] } : { products: [product] });
+  try {
+    const request = new Request('https://worker.example/search', { method: 'POST', headers: { Origin: 'https://greecebydan.com', 'Content-Type': 'application/json' }, body: JSON.stringify(pref) });
+    const response = await worker.fetch(request, { VIATOR_API_KEY: 'secret', SEARCH_LIMIT: { limit: async () => ({ success: true }) } });
+    assert.equal(response.status, 200); assert.equal((await response.json()).products.length, 1);
+  } finally { globalThis.fetch = originalFetch; globalThis.caches = originalCaches; }
+});

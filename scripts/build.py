@@ -76,7 +76,7 @@ def slug_for(path):
     return slug
 
 def header():
-    return '<header class="site-header"><a class="brand" href="/">Greece <em>by Dan</em></a><button class="menu" aria-label="Open menu" aria-expanded="false">Menu</button><nav><a href="/stories/">Stories</a><a href="/concierge/">Your concierge</a><a href="/about/">About</a><a href="/#plan">Plan your trip</a></nav></header>'
+    return '<header class="site-header"><a class="brand" href="/">Greece <em>by Dan</em></a><button class="menu" aria-label="Open menu" aria-expanded="false">Menu</button><nav><a href="/stories/">Stories</a><a href="/concierge/">Your concierge</a><a href="/about/">About</a><a href="/concierge/">Plan your trip</a></nav></header>'
 
 def footer(s):
     links = [('stories','All stories'),('concierge','Your concierge'),('about','About'),('affiliate-disclosure','Affiliate disclosure'),
@@ -244,6 +244,15 @@ def related_stories(story, stories):
     return '<nav class="related-stories" aria-label="Related stories"><h2>Keep exploring</h2><ul>'+''.join('<li><a href="/'+other['slug']+'/">'+esc(other['title'])+'</a></li>' for other in matches[:3])+'</ul></nav>'
 
 
+def advisor_entry(source, slug):
+    profiles = read(source/'assets/data/advisor-contexts.json')['profiles']
+    for profile in profiles:
+        if slug in profile['articles']:
+            query = urlencode({k: profile[k] for k in ['kind', 'place', 'profile', 'source']})
+            return '<aside class="advisor-entry"><span class="kicker">Need help choosing?</span><h2>'+esc(profile['label'])+'</h2><p>Start with this destination and experience type already selected. You can change every preference.</p><a class="affiliate-button" data-advisor-source="'+esc(profile['source'])+'" href="/concierge/?'+esc(query)+'">Find a few options →</a><p class="note">Details, dates and any transport arrangements need confirmation on Viator.</p></aside>'
+    return ''
+
+
 def build(source=ROOT, output=None):
     source=Path(source).resolve()
     output=Path(output or source/'_site').resolve()
@@ -308,7 +317,7 @@ def build(source=ROOT, output=None):
         hero=story_image(story,hero=True)
         if hero and story['hero_image_ai']:
             hero='<figure class="story-image">'+hero+'<figcaption class="image-ai-caption">'+AI_IMAGE_LABEL+'</figcaption></figure>'
-        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+byline(story)+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] else '')+markdown(story['body'])+'<!--RELATED_STORIES-->'+youtube(story['youtube_url'])
+        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+byline(story)+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] else '')+markdown(story['body'])+advisor_entry(source,slug)+'<!--RELATED_STORIES-->'+youtube(story['youtube_url'])
         story_links=affiliate_links(aff)
         if not story_links:
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])
@@ -358,7 +367,7 @@ def build(source=ROOT, output=None):
     for document in output.rglob('*.html'):
         if document.relative_to(output).parts[0] != 'admin':
             markup = document.read_text(encoding='utf-8')
-            document.write_text(markup.replace('</body>', ANALYTICS+'</body>', 1), encoding='utf-8')
+            document.write_text(markup.replace('</body>', '<script src="/assets/js/events.js" defer></script>'+ANALYTICS+'</body>', 1), encoding='utf-8')
     (output/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /assets/js/concierge.js\nSitemap: '+SITE_URL+'/sitemap.xml\n')
     modified={'/'+story['slug']+'/':story['modified_date'] for story in stories if story['modified_date']}
     (output/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE_URL+p+'</loc>'+('<lastmod>'+modified[p]+'</lastmod>' if p in modified else '')+'</url>' for p in routes)+'</urlset>\n')

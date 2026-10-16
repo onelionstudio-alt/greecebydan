@@ -51,3 +51,45 @@ Official API reference:
 https://integrations.impact.com/partner-api-reference/readme/authentication
 https://integrations.impact.com/partner-api-reference/reference/catalogs/catalogs
 https://integrations.impact.com/partner-api-reference/readme/pagination
+
+## First audit iteration (unpublished)
+
+The same Worker gains an optional `/events` endpoint and additive card fields.
+No secret, OAuth Worker, CMS path, product URL or deployment is changed.
+Deploy Worker first, then Pages, only after approval. Old Worker DTOs still render
+in the new client; missing fields display “Check … on Viator”.
+
+- Text negation/conditional matches fail closed. This can omit valid listings;
+  it is not verified tour suitability. Hard preferences are never relaxed.
+- `productCode` is preserved; `durationMinutes` is derived only from search
+  `duration` fields. `departure` remains null. No coordinates inferred from a
+  destination and no new details/locations API calls are made.
+- Image rendering is **off by default**. Only after confirming account terms
+  and a real response, set `VIATOR_IMAGES_APPROVED=true`. The Worker then
+  passes a supplier cover variant from `images[].variants[]` on
+  `media.tacdn.com` (400–1200px). No public Viator.com scraping, photo downloads,
+  image proxy or persistent image storage. Search cache remains 15 minutes.
+  Front-End Guide permits API image merchandising; individual terms still apply.
+- `/events` is disabled (503) unless both `INTERACTIONS` Analytics Engine and
+  independent `EVENT_LIMIT` bindings exist. Commented config is an activation
+  example, not an activated dataset. Review proposed privacy text first.
+- Event schema v1: allowlisted name/source/placement/kind, optional product code,
+  and count 0–3 only. No visitor ID, IP, full URL, free text, preference values,
+  timestamps from client or health details are stored in event points.
+  IP is used transiently by Cloudflare's rate limiter; infrastructure logging
+  remains governed by the account. DNT/GPC disable the client collector.
+- Event points: `index1=event name`; `blob1=version`, `blob2=source`,
+  `blob3=placement`, `blob4=kind`, `blob5=productCode`, `double1=result count`.
+  Aggregate by name/source/placement/kind over a fixed date range. Without
+  visitor identifiers these are event counts, not unique users or a joined
+  personal journey. One explicit click creates one client event; transport is
+  best effort (no retries). Analytics Engine sampling/retention and account
+  access must be checked at activation; exact unique counting is not promised.
+- Metrics use no-referrer and omit credentials; a collector failure never blocks
+  a link. Generic article direct-link clicks are measured separately from
+  concierge card clicks; no affiliate URL parameters are sent.
+
+Before release: approve the Milos/Feta editorial repair, verify actual API image
+and duration payloads, complete mobile browser/screenshots, agree privacy text,
+activate bindings only if desired, and validate runtime in Workers. This branch
+is a review draft, not a production deployment.

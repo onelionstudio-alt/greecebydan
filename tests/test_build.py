@@ -30,6 +30,19 @@ class SearchFoundation(unittest.TestCase):
         self.assertEqual(json.loads(block)['headline'],story['title'])
         self.assertNotIn('</script>',block)
 
+class AdvisorContext(unittest.TestCase):
+    def test_only_explicit_articles_get_allowlisted_context(self):
+        from urllib.parse import parse_qs, urlsplit
+        import re, html
+        markup=builder.advisor_entry(ROOT,'how-to-taste-santorini-wine-without-driving')
+        href=html.unescape(re.search(r'href="([^"]+)"',markup).group(1))
+        self.assertEqual(urlsplit(href).path,'/concierge/')
+        self.assertEqual(parse_qs(urlsplit(href).query),{'kind':['wine'],'place':['santorini'],'profile':['wine-choice'],'source':['wine-santorini']})
+        self.assertEqual(builder.advisor_entry(ROOT,'sikinos'),'')
+        # Corrupt Milos/Feta record must not acquire a boat CTA before restoration.
+        self.assertEqual(builder.advisor_entry(ROOT,'milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose'),'')
+        self.assertIn('href="/concierge/">Plan your trip',builder.header())
+
 class ResponsiveImages(unittest.TestCase):
     def test_derivatives_decode_and_preserve_original(self):
         from PIL import Image
@@ -139,6 +152,10 @@ class Publishing(unittest.TestCase):
         self.assertIn('id="concierge-form" hidden',page)
         self.assertIn('/concierge/',(self.out/'sitemap.xml').read_text())
         self.assertIn('Disallow: /assets/js/concierge.js',(self.out/'robots.txt').read_text())
+        self.assertIn('/assets/js/events.js',page)
+        self.assertTrue((self.out/'assets/data/advisor-contexts.json').exists())
+        wine=(self.out/'how-to-taste-santorini-wine-without-driving/index.html').read_text()
+        self.assertIn('data-advisor-source="wine-santorini"',wine)
         self.assertNotIn('combinedAverageRating',page)
         self.assertFalse((self.out/'travel-worker').exists())
 

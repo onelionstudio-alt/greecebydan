@@ -1,0 +1,198 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": true,
+  "actualPhone": false,
+  "checks": [
+    "Article → prefilled wine/destination → results → unmodified sponsored affiliate URL; one event per interaction: PASS",
+    "Empty results and rate limiting preserve preferences; retry stays enabled: PASS",
+    "Chromium viewport 360px: home/catalog/article/concierge horizontal overflow PASS",
+    "Chromium viewport 390px: home/catalog/article/concierge horizontal overflow PASS",
+    "Chromium viewport 768px: home/catalog/article/concierge horizontal overflow PASS",
+    "Chromium viewport 1366px: home/catalog/article/concierge horizontal overflow PASS",
+    "Photo loads only from allowed host; broken photo removed; collector failure does not block affiliate action: PASS",
+    "Unknown URL context ignored; mobile menu works; no page JS errors: PASS",
+    "Do Not Track disables helper interaction events: PASS"
+  ],
+  "events": [
+    {
+      "v": 1,
+      "name": "advisor_open",
+      "source": "wine-santorini",
+      "placement": "article",
+      "kind": "wine",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "wine-santorini",
+      "placement": "concierge",
+      "kind": "wine",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "results_view",
+      "source": "wine-santorini",
+      "placement": "concierge",
+      "kind": "wine",
+      "productCode": "",
+      "count": 1
+    },
+    {
+      "v": 1,
+      "name": "affiliate_click",
+      "source": "wine-santorini",
+      "placement": "concierge",
+      "kind": "wine",
+      "productCode": "UI_FIXTURE",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "wine-santorini",
+      "placement": "concierge",
+      "kind": "wine",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "no_results",
+      "source": "wine-santorini",
+      "placement": "concierge",
+      "kind": "wine",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "wine-santorini",
+      "placement": "concierge",
+      "kind": "wine",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "search_error",
+      "source": "wine-santorini",
+      "placement": "concierge",
+      "kind": "wine",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "results_view",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 1
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "results_view",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 1
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "results_view",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 1
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "results_view",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 1
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "results_view",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 1
+    },
+    {
+      "v": 1,
+      "name": "search_submit",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 0
+    },
+    {
+      "v": 1,
+      "name": "results_view",
+      "source": "boat-milos",
+      "placement": "concierge",
+      "kind": "boat",
+      "productCode": "",
+      "count": 1
+    }
+  ]
+}
