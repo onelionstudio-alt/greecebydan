@@ -26,6 +26,8 @@ const hash = s => crypto.createHash('sha256').update(s).digest('hex');
     const meta = JSON.parse(await page.locator('body').innerText());
     assert.equal(meta.apiSourceSha256, hash(fs.readFileSync('travel-worker/worker.mjs')), 'staging Worker is stale');
     assert.equal(meta.assetSha256['/assets/js/concierge.js'], hash(fs.readFileSync('assets/js/concierge.js', 'utf8').replaceAll('https://greecebydan-travel-api.onelion-studio.workers.dev', base)), 'staging frontend is stale');
+    const bundledMeta = JSON.parse(fs.readFileSync('docs/release-readiness/staging-preview.generated.mjs', 'utf8').match(/^const PREVIEW_META = (.*);$/m)[1]);
+    assert.deepEqual(meta.assetSha256, bundledMeta.assetSha256, 'staging HTML/assets differ from this branch bundle');
     assert.equal(meta.apiPhotos, false); assert.equal(meta.interactionEvents, false);
     for (const [article, kind, destination] of [
       ['/milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose/', 'boat', '22323'],

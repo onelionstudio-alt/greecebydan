@@ -158,7 +158,7 @@ route, analytics dataset or trigger. Do not copy this module into production.
 This same-origin preview changes only staging origin wiring; it is not proof of
 production cross-origin behaviour after a future release.
 
-Local verification of this change: all 17 Python tests (15 existing + 2 preview
+Earlier preview baseline: all 17 Python tests (15 existing + 2 preview
 tests) and all 22 Node tests passed; site build produced 13 published stories;
 generated-module syntax and runtime checks passed. The runtime smoke verified
 the original API source hash, both article entry contexts, disabled client
@@ -168,7 +168,7 @@ These adapter checks use local fixtures/no network and are not additional live
 Viator evidence. No independent browser/device result is claimed for this new
 remote frontend yet.
 
-Next browser journey: staging Milos article → Compare Milos boat trips →
+Repeat after uploading the corrected bundle: staging Milos article → Compare Milos boat trips →
 preselected boat/Milos → real results → original affiliate product URL. Repeat
 for Santorini wine. Check network traffic contains no `/events`, API photos or
 analytics beacon. An explicit diagnostic POST to staging `/events` must return
@@ -179,7 +179,7 @@ analytics beacon. An explicit diagnostic POST to staging `/events` must return
 Real API staging reads are now PASS within the owner-assisted scope above.
 Release remains blocked until the price-unit issue, wine relevance, full PR
 staging journey and hard-off checks are resolved; current-head CI must pass and
-the existing privacy/mobile review conditions must be addressed or explicitly
-accepted where appropriate. A separate owner approval is still required for
+the factual privacy gate must be closed. Physical-device testing remains an
+explicit limitation rather than an observed defect. A separate owner approval is still required for
 merge and for publication. Production smoke and later affiliate commission
 reconciliation can follow release; first real API/UI validation cannot.
