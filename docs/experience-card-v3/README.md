@@ -122,3 +122,14 @@ type ExperienceCard = {
 - [Affiliate attribution](https://partnerresources.viator.com/blog/attribution/) — productUrl/campaign.
 - [Pricing guide](https://partnerresources.viator.com/travel-commerce/pricing/) — нормализованная from price vs bookable unit pricing; не вычислять group price из рекламного summary.
 - [WCAG 2.2](https://www.w3.org/TR/WCAG22/) и [Core Web Vitals](https://web.dev/articles/vitals) — нормативные/инженерные targets.
+
+## Готовые материалы и результаты
+
+- [Интерактивный прототип](prototype.html) — скачать и открыть в браузере.
+- [Desktop 1440px](evidence/cards-1440.png), [Mobile 390px](evidence/cards-390.png).
+- [Сравнение desktop](evidence/compare-1440.png), [сравнение mobile](evidence/compare-390.png).
+- [Loading](evidence/state-loading-390.png), [No image](evidence/state-no-image-390.png), [Missing data](evidence/state-missing-390.png), [No results](evidence/state-empty-390.png), [API error](evidence/state-error-390.png).
+- [Проверки прототипа](evidence/results.json): PASS на 360/390/768/1440px; 2/3 comparison, нет page overflow, state recovery, affiliate attributes, ноль HTTP-запросов.
+- [Design CI](https://github.com/onelionstudio-alt/greecebydan/actions/runs/38938038130): SUCCESS. Скриншоты визуально проверены. Физические телефоны не использовались.
+
+![Desktop design](evidence/cards-1440.png)
