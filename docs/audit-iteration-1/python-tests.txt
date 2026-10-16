@@ -1,9 +1,11 @@
 test_only_explicit_articles_get_allowlisted_context (test_build.AdvisorContext.test_only_explicit_articles_get_allowlisted_context) ... ok
 test_button_is_explicit_and_escaped (test_build.AffiliateButtons.test_button_is_explicit_and_escaped) ... ok
 test_non_https_button_is_rejected (test_build.AffiliateButtons.test_non_https_button_is_rejected) ... ok
+test_worker_flags_and_staging_isolation (test_build.DisabledRelease.test_worker_flags_and_staging_isolation) ... ok
 test_feta_record_preserved_and_tour_codes_not_mixed (test_build.EditorialIntegrity.test_feta_record_preserved_and_tour_codes_not_mixed) ... ok
 test_catalog_featured_dates_and_drafts (test_build.Publishing.test_catalog_featured_dates_and_drafts) ... ok
-test_catalog_metadata_validation_and_escaping (test_build.Publishing.test_catalog_metadata_validation_and_escaping) ... ok
+testok
+test_concierge_publishing_and_protected_api_content (test_build.Publishing.test_concierge_publishing_and_protecteok
 test_concierge_publishing_and_protected_api_content (test_build.Publishing.test_concierge_publishing_and_protected_api_content) ... ok
 test_html_is_escaped_and_links_keep_scheme (test_build.Publishing.test_html_is_escaped_and_links_keep_scheme) ... ok
 test_publish_update_unpublish_and_delete (test_build.Publishing.test_publish_update_unpublish_and_delete) ... ok
@@ -14,15 +16,15 @@ test_article_schema_escapes_script_markup (test_build.SearchFoundation.test_arti
 test_related_stories_only_link_relevant_published_candidates (test_build.SearchFoundation.test_related_stories_only_link_relevant_published_candidates) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 145.539s
+Ran 15 tests in 148.509s
 
 OK
-Built 14 published stories into /tmp/tmp7vyr2ofh/out
-Built 22 published stories into /tmp/tmp7vyr2ofh/out
-Built 21 published stories into /tmp/tmp7vyr2ofh/out
-Built 13 published stories into /tmp/tmpm0v93usk/out
-Built 13 published stories into /tmp/tmp006vsl9b/out
-Built 14 published stories into /tmp/tmp10sc7ax1/out
-Built 13 published stories into /tmp/tmp10sc7ax1/out
-Built 12 published stories into /tmp/tmp10sc7ax1/out
-Built 13 published stories into /tmp/tmp7rker2n2/out
+Built 14 published stories into /tmp/tmph5gu3y70/out
+Built 22 published stories into /tmp/tmph5gu3y70/out
+Built 21 published stories into /tmp/tmph5gu3y70/out
+Built 13 published stories into /tmp/tmpujxo4uy6/out
+Built 13 published stories into /tmp/tmpx1j3x24k/out
+Built 14 published stories into /tmp/tmptnrk4z5u/out
+Built 13 published stories into /tmp/tmptnrk4z5u/out
+Built 12 published stories into /tmp/tmptnrk4z5u/out
+Built 13 published stories into /tmp/tmp5d9l00hk/out

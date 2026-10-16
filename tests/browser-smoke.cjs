@@ -22,14 +22,18 @@ const server = http.createServer((req, res) => {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = 'http://127.0.0.1:' + server.address().port;
   const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROMIUM_EXECUTABLE_PATH || undefined, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
-  const report = []; const events = []; let state = 'results'; let collectorFails = false;
+  const report = []; const events = []; let state = 'results'; let collectorFails = false; let previewFeatures = false; const forbiddenRequests = [];
   const product = { productCode: 'UI_FIXTURE', title: 'Interface test — not a tour offer', reason: 'Synthetic test data. No price, dates or availability are supplied.', url: 'https://www.viator.com/tours/UI_FIXTURE?pid=TEST&medium=api', departure: null, image: null, durationMinutes: null };
   try {
     const page = await browser.newPage();
     const errors = []; page.on('pageerror', e => errors.push(e.message));
     await page.context().route('**/*', route => {
       const u = new URL(route.request().url());
-      if (u.origin === base) return route.continue();
+      if (u.origin === base) {
+        if (previewFeatures && route.request().isNavigationRequest()) return route.fetch().then(async r => route.fulfill({response:r,body:(await r.text()).replace('name="gbd-interactions" content="disabled"','name="gbd-interactions" content="enabled"').replace('name="gbd-api-photos" content="disabled"','name="gbd-api-photos" content="enabled"')}));
+        return route.continue();
+      }
+      if (!previewFeatures && (u.pathname === '/events' || /cloudflareinsights|tacdn|buymeacoffee/.test(u.hostname))) forbiddenRequests.push(route.request().url());
       if (u.hostname === 'greecebydan-travel-api.onelion-studio.workers.dev') {
         if (u.pathname === '/events') { if (collectorFails) return route.abort(); events.push(route.request().postDataJSON()); return route.fulfill({ status: 204 }); }
         if (u.pathname === '/destinations') return route.fulfill({ json: { destinations: [{ id: '4', name: 'Milos' }, { id: '5', name: 'Santorini' }] } });
@@ -54,6 +58,22 @@ const server = http.createServer((req, res) => {
       }
       return;
     }
+    // First test the ACTUAL disabled release. Then explicitly opt in only in
+    // this intercepted, local test HTML to exercise dormant prototype paths.
+    product.image = {url:'https://media.tacdn.com/UI-test.svg',width:720,height:480};
+    await page.goto(base + '/milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose/');
+    await page.locator('[data-advisor-source="boat-milos"]').click();
+    await page.locator('#concierge-form:not([hidden])').waitFor();
+    await page.locator('#concierge-form button').click();
+    await page.locator('.concierge-result').waitFor();
+    assert.equal(await page.locator('.concierge-photo').count(),0);
+    assert.equal(events.length,0);
+    assert.deepEqual(forbiddenRequests,[]);
+    assert.equal(await page.locator('.concierge-result a').getAttribute('href'),product.url);
+    await page.locator('.concierge-result a').click();
+    assert.deepEqual(forbiddenRequests,[]);
+    product.image = null; previewFeatures = true;
+    report.push('DISABLED RELEASE: no event/beacon/photo/BMC-widget requests; affiliate action works: PASS');
     const article = '/how-to-taste-santorini-wine-without-driving/';
     await page.goto(base + article);
     const entry = page.locator('[data-advisor-source="wine-santorini"]');

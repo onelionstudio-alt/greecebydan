@@ -64,13 +64,13 @@ in the new client; missing fields display “Check … on Viator”.
 - `productCode` is preserved; `durationMinutes` is derived only from search
   `duration` fields. `departure` remains null. No coordinates inferred from a
   destination and no new details/locations API calls are made.
-- Image rendering is **off by default**. Only after confirming account terms
+- Image rendering is **off by default**, with a second disabled client gate. Only after confirming account terms
   and a real response, set `VIATOR_IMAGES_APPROVED=true`. The Worker then
   passes a supplier cover variant from `images[].variants[]` on
   `media.tacdn.com` (400–1200px). No public Viator.com scraping, photo downloads,
   image proxy or persistent image storage. Search cache remains 15 minutes.
   Front-End Guide permits API image merchandising; individual terms still apply.
-- `/events` is disabled (503) unless both `INTERACTIONS` Analytics Engine and
+- `/events` is disabled (503) unless `INTERACTIONS_ENABLED=true`, `INTERACTIONS` Analytics Engine and
   independent `EVENT_LIMIT` bindings exist. Commented config is an activation
   example, not an activated dataset. Review proposed privacy text first.
 - Event schema v1: allowlisted name/source/placement/kind, optional product code,
@@ -93,3 +93,18 @@ Before release: approve the Milos/Feta editorial repair, verify actual API image
 and duration payloads, complete mobile browser/screenshots, agree privacy text,
 activate bindings only if desired, and validate runtime in Workers. This branch
 is a review draft, not a production deployment.
+
+## Release readiness hard-off
+
+Both `VIATOR_IMAGES_APPROVED` and `INTERACTIONS_ENABLED` are explicitly `false`
+in the checked-in production and isolated staging configs. Generated HTML disables
+photo rendering and interaction dispatch independently of server settings. The
+manual Web Analytics beacon was removed; confirm no account-side automatic
+insertion before release. The BMC script is now a plain donation link.
+
+`wrangler.staging.toml` is a separate target with no production routes and a
+distinct rate-limit namespace. Only local workerd was tested in this environment;
+real Viator and remote staging remain blocked. See
+`docs/release-readiness/README.md`. Do not deploy either target without the
+separate authorization applicable to it; this request authorized staging only,
+and no cloud deployment was possible. Production was not changed.

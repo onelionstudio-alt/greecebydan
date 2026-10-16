@@ -3,6 +3,10 @@ main = "worker.mjs"
 compatibility_date = "2026-10-10"
 workers_dev = true
 
+[vars]
+VIATOR_IMAGES_APPROVED = "false"
+INTERACTIONS_ENABLED = "false"
+
 [[ratelimits]]
 name = "SEARCH_LIMIT"
 namespace_id = "1047"
@@ -21,5 +25,4 @@ period = 60
 # [ratelimits.simple]
 # limit = 60
 # period = 60
-# [vars]
-# VIATOR_IMAGES_APPROVED = "true" # Only after account/photo permission verification.
+# Enabling either feature also requires a reviewed frontend/consent change.

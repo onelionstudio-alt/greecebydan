@@ -195,13 +195,15 @@ test('card DTO preserves product identity and unknown facts; images are opt-in',
 test('event endpoint stores allowlisted aggregates only and fails independently', async () => {
   const e = { v: 1, name: 'affiliate_click', source: 'boat-milos', placement: 'concierge', kind: 'boat', productCode: 'P12', count: 0 };
   const writes = [];
-  const env = { INTERACTIONS: { writeDataPoint: point => writes.push(point) }, EVENT_LIMIT: { limit: async () => ({ success: true }) } };
+  const env = { INTERACTIONS_ENABLED: 'true', INTERACTIONS: { writeDataPoint: point => writes.push(point) }, EVENT_LIMIT: { limit: async () => ({ success: true }) } };
   const req = (data, origin = 'https://greecebydan.com') => new Request('https://worker.example/events', { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
   assert.equal((await worker.fetch(req(e), env)).status, 204);
   assert.deepEqual(writes, [{ indexes: ['affiliate_click'], blobs: ['1', 'boat-milos', 'concierge', 'boat', 'P12'], doubles: [0] }]);
   for (const change of [{ ip: '1.2.3.4' }, { source: 'medical-condition' }, { url: 'https://viator.com/?tracking=private' }, { productCode: '<script>' }, { count: 999 }, { name: 'unknown' }]) assert.equal((await worker.fetch(req({ ...e, ...change }), env)).status, 400);
   assert.equal(writes.length, 1);
   assert.equal((await worker.fetch(req(e), {})).status, 503);
+  assert.equal((await worker.fetch(req(e), { ...env, INTERACTIONS_ENABLED: 'false' })).status, 503);
+  assert.equal(writes.length, 1);
   assert.equal((await worker.fetch(req(e, 'https://evil.example'), env)).status, 403);
   assert.equal((await worker.fetch(req({ ...e, source: 'x'.repeat(1000) }), env)).status, 413);
   assert.equal((await worker.fetch(req(e), { ...env, EVENT_LIMIT: { limit: async () => ({ success: false }) } })).status, 429);

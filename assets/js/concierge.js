@@ -1,5 +1,6 @@
 /* API data is deliberately loaded only at runtime, outside indexable HTML. */
 (() => {
+  const photosEnabled = document.querySelector('meta[name="gbd-api-photos"]')?.content === 'enabled';
   const API = 'https://greecebydan-travel-api.onelion-studio.workers.dev';
   const form = document.querySelector('#concierge-form');
   const status = document.querySelector('#concierge-status');
@@ -85,7 +86,7 @@
         article.className = 'concierge-result';
         results.append(article);
         node('small', index ? 'Another option to compare' : 'An option to explore', article);
-        if (product.image) {
+        if (photosEnabled && product.image) {
           try {
             const u = new URL(product.image.url);
             if (u.protocol === 'https:' && u.hostname === 'media.tacdn.com' && !u.username && !u.password && Number.isInteger(product.image.width) && Number.isInteger(product.image.height)) {

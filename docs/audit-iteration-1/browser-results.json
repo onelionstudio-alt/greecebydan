@@ -3,6 +3,7 @@
   "fixtures": true,
   "actualPhone": false,
   "checks": [
+    "DISABLED RELEASE: no event/beacon/photo/BMC-widget requests; affiliate action works: PASS",
     "Article → prefilled wine/destination → results → unmodified sponsored affiliate URL; one event per interaction: PASS",
     "Empty results and rate limiting preserve preferences; retry stays enabled: PASS",
     "Chromium viewport 360px: home/catalog/article/concierge horizontal overflow PASS",

@@ -56,6 +56,19 @@ class EditorialIntegrity(unittest.TestCase):
         self.assertIn('passenger cap needs confirmation',milos['body'])
         self.assertIn('No date-specific availability or final price has been confirmed',milos['body'])
 
+class DisabledRelease(unittest.TestCase):
+    def test_worker_flags_and_staging_isolation(self):
+        import tomllib
+        production=tomllib.loads((ROOT/'travel-worker/wrangler.toml').read_text())
+        staging=tomllib.loads((ROOT/'travel-worker/wrangler.staging.toml').read_text())
+        for config in [production,staging]:
+            self.assertEqual(config['vars']['VIATOR_IMAGES_APPROVED'],'false')
+            self.assertEqual(config['vars']['INTERACTIONS_ENABLED'],'false')
+            self.assertNotIn('analytics_engine_datasets',config)
+        self.assertNotEqual(production['name'],staging['name'])
+        self.assertEqual(staging['routes'],[])
+        self.assertNotEqual(production['ratelimits'][0]['namespace_id'],staging['ratelimits'][0]['namespace_id'])
+
 class ResponsiveImages(unittest.TestCase):
     def test_derivatives_decode_and_preserve_original(self):
         from PIL import Image
@@ -166,6 +179,13 @@ class Publishing(unittest.TestCase):
         self.assertIn('/concierge/',(self.out/'sitemap.xml').read_text())
         self.assertIn('Disallow: /assets/js/concierge.js',(self.out/'robots.txt').read_text())
         self.assertIn('/assets/js/events.js',page)
+        self.assertIn('name="gbd-interactions" content="disabled"',page)
+        self.assertIn('name="gbd-api-photos" content="disabled"',page)
+        self.assertNotIn('cloudflareinsights.com',page)
+        for document in self.out.rglob('*.html'):
+            if document.relative_to(self.out).parts[0]!='admin':
+                self.assertNotIn('beacon.min.js',document.read_text())
+                self.assertNotIn('cdnjs.buymeacoffee.com',document.read_text())
         self.assertTrue((self.out/'assets/data/advisor-contexts.json').exists())
         wine=(self.out/'how-to-taste-santorini-wine-without-driving/index.html').read_text()
         self.assertIn('data-advisor-source="wine-santorini"',wine)

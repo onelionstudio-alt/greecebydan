@@ -1,0 +1,19 @@
+# Isolated staging target. Never use production config or production bindings.
+# A real remote staging test needs authenticated Cloudflare access and an
+# independently provisioned VIATOR_API_KEY. No credentials are in this file.
+name = "greecebydan-travel-api-staging"
+main = "worker.mjs"
+compatibility_date = "2026-10-10"
+workers_dev = true
+routes = []
+
+[vars]
+VIATOR_IMAGES_APPROVED = "false"
+INTERACTIONS_ENABLED = "false"
+
+[[ratelimits]]
+name = "SEARCH_LIMIT"
+namespace_id = "1049"
+[ratelimits.simple]
+limit = 20
+period = 60

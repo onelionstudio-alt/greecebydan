@@ -1,5 +1,10 @@
 /* Aggregate funnel events only. No cookies, IDs, full URLs or user preferences. */
 (() => {
+  // Fail closed: no request at all in the disabled release, even if bindings exist.
+  if (document.querySelector('meta[name="gbd-interactions"]')?.content !== 'enabled') {
+    window.gbdEvent = () => {};
+    return;
+  }
   const endpoint = 'https://greecebydan-travel-api.onelion-studio.workers.dev/events';
   window.gbdEvent = (name, values = {}) => {
     if (navigator.doNotTrack === '1' || navigator.globalPrivacyControl) return;

@@ -17,7 +17,6 @@ from PIL import Image, ImageOps
 ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = 'https://greecebydan.com'
 AI_IMAGE_LABEL = 'AI-generated image · Not a real photograph'
-ANALYTICS = """<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "971422e6b6124de18dd8de4ebeb6149c"}'></script><!-- End Cloudflare Web Analytics -->"""
 RESERVED = {'admin', 'about', 'stories', 'concierge', 'travel-worker', 'contact', 'privacy', 'cookies', 'terms',
             'affiliate-disclosure', 'assets', 'content', 'scripts', 'tests',
             'oauth-worker', 'templates', '_site', 'index', '404'}
@@ -87,7 +86,7 @@ def page(title, description, route, main, s, image='', structured=None):
     canonical = SITE_URL + route
     schema='<script type="application/ld+json">'+json.dumps(structured,ensure_ascii=False).replace('<', '\\u003c')+'</script>' if structured else ''
     social_image = f'<meta property="og:image" content="{esc(SITE_URL+image if image.startswith("/") else image)}">' if image else ''
-    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="impact-site-verification" value="37535e28-c2d5-49a4-9c33-0cbce4256c05"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:type" content="'+('website' if route=='/' else 'article')+'">'+social_image+schema+'<link rel="icon" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/style.css"></head><body>'+header()+main+footer(s)+'<script src="/assets/js/main.js"></script></body></html>\n'
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="impact-site-verification" value="37535e28-c2d5-49a4-9c33-0cbce4256c05"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="gbd-interactions" content="disabled"><meta name="gbd-api-photos" content="disabled"><title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:type" content="'+('website' if route=='/' else 'article')+'">'+social_image+schema+'<link rel="icon" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/style.css"></head><body>'+header()+main+footer(s)+'<script src="/assets/js/main.js"></script></body></html>\n'
 
 def prepare_image(source, output, value, cache):
     """Keep originals; produce responsive WebP derivatives for local raster heroes."""
@@ -192,7 +191,7 @@ def youtube(value):
     return '<section class="story-video"><h2>Watch the story</h2><a href="'+esc(value)+'" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></section>'
 
 def support():
-    return '''<section class="support-coffee" aria-label="Support Greece by Dan"><p>Enjoyed this little corner of Greece? You can buy me a coffee.</p><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="somewhereingreece" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script><noscript><a href="https://www.buymeacoffee.com/somewhereingreece" target="_blank" rel="noopener noreferrer">Buy me a coffee ↗</a></noscript></section>'''
+    return '<section class="support-coffee" aria-label="Support Greece by Dan"><p>Enjoyed this little corner of Greece? You can buy me a coffee.</p><a class="affiliate-button" href="https://www.buymeacoffee.com/somewhereingreece" target="_blank" rel="noopener noreferrer">Buy me a coffee ↗</a></section>'
 
 def content_modified(source, path):
     """Only use complete Git history; never invent modification dates."""
@@ -367,7 +366,7 @@ def build(source=ROOT, output=None):
     for document in output.rglob('*.html'):
         if document.relative_to(output).parts[0] != 'admin':
             markup = document.read_text(encoding='utf-8')
-            document.write_text(markup.replace('</body>', '<script src="/assets/js/events.js" defer></script>'+ANALYTICS+'</body>', 1), encoding='utf-8')
+            document.write_text(markup.replace('</body>', '<script src="/assets/js/events.js" defer></script></body>', 1), encoding='utf-8')
     (output/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /assets/js/concierge.js\nSitemap: '+SITE_URL+'/sitemap.xml\n')
     modified={'/'+story['slug']+'/':story['modified_date'] for story in stories if story['modified_date']}
     (output/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE_URL+p+'</loc>'+('<lastmod>'+modified[p]+'</lastmod>' if p in modified else '')+'</url>' for p in routes)+'</urlset>\n')

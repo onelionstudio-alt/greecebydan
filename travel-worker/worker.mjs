@@ -202,7 +202,7 @@ export function interaction(data) {
 }
 async function eventRequest(request, env, origin) {
   if (request.method !== 'POST') return reply({ error: 'Method not allowed' }, 405, origin);
-  if (!env.INTERACTIONS?.writeDataPoint || !env.EVENT_LIMIT?.limit) return reply({ error: 'Events disabled' }, 503, origin);
+  if (env.INTERACTIONS_ENABLED !== 'true' || !env.INTERACTIONS?.writeDataPoint || !env.EVENT_LIMIT?.limit) return reply({ error: 'Events disabled' }, 503, origin);
   if (!request.headers.get('Content-Type')?.startsWith('application/json')) return reply({ error: 'JSON required' }, 415, origin);
   const { success } = await env.EVENT_LIMIT.limit({ key: request.headers.get('CF-Connecting-IP') || 'unknown' });
   if (!success) return reply({ error: 'Please try again shortly' }, 429, origin);
