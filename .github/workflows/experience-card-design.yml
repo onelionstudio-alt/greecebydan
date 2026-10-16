@@ -1,0 +1,28 @@
+name: Experience card design review (no deployment)
+on:
+  push:
+    branches: [design/experience-card-v3]
+    paths: ['docs/experience-card-v3/**', '.github/workflows/experience-card-design.yml']
+permissions:
+  contents: read
+jobs:
+  prototype:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install isolated browser tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/card-ui" --no-package-lock playwright@1.56.1
+          node "$RUNNER_TEMP/card-ui/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Check prototype interactions and capture viewports
+        env:
+          NODE_PATH: ${{ runner.temp }}/card-ui/node_modules
+        run: node docs/experience-card-v3/verify.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: experience-card-design-evidence
+          path: docs/experience-card-v3/evidence/
