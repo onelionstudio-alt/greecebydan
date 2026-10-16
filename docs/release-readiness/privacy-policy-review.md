@@ -54,11 +54,11 @@ Primary references rechecked 16 October: [EDPB legal grounds/transparency](https
 [GDPR Articles 3, 13, 27 and 44](https://eur-lex.europa.eu/eli/reg/2016/679/oj),
 [Cloudflare automatic beacon injection](https://developers.cloudflare.com/web-analytics/get-started/).
 
-## Предложение по будущей переписке — НЕ УТВЕРЖДЕНО
+## Будущая переписка — правило утверждено владельцем 16 октября 2026
 
-Обращений пока не было; действующее правило удаления и автоматизация не
-подтверждены. Следующий текст — конкретное предложение для утверждения владельцем,
-а не описание уже работающего удаления и не установленный законом срок:
+Владелец сообщил, что обращений ещё не было, и утвердил следующее правило для
+будущей переписки с регулярной ручной проверкой Gmail. Это выбранный оператором
+срок, не универсальный установленный законом срок. Текст внесён в проект Privacy:
 
 > We delete routine enquiry correspondence from our active mailbox no later than
 > 12 months after the last substantive exchange, and sooner when it is no longer
@@ -68,10 +68,10 @@ Primary references rechecked 16 October: [EDPB legal grounds/transparency](https
 > Gmail messages may remain in Trash for up to 30 days unless Trash is emptied
 > sooner. Google's recovery and backup retention is governed by its own policies.
 
-Если владелец утвердит правило, перенести в публичный проект Privacy и договориться
-о реальном регулярном удалении inbox/sent/archive/attachments; не обещать
-автоматизацию без её настройки. Нельзя считать этот вопрос закрытым одним
-отсутствием входящих сообщений.
+Владелец согласился регулярно проверять и вручную удалять ненужную переписку
+(inbox/sent/archive и вложения), соблюдая указанный предел. Автоматизация
+удаления не настроена и не обещается. Перед будущим внедрением автоматизации
+проверить, что она не удаляет переписку с законным основанием для продления хранения.
 
 Источники для подтверждённых уточнений: [GitHub Pages data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages),
 [Cloudflare Email Routing](https://www.cloudflare.com/developer-platform/products/email-routing/),
