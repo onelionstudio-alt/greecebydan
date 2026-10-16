@@ -87,6 +87,13 @@ distinguish unit pricing and from-price concepts. The transactional
 is not treated as proof of this Basic search payload's pricing unit or as a
 new mandatory booking certification requirement for this click-out integration.
 
+Current local validation: 17 Python tests passed (full publishing/SEO/editorial
+suite), 24 Node tests passed (including price basis and explicit/negative Wine
+cases), 13-story build passed, and regenerated preview syntax/runtime/hard-off
+checks passed. Real browser E2E did not launch locally: Chromium is absent and
+its download failed. Current-head GitHub CI must finish successfully, including
+the synthetic browser regression; it is not a substitute for real staging.
+
 ## Remaining release gates
 
 1. Upload the regenerated `staging-preview.generated.mjs` ONLY to the existing
