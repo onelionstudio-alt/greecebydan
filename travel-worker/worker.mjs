@@ -30,7 +30,51 @@ export function category(tags, kind) {
   throw new Error('Category taxonomy unavailable');
 }
 
-export function recommendations(products, pref) {
+// Text matching is a conservative candidate filter, never verified suitability.
+// A negative or conditional statement wins over a positive mention elsewhere.
+export function mentioned(content, terms) {
+  const text = content.toLowerCase().replace(/[’‘]/g, "'").replace(/[-–—]/g, ' ');
+  const subject = `(?:${terms})`;
+  const negative = new RegExp(`\\b(?:no|not|without|excluding|except|unable to|cannot|can't|don't|doesn't|do not|does not)\\b[^.!?;]{0,65}\\b${subject}\\b|\\b${subject}\\b[^.!?;]{0,65}\\b(?:not|never|unavailable|prohibited|forbidden|excluded|optional|extra|additional|weather|conditions|request|cannot|can't)\\b|\\b(?:optional|extra|additional)\\b[^.!?;]{0,40}\\b${subject}\\b`, 'i');
+  return new RegExp(`\\b${subject}\\b`, 'i').test(text) && !negative.test(text);
+}
+
+// Search summary prices have no verified booking-unit metadata in this adapter.
+// Do not infer a unit from title, PRIVATE_TOUR, UNIT, or a website price label:
+// search fromPrice may be normalised differently from the bookable unit price.
+export function priceBasis() { return 'unknown'; }
+
+export function includesWineTasting(product) {
+  const text = `${product.title || ''}. ${product.description || ''}`;
+  const activity = 'wine[ -]+tastings?|tastings? of (?:local |Greek )?wines?';
+  if (!mentioned(text, activity)) return false;
+  // Reject conflicting/optional tasting claims even when the title is positive.
+  // Sentence-wide conservative check: uncertainty is never an inclusion claim.
+  return !text.split(/[.!?;]/).some(sentence =>
+    /(?:tast(?:e|es|ed|ing)|winery|wineries)/i.test(sentence) &&
+    /\b(?:no|not|never|without|excluding|excluded|unavailable|closed|prohibited|forbidden|cannot|can't|isn't|isn’t|doesn't|doesn’t|don't|don’t|optional|extra|additional|surcharge|request|may|might|could|can|depending|subject|available|arranged|purchase|purchased|sold|separately|fee|payable|cost|own expense)\b/i.test(sentence));
+}
+
+export function cardDetails(product, imagesApproved = false) {
+  const duration = product.duration;
+  const valid = n => Number.isFinite(n) && n > 0 && n <= 43200;
+  let durationMinutes = null;
+  if (valid(duration?.fixedDurationInMinutes)) durationMinutes = { min: duration.fixedDurationInMinutes, max: duration.fixedDurationInMinutes };
+  else if (valid(duration?.variableDurationFromMinutes) && valid(duration?.variableDurationToMinutes) && duration.variableDurationToMinutes >= duration.variableDurationFromMinutes) durationMinutes = { min: duration.variableDurationFromMinutes, max: duration.variableDurationToMinutes };
+  let image = null;
+  // Only supplier cover variants returned by the Partner API. No scraping or proxy.
+  if (imagesApproved) {
+    const cover = Array.isArray(product.images) ? product.images.find(i => i?.isCover === true) : null;
+    const variants = (Array.isArray(cover?.variants) ? cover.variants : []).filter(v => {
+      try { const u = new URL(v.url); return u.protocol === 'https:' && u.hostname === 'media.tacdn.com' && !u.username && !u.password && Number.isInteger(v.width) && v.width >= 400 && v.width <= 1200 && Number.isInteger(v.height) && v.height > 0; } catch { return false; }
+    }).sort((a,b) => Math.abs(a.width - 720) - Math.abs(b.width - 720));
+    if (variants[0]) image = { url: variants[0].url, width: variants[0].width, height: variants[0].height };
+  }
+  // Search results do not establish a meeting point. No destination-centre fallback.
+  return { durationMinutes, image, departure: null };
+}
+
+export function recommendations(products, pref, imagesApproved = false) {
   const seen = new Set();
   return products.flatMap(p => {
     const content = `${p.title || ''} ${p.description || ''}`.toLowerCase();
@@ -39,22 +83,22 @@ export function recommendations(products, pref) {
     let target;
     try { target = new URL(p.productUrl); } catch { return []; }
     if (target.protocol !== 'https:' || !['viator.com', 'www.viator.com'].includes(target.hostname) || target.username || target.password) return [];
-    if (pref.kind === 'boat' && (/self[- ]drive|without (?:a )?(?:licen[cs]e|captain|skipper|crew)|no (?:captain|skipper|crew)|(?:optional|additional|extra)[ -](?:captain|skipper|crew)|(?:captain|skipper|crew) (?:is )?(?:optional|available on request)|bareboat|boat rental|rent a boat|ferry ticket/i.test(content) || !/\b(?:captain|skipper|crew)\b/.test(content))) return [];
-    if (pref.kind === 'wine' && !/\b(?:wine|winery|wineries|vineyard)\b/.test(content)) return [];
+    if (pref.kind === 'boat' && (/self[- ]drive|without (?:a )?(?:licen[cs]e|captain|skipper|crew)|no (?:captain|skipper|crew)|(?:optional|additional|extra)[ -](?:captain|skipper|crew)|(?:captain|skipper|crew) (?:is )?(?:optional|available on request)|bareboat|boat rental|rent a boat|ferry ticket/i.test(content) || !mentioned(content, 'captain|skipper|crew'))) return [];
+    if (pref.kind === 'wine' && !includesWineTasting(p)) return [];
     const flags = p.flags || [];
     if (pref.style === 'private' && !flags.includes('PRIVATE_TOUR')) return [];
     if (pref.cancellation && !flags.includes('FREE_CANCELLATION')) return [];
-    const patterns = { sunset: /sunset/, swimming: /swim|snorkel/, food: /food|lunch|dinner|cheese|meal|pairing/, vineyard: /vineyard|winery|wineries/ };
-    if (pref.mood !== 'any' && !patterns[pref.mood].test(content)) return [];
+    const patterns = { sunset: 'sunset', swimming: 'swim|swimming|snorkel|snorkeling|snorkelling', food: 'food|lunch|dinner|cheese|meal|pairing', vineyard: 'vineyard|vineyards|winery|wineries' };
+    if (pref.mood !== 'any' && !mentioned(content, patterns[pref.mood])) return [];
     const price = p.pricing?.summary?.fromPrice;
     if (!Number.isFinite(price) || price < 0 || p.pricing.currency !== 'EUR' || (pref.budget && price > pref.budget)) return [];
     const rating = Number(p.reviews?.combinedAverageRating) || 0;
     const reviews = Number(p.reviews?.totalReviews) || 0;
-    const reasons = [pref.kind === 'boat' ? 'The listing mentions a captain or crew.' : 'A wine experience in your selected destination.'];
+    const reasons = [pref.kind === 'boat' ? 'The listing mentions a captain or crew.' : 'The listing explicitly describes wine tasting. Confirm inclusions for your selected option on Viator.'];
     if (pref.style === 'private') reasons.push('Listed as a private experience.');
     if (pref.mood !== 'any') reasons.push({ sunset: 'Sunset is mentioned in the listing.', swimming: 'Swimming or snorkelling is mentioned.', food: 'Food or a pairing is mentioned.', vineyard: 'A winery or vineyard is mentioned.' }[pref.mood]);
     if (pref.cancellation) reasons.push('Listed with free cancellation; check the deadline.');
-    return [{ title: p.title, url: p.productUrl, fromPrice: price, rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
+    return [{ productCode: p.productCode, ...cardDetails(p, imagesApproved), title: p.title, url: p.productUrl, fromPrice: price, priceBasis: priceBasis(p), rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
   }).sort((a, b) => b.score - a.score || a.fromPrice - b.fromPrice).slice(0, 3).map(({ score, ...p }) => p);
 }
 
@@ -70,10 +114,9 @@ async function cached(request, env, path, ttl, body) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(material));
   const key = new Request(new URL('/internal-cache/' + Array.from(new Uint8Array(digest), n => n.toString(16).padStart(2, '0')).join(''), request.url));
   const cache = globalThis.caches?.default;
-  const hit = await cache?.match(key);
-  if (hit) return hit.json();
+  try { const hit = await cache?.match(key); if (hit) return await hit.json(); } catch { /* Cache is optional. */ }
   const data = await viator(path, env, body);
-  if (cache) await cache.put(key, new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${ttl}`, 'X-Robots-Tag': 'noindex' } }));
+  try { if (cache) await cache.put(key, new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${ttl}`, 'X-Robots-Tag': 'noindex' } })); } catch { /* Cache is optional. */ }
   return data;
 }
 
@@ -167,6 +210,32 @@ async function impactCheck(request, env, origin) {
   }
 }
 
+const EVENT_NAMES = ['advisor_open', 'search_submit', 'results_view', 'no_results', 'search_error', 'affiliate_click'];
+export function interaction(data) {
+  const keys = ['v', 'name', 'source', 'placement', 'kind', 'productCode', 'count'];
+  if (!data || typeof data !== 'object' || Array.isArray(data) || Object.keys(data).some(k => !keys.includes(k)) || data.v !== 1 || !EVENT_NAMES.includes(data.name) || !['direct', 'wine-santorini', 'boat-milos', 'article'].includes(data.source) || !['article', 'concierge'].includes(data.placement) || !['boat', 'wine', 'none'].includes(data.kind) || typeof data.productCode !== 'string' || !/^[A-Za-z0-9_-]{0,40}$/.test(data.productCode) || !Number.isInteger(data.count) || data.count < 0 || data.count > 3) throw new Error('Invalid event');
+  return { v: 1, name: data.name, source: data.source, placement: data.placement, kind: data.kind, productCode: data.productCode, count: data.count };
+}
+async function eventRequest(request, env, origin) {
+  if (request.method !== 'POST') return reply({ error: 'Method not allowed' }, 405, origin);
+  if (env.INTERACTIONS_ENABLED !== 'true' || !env.INTERACTIONS?.writeDataPoint || !env.EVENT_LIMIT?.limit) return reply({ error: 'Events disabled' }, 503, origin);
+  if (!request.headers.get('Content-Type')?.startsWith('application/json')) return reply({ error: 'JSON required' }, 415, origin);
+  const { success } = await env.EVENT_LIMIT.limit({ key: request.headers.get('CF-Connecting-IP') || 'unknown' });
+  if (!success) return reply({ error: 'Please try again shortly' }, 429, origin);
+  try {
+    // Bound actual streamed bytes before decoding; no raw request logging.
+    const reader = request.body?.getReader();
+    if (!reader) return reply({ error: 'Invalid event' }, 400, origin);
+    let size = 0; const chunks = [];
+    while (true) { const { done, value } = await reader.read(); if (done) break; size += value.byteLength; if (size > 512) { await reader.cancel(); return reply({ error: 'Request too large' }, 413, origin); } chunks.push(value); }
+    const bytes = new Uint8Array(size); let offset = 0;
+    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
+    const e = interaction(JSON.parse(new TextDecoder().decode(bytes)));
+    env.INTERACTIONS.writeDataPoint({ indexes: [e.name], blobs: [String(e.v), e.source, e.placement, e.kind, e.productCode], doubles: [e.count] });
+    return new Response(null, { status: 204, headers: headers(origin) });
+  } catch { return reply({ error: 'Invalid event or collector unavailable' }, 400, origin); }
+}
+
 export default {
   async fetch(request, env) {
     const route = new URL(request.url).pathname;
@@ -178,6 +247,7 @@ export default {
     if (route === '/impact/check' && (!origin || origin === SITE)) return impactCheck(request, env, origin);
     if (origin !== SITE) return reply({ error: 'Origin not allowed' }, 403);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...headers(origin), 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Max-Age': '86400' } });
+    if (route === '/events') return eventRequest(request, env, origin);
     if (!['/destinations', '/search'].includes(route)) return reply({ error: 'Not found' }, 404, origin);
     if ((route === '/search' && request.method !== 'POST') || (route === '/destinations' && request.method !== 'GET')) return reply({ error: 'Method not allowed' }, 405, origin);
     if (!ready) return reply({ error: 'Setup incomplete' }, 503, origin);
@@ -205,7 +275,7 @@ export default {
       if (flags.length) filtering.flags = flags;
       const body = { filtering, sorting: { sort: 'TRAVELER_RATING', order: 'DESCENDING' }, pagination: { start: 1, count: 50 }, currency: 'EUR' };
       const data = await cached(request, env, '/products/search', 900, body);
-      return reply({ products: recommendations(data.products || [], pref) }, 200, origin);
+      return reply({ products: recommendations(data.products || [], pref, env.VIATOR_IMAGES_APPROVED === 'true') }, 200, origin);
     } catch {
       // Never return upstream bodies, request headers or API credentials.
       return reply({ error: 'Search temporarily unavailable' }, 502, origin);

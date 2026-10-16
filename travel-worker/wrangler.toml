@@ -3,9 +3,26 @@ main = "worker.mjs"
 compatibility_date = "2026-10-10"
 workers_dev = true
 
+[vars]
+VIATOR_IMAGES_APPROVED = "false"
+INTERACTIONS_ENABLED = "false"
+
 [[ratelimits]]
 name = "SEARCH_LIMIT"
 namespace_id = "1047"
 [ratelimits.simple]
 limit = 20
 period = 60
+
+# Enable only after reviewing docs/audit-iteration-1/editorial-proposal.md,
+# privacy text, account entitlements and collection settings. Not deployed here.
+# [[analytics_engine_datasets]]
+# binding = "INTERACTIONS"
+# dataset = "greecebydan_interactions"
+# [[ratelimits]]
+# name = "EVENT_LIMIT"
+# namespace_id = "1048"
+# [ratelimits.simple]
+# limit = 60
+# period = 60
+# Enabling either feature also requires a reviewed frontend/consent change.

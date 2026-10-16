@@ -31,6 +31,14 @@ jobs:
         run: node --test oauth-worker/worker.test.mjs travel-worker/worker.test.mjs
       - name: Build website
         run: python scripts/build.py
+      - name: Install browser test tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/gbd-ui" --no-package-lock playwright@1.56.1
+          node "$RUNNER_TEMP/gbd-ui/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Verify disabled release UI and price labels (synthetic fixtures)
+        env:
+          NODE_PATH: ${{ runner.temp }}/gbd-ui/node_modules
+        run: node tests/browser-smoke.cjs
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
