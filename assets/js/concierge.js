@@ -125,7 +125,7 @@
       affiliateLink(c,article);
       const details=node('details','',article); details.className='concierge-card-details'; node('summary','Details & things to check',details);
       node('p','Confirm the meeting point and any pickup on Viator. Check dates, party size, inclusions, age limits and cancellation terms for your selected option.',details);
-      if (c.facts.length) { node('h4','Why shown · listing evidence',details); const list=node('ul','',details); c.facts.forEach(f => node('li',`${f.text} Source: Viator ${f.evidence.field} — “${f.evidence.value}”.`,list)); }
+      if (c.facts.length) { node('h4','Why shown · listing evidence',details); const list=node('ul','',details); c.facts.forEach(f => node('li',f.evidence.field === 'flags' ? `${f.text} Source: classification supplied by Viator.` : `${f.text} Source: Viator ${f.evidence.field} — “${f.evidence.value}”.`,list)); }
       node('p','Source: Viator listing data, not an independent inspection or suitability guarantee.',details).className='concierge-source';
     });
     return cards.length;
