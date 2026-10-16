@@ -12,11 +12,11 @@
 
 ## Подтвердить владельцу до юридического sign-off
 
-1. Полное публичное юридическое имя оператора/наименование бизнеса и необходимые контактные реквизиты. В текущем тексте используется только подтверждённое имя Dan, страна Israel и существующий адрес mygreece@greecebydan.com. Фамилия, адрес и EU-представитель не выдумывались.
+1. Полное публичное юридическое имя оператора/наименование бизнеса и необходимые контактные реквизиты. 16 октября владелец подтвердил публичное имя Dan Greenberg, страну Israel и адрес mygreece@greecebydan.com. Имя внесено в проект политики. Почтовая цепочка подтверждена: Cloudflare Email Routing → Gmail (Google). Владелец сообщил, что обращений через сайт ещё не было. Почтовый адрес для корреспонденции и применимость EU-представителя не установлены.
 2. Применимость израильских, EEA/UK и иных норм к фактической деятельности и аудитории; необходимость представителя, если применимо.
 3. Принятые условия обработки с GitHub/Cloudflare/почтовым провайдером, места обработки, применимые transfer safeguards и сроки security/email logs. Доступа к договорам и настройкам аккаунтов нет. Цифры retention не выдумывались; в тексте указаны критерии и известные TTL кешей.
 4. Документировать оценку legitimate interests для необходимой доставки/защиты/ответов, если это применимый правовой базис. Слово «анонимно» не используется как основание игнорировать IP и инфраструктурные журналы.
-5. Проверить Cloudflare auto-injection/RUM в dashboard: удаление beacon из исходников не может доказать отсутствие вставки на edge. Production не менялся.
+5. Проверка Web Analytics выполнена с владельцем: список показывает JS Snippet installation, Manage site — Install JS Snippet. В показанной конфигурации автоматическая установка не обнаружена. Network staging после Milos и Wine не показывает /events (только загрузку events.js), cloudflareinsights или tacdn; отдельный POST {} к /events возвращает 503 Events disabled. Production не менялся; после отдельно разрешённого выпуска повторить Network на основном домене.
 
 Эти сведения нельзя подтвердить кодом; поэтому финальный юридический sign-off пока BLOCKED. Текст подготовлен для проверки, но его нельзя выдавать за подтверждённое полное соответствие.
 
@@ -53,3 +53,32 @@ wait until those features are proposed for activation. They must remain off.
 Primary references rechecked 16 October: [EDPB legal grounds/transparency](https://www.edpb.europa.eu/sme/be-compliant/process-personal-data-lawfully_en),
 [GDPR Articles 3, 13, 27 and 44](https://eur-lex.europa.eu/eli/reg/2016/679/oj),
 [Cloudflare automatic beacon injection](https://developers.cloudflare.com/web-analytics/get-started/).
+
+## Предложение по будущей переписке — НЕ УТВЕРЖДЕНО
+
+Обращений пока не было; действующее правило удаления и автоматизация не
+подтверждены. Следующий текст — конкретное предложение для утверждения владельцем,
+а не описание уже работающего удаления и не установленный законом срок:
+
+> We delete routine enquiry correspondence from our active mailbox no later than
+> 12 months after the last substantive exchange, and sooner when it is no longer
+> needed. We may retain relevant correspondence for longer when necessary to
+> comply with a legal obligation or establish, exercise or defend a legal claim;
+> we restrict its use to that purpose and review the need to retain it. Deleted
+> Gmail messages may remain in Trash for up to 30 days unless Trash is emptied
+> sooner. Google's recovery and backup retention is governed by its own policies.
+
+Если владелец утвердит правило, перенести в публичный проект Privacy и договориться
+о реальном регулярном удалении inbox/sent/archive/attachments; не обещать
+автоматизацию без её настройки. Нельзя считать этот вопрос закрытым одним
+отсутствием входящих сообщений.
+
+Источники для подтверждённых уточнений: [GitHub Pages data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages),
+[Cloudflare Email Routing](https://www.cloudflare.com/developer-platform/products/email-routing/),
+[Google privacy](https://policies.google.com/privacy),
+[Gmail deletion and Trash](https://support.google.com/mail/answer/7401),
+[Google retention](https://policies.google.com/technologies/retention).
+
+Подтверждение названий провайдеров не подтверждает автоматически наличие DPA,
+Google Workspace, конкретную страну обработки или применимость SCC/DPF к
+этому аккаунту. Эти факты не подставлялись в публичный текст как установленные.
