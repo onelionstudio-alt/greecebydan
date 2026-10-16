@@ -241,6 +241,11 @@ test('wine requires explicit tasting activity and rejects uncertain or conflicti
     ['Wine tasting', 'Winery visit only, without tasting.', false],
     ['Wine tasting', 'Wine tasting surcharge payable locally.', false],
     ['Wine tasting', 'Tasting on request.', false],
+    ['Wine tasting', 'Tasting is unavailable.', false],
+    ['Wine tasting', 'Tasting is excluded.', false],
+    ['Wine tasting', "Tasting isn't included.", false],
+    ['Wine tasting', 'Tasting available for purchase.', false],
+    ['Wine tasting', 'Tasting sold separately.', false],
     ['Premium wine tour', 'Includes wine tasting at two wineries.', true],
     ['Cooking Class and Wine Tasting', 'Cook local dishes with your host.', true],
     ['Wine tour', 'Tasting of local wines is included.', true]

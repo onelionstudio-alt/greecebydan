@@ -52,7 +52,7 @@ export function includesWineTasting(product) {
   // Sentence-wide conservative check: uncertainty is never an inclusion claim.
   return !text.split(/[.!?;]/).some(sentence =>
     /(?:tast(?:e|es|ed|ing)|winery|wineries)/i.test(sentence) &&
-    /\b(?:no|not|without|excluding|optional|extra|additional|surcharge|request|may|might|could|can|depending|subject|purchase|purchased|fee|payable|cost|own expense)\b/i.test(sentence));
+    /\b(?:no|not|never|without|excluding|excluded|unavailable|closed|prohibited|forbidden|cannot|can't|isn't|isn’t|doesn't|doesn’t|don't|don’t|optional|extra|additional|surcharge|request|may|might|could|can|depending|subject|available|arranged|purchase|purchased|sold|separately|fee|payable|cost|own expense)\b/i.test(sentence));
 }
 
 export function cardDetails(product, imagesApproved = false) {
