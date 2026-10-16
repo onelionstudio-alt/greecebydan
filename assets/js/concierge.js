@@ -64,7 +64,7 @@
   const priceText = c => c.price === null ? 'Check price on Viator' : `From ${new Intl.NumberFormat('en-GB', {style:'currency',currency:c.currency}).format(c.price)}${c.basis === 'per_person' ? ' per person' : c.basis === 'per_group' ? ' per group' : ''}`;
   const ratingText = c => c.ratingInfo ? `${c.ratingInfo.value.toFixed(1)}/5 · ${c.ratingInfo.count} combined reviews` : 'Rating not supplied';
   function affiliateLink(c, parent) {
-    const link = node('a', 'Check details & dates on Viator ↗', parent); link.className = 'concierge-book';
+    const link = node('a', 'Details & dates on Viator ↗', parent); link.className = 'concierge-book';
     link.href = c.url; link.target = '_blank'; link.rel = 'sponsored noopener noreferrer';
     link.setAttribute('aria-label', `Check details and dates on Viator for ${c.title} (opens a new tab)`);
     link.addEventListener('click', () => track('affiliate_click', {productCode:c.productCode})); return link;

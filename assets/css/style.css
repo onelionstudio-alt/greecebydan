@@ -71,3 +71,5 @@
 @media(max-width:1000px){.concierge-results{grid-template-columns:1fr}.concierge-result{padding:20px}.concierge-result h3{font-size:25px}.concierge-differences{grid-template-columns:1fr}}
 @media(max-width:650px){.concierge .concierge-compare-toolbar{padding:10px;gap:8px;top:4px}.concierge-compare-toolbar span{font-size:12px}.concierge-compare-toolbar button{min-width:155px;padding:10px 8px;font-size:13px}.concierge-comparison{padding:16px}.concierge-facts{grid-template-columns:70px 1fr;gap:6px 8px}.concierge-facts dd{margin:0}.concierge-result{padding:16px}}
 @media(max-width:650px){.concierge .concierge-compare-toolbar{display:block}.concierge-compare-toolbar span{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.concierge-compare-toolbar button{width:100%;min-width:0}}
+
+.concierge-result .concierge-book{text-decoration:none}
