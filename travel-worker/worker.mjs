@@ -74,6 +74,23 @@ export function cardDetails(product, imagesApproved = false) {
   return { durationMinutes, image, departure: null };
 }
 
+// Additive evidence DTO: old clients keep `reason`; new cards use only these
+// bounded, source-labelled facts. Matching is not independent suitability review.
+export function selectionEvidence(product, pref) {
+  const facts = [];
+  const textFact = (code, pattern) => {
+    for (const field of ['title', 'description']) {
+      const value = typeof product[field] === 'string' ? product[field].match(pattern)?.[0] : null;
+      if (value) { facts.push({ code, evidence: { source: 'viator_listing', field, value } }); break; }
+    }
+  };
+  if (pref.kind === 'wine' && includesWineTasting(product)) textFact('wine_tasting', /\bwine[ -]+tastings?\b|\btastings? of (?:local |Greek )?wines?\b/i);
+  if (pref.kind === 'boat' && mentioned(`${product.title || ''} ${product.description || ''}`, 'captain|skipper|crew')) textFact('crew', /\b(?:captain|skipper|crew)\b/i);
+  if (pref.style === 'private' && product.flags?.includes('PRIVATE_TOUR')) facts.push({code:'private',evidence:{source:'viator_listing',field:'flags',value:'PRIVATE_TOUR'}});
+  if (pref.cancellation && product.flags?.includes('FREE_CANCELLATION')) facts.push({code:'cancellation',evidence:{source:'viator_listing',field:'flags',value:'FREE_CANCELLATION'}});
+  return facts;
+}
+
 export function recommendations(products, pref, imagesApproved = false) {
   const seen = new Set();
   return products.flatMap(p => {
@@ -98,7 +115,7 @@ export function recommendations(products, pref, imagesApproved = false) {
     if (pref.style === 'private') reasons.push('Listed as a private experience.');
     if (pref.mood !== 'any') reasons.push({ sunset: 'Sunset is mentioned in the listing.', swimming: 'Swimming or snorkelling is mentioned.', food: 'Food or a pairing is mentioned.', vineyard: 'A winery or vineyard is mentioned.' }[pref.mood]);
     if (pref.cancellation) reasons.push('Listed with free cancellation; check the deadline.');
-    return [{ productCode: p.productCode, ...cardDetails(p, imagesApproved), title: p.title, url: p.productUrl, fromPrice: price, priceBasis: priceBasis(p), rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
+    return [{ productCode: p.productCode, ...cardDetails(p, imagesApproved), title: p.title, url: p.productUrl, currency: p.pricing.currency, selectionEvidence: selectionEvidence(p, pref), fromPrice: price, priceBasis: priceBasis(p), rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
   }).sort((a, b) => b.score - a.score || a.fromPrice - b.fromPrice).slice(0, 3).map(({ score, ...p }) => p);
 }
 

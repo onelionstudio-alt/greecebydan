@@ -19,7 +19,9 @@ TEXT_TYPES = {
 }
 
 
-def package(site, worker_source, source_commit):
+def package(site, worker_source, source_commit, review_label="PR #21"):
+    if not review_label.replace('#', '').replace(' ', '').isalnum() or len(review_label) > 40:
+        raise ValueError('Invalid review label')
     original = worker_source
     marker = "const SITE = 'https://greecebydan.com';"
     if worker_source.count(marker) != 1 or worker_source.count('export default {') != 1:
@@ -50,7 +52,7 @@ def package(site, worker_source, source_commit):
                 elif f'name="{flag}" content="disabled"' not in text:
                     raise ValueError(f'Hard-off flag not disabled: {route}: {flag}')
             text = text.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">', 1)
-            text = text.replace('<body>', '<body><aside style="padding:12px;background:#fff0bd;color:#222;text-align:center;font:14px Arial">STAGING · PR #21 review only · API photos and interaction events disabled</aside>', 1)
+            text = text.replace('<body>', f'<body><aside style="padding:12px;background:#fff0bd;color:#222;text-align:center;font:14px Arial">STAGING · {review_label} review only · API photos and interaction events disabled</aside>', 1)
         if route in ('/assets/js/concierge.js', '/assets/js/events.js'):
             text = text.replace(PRODUCTION_API, STAGING_ORIGIN)
             if PRODUCTION_API in text:
@@ -59,7 +61,7 @@ def package(site, worker_source, source_commit):
     if '/concierge/index.html' not in assets:
         raise ValueError('Build the site before packaging staging')
     metadata = {
-        'purpose': 'PR #21 isolated staging preview, not a production release',
+        'purpose': f'{review_label} isolated staging preview, not a production release',
         'sourceCommit': source_commit,
         'apiSourceSha256': hashlib.sha256(original.encode()).hexdigest(),
         'origin': STAGING_ORIGIN,
@@ -123,11 +125,12 @@ def main():
     parser.add_argument('--site', type=Path, default=ROOT / '_site')
     parser.add_argument('--output', type=Path, default=ROOT / 'docs/release-readiness/staging-preview.generated.mjs')
     parser.add_argument('--source-commit', help='Reviewed source commit recorded in preview metadata')
+    parser.add_argument('--review-label', default='PR #21')
     args = parser.parse_args()
     commit = args.source_commit or subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     if len(commit) != 40 or any(c not in '0123456789abcdef' for c in commit):
         raise ValueError('source commit must be a full SHA-1')
-    output = package(args.site, (ROOT / 'travel-worker/worker.mjs').read_text(), commit)
+    output = package(args.site, (ROOT / 'travel-worker/worker.mjs').read_text(), commit, args.review_label)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(output)
     print(f'Packaged staging preview: {args.output.name} ({len(output.encode())} bytes)')

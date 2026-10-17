@@ -69,8 +69,8 @@ const server = http.createServer((req, res) => {
     assert.equal(await page.locator('.concierge-photo').count(),0);
     assert.equal(events.length,0);
     assert.deepEqual(forbiddenRequests,[]);
-    assert.equal(await page.locator('.concierge-result a').getAttribute('href'),product.url);
-    await page.locator('.concierge-result a').click();
+    assert.equal(await page.locator('.concierge-result .concierge-book').getAttribute('href'),product.url);
+    await page.locator('.concierge-result .concierge-book').click();
     assert.deepEqual(forbiddenRequests,[]);
     for (const [basis, expected] of [[undefined, /Price basis not confirmed/], ['unknown', /Price basis not confirmed/], ['per_person', /€123.00 per person/], ['per_group', /€123.00 per group/], ['invented', /Price basis not confirmed/], ['__proto__', /Price basis not confirmed/]]) {
       product.fromPrice = 123; product.priceBasis = basis;
@@ -98,13 +98,13 @@ const server = http.createServer((req, res) => {
     await page.locator('#concierge-form button').click();
     await page.locator('.concierge-result').waitFor();
     assert.match(await page.locator('.concierge-result').innerText(), /Check duration on Viator/);
-    assert.equal(await page.locator('.concierge-result a').getAttribute('href'), product.url);
-    assert.match(await page.locator('.concierge-result a').getAttribute('rel'), /sponsored/);
+    assert.equal(await page.locator('.concierge-result .concierge-book').getAttribute('href'), product.url);
+    assert.match(await page.locator('.concierge-result .concierge-book').getAttribute('rel'), /sponsored/);
     assert.equal(await page.locator('.concierge-photo').count(), 0);
     // Deliberately synthetic result capture; no invented tour price or departure.
     await page.locator('.concierge-result').scrollIntoViewIfNeeded();
     await page.screenshot({ path: path.join(screenshots, 'after-results-UI-fixture.png') });
-    await page.locator('.concierge-result a').click();
+    await page.locator('.concierge-result .concierge-book').click();
     await page.waitForFunction(() => true);
     assert.equal(events.filter(e => e.name === 'affiliate_click').length, 1);
     assert.equal(events.filter(e => e.name === 'search_submit').length, 1);
@@ -146,9 +146,9 @@ const server = http.createServer((req, res) => {
     product.image.url = 'https://media.tacdn.com/missing-UI-test.svg';
     await page.locator('#concierge-form button').click(); await page.locator('.concierge-result').waitFor();
     await page.waitForFunction(() => !document.querySelector('.concierge-photo'));
-    assert.equal(await page.locator('.concierge-result a').getAttribute('href'), product.url);
-    collectorFails = true; await page.locator('.concierge-result a').click();
-    assert.equal(await page.locator('.concierge-result a').getAttribute('href'), product.url);
+    assert.equal(await page.locator('.concierge-result .concierge-book').getAttribute('href'), product.url);
+    collectorFails = true; await page.locator('.concierge-result .concierge-book').click();
+    assert.equal(await page.locator('.concierge-result .concierge-book').getAttribute('href'), product.url);
     collectorFails = false; product.image = null;
     report.push('Photo loads only from allowed host; broken photo removed; collector failure does not block affiliate action: PASS');
     await page.setViewportSize({ width: 360, height: 800 });

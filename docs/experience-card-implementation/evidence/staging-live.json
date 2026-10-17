@@ -1,0 +1,47 @@
+{
+  "mode": "Branch frontend asset overlay at staging origin; REAL deployed staging API; new Worker NOT deployed",
+  "physicalPhones": false,
+  "results": [
+    {
+      "kind": "boat",
+      "status": "PASS",
+      "links": [
+        {
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "title": "Milos oneiro-kleftiko sailing experience with local guide"
+        },
+        {
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "title": "Milos Small-Group Full-Day Cruise with Snorkelling and Lunch"
+        },
+        {
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "title": "Best of Milos and Poliegos Catamaran snorkelling Cruise with BBQ"
+        }
+      ],
+      "comparison": "Confirmed differences rendered; unknown price units excluded",
+      "source": "Actual remote API response; neutral price label; no photo rendered"
+    },
+    {
+      "kind": "wine",
+      "status": "PASS",
+      "links": [
+        {
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "title": "Cooking Class and Wine Tasting in Santorini"
+        },
+        {
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "title": "Santorini Daytime Wine Tour | 3 Wineries & 12 Tastings"
+        },
+        {
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "title": "Santorini: 4hr Private Wine Tasting Tour"
+        }
+      ],
+      "comparison": "Confirmed differences rendered; unknown price units excluded",
+      "source": "Actual remote API response; neutral price label; no photo rendered"
+    }
+  ],
+  "optionalRequests": "No photos, analytics or third-party requests"
+}

@@ -1,0 +1,496 @@
+{
+  "mode": "Actual remote staging frontend AND Worker; no asset overlay or fixtures",
+  "testedAt": "2026-10-17T10:15:42.302Z",
+  "expected": {
+    "sourceCommit": "611601ef2eb30d221fac94aaa78c5a1f44d19696",
+    "apiSourceSha256": "af38f06c0b3ffd365498be8d247b9ed4fd28f5b6a59845d7883163ceed051788"
+  },
+  "physicalDevices": false,
+  "checks": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "boat",
+      "status": "PASS",
+      "prefill": true,
+      "products": [
+        {
+          "code": "345728P2",
+          "title": "Milos oneiro-kleftiko sailing experience with local guide",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "skipper"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "32830P5",
+          "title": "Milos Small-Group Full-Day Cruise with Snorkelling and Lunch",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "32830P4",
+          "title": "Best of Milos and Poliegos Catamaran snorkelling Cruise with BBQ",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        }
+      ],
+      "comparison": "2 and 3 selected; unknown price units excluded",
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "wine",
+      "status": "PASS",
+      "prefill": true,
+      "products": [
+        {
+          "code": "44792P8",
+          "title": "Cooking Class and Wine Tasting in Santorini",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "396495P4",
+          "title": "Santorini Daytime Wine Tour | 3 Wineries & 12 Tastings",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "wine tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "21559P6",
+          "title": "Santorini: 4hr Private Wine Tasting Tour",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        }
+      ],
+      "comparison": "2 and 3 selected; unknown price units excluded",
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "boat",
+      "status": "PASS",
+      "prefill": true,
+      "products": [
+        {
+          "code": "345728P2",
+          "title": "Milos oneiro-kleftiko sailing experience with local guide",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "skipper"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "32830P5",
+          "title": "Milos Small-Group Full-Day Cruise with Snorkelling and Lunch",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "32830P4",
+          "title": "Best of Milos and Poliegos Catamaran snorkelling Cruise with BBQ",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        }
+      ],
+      "comparison": "2 and 3 selected; unknown price units excluded",
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "wine",
+      "status": "PASS",
+      "prefill": true,
+      "products": [
+        {
+          "code": "44792P8",
+          "title": "Cooking Class and Wine Tasting in Santorini",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "396495P4",
+          "title": "Santorini Daytime Wine Tour | 3 Wineries & 12 Tastings",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "wine tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "21559P6",
+          "title": "Santorini: 4hr Private Wine Tasting Tour",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        }
+      ],
+      "comparison": "2 and 3 selected; unknown price units excluded",
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "boat",
+      "status": "PASS",
+      "prefill": true,
+      "products": [
+        {
+          "code": "345728P2",
+          "title": "Milos oneiro-kleftiko sailing experience with local guide",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "skipper"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "32830P5",
+          "title": "Milos Small-Group Full-Day Cruise with Snorkelling and Lunch",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "32830P4",
+          "title": "Best of Milos and Poliegos Catamaran snorkelling Cruise with BBQ",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        }
+      ],
+      "comparison": "2 and 3 selected; unknown price units excluded",
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "wine",
+      "status": "PASS",
+      "prefill": true,
+      "products": [
+        {
+          "code": "44792P8",
+          "title": "Cooking Class and Wine Tasting in Santorini",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "396495P4",
+          "title": "Santorini Daytime Wine Tour | 3 Wineries & 12 Tastings",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "wine tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        },
+        {
+          "code": "21559P6",
+          "title": "Santorini: 4hr Private Wine Tasting Tour",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ],
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+        }
+      ],
+      "comparison": "2 and 3 selected; unknown price units excluded",
+      "axeViolations": 0
+    }
+  ],
+  "network": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalUiEvents": 0,
+      "photos": 0,
+      "beacons": 0,
+      "diagnosticEvents": {
+        "status": 503,
+        "body": {
+          "error": "Events disabled"
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalUiEvents": 0,
+      "photos": 0,
+      "beacons": 0,
+      "diagnosticEvents": {
+        "status": 503,
+        "body": {
+          "error": "Events disabled"
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalUiEvents": 0,
+      "photos": 0,
+      "beacons": 0,
+      "diagnosticEvents": {
+        "status": 503,
+        "body": {
+          "error": "Events disabled"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "purpose": "PR #23 isolated staging preview, not a production release",
+    "sourceCommit": "611601ef2eb30d221fac94aaa78c5a1f44d19696",
+    "apiSourceSha256": "af38f06c0b3ffd365498be8d247b9ed4fd28f5b6a59845d7883163ceed051788",
+    "origin": "https://greecebydan-travel-api-staging.onelion-studio.workers.dev",
+    "apiPhotos": false,
+    "interactionEvents": false,
+    "changesFromSource": [
+      "staging-only SITE origin",
+      "staging-only client API URL",
+      "noindex headers and preview banner",
+      "hard-off feature overrides"
+    ],
+    "assetSha256": {
+      "/404.html": "d4bcfa2f2bded08d3fd5bb8e0142f961d15fe50ac4dbfab08de01119d553151b",
+      "/about/index.html": "4721c299a5a07fe732c4c2a1873c74550ebc79c3fb877453ac9a9b000dcbb67f",
+      "/affiliate-disclosure/index.html": "0ecd867378c69642ae2f7ed85939208835e5e61eafa3aabbd9ee7332b1cd9653",
+      "/assets/css/style.css": "43880b0a1119934f6703f272965f5ed61a657d246f21c37baaa26a8116c80311",
+      "/assets/data/advisor-contexts.json": "78098e9e235370fe83cc89d798fd88ab0dc5a3f813653914767bcd93b0987a1f",
+      "/assets/js/catalog.js": "7e50a32048d0e2c0e7fa3344f41434dbc08707bddf69a04884460d2a0c3e2f4b",
+      "/assets/js/concierge.js": "38df0d960a42653dd6ab1b2e6fc44a0a7e5cb5a3d3e9bd793395d4499d04a613",
+      "/assets/js/events.js": "563cac68f989faad6e819724ca13772c50587926362956a73a3800099075c249",
+      "/assets/js/main.js": "1de03cd516406b3c2862bd67d8f681c39e78d88eeffabf48cf3c4c2193abefbd",
+      "/can-you-visit-meteora-if-you-are-afraid-of-heights/index.html": "f7d5b9086e9afaa218718f41e5f24c2a00797b49a7198e06e011b6f3a8290aab",
+      "/chios-mastiha-the-greek-resin-collected-like-tears/index.html": "6a11ed2f138b50da70fa926b7bf65b3daa309cc04e8b91708d68a59f98a31b2f",
+      "/concierge/index.html": "1dd4b8c97c6dd578b3c04d0f12c482f9828187ef0d24801a9870c2807c2078be",
+      "/contact/index.html": "25ce9899691da7d0414b33d443fdcdc3731231265e83811c2896a67282003584",
+      "/cookies/index.html": "3a7877ab2c55759a5759486a15000a9aeb6b7c796a34ec028ffded5e629e5ea7",
+      "/favicon.svg": "72fd0191f3537a09476c3e888e5f447be425838b2c37f0f001abc246d3a0d5b3",
+      "/greek-feta-sheeps-milk-wooden-barrels-and-a-taste-of-place/index.html": "0bb3f0077a2b980a446b2e94660aba1a8a90760486167d8ae4e6839a684efe01",
+      "/how-to-taste-santorini-wine-without-driving/index.html": "4356fea613d94cb763dc57a0af2b4da1b5f865ae672f334f513cee60819ada1a",
+      "/index.html": "ab008ada10ada6d792d9592a62d781ec48dc058a0684cdd062eb283092fa3172",
+      "/milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose/index.html": "f8f544b2f5f7f2c3816f5e451ad1d955354a6736962509ed7bb59e09ab42a258",
+      "/milos-kleftiko-sailboat-or-speedboat/index.html": "d901689dbcd4a835563999f6f11ecfad64c48da4b9751ed3f2ca0e621e8418f3",
+      "/naxos-farm-cooking-class-what-you-actually-do/index.html": "2f0a2f141e916464874fd05adf69b1e2c1f7761d76869ccbe535f39626e1e02d",
+      "/privacy/index.html": "83a08c8a2454b87a34926d869757b45edf7428bbe020a6a260ec17021093c71e",
+      "/private-boat-in-greece-with-a-skipper-or-self-drive/index.html": "2871c9340ce5fbc25b9545c887b49a1ef06a6d629493e6c5c92d9536cab288f2",
+      "/santorini-s-sweet-wines-sun-volcanic-soil-and-a-forgotten-red/index.html": "c23d91e91a4d499bb77b22e4a00d4d84fc1572cfc687b18a8e915d2428ac7349",
+      "/santorini-s-tomato-fritters-why-ntomatokeftedes-taste-different-here/index.html": "466a1a170a593d9389358dd5779d45f1ebc6dc70687b959eeeecdeb4cff7c82d",
+      "/sikinos/index.html": "a160b9006f8df83dc9cf74cb064d04f76ea629ae40bdfbb1c0bc5fbf5f74b335",
+      "/site.webmanifest": "3527c34b2e03f53db792ce38ce4149e16cdda7509a2ada3f5e4e675541cf1408",
+      "/stories/index.html": "b0f4c74d85ef1df167b9d6692e157a768cd5e12e5f8cc6d1a4ed482de3decf80",
+      "/terms/index.html": "2211fdf09cf70d0479012b9303e699d8784028ecf2a00e61f89f8c1bf636b0c4",
+      "/the-lost-hippodrome-beneath-thessaloniki/index.html": "b1f32731006a6bb75a9e7b7d72b2fd1a1081c4b52a496c361f3c36ea4c5ff1c7",
+      "/what-is-sparta-actually-like-today/index.html": "c210d43f5e6f8e8e9fdb65ec36db7f32ab5dcfeb9e38c44f3dd0f2ff9870a015"
+    }
+  },
+  "actualAssetHashes": {
+    "/assets/js/concierge.js": "38df0d960a42653dd6ab1b2e6fc44a0a7e5cb5a3d3e9bd793395d4499d04a613",
+    "/assets/css/style.css": "43880b0a1119934f6703f272965f5ed61a657d246f21c37baaa26a8116c80311",
+    "/assets/js/events.js": "563cac68f989faad6e819724ca13772c50587926362956a73a3800099075c249",
+    "/concierge/index.html": "1dd4b8c97c6dd578b3c04d0f12c482f9828187ef0d24801a9870c2807c2078be"
+  },
+  "status": "PASS"
+}
