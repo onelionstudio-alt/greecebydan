@@ -1,5 +1,8 @@
 # Culture & History — isolated implementation
 
+**Status: implementation and recorded-response/browser QA complete; real new
+frontend + Worker staging verification awaits the owner upload in STAGING.md.**
+
 Baseline: published main b37919d2f57883aa2a772aa4b3f3f7d23aede68b.
 Branch: feat/concierge-culture-history. No production deployment or merge.
 Audit: ../category-expansion on the separate audit branch; real runs
