@@ -1,0 +1,154 @@
+[
+  {
+    "engine": "chromium",
+    "width": 320,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  },
+  {
+    "engine": "chromium",
+    "width": 768,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 320,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 768,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "recorded permitted responses, local UI routing; not live staging",
+    "apiRequests": [
+      "/destinations",
+      "/destinations",
+      "/destinations",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search",
+      "/search"
+    ],
+    "physicalPhones": false
+  }
+]

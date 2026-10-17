@@ -17,11 +17,22 @@ export function greekDestinations(destinations) {
 }
 
 export function preferences(data) {
-  if (!data || typeof data !== 'object' || Array.isArray(data) || !['boat', 'wine'].includes(data.kind) || !/^\d{1,8}$/.test(data.destination) || !['any', 'private'].includes(data.style) || !['any', ...(data.kind === 'boat' ? ['sunset', 'swimming'] : ['food', 'vineyard'])].includes(data.mood) || !['0', '75', '150', '300'].includes(String(data.budget)) || typeof data.cancellation !== 'boolean') throw new Error('Invalid preferences');
-  return { kind: data.kind, destination: data.destination, style: data.style, mood: data.mood, budget: Number(data.budget), cancellation: data.cancellation };
+  const culture = data?.kind === 'culture';
+  if(culture && Object.keys(data).some(k=>!['kind','destination','style','mood','budget','cancellation'].includes(k))) throw new Error('Invalid Culture fields');
+  const moods = culture ? ['guided'] : data?.kind === 'boat' ? ['sunset','swimming'] : ['food','vineyard'];
+  if (!data || typeof data !== 'object' || Array.isArray(data) || !['boat','wine','culture'].includes(data.kind) || !/^\d{1,8}$/.test(data.destination) || !['any','private',...(culture?['shared']:[])].includes(data.style) || !['any',...moods].includes(data.mood) || !['0','75','150','300'].includes(String(data.budget)) || typeof data.cancellation !== 'boolean') throw new Error('Invalid preferences');
+  return {kind:data.kind,destination:data.destination,style:data.style,mood:data.mood,budget:Number(data.budget),cancellation:data.cancellation};
 }
 
 export function category(tags, kind) {
+  if (kind === 'culture') {
+    for (const name of ['Historical Tours','Archaeology Tours','Cultural Tours']) {
+      const matches = tags.filter(t => (t.allNamesByLocale?.en || t.allNamesByLocale?.['en-US'] || '').toLowerCase() === name.toLowerCase());
+      if (matches.length === 1) return matches[0].tagId;
+      if (matches.length > 1) throw new Error('Ambiguous Culture taxonomy');
+    }
+    throw new Error('Culture taxonomy unavailable');
+  }
   const names = kind === 'wine' ? ['Wine Tastings', 'Wine Tasting', 'Wine Tours', 'Wine Tasting & Winery Tours'] : ['Cruises & Sailing', 'Day Cruises', 'Sailing'];
   for (const name of names) {
     const tag = tags.find(t => t.allNamesByLocale?.en?.toLowerCase() === name.toLowerCase() || t.allNamesByLocale?.['en-US']?.toLowerCase() === name.toLowerCase());
@@ -120,7 +131,7 @@ export function recommendations(products, pref, supplierCoversEnabled = false) {
     if (!Number.isFinite(price) || price < 0 || p.pricing.currency !== 'EUR' || (pref.budget && price > pref.budget)) return [];
     const rating = Number(p.reviews?.combinedAverageRating) || 0;
     const reviews = Number(p.reviews?.totalReviews) || 0;
-    const reasons = [pref.kind === 'boat' ? 'The listing mentions a captain or crew.' : 'The listing explicitly describes wine tasting. Confirm inclusions for your selected option on Viator.'];
+    const reasons = [pref.kind === 'culture' ? 'Check the included services and option conditions on Viator.' : pref.kind === 'boat' ? 'The listing mentions a captain or crew.' : 'The listing explicitly describes wine tasting. Confirm inclusions for your selected option on Viator.'];
     if (pref.style === 'private') reasons.push('Listed as a private experience.');
     if (pref.mood !== 'any') reasons.push({ sunset: 'Sunset is mentioned in the listing.', swimming: 'Swimming or snorkelling is mentioned.', food: 'Food or a pairing is mentioned.', vineyard: 'A winery or vineyard is mentioned.' }[pref.mood]);
     if (pref.cancellation) reasons.push('Listed with free cancellation; check the deadline.');
@@ -128,20 +139,99 @@ export function recommendations(products, pref, supplierCoversEnabled = false) {
   }).sort((a, b) => b.score - a.score || a.fromPrice - b.fromPrice).slice(0, 3).map(({ score, ...p }) => p);
 }
 
-async function viator(path, env, body) {
-  const response = await fetch(BASE + path, { method: body ? 'POST' : 'GET', headers: { 'exp-api-key': env.VIATOR_API_KEY, 'Accept': 'application/json;version=2.0', 'Accept-Language': 'en-US', ...(body ? { 'Content-Type': 'application/json' } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(10000) });
+// Culture uses fresh single-product content, never summaries as proof of inclusions.
+export const CULTURE_PLACES = Object.freeze({Athens:'acropolis',Delphi:'(?:delphi|deplhi)',Meteora:'meteora'});
+const list = value => Array.isArray(value) ? value : [];
+const boundedText = value => typeof value === 'string' ? value.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,2000) : '';
+export function cultureConditions(product, checkedAt = new Date().toISOString()) {
+  if (product?.status !== 'ACTIVE' || !/^[A-Za-z0-9_-]{1,40}$/.test(product.productCode || '')) return null;
+  const options = list(product.productOptions);
+  if (options.length > 20) return null; // No partial option inspection.
+  const includes = list(product.inclusions), excludes = list(product.exclusions);
+  const guideText = includes.map(i => boundedText(i.otherDescription));
+  const inspectable = options.length>0 && [...includes,...excludes].every(i=>typeof i.otherDescription!=='string'||i.otherDescription.length<=2000);
+  const guideExcluded = excludes.some(i => /guid(?:e|ed|ing)/i.test(boundedText(i.otherDescription)));
+  const uncertain = /\b(?:no|not|without|optional|extra|additional|request|surcharge|depending|subject|cannot|can't)\b/i;
+  const explicitGuide = guideText.some(t => /\b(?:(?:licensed|professional|expert|local)\s+(?:(?:professional|licensed|tour|local)\s+){0,3}guide|tour guide)\b/i.test(t) && !uncertain.test(t));
+  const optionGuideConflict = options.some(o => /audio|self[- ]guided|driver[- ]only|without (?:a )?guide/i.test(boundedText(o.title)));
+  const languageEntries = option => list(option?.languageGuides === undefined ? product.languageGuides : option.languageGuides).filter(g => g?.type === 'GUIDE' && /^[a-z]{2}(?:-[A-Z]{2})?$/.test(g.language || '')).map(g => g.language);
+  const scopes = options.length ? options.map(languageEntries) : [languageEntries(product)];
+  const languages = [...new Set(scopes[0] || [])].filter(l => scopes.every(s => s.includes(l))).sort().slice(0,12);
+  const guide = inspectable && explicitGuide && !guideExcluded && !optionGuideConflict && languages.length > 0;
+  const titles = options.map(o => boundedText(o.title));
+  const privateConflict = titles.some(t => /\bshared|small[- ]group|group tour\b/i.test(t));
+  const sharedConflict = titles.some(t => /\bprivate\b/i.test(t));
+  const group = !inspectable ? 'unknown' : product.itinerary?.privateTour === true && !privateConflict ? 'private' : product.itinerary?.privateTour === false && !sharedConflict ? 'shared' : 'unknown';
+  const max = product.itinerary?.maxTravelersInSharedTour;
+  const listedMaxima=[boundedText(product.title),...titles,...guideText].flatMap(t=>[...t.matchAll(/\b(?:max(?:imum)?\.?|up to)\s*(\d{1,3})\b/gi)].map(m=>Number(m[1])));
+  const groupSize = group === 'shared' && Number.isInteger(max) && max > 0 && max <= 1000 && listedMaxima.every(n=>n===max) ? max : null;
+  const pickups = options.length ? options.map(o => o.logistics === undefined ? product.logistics : o.logistics) : [product.logistics];
+  const methods = pickups.map(l => l?.travelerPickup?.pickupOptionType || 'UNKNOWN');
+  const method = methods.every(m => m === methods[0]) ? methods[0] : 'OPTION_DEPENDENT';
+  const pickup = ({MEET_EVERYONE_AT_START_POINT:'meeting_point',PICKUP_EVERYONE:'pickup_listed',PICKUP_AND_MEET_AT_START_POINT:'pickup_or_meeting',OPTION_DEPENDENT:'option_dependent'})[method] || 'unknown';
+  const effortTypes = [...new Set(list(product.additionalInfo).map(i => i.type).filter(t => ['PHYSICAL_EASY','PHYSICAL_MEDIUM','PHYSICAL_HARD'].includes(t)))];
+  const effort = effortTypes.length === 1 ? ({PHYSICAL_EASY:'easy',PHYSICAL_MEDIUM:'moderate',PHYSICAL_HARD:'hard'})[effortTypes[0]] : 'unknown';
+  const feesExcluded = excludes.some(i => ['ENTRANCE_FEES','ADMISSION_FEES'].includes(i.type) || /\b(?:entrance|admission|tickets?)[\s-]*(?:fees?|to|for|$)/i.test(boundedText(i.otherDescription)));
+  const stops = list(product.itinerary?.itineraryItems);
+  // Never turn all-fees text or a ticket format into an all-sites inclusion promise.
+  const admission = feesExcluded || stops.some(s => s.admissionIncluded === 'NO' && s.passByWithoutStopping !== true) ? 'some_not_included' : 'unknown';
+  const facts = [];
+  const add = (code,field,value) => facts.push({code,evidence:{source:'viator_product',productCode:product.productCode,checkedAt,field,value}});
+  if (guide) add('culture_guide','inclusions','GUIDE_INCLUDED');
+  if (group !== 'unknown') add('culture_'+group,'itinerary.privateTour',group === 'private' ? 'true' : 'false');
+  if (effort === 'moderate' || effort === 'hard') add('culture_'+effort,'additionalInfo',effort === 'moderate' ? 'PHYSICAL_MEDIUM' : 'PHYSICAL_HARD');
+  return {version:1,checkedAt,guide:guide?'included':'not_confirmed',languages:guide?languages:[],group,groupSize,pickup,effort,admission,facts};
+}
+export function cultureCandidates(products, pref, place) {
+  const topic = CULTURE_PLACES[place];
+  if (!topic) return [];
+  const seen = new Set();
+  return list(products).filter(p => {
+    if (!p || !/^[A-Za-z0-9_-]{1,40}$/.test(p.productCode || '') || seen.has(p.productCode) || (p.status !== undefined && p.status !== 'ACTIVE')) return false;
+    const title = boundedText(p.title), content = `${title}. ${boundedText(p.description)}`;
+    if (!new RegExp('\\b'+topic+'\\b','i').test(content)) return false;
+    if (/e[- ]?bike|bicycl|cycling|photo(?:graphy)? tour|rock climb|hiking|food tour|wine tasting|cooking|virtual reality|audio[- ]?guide|self[- ]guided|ticket(?:s)?[- ]only/i.test(title)) return false;
+    if (pref.mood === 'guided' && /driver[- ]only|not licensed|cannot (?:enter|accompany)|guide (?:is )?(?:optional|on request)/i.test(content)) return false;
+    if (!Number.isFinite(p.pricing?.summary?.fromPrice) || p.pricing.summary.fromPrice < 0 || p.pricing.currency !== 'EUR' || (pref.budget && p.pricing.summary.fromPrice > pref.budget)) return false;
+    if (pref.cancellation && !p.flags?.includes('FREE_CANCELLATION')) return false;
+    try { const u = new URL(p.productUrl); if (u.protocol !== 'https:' || !['viator.com','www.viator.com'].includes(u.hostname) || u.username || u.password) return false; } catch { return false; }
+    seen.add(p.productCode); return true;
+  }).slice(0,6);
+}
+export async function cultureSearch(products,pref,place,coversEnabled,detail) {
+  const candidates = cultureCandidates(products,pref,place), eligible = [], conditions = new Map();
+  // Up to six fresh details, two at a time. No retries, stale content or extra pages.
+  for (let i=0;i<candidates.length;i+=2) {
+    const batch = await Promise.all(candidates.slice(i,i+2).map(async summary => {
+      const p = await detail(summary.productCode);
+      if (p?.productCode !== summary.productCode) throw new Error('Product identity mismatch');
+      const c = cultureConditions(p);
+      if (!c || (pref.mood === 'guided' && c.guide !== 'included') || (pref.style !== 'any' && c.group !== pref.style)) return null;
+      return {summary:{...summary,status:p.status,images:p.images},conditions:c};
+    }));
+    for (const match of batch) if (match) { eligible.push(match.summary);conditions.set(match.summary.productCode,match.conditions); }
+  }
+  return recommendations(eligible,{...pref,style:'any',mood:'any'},coversEnabled).map(p => {
+    const c = conditions.get(p.productCode);
+    return {...p,category:'culture',culture:{...c,facts:undefined},selectionEvidence:[...p.selectionEvidence,...c.facts],reason:'Compare the listed guide, group and admission conditions before booking.'};
+  });
+}
+
+async function viator(path, env, body, deadline) {
+  if (deadline !== undefined && deadline <= Date.now()) throw new Error('Search deadline exceeded');
+  const response = await fetch(BASE + path, { method: body ? 'POST' : 'GET', headers: { 'exp-api-key': env.VIATOR_API_KEY, 'Accept': 'application/json;version=2.0', 'Accept-Language': 'en-US', ...(body ? { 'Content-Type': 'application/json' } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(deadline === undefined ? 10000 : Math.min(10000,Math.max(1,deadline-Date.now()))) });
   if (!response.ok) throw new Error('Upstream unavailable');
   return response.json();
 }
 
-async function cached(request, env, path, ttl, body) {
+async function cached(request, env, path, ttl, body, deadline) {
   // Include a one-way key fingerprint so a rotated API key cannot reuse old data.
   const material = `${env.VIATOR_API_KEY}:${path}:${JSON.stringify(body || {})}`;
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(material));
   const key = new Request(new URL('/internal-cache/' + Array.from(new Uint8Array(digest), n => n.toString(16).padStart(2, '0')).join(''), request.url));
   const cache = globalThis.caches?.default;
   try { const hit = await cache?.match(key); if (hit) return await hit.json(); } catch { /* Cache is optional. */ }
-  const data = await viator(path, env, body);
+  const data = await viator(path, env, body, deadline);
   try { if (cache) await cache.put(key, new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${ttl}`, 'X-Robots-Tag': 'noindex' } })); } catch { /* Cache is optional. */ }
   return data;
 }
@@ -287,22 +377,30 @@ export default {
       if (body.length > 2048) return reply({ error: 'Request too large' }, 413, origin);
       try { pref = preferences(JSON.parse(body)); } catch { return reply({ error: 'Invalid preferences' }, 400, origin); }
     }
+    const deadline = pref?.kind === 'culture' ? Date.now()+28000 : undefined;
     try {
-      const raw = await cached(request, env, '/destinations', WEEK);
+      const raw = await cached(request, env, '/destinations', WEEK,undefined,deadline);
       const destinations = greekDestinations(raw.destinations || []);
-      if (route === '/destinations') return reply({ destinations }, 200, origin);
+      if (route === '/destinations') return reply({ destinations, ...(env.CULTURE_ENABLED === 'true' ? {capabilities:{culture:true,cultureDestinations:destinations.filter(d => Object.hasOwn(CULTURE_PLACES,d.name))}} : {}) }, 200, origin);
+      if (pref.kind === 'culture' && env.CULTURE_ENABLED !== 'true') return reply({error:'Culture is not enabled'},400,origin);
       if (!destinations.some(d => d.id === pref.destination)) return reply({ error: 'Choose a Greek destination' }, 400, origin);
-      const tags = await cached(request, env, '/products/tags', WEEK);
+      const place = destinations.find(d => d.id === pref.destination)?.name;
+      if (pref.kind === 'culture' && !Object.hasOwn(CULTURE_PLACES,place)) return reply({error:'Choose Athens, Delphi or Meteora for Culture'},400,origin);
+      const tags = await cached(request, env, '/products/tags', WEEK,undefined,deadline);
       const filtering = { destination: pref.destination, tags: [category(tags.tags || [], pref.kind)] };
       if (pref.budget) filtering.highestPrice = pref.budget;
       const flags = [];
-      if (pref.style === 'private') flags.push('PRIVATE_TOUR');
+      if (pref.kind !== 'culture' && pref.style === 'private') flags.push('PRIVATE_TOUR');
       if (pref.cancellation) flags.push('FREE_CANCELLATION');
       if (flags.length) filtering.flags = flags;
       const body = { filtering, sorting: { sort: 'TRAVELER_RATING', order: 'DESCENDING' }, pagination: { start: 1, count: 50 }, currency: 'EUR' };
       const coversEnabled = env.SUPPLIER_COVERS_ENABLED === 'true';
       // Live search model: no stored image metadata or stale search fallback.
-      const data = coversEnabled ? await viator('/products/search', env, body) : await cached(request, env, '/products/search', 900, body);
+      const data = coversEnabled || pref.kind === 'culture' ? await viator('/products/search', env, body,deadline) : await cached(request, env, '/products/search', 900, body);
+      if (pref.kind === 'culture') {
+        const products = await cultureSearch(data.products || [],pref,place,coversEnabled,code=>viator('/products/'+encodeURIComponent(code),env,undefined,deadline));
+        return reply({products,limitedSelection:true,checkedAt:new Date().toISOString()},200,origin);
+      }
       return reply({ products: recommendations(data.products || [], pref, coversEnabled) }, 200, origin);
     } catch {
       // Never return upstream bodies, request headers or API credentials.

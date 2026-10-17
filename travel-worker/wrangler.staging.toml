@@ -8,6 +8,7 @@ workers_dev = true
 routes = []
 
 [vars]
+CULTURE_ENABLED = "false"
 VIATOR_IMAGES_APPROVED = "false"
 SUPPLIER_COVERS_ENABLED = "false"
 INTERACTIONS_ENABLED = "false"
