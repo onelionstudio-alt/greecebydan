@@ -97,10 +97,12 @@ unchanged; no new review content is requested.
 
 ## Verification / release gate
 
-Local Worker/OAuth regression and new Culture tests: 38 PASS after hardening.
-Existing Python tests: 19 PASS; the additional Culture preview isolation test
-also passes locally (20 total). Full CI repeats them and runs recorded-response Culture UI,
+CI [39064010454](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39064010454)
+PASS for source 840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab: 38 Worker/OAuth
+tests, 20 Python build/preview tests, Culture recorded-response UI, existing
 Boat/Wine cards and supplier boundaries in Chromium/WebKit at 320/390/768/1440.
+Culture axe violations: zero; keyboard, comparison 2–3, empty/error/missing
+conditions and unexpected-network checks pass. See evidence/qa-summary.json.
 Screenshots labelled recorded are UI evidence, not live availability or live E2E.
 
 Real **implementation** staging E2E is BLOCKED until the owner replaces the audit
@@ -113,3 +115,16 @@ Cloudflare/Viator block or call a synthetic response a live PASS.
 
 Not ready to merge/release until that real staging gate is closed. Keep the PR
 as draft until evidence and any selection limitations have been reviewed.
+
+## Screenshots
+
+These illustrate UI states using the recorded permitted API field projection,
+not fresh API availability. The before captures the existing page entry state;
+after captures the new Culture result cards (no image placeholders). They are
+not matched before/after search inventories. Prices are the actual recorded
+search starting amounts, with units explicitly unknown.
+
+| View | Before | Culture cards | Comparison |
+| --- | --- | --- | --- |
+| Mobile 390 | [Before](evidence/before-390.png) | [After](evidence/after-390-recorded.png) | [2–3 options](evidence/compare-390-recorded.png) |
+| Desktop 1440 | [Before](evidence/before-1440.png) | [After](evidence/after-1440-recorded.png) | [2–3 options](evidence/compare-1440-recorded.png) |
