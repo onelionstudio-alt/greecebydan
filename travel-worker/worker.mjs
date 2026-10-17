@@ -18,6 +18,7 @@ export function greekDestinations(destinations) {
 
 export function preferences(data) {
   const culture = data?.kind === 'culture';
+  if(culture && Object.keys(data).some(k=>!['kind','destination','style','mood','budget','cancellation'].includes(k))) throw new Error('Invalid Culture fields');
   const moods = culture ? ['guided'] : data?.kind === 'boat' ? ['sunset','swimming'] : ['food','vineyard'];
   if (!data || typeof data !== 'object' || Array.isArray(data) || !['boat','wine','culture'].includes(data.kind) || !/^\d{1,8}$/.test(data.destination) || !['any','private',...(culture?['shared']:[])].includes(data.style) || !['any',...moods].includes(data.mood) || !['0','75','150','300'].includes(String(data.budget)) || typeof data.cancellation !== 'boolean') throw new Error('Invalid preferences');
   return {kind:data.kind,destination:data.destination,style:data.style,mood:data.mood,budget:Number(data.budget),cancellation:data.cancellation};
@@ -148,20 +149,22 @@ export function cultureConditions(product, checkedAt = new Date().toISOString())
   if (options.length > 20) return null; // No partial option inspection.
   const includes = list(product.inclusions), excludes = list(product.exclusions);
   const guideText = includes.map(i => boundedText(i.otherDescription));
+  const inspectable = options.length>0 && [...includes,...excludes].every(i=>typeof i.otherDescription!=='string'||i.otherDescription.length<=2000);
   const guideExcluded = excludes.some(i => /guid(?:e|ed|ing)/i.test(boundedText(i.otherDescription)));
   const uncertain = /\b(?:no|not|without|optional|extra|additional|request|surcharge|depending|subject|cannot|can't)\b/i;
   const explicitGuide = guideText.some(t => /\b(?:(?:licensed|professional|expert|local)\s+(?:(?:professional|licensed|tour|local)\s+){0,3}guide|tour guide)\b/i.test(t) && !uncertain.test(t));
   const optionGuideConflict = options.some(o => /audio|self[- ]guided|driver[- ]only|without (?:a )?guide/i.test(boundedText(o.title)));
   const languageEntries = option => list(option?.languageGuides === undefined ? product.languageGuides : option.languageGuides).filter(g => g?.type === 'GUIDE' && /^[a-z]{2}(?:-[A-Z]{2})?$/.test(g.language || '')).map(g => g.language);
   const scopes = options.length ? options.map(languageEntries) : [languageEntries(product)];
-  const languages = [...new Set(scopes[0] || [])].filter(l => scopes.every(s => s.includes(l))).slice(0,12);
-  const guide = explicitGuide && !guideExcluded && !optionGuideConflict && languages.length > 0;
+  const languages = [...new Set(scopes[0] || [])].filter(l => scopes.every(s => s.includes(l))).sort().slice(0,12);
+  const guide = inspectable && explicitGuide && !guideExcluded && !optionGuideConflict && languages.length > 0;
   const titles = options.map(o => boundedText(o.title));
   const privateConflict = titles.some(t => /\bshared|small[- ]group|group tour\b/i.test(t));
   const sharedConflict = titles.some(t => /\bprivate\b/i.test(t));
-  const group = product.itinerary?.privateTour === true && !privateConflict ? 'private' : product.itinerary?.privateTour === false && !sharedConflict ? 'shared' : 'unknown';
+  const group = !inspectable ? 'unknown' : product.itinerary?.privateTour === true && !privateConflict ? 'private' : product.itinerary?.privateTour === false && !sharedConflict ? 'shared' : 'unknown';
   const max = product.itinerary?.maxTravelersInSharedTour;
-  const groupSize = group === 'shared' && Number.isInteger(max) && max > 0 && max <= 1000 ? max : null;
+  const listedMaxima=[boundedText(product.title),...titles,...guideText].flatMap(t=>[...t.matchAll(/\b(?:max(?:imum)?\.?|up to)\s*(\d{1,3})\b/gi)].map(m=>Number(m[1])));
+  const groupSize = group === 'shared' && Number.isInteger(max) && max > 0 && max <= 1000 && listedMaxima.every(n=>n===max) ? max : null;
   const pickups = options.length ? options.map(o => o.logistics === undefined ? product.logistics : o.logistics) : [product.logistics];
   const methods = pickups.map(l => l?.travelerPickup?.pickupOptionType || 'UNKNOWN');
   const method = methods.every(m => m === methods[0]) ? methods[0] : 'OPTION_DEPENDENT';

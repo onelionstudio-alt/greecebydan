@@ -7,7 +7,7 @@ const detail=(code='P1')=>({productCode:code,status:'ACTIVE',languageGuides:[{la
 const summary=(code='P1')=>({productCode:code,title:'Acropolis guided tour',productUrl:`https://www.viator.com/tours/Athens/${code}?mcid=42383&pid=P00320497&medium=api&api_version=2.0`,description:'Acropolis visit',pricing:{currency:'EUR',summary:{fromPrice:80}},flags:['FREE_CANCELLATION'],duration:{fixedDurationInMinutes:120}});
 test('Culture input, exact live tags and scoped places; Boat/Wine preferences remain valid',()=>{
  assert.deepEqual(preferences({...pref,budget:'0'}),pref);assert.equal(preferences({...pref,style:'shared'}).style,'shared');
- for(const p of [{...pref,mood:'food'},{...pref,style:'taxi'},{...pref,destination:'../../products/P1'},{...pref,kind:'food'},{...pref,cancellation:'yes'},{...pref,budget:42}])assert.throws(()=>preferences(p));
+ for(const p of [{...pref,mood:'food'},{...pref,style:'taxi'},{...pref,destination:'../../products/P1'},{...pref,kind:'food'},{...pref,cancellation:'yes'},{...pref,budget:42},{...pref,url:'https://evil.invalid'}])assert.throws(()=>preferences(p));
  assert.throws(()=>preferences({...pref,kind:'boat',style:'shared',mood:'any'}));
  assert.equal(category([{tagId:100,allNamesByLocale:{en:'Historical Tours'}}],'culture'),100);
  assert.throws(()=>category([{tagId:1,allNamesByLocale:{en:'Historical Tours'}},{tagId:2,allNamesByLocale:{en:'Historical Tours'}}],'culture'));
@@ -18,7 +18,7 @@ test('recorded real data rejects GUIDE-only driver/escort claims and retains exp
  for(const code of ['240841P1','198006P36','464406P5','464406P12'])assert.equal(cultureConditions(actualByCode[code]).guide,'included',code);
  assert.deepEqual(cultureConditions(actualByCode['240841P1']).languages,['de']);
  assert.equal(cultureConditions(actualByCode['368783P2']).admission,'some_not_included');
- assert.equal(cultureConditions(actualByCode['368783P2']).effort,'moderate');
+ assert.equal(cultureConditions(actualByCode['368783P2']).effort,'moderate');assert.equal(cultureConditions(actualByCode['368783P2']).groupSize,null);
 });
 test('guide missing/optional/negated/audio and conflicting options fail closed',()=>{
  assert.equal(cultureConditions({...detail(),inclusions:[]}).guide,'not_confirmed');
@@ -27,6 +27,11 @@ test('guide missing/optional/negated/audio and conflicting options fail closed',
  assert.equal(cultureConditions({...detail(),productOptions:[{title:'Audio tour',languageGuides:[{type:'AUDIO',language:'en'}]}]}).guide,'not_confirmed');
  assert.equal(cultureConditions({...detail(),productOptions:[{title:'Guided',languageGuides:[{type:'GUIDE',language:'de'}]},{title:'Guided',languageGuides:[{type:'GUIDE',language:'en'}]}]}).guide,'not_confirmed');
  assert.equal(cultureConditions({...detail(),productOptions:Array(21).fill({})}),null);
+});
+test('missing option coverage and truncated conditions never prove guide/group inclusion',()=>{
+ assert.equal(cultureConditions({...detail(),productOptions:undefined}).guide,'not_confirmed');
+ assert.equal(cultureConditions({...detail(),productOptions:undefined}).group,'unknown');
+ assert.equal(cultureConditions({...detail(),inclusions:[{otherDescription:'Licensed tour guide '+'.'.repeat(2100)+' optional'}]}).guide,'not_confirmed');
 });
 test('option conflicts suppress group/pickup claims; absent data does not prove access or admission',()=>{
  let p=detail();p.itinerary.privateTour=true;p.productOptions.push({title:'Small Group Tour'});assert.equal(cultureConditions(p).group,'unknown');
