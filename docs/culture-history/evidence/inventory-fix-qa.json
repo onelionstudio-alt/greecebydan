@@ -1,0 +1,36 @@
+{
+  "sourceCommit": "7c669f724c5ff72453757e4359d4c32816819353",
+  "implementationCI": {
+    "run": 39071278044,
+    "result": "PASS",
+    "nodeTests": 46,
+    "pythonTests": 23,
+    "browserEngines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "mode": "Recorded allowed response projection, not live frontend E2E"
+  },
+  "realInventoryAudit": {
+    "run": 39070052304,
+    "result": "PASS",
+    "baselineSource": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+    "http200Cases": 30,
+    "detailObservations": 124,
+    "distinctActiveProducts": 69,
+    "noDateAvailabilityOrPurchases": true
+  },
+  "newRuntimeLiveStaging": {
+    "result": "BLOCKED",
+    "reason": "Owner must upload staging-pr25-selection.mjs; updated real frontend assertions have not run against the fixed runtime"
+  },
+  "physicalIOSAndroid": "NOT_TESTED",
+  "productionDeployed": false,
+  "merged": false
+}

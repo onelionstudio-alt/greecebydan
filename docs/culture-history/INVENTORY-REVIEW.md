@@ -104,8 +104,10 @@ window can still miss valid listings; this is deliberately not a universal catal
 - Follow-up local Node tests: **46 PASS**, including lossless allowed API-field
   projections for the two missed guide phrases, negatives/options, deeper window,
   maximum 12 details / 2 concurrent / 3 cards and exact affiliate URL preservation.
-- Final follow-up CI and actual new runtime/frontend staging: see the PR status;
-  **real staging remains blocked until the owner uploads the new selection preview**.
+- Final follow-up CI [39071278044](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39071278044):
+  **PASS**, 46 Node + 23 Python tests, Chromium/WebKit 320/390/768/1440,
+  Culture/Boat/Wine, keyboard/axe, comparison and supplier boundaries.
+  **Actual new runtime/frontend staging remains blocked until the owner uploads the selection preview**.
 - Physical iOS/Android NOT TESTED. Browser engine/viewports are not physical devices.
 
 Raw audit artifact `culture-inventory-audit` (124 observations) is attached to the
