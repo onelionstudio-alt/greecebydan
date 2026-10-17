@@ -1,0 +1,54 @@
+{
+  "checkedOn": "2026-10-17",
+  "environment": "Actual PR25 Cloudflare staging in cloud Chrome, source 840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+  "articlePrefill": {
+    "article": "milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose",
+    "kind": "boat",
+    "destination": "Milos",
+    "status": "PASS"
+  },
+  "boatResults": {
+    "codes": [
+      "345728P2",
+      "32830P5",
+      "32830P4"
+    ],
+    "status": "PASS"
+  },
+  "cultureDelphiDefault": {
+    "codes": [
+      "198006P36",
+      "464406P5",
+      "464406P12"
+    ],
+    "guideInclusion": "shown only from product details",
+    "unknownPriceUnit": "preserved",
+    "admissionExclusions": "shown where reported",
+    "status": "PASS"
+  },
+  "cultureDelphiFreeCancellation": {
+    "codes": [
+      "103214P181",
+      "198006P61"
+    ],
+    "excludedNonRefundableProduct": "464406P5",
+    "status": "PASS",
+    "scope": "Listed free cancellation only, selected-date terms not guaranteed"
+  },
+  "culturePartnerLanding": {
+    "href": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+    "heading": "Mystic Delphi Private Tour with Licensed Guide and Tickets",
+    "status": "PASS_TARGET_URL_AND_PRODUCT",
+    "method": "Verified actual CTA href and target/rel, clicked CTA, then opened its exact observed href in a controlled new tab and verified the product. The extension did not expose target_blank popup metadata reliably; automatic popup creation was not independently instrumented."
+  },
+  "purchase": false,
+  "bookingAvailabilityRequest": false,
+  "publicPhotosOrReviewsCopied": false,
+  "physicalDeviceTest": false,
+  "cultureDelphiSharedAndFreeCancellation": {
+    "status": "PASS_SAFE_EMPTY",
+    "results": 0,
+    "filtersPreserved": true,
+    "note": "No private tour was relabelled as shared to fill the results"
+  }
+}

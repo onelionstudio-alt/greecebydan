@@ -1,0 +1,72 @@
+{
+  "sourceCommit": "7c669f724c5ff72453757e4359d4c32816819353",
+  "checkedAt": "2026-10-17T21:40:23.834371+00:00",
+  "environment": "Cloud browser, real deployed staging frontend + API; not physical iOS/Android",
+  "metadata": {
+    "cultureInventoryFixRevision": 1,
+    "apiSourceSha256": "4a63e853d8ad4f96bfc40311d849c17fc6a778c21ca7933708bc2f96dbf6d856",
+    "apiPhotos": false,
+    "interactionEvents": false,
+    "supplierCovers": true
+  },
+  "acropolis": {
+    "filters": {
+      "style": "any",
+      "mood": "guided",
+      "budget": 0,
+      "cancellation": false
+    },
+    "shown": [
+      {
+        "code": "240841P1",
+        "guideLanguage": "de"
+      },
+      {
+        "code": "240841P3",
+        "guideLanguage": "de"
+      },
+      {
+        "code": "341709P1",
+        "guideLanguage": "en"
+      }
+    ],
+    "popupClickVerified": true,
+    "popupProductHeading": "Best of Athens & Acropolis Full Day Private Guided City Tour",
+    "popupUrl": "https://www.viator.com/tours/Athens/Full-Day-Private-Tour-to-Saint-Porfyrios-Monastery-and-Private-Access-to-his-house/d496-341709P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+    "originalLegacySlugPreserved": true
+  },
+  "meteora": {
+    "shown": [
+      "6575P20",
+      "6357P78"
+    ],
+    "comparison": {
+      "selected": 2,
+      "confirmedDifferencesVisible": [
+        "Duration",
+        "Group",
+        "Guide languages listed",
+        "Meeting / pickup method"
+      ],
+      "priceComparisonSuppressedForUnknownUnit": true,
+      "unknownGuideSiteCoverageAndAdmissionNoticeVisible": true
+    },
+    "scopeLimit": "One local meeting-point visit and one full-day listing titled from Thessaloniki. Destination is place visited, not a common departure or equivalent itinerary."
+  },
+  "noPurchaseOrDateAvailabilityInteraction": true,
+  "noPublicPageImagesOrReviewsCopied": true,
+  "delphiFailClosed": {
+    "preferences": {
+      "kind": "culture",
+      "destination": "50420",
+      "style": "shared",
+      "mood": "guided",
+      "budget": 0,
+      "cancellation": true
+    },
+    "result": "SAFE_EMPTY",
+    "filtersPreserved": true,
+    "noPrivateSubstitution": true,
+    "transportDisclaimerVisible": true
+  }
+}

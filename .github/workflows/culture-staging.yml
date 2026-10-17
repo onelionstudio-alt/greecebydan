@@ -1,0 +1,29 @@
+name: Culture History real staging QA (no deployment)
+on:
+  push:
+    branches: [feat/concierge-culture-history]
+    paths: ['docs/culture-history/RUN_REAL_STAGING']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/culture-qa" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/culture-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Actual frontend and API, no fixtures or purchase
+        env:
+          NODE_PATH: ${{ runner.temp }}/culture-qa/node_modules
+        run: node tests/browser-culture-staging.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: culture-real-staging
+          path: docs/culture-history/evidence/

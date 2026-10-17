@@ -1,0 +1,29 @@
+name: Culture inventory audit (staging only, no deployment)
+on:
+  push:
+    branches: [feat/concierge-culture-history]
+    paths: ['docs/culture-history/RUN_INVENTORY_AUDIT']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/inventory-qa" --no-package-lock playwright@1.56.1
+          node "$RUNNER_TEMP/inventory-qa/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Fixed read-only real API cases; no retry or booking
+        env:
+          NODE_PATH: ${{ runner.temp }}/inventory-qa/node_modules
+        run: node scripts/culture-inventory/run.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: culture-inventory-audit
+          path: docs/culture-history/evidence/inventory-audit.json

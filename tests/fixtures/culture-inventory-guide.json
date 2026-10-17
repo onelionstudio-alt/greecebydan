@@ -1,0 +1,495 @@
+{
+  "source": "Real staging audit 39070052304, 2026-10-17; source API fields projected without text truncation for these six products. No price/availability assertions.",
+  "products": [
+    {
+      "productCode": "341709P1",
+      "status": "ACTIVE",
+      "languageGuides": [
+        {
+          "type": "GUIDE",
+          "language": "en"
+        }
+      ],
+      "inclusions": [
+        {
+          "type": "PRIVATE_TRANSPORTATION",
+          "category": "TRANSPORT_AMENITIES"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "English speaking licensed guide in Acropolis and Ancient Agora"
+        },
+        {
+          "type": "WIFI_ONBOARD",
+          "category": "TRANSPORT_AMENITIES"
+        },
+        {
+          "type": "BOTTLED_WATER",
+          "category": "FOOD_AND_DRINK"
+        },
+        {
+          "type": "ADMISSION_FEES",
+          "category": "FEES_AND_TAXES"
+        },
+        {
+          "type": "AIR_CONDITIONED_VEHICLE",
+          "category": "TRANSPORT_AMENITIES"
+        }
+      ],
+      "exclusions": [],
+      "productOptions": [
+        {
+          "productOptionCode": "TG3",
+          "title": "Best of Athens & Acropolis",
+          "languageGuides": [
+            {
+              "type": "GUIDE",
+              "language": "en"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "productCode": "63145P77",
+      "status": "ACTIVE",
+      "languageGuides": [
+        {
+          "type": "GUIDE",
+          "language": "en"
+        }
+      ],
+      "inclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Skip the Line Acropolis Access"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Acropolis Ticket"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Small Group Guided Acropolis"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Licensed Tour Guide"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Hotel pickup and drop-off"
+        }
+      ],
+      "productOptions": [
+        {
+          "productOptionCode": "TG1",
+          "title": "Acropolis Guided Tour with Skip-the-Line Access",
+          "languageGuides": [
+            {
+              "type": "GUIDE",
+              "language": "en"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "productCode": "123525P19",
+      "status": "ACTIVE",
+      "languageGuides": [
+        {
+          "type": "AUDIO",
+          "language": "ru"
+        },
+        {
+          "type": "WRITTEN",
+          "language": "ru"
+        },
+        {
+          "type": "AUDIO",
+          "language": "en"
+        },
+        {
+          "type": "GUIDE",
+          "language": "en"
+        },
+        {
+          "type": "WRITTEN",
+          "language": "en"
+        }
+      ],
+      "inclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Professional English speaking experienced Tour driver for the day"
+        },
+        {
+          "type": "GOVERNMENT_FEES",
+          "category": "FEES_AND_TAXES"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Pick up / Drop off, from/to your hotel/apartment in Athens, Piraeus. Or request another location"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Your driver provides informative books audio/video documentary with historical details as you travel"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Air-conditioned vehicles, with high level of cleanliness (Sedan/ Minivan/ Minibus)"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Private Transportation & includes: (Fuels, Toll Roads, Parking Fees)"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "ENTRANCE_FEES",
+          "category": "FEES_AND_TAXES"
+        },
+        {
+          "type": "MEALS",
+          "category": "FOOD_AND_DRINK"
+        },
+        {
+          "type": "GRATUITIES",
+          "category": "FEES_AND_TAXES"
+        }
+      ],
+      "productOptions": [
+        {
+          "productOptionCode": "TG5",
+          "title": "Sedan tour from Athens/ 3 p",
+          "languageGuides": [
+            {
+              "type": "AUDIO",
+              "language": "ru"
+            },
+            {
+              "type": "WRITTEN",
+              "language": "ru"
+            },
+            {
+              "type": "AUDIO",
+              "language": "en"
+            },
+            {
+              "type": "GUIDE",
+              "language": "en"
+            },
+            {
+              "type": "WRITTEN",
+              "language": "en"
+            }
+          ]
+        },
+        {
+          "productOptionCode": "TG4",
+          "title": "Minivan tour from Athens/ 7 p",
+          "languageGuides": [
+            {
+              "type": "AUDIO",
+              "language": "ru"
+            },
+            {
+              "type": "WRITTEN",
+              "language": "ru"
+            },
+            {
+              "type": "AUDIO",
+              "language": "en"
+            },
+            {
+              "type": "GUIDE",
+              "language": "en"
+            },
+            {
+              "type": "WRITTEN",
+              "language": "en"
+            }
+          ]
+        },
+        {
+          "productOptionCode": "TG1",
+          "title": "Minibus tour from Athens/ 14 p",
+          "languageGuides": [
+            {
+              "type": "AUDIO",
+              "language": "ru"
+            },
+            {
+              "type": "WRITTEN",
+              "language": "ru"
+            },
+            {
+              "type": "AUDIO",
+              "language": "en"
+            },
+            {
+              "type": "GUIDE",
+              "language": "en"
+            },
+            {
+              "type": "WRITTEN",
+              "language": "en"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "productCode": "368783P2",
+      "status": "ACTIVE",
+      "languageGuides": [
+        {
+          "type": "GUIDE",
+          "language": "en"
+        }
+      ],
+      "inclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "See all active monasteries from a close distance"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Air conditioned vehicle"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Small group (up to 10 people)"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "All Fees and Taxes"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Bottled water"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "WiFi"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Local English-speaking tour leader"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Visit 3 of them inside"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Stops for photos at the most panoramic views"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Monastery entrance fees (5\u20ac/person per monastery)"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Gratuities (optional)"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "(Guided) Tour inside the monasteries"
+        }
+      ],
+      "productOptions": [
+        {
+          "productOptionCode": "TG1",
+          "title": "Captivating Morning Meteora Monasteries Tour-up to 9 people",
+          "languageGuides": [
+            {
+              "type": "GUIDE",
+              "language": "en"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "productCode": "6357P78",
+      "status": "ACTIVE",
+      "languageGuides": [
+        {
+          "type": "GUIDE",
+          "language": "el"
+        },
+        {
+          "type": "GUIDE",
+          "language": "en"
+        }
+      ],
+      "inclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "English \u2013 speaking Guide"
+        },
+        {
+          "type": "AIR_CONDITIONED_VEHICLE",
+          "category": "TRANSPORT_AMENITIES"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Entrance fees (5 euros per monastery, cash only)"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Tips"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Personal expenses"
+        },
+        {
+          "type": "LUNCH",
+          "category": "FOOD_AND_DRINK"
+        }
+      ],
+      "productOptions": [
+        {
+          "productOptionCode": "DEFAULT",
+          "title": "Meteora Full Day Tour from Thessaloniki",
+          "languageGuides": [
+            {
+              "type": "GUIDE",
+              "language": "en"
+            },
+            {
+              "type": "GUIDE",
+              "language": "el"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "productCode": "6575PRIVATE",
+      "status": "ACTIVE",
+      "languageGuides": [
+        {
+          "type": "GUIDE",
+          "language": "en"
+        },
+        {
+          "type": "GUIDE",
+          "language": "it"
+        },
+        {
+          "type": "GUIDE",
+          "language": "fr"
+        },
+        {
+          "type": "GUIDE",
+          "language": "ro"
+        },
+        {
+          "type": "GUIDE",
+          "language": "es"
+        }
+      ],
+      "inclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "English speaking Guide"
+        },
+        {
+          "type": "BOTTLED_WATER",
+          "category": "FOOD_AND_DRINK"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Hotel pickup and drop-off to/from Kalambaka or Kastraki"
+        },
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Transport by private vehicle"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "OTHER",
+          "category": "OTHER",
+          "otherDescription": "Food and drinks"
+        },
+        {
+          "type": "GRATUITIES",
+          "category": "FEES_AND_TAXES"
+        },
+        {
+          "type": "ENTRANCE_FEES",
+          "category": "FEES_AND_TAXES"
+        }
+      ],
+      "productOptions": [
+        {
+          "productOptionCode": "DEFAULT",
+          "title": "Private Tour: Meteora Tour with Transport from Kalambaka",
+          "languageGuides": [
+            {
+              "type": "GUIDE",
+              "language": "ro"
+            },
+            {
+              "type": "GUIDE",
+              "language": "es"
+            },
+            {
+              "type": "GUIDE",
+              "language": "fr"
+            },
+            {
+              "type": "GUIDE",
+              "language": "it"
+            },
+            {
+              "type": "GUIDE",
+              "language": "en"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1743 @@
+{
+  "sourceRun": 39060633333,
+  "checkedAt": "2026-10-17T19:01:25.335Z",
+  "note": "Projection of permitted real audit fields, not a new live API test. Condition excerpts were capped at 160 characters. No reviews, protected unique content, images, supplier contacts, addresses or credentials. Stored stop arrays were capped at 20; fixtures cannot prove all-stop admission. Missing source fields are not invented.",
+  "products": [
+    {
+      "case": "culture_athens",
+      "productCode": "349296P1",
+      "status": "ACTIVE",
+      "title": "Athens Full Day Private Tour - Exceptional Experience",
+      "productUrl": "https://www.viator.com/tours/Athens/Athens-Full-Day-Private-Tour-Exceptional-Touring-Experience/d496-349296P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "variableDurationFromMinutes": 480,
+          "variableDurationToMinutes": 540
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "BOTTLED_WATER",
+          "otherDescription": null
+        },
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "PRIVATE_TRANSPORTATION",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Professional tour driver with deep knowledge of history [Not licensed to accompany you in any site]"
+        },
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "AIR_CONDITIONED_VEHICLE",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Pick up /drop off from your accommodation in Athens"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "MEALS",
+          "otherDescription": null
+        },
+        {
+          "category": "FEES_AND_TAXES",
+          "type": "ENTRANCE_FEES",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Licensed Tour guide on request"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Airport Pick Up and drop-off"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "STROLLER_ACCESSIBLE"
+        },
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "INFANT_SEATS_AVAILABLE"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        },
+        {
+          "type": "OTHER"
+        },
+        {
+          "type": "OTHER"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "PICKUP_EVERYONE"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Athens Full Day Private Tour - Exceptional Experience",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "349296P1",
+        "title": "Athens Full Day Private Tour - Exceptional Experience",
+        "productUrl": "https://www.viator.com/tours/Athens/Athens-Full-Day-Private-Tour-Exceptional-Touring-Experience/d496-349296P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION",
+          "PRIVATE_TOUR"
+        ],
+        "duration": {
+          "variableDurationFromMinutes": 480,
+          "variableDurationToMinutes": 540
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 269
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_athens",
+      "productCode": "443226P3",
+      "status": "ACTIVE",
+      "title": "Best of Athens in one day private tour & Acropolis skip the line",
+      "productUrl": "https://www.viator.com/tours/Athens/Discover-the-best-of-Athens-in-8-hours-City-sights-and-local-food/d496-443226P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "fixedDurationInMinutes": 480
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": true
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Acropolis skip the ticket line service\u2014tickets pre-bought, reimbursed to the driver on the tour day."
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Pick up from your Athens Hotel, Airbnb or Cruise ship."
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Expert Athenian driver fluent in English, insightful commentary. CANNOT enter the sites with you."
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Comfortable transportation. A/C, Bottled Water"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Licensed Tour guide upon request, depending on availability. Extra cost ~300 euros paid to the guide"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Gratuities (At your discretion)"
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "LUNCH",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Tickets to the sites"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "WHEELCHAIR_ACCESSIBLE"
+        },
+        {
+          "type": "STROLLER_ACCESSIBLE"
+        },
+        {
+          "type": "PETS_WELCOME"
+        },
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "INFANT_SEATS_AVAILABLE"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        },
+        {
+          "type": "OTHER"
+        },
+        {
+          "type": "OTHER"
+        },
+        {
+          "type": "OTHER"
+        },
+        {
+          "type": "OTHER"
+        },
+        {
+          "type": "OTHER"
+        },
+        {
+          "type": "OTHER"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "PICKUP_EVERYONE"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Best of Athens in one day private sightseeing tour",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "443226P3",
+        "title": "Best of Athens in one day private tour & Acropolis skip the line",
+        "productUrl": "https://www.viator.com/tours/Athens/Discover-the-best-of-Athens-in-8-hours-City-sights-and-local-food/d496-443226P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION",
+          "PRIVATE_TOUR"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 480
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 160
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_athens",
+      "productCode": "240841P1",
+      "status": "ACTIVE",
+      "title": "Acropolis & Acropolis Museum Group tour in German",
+      "productUrl": "https://www.viator.com/tours/Athens/Acropolis-and-Museum-Tour-with-a-Dutch-speaking-guide/d496-240841P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "de",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": false,
+        "maxTravelersInSharedTour": 20,
+        "duration": {
+          "fixedDurationInMinutes": 180
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "FEES_AND_TAXES",
+          "type": "ENTRANCE_FEES",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Expert licensed guide (archaeologist or historian)"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Small group tour (max. 20 participants)"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "BOTTLED_WATER",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Hotel pickup and drop-off"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Tips (Optional)"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "PETS_WELCOME"
+        },
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "NO_PREGNANT"
+        },
+        {
+          "type": "NO_HEART_PROBLEMS"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "MEET_EVERYONE_AT_START_POINT"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "NON-EU participants",
+          "productOptionCode": "TG4",
+          "languageGuides": [
+            {
+              "language": "de",
+              "type": "GUIDE"
+            }
+          ]
+        },
+        {
+          "title": "EU participants",
+          "productOptionCode": "TG3",
+          "languageGuides": [
+            {
+              "language": "de",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "240841P1",
+        "title": "Acropolis & Acropolis Museum Group tour in German",
+        "productUrl": "https://www.viator.com/tours/Athens/Acropolis-and-Museum-Tour-with-a-Dutch-speaking-guide/d496-240841P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 180
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 129
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_delphi",
+      "productCode": "198006P36",
+      "status": "ACTIVE",
+      "title": "Explore the Mystical Ruins in Delphi, Greece - Private Tour",
+      "productUrl": "https://www.viator.com/tours/Delphi/Explore-the-mystical-ruins-in-Delphi-Greece/d50420-198006P36?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "el",
+          "type": "GUIDE"
+        },
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "fixedDurationInMinutes": 120
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Local licensed guide"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Meals and Drinks"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Personal expenses"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Entrance Fee"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "MEET_EVERYONE_AT_START_POINT"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Explore the Mystical Ruins in Delphi, Greece - Private Tour",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "198006P36",
+        "title": "Explore the Mystical Ruins in Delphi, Greece - Private Tour",
+        "productUrl": "https://www.viator.com/tours/Delphi/Explore-the-mystical-ruins-in-Delphi-Greece/d50420-198006P36?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "PRIVATE_TOUR",
+          "SPECIAL_OFFER"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 120
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 341.51
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_delphi",
+      "productCode": "464406P5",
+      "status": "ACTIVE",
+      "title": "Mystic Delphi Private Tour with Licensed Guide and Tickets",
+      "productUrl": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "fixedDurationInMinutes": 120
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Complimentary Bottled Water"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Local Professional Tour Guide and Archeologist"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Entrance Fee to Archeological Museum and Site of Delphi"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Meal and Beverages"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Personal Expenses"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "MEET_EVERYONE_AT_START_POINT"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Mystic Delphi Private Tour with Licensed Guide and Tickets",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "464406P5",
+        "title": "Mystic Delphi Private Tour with Licensed Guide and Tickets",
+        "productUrl": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "PRIVATE_TOUR"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 120
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 170
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_delphi",
+      "productCode": "464406P12",
+      "status": "ACTIVE",
+      "title": "Mystic Deplhi Private Tour with Licensed Guide",
+      "productUrl": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "el",
+          "type": "GUIDE"
+        },
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "fixedDurationInMinutes": 120
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Complimentary Bottled Water"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Licensed Professional Tour Guide"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Transportation"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Meal and Beverages"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Personal Expenses"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Entrance Fees"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "PETS_WELCOME"
+        },
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "MEET_EVERYONE_AT_START_POINT"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Mystic Deplhi Private Tour with Licensed Guide",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            },
+            {
+              "language": "el",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "464406P12",
+        "title": "Mystic Deplhi Private Tour with Licensed Guide",
+        "productUrl": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "PRIVATE_TOUR"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 120
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 290
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_meteora",
+      "productCode": "356497P1",
+      "status": "ACTIVE",
+      "title": "Sunset Meteora Tour on E-Bike",
+      "productUrl": "https://www.viator.com/tours/Meteora/Sunset-Meteora-Tour-on-E-Bike/d28822-356497P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "de",
+          "type": "GUIDE"
+        },
+        {
+          "language": "el",
+          "type": "GUIDE"
+        },
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": false,
+        "maxTravelersInSharedTour": 22,
+        "duration": {
+          "fixedDurationInMinutes": 210
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Use of bicycle. Choose among top quality bike brands as KTM, HAIBIKE, Gudereit."
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Reflective Vest"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Raincoat if it needed"
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "BOTTLED_WATER",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Tour leader"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Helmet"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Tips"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Hotel transfer"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Personal expenses"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "INFANT_SEATS_AVAILABLE"
+        },
+        {
+          "type": "NO_PREGNANT"
+        },
+        {
+          "type": "NO_HEART_PROBLEMS"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        },
+        {
+          "type": "OTHER"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "MEET_EVERYONE_AT_START_POINT"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Sunset Meteora Tour on E-Bike",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "de",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "356497P1",
+        "title": "Sunset Meteora Tour on E-Bike",
+        "productUrl": "https://www.viator.com/tours/Meteora/Sunset-Meteora-Tour-on-E-Bike/d28822-356497P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 210
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 39
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_meteora",
+      "productCode": "59728P9",
+      "status": "ACTIVE",
+      "title": "Sunset Meteora Photo Tour",
+      "productUrl": "https://www.viator.com/tours/Meteora/Sunset-Meteora-Photo-Tour/d28822-59728P9?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": false,
+        "maxTravelersInSharedTour": 4,
+        "duration": {
+          "fixedDurationInMinutes": 240
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "YES",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "BOTTLED_WATER",
+          "otherDescription": null
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "SNACKS",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "All Fees and Taxes"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "We can give you tripod if you don't carry one"
+        }
+      ],
+      "exclusions": [],
+      "additionalInfo": [
+        {
+          "type": "PETS_WELCOME"
+        },
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "INFANTS_MUST_SIT_ON_LAPS"
+        },
+        {
+          "type": "INFANT_SEATS_AVAILABLE"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "PICKUP_EVERYONE"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Sunset Meteora Photo Tour",
+          "productOptionCode": "DEFAULT",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "59728P9",
+        "title": "Sunset Meteora Photo Tour",
+        "productUrl": "https://www.viator.com/tours/Meteora/Sunset-Meteora-Photo-Tour/d28822-59728P9?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 240
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 79
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_meteora",
+      "productCode": "368783P2",
+      "status": "ACTIVE",
+      "title": "Captivating Morning Meteora Monasteries Tour-up to 9 people",
+      "productUrl": "https://www.viator.com/tours/Meteora/Amazing-Morning-Meteora-Monasteries-Tour/d28822-368783P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": false,
+        "maxTravelersInSharedTour": 10,
+        "duration": {
+          "fixedDurationInMinutes": 240
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "See all active monasteries from a close distance"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Air conditioned vehicle"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Small group (up to 10 people)"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "All Fees and Taxes"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Bottled water"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "WiFi"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Local English-speaking tour leader"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Visit 3 of them inside"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Stops for photos at the most panoramic views"
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Monastery entrance fees (5\u20ac/person per monastery)"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Gratuities (optional)"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "(Guided) Tour inside the monasteries"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "STROLLER_ACCESSIBLE"
+        },
+        {
+          "type": "PETS_WELCOME"
+        },
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "INFANT_SEATS_AVAILABLE"
+        },
+        {
+          "type": "NO_BACK_PROBLEMS"
+        },
+        {
+          "type": "NO_HEART_PROBLEMS"
+        },
+        {
+          "type": "PHYSICAL_MEDIUM"
+        },
+        {
+          "type": "OTHER"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "PICKUP_EVERYONE"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Captivating Morning Meteora Monasteries Tour-up to 9 people",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "368783P2",
+        "title": "Captivating Morning Meteora Monasteries Tour-up to 9 people",
+        "productUrl": "https://www.viator.com/tours/Meteora/Amazing-Morning-Meteora-Monasteries-Tour/d28822-368783P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 240
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 40
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_olympia",
+      "productCode": "66179P12",
+      "status": "ACTIVE",
+      "title": "Olympia Highlights and Kourouta Beach Getaway",
+      "productUrl": "https://www.viator.com/tours/Katakolo/Olympia-Highlights-and-Kourouta-Beach-Getaway/d50251-66179P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "fixedDurationInMinutes": 360
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "PRIVATE_TRANSPORTATION",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Tour lead escort (English speaking)"
+        },
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "AIR_CONDITIONED_VEHICLE",
+          "otherDescription": null
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Licensed guide"
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "COFFEE_AND_TEA",
+          "otherDescription": null
+        },
+        {
+          "category": "FEES_AND_TAXES",
+          "type": "ENTRANCE_FEES",
+          "otherDescription": null
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "WHEELCHAIR_ACCESSIBLE"
+        },
+        {
+          "type": "STROLLER_ACCESSIBLE"
+        },
+        {
+          "type": "INFANT_SEATS_AVAILABLE"
+        },
+        {
+          "type": "TRANSPORTATION_WHEELCHAIR_ACCESSIBLE"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "MEET_EVERYONE_AT_START_POINT"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Olympia Highlights and Kourouta Beach Getaway",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "66179P12",
+        "title": "Olympia Highlights and Kourouta Beach Getaway",
+        "productUrl": "https://www.viator.com/tours/Katakolo/Olympia-Highlights-and-Kourouta-Beach-Getaway/d50251-66179P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION",
+          "SKIP_THE_LINE",
+          "PRIVATE_TOUR"
+        ],
+        "duration": {
+          "fixedDurationInMinutes": 360
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 500
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_olympia",
+      "productCode": "141312P3",
+      "status": "ACTIVE",
+      "title": "Olympia Highlights & Winery Experience: 4-Hour Tour",
+      "productUrl": "https://www.viator.com/tours/Katakolo/Olympia-Highlights-and-Winery-Experience-4-Hour-Tour/d50251-141312P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "en",
+          "type": "GUIDE"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "variableDurationFromMinutes": 60,
+          "variableDurationToMinutes": 300
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "PRIVATE_TRANSPORTATION",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Port Pick-up and drop-off"
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "BOTTLED_WATER",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Live commentarry on board"
+        },
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "AIR_CONDITIONED_VEHICLE",
+          "otherDescription": null
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Licensed Tour Guide within the Archaeological site and museum of Olympia"
+        },
+        {
+          "category": "FEES_AND_TAXES",
+          "type": "GRATUITIES",
+          "otherDescription": null
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "LUNCH",
+          "otherDescription": null
+        },
+        {
+          "category": "FEES_AND_TAXES",
+          "type": "ADMISSION_FEES",
+          "otherDescription": null
+        },
+        {
+          "category": "FEES_AND_TAXES",
+          "type": "ADMISSION_FEES",
+          "otherDescription": null
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "STROLLER_ACCESSIBLE"
+        },
+        {
+          "type": "PUBLIC_TRANSPORTATION_NEARBY"
+        },
+        {
+          "type": "INFANT_SEATS_AVAILABLE"
+        },
+        {
+          "type": "NO_HEART_PROBLEMS"
+        },
+        {
+          "type": "PHYSICAL_MEDIUM"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "PICKUP_EVERYONE"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "Olympia Highlights & Winery Experience: 4-Hour Tour",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "141312P3",
+        "title": "Olympia Highlights & Winery Experience: 4-Hour Tour",
+        "productUrl": "https://www.viator.com/tours/Katakolo/Olympia-Highlights-and-Winery-Experience-4-Hour-Tour/d50251-141312P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION",
+          "PRIVATE_TOUR"
+        ],
+        "duration": {
+          "variableDurationFromMinutes": 60,
+          "variableDurationToMinutes": 300
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 350
+          }
+        }
+      }
+    },
+    {
+      "case": "culture_olympia",
+      "productCode": "5647765P2",
+      "status": "ACTIVE",
+      "title": "Exclusive Olympia Tour from Katakolo with Local Tasting",
+      "productUrl": "https://www.viator.com/tours/Katakolo/Exclusive-Olympia-Tour-from-Katakolo-with-Local-Tasting/d50251-5647765P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+      "languageGuides": [
+        {
+          "language": "de",
+          "type": "WRITTEN"
+        },
+        {
+          "language": "en",
+          "type": "GUIDE"
+        },
+        {
+          "language": "it",
+          "type": "WRITTEN"
+        },
+        {
+          "language": "fr",
+          "type": "WRITTEN"
+        },
+        {
+          "language": "es",
+          "type": "WRITTEN"
+        }
+      ],
+      "itinerary": {
+        "privateTour": true,
+        "maxTravelersInSharedTour": null,
+        "duration": {
+          "variableDurationFromMinutes": 300,
+          "variableDurationToMinutes": 360
+        },
+        "itineraryItems": [
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NO",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          },
+          {
+            "admissionIncluded": "NOT_APPLICABLE",
+            "passByWithoutStopping": false
+          }
+        ]
+      },
+      "inclusions": [
+        {
+          "category": "EXCESS_CHARGES",
+          "type": "OVER_WEIGHT_LIMIT",
+          "otherDescription": null
+        },
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "PRIVATE_TRANSPORTATION",
+          "otherDescription": null
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "BOTTLED_WATER",
+          "otherDescription": null
+        },
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "WIFI_ONBOARD",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "German, Spanish, Italian, French language offered in written"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Profesional English-speaker driver"
+        },
+        {
+          "category": "TRANSPORT_AMENITIES",
+          "type": "AIR_CONDITIONED_VEHICLE",
+          "otherDescription": null
+        }
+      ],
+      "exclusions": [
+        {
+          "category": "FEES_AND_TAXES",
+          "type": "ENTRANCE_FEES",
+          "otherDescription": null
+        },
+        {
+          "category": "FOOD_AND_DRINK",
+          "type": "MEALS",
+          "otherDescription": null
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Personal Expences"
+        },
+        {
+          "category": "OTHER",
+          "type": "OTHER",
+          "otherDescription": "Licensed tour guide for the sights"
+        }
+      ],
+      "additionalInfo": [
+        {
+          "type": "WHEELCHAIR_ACCESSIBLE"
+        },
+        {
+          "type": "STROLLER_ACCESSIBLE"
+        },
+        {
+          "type": "TRANSPORTATION_WHEELCHAIR_ACCESSIBLE"
+        },
+        {
+          "type": "PHYSICAL_EASY"
+        }
+      ],
+      "logistics": {
+        "travelerPickup": {
+          "pickupOptionType": "MEET_EVERYONE_AT_START_POINT"
+        }
+      },
+      "productOptions": [
+        {
+          "title": "9-Seater Minivan or MiniBus",
+          "productOptionCode": "TG1",
+          "languageGuides": [
+            {
+              "language": "es",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "de",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "fr",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        },
+        {
+          "title": "9-Seater Minivan",
+          "productOptionCode": "TG2",
+          "languageGuides": [
+            {
+              "language": "es",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "de",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "fr",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ]
+        }
+      ],
+      "searchSummary": {
+        "productCode": "5647765P2",
+        "title": "Exclusive Olympia Tour from Katakolo with Local Tasting",
+        "productUrl": "https://www.viator.com/tours/Katakolo/Exclusive-Olympia-Tour-from-Katakolo-with-Local-Tasting/d50251-5647765P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+        "flags": [
+          "FREE_CANCELLATION",
+          "PRIVATE_TOUR",
+          "NEW_ON_VIATOR"
+        ],
+        "duration": {
+          "variableDurationFromMinutes": 300,
+          "variableDurationToMinutes": 360
+        },
+        "pricing": {
+          "currency": "EUR",
+          "summary": {
+            "fromPrice": 285
+          }
+        }
+      }
+    }
+  ]
+}

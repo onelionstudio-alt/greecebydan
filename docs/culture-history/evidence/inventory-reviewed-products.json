@@ -1,0 +1,2201 @@
+{
+  "sourceRun": "https://github.com/onelionstudio-alt/greecebydan/actions/runs/39070052304",
+  "sourceArtifact": 12114199182,
+  "testedBaselineSource": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+  "realCases": 30,
+  "detailReads": 124,
+  "uniqueDetails": 69,
+  "status": "All 30 HTTP 200; classification below is baseline, before follow-up fixes",
+  "products": [
+    {
+      "observedCases": [
+        "acropolis_2_51_0"
+      ],
+      "summary": {
+        "productCode": "10172P136",
+        "title": "Ancient Agora and Acropolis Private Tour with Licensed Expert",
+        "productUrl": "https://www.viator.com/tours/Athens/Ancient-Agora-and-Acropolis-Private-Tour-with-Licensed-Expert/d496-10172P136?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "10172P136",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:17:15.381Z",
+          "guide": "included",
+          "languages": [
+            "de",
+            "en"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "10172P136",
+                "checkedAt": "2026-10-17T21:17:15.381Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "10172P136",
+                "checkedAt": "2026-10-17T21:17:15.381Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "de"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "it"
+          }
+        ],
+        "optionCount": 2,
+        "options": [
+          {
+            "code": "TG6",
+            "title": "ANCIENT AGORA PRIVATE 90-Minut",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "de"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          },
+          {
+            "code": "TG2",
+            "title": "ANCIENT AGORA & ACROPOLIS 3-hr",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "it"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "de"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Whisper Communication System for groups of 6 or more"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Private Tour with Licensed Expert Guide"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Admission Tickets & Cost (Hassle free Tickets can be organized on reqest after booking - extra cost)"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "delphi_local_0_1_0"
+      ],
+      "summary": {
+        "productCode": "103214P181",
+        "title": "Delphi Site & Museum Private Tour with Licensed Guide & Tickets",
+        "productUrl": "https://www.viator.com/tours/Delphi/Mycenae-Archeological-Site-Agamemnon-Tomb-and-Museum-Ticket/d50420-103214P181?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "103214P181",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:17:36.567Z",
+          "guide": "included",
+          "languages": [
+            "de",
+            "en",
+            "es",
+            "fr",
+            "it"
+          ],
+          "group": "unknown",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "unknown",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "103214P181",
+                "checkedAt": "2026-10-17T21:17:36.567Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "de"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "it"
+          },
+          {
+            "type": "GUIDE",
+            "language": "fr"
+          },
+          {
+            "type": "GUIDE",
+            "language": "es"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Delphi Site & Museum Private Tour with Licensed Guide & Tickets",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "it"
+              },
+              {
+                "type": "GUIDE",
+                "language": "de"
+              },
+              {
+                "type": "GUIDE",
+                "language": "es"
+              },
+              {
+                "type": "GUIDE",
+                "language": "fr"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Admission ticket to Delphi Archaeological museum"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Guidance throughout with official licensed local tour guide"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Admission ticket to Delphi archaeological site"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Gratuities (optional)"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "delphi_athens_0_1_0",
+        "delphi_athens_1_1_0"
+      ],
+      "summary": {
+        "productCode": "123525P19",
+        "title": "Delphi (Apollo Oracle/ Athena Tholos) private day tour from Athens (10 hours)",
+        "productUrl": "https://www.viator.com/tours/Athens/Delphi-Apollo-Oracle-and-Athena-Sanctuary-full-day-from-Athens-10-hours/d496-123525P19?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "123525P19",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:20:25.669Z",
+          "guide": "not_confirmed",
+          "languages": [],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "pickup_listed",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "123525P19",
+                "checkedAt": "2026-10-17T21:20:25.669Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "AUDIO",
+            "language": "ru"
+          },
+          {
+            "type": "WRITTEN",
+            "language": "ru"
+          },
+          {
+            "type": "AUDIO",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "WRITTEN",
+            "language": "en"
+          }
+        ],
+        "optionCount": 3,
+        "options": [
+          {
+            "code": "TG5",
+            "title": "Sedan tour from Athens/ 3 p",
+            "languageGuides": [
+              {
+                "type": "AUDIO",
+                "language": "ru"
+              },
+              {
+                "type": "WRITTEN",
+                "language": "ru"
+              },
+              {
+                "type": "AUDIO",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "WRITTEN",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          },
+          {
+            "code": "TG4",
+            "title": "Minivan tour from Athens/ 7 p",
+            "languageGuides": [
+              {
+                "type": "AUDIO",
+                "language": "ru"
+              },
+              {
+                "type": "WRITTEN",
+                "language": "ru"
+              },
+              {
+                "type": "AUDIO",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "WRITTEN",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          },
+          {
+            "code": "TG1",
+            "title": "Minibus tour from Athens/ 14 p",
+            "languageGuides": [
+              {
+                "type": "AUDIO",
+                "language": "ru"
+              },
+              {
+                "type": "WRITTEN",
+                "language": "ru"
+              },
+              {
+                "type": "AUDIO",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "WRITTEN",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Professional English speaking experienced Tour driver for the day"
+          },
+          {
+            "type": "GOVERNMENT_FEES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Pick up / Drop off, from/to your hotel/apartment in Athens, Piraeus. Or request another location"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Your driver provides informative books audio/video documentary with historical details as you travel"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Air-conditioned vehicles, with high level of cleanliness (Sedan/ Minivan/ Minibus)"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Private Transportation & includes: (Fuels, Toll Roads, Parking Fees)"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "ENTRANCE_FEES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          },
+          {
+            "type": "MEALS",
+            "category": "FOOD_AND_DRINK",
+            "description": null
+          },
+          {
+            "type": "GRATUITIES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          }
+        ],
+        "pickupOptionType": "PICKUP_EVERYONE",
+        "startCount": 0,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": false
+    },
+    {
+      "observedCases": [
+        "acropolis_2_51_0"
+      ],
+      "summary": {
+        "productCode": "190407P7",
+        "title": "Private local tour of the Acropolis Hill and the New Acropolis Museum",
+        "productUrl": "https://www.viator.com/tours/Athens/Private-local-tour-of-the-Acropolis-Hill-and-the-New-Acropolis-Museum/d496-190407P7?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "190407P7",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:17:15.508Z",
+          "guide": "included",
+          "languages": [
+            "en",
+            "fr"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "hard",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "190407P7",
+                "checkedAt": "2026-10-17T21:17:15.508Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "190407P7",
+                "checkedAt": "2026-10-17T21:17:15.508Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            },
+            {
+              "code": "culture_hard",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "190407P7",
+                "checkedAt": "2026-10-17T21:17:15.508Z",
+                "field": "additionalInfo",
+                "value": "PHYSICAL_HARD"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "fr"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Private local tour of the Acropolis Hill and the New Acropolis Museum",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "fr"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Certified tour guide services"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "PRIVATE_TRANSPORTATION",
+            "category": "TRANSPORT_AMENITIES",
+            "description": null
+          },
+          {
+            "type": "GRATUITIES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          },
+          {
+            "type": "ENTRANCE_FEES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          },
+          {
+            "type": "ENTRANCE_FEES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "delphi_local_0_1_0",
+        "delphi_local_1_1_0"
+      ],
+      "summary": {
+        "productCode": "198006P36",
+        "title": "Explore the Mystical Ruins in Delphi, Greece - Private Tour",
+        "productUrl": "https://www.viator.com/tours/Delphi/Explore-the-mystical-ruins-in-Delphi-Greece/d50420-198006P36?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "198006P36",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:18:18.439Z",
+          "guide": "included",
+          "languages": [
+            "el",
+            "en"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T21:18:18.439Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T21:18:18.439Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "el"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Explore the Mystical Ruins in Delphi, Greece - Private Tour",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "el"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Local licensed guide"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Meals and Drinks"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Personal expenses"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance Fee"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "delphi_local_0_1_6",
+        "delphi_local_2_1_0"
+      ],
+      "summary": {
+        "productCode": "198006P61",
+        "title": "Private Customizable Walking Tour in Delphi",
+        "productUrl": "https://www.viator.com/tours/Delphi/Private-Customizable-Walking-Tour-in-Delphi/d50420-198006P61?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "198006P61",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:19:00.039Z",
+          "guide": "included",
+          "languages": [
+            "de",
+            "el",
+            "en",
+            "es",
+            "fr"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "unknown",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P61",
+                "checkedAt": "2026-10-17T21:19:00.039Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P61",
+                "checkedAt": "2026-10-17T21:19:00.039Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "de"
+          },
+          {
+            "type": "GUIDE",
+            "language": "el"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "fr"
+          },
+          {
+            "type": "GUIDE",
+            "language": "es"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Private Customizable Walking Tour in Delphi",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "es"
+              },
+              {
+                "type": "GUIDE",
+                "language": "el"
+              },
+              {
+                "type": "GUIDE",
+                "language": "fr"
+              },
+              {
+                "type": "GUIDE",
+                "language": "de"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Private Local Guide"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Fully flexible and customizable itinerary layout"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance Fees to all sites"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "PRIVATE_TRANSPORTATION",
+            "category": "TRANSPORT_AMENITIES",
+            "description": null
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": true,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "acropolis_0_1_0",
+        "acropolis_1_1_0",
+        "acropolis_2_1_0"
+      ],
+      "summary": {
+        "productCode": "240841P1",
+        "title": "Acropolis & Acropolis Museum Group tour in German",
+        "productUrl": "https://www.viator.com/tours/Athens/Acropolis-and-Museum-Tour-with-a-Dutch-speaking-guide/d496-240841P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "240841P1",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:16:32.448Z",
+          "guide": "included",
+          "languages": [
+            "de"
+          ],
+          "group": "shared",
+          "groupSize": 20,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "unknown",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T21:16:32.448Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T21:16:32.448Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "de"
+          }
+        ],
+        "optionCount": 2,
+        "options": [
+          {
+            "code": "TG4",
+            "title": "NON-EU participants",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "de"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          },
+          {
+            "code": "TG3",
+            "title": "EU participants",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "de"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "ENTRANCE_FEES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Expert licensed guide (archaeologist or historian)"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Small group tour (max. 20 participants)"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "BOTTLED_WATER",
+            "category": "FOOD_AND_DRINK",
+            "description": null
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Hotel pickup and drop-off"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Tips (Optional)"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "acropolis_0_1_0",
+        "acropolis_1_1_0",
+        "acropolis_2_1_0"
+      ],
+      "summary": {
+        "productCode": "240841P3",
+        "title": "Athens : Acropolis Guided Tour in German",
+        "productUrl": "https://www.viator.com/tours/Athens/Acropolis-Tour-in-Dutch-or-German/d496-240841P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "240841P3",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:16:32.709Z",
+          "guide": "included",
+          "languages": [
+            "de"
+          ],
+          "group": "shared",
+          "groupSize": 20,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "unknown",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T21:16:32.709Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T21:16:32.709Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "de"
+          }
+        ],
+        "optionCount": 2,
+        "options": [
+          {
+            "code": "TG4",
+            "title": "NON-EU participants",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "de"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          },
+          {
+            "code": "TG1",
+            "title": "EU participants",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "de"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Licensed guide"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance fees"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "BOTTLED_WATER",
+            "category": "FOOD_AND_DRINK",
+            "description": null
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Hotel pickup and drop-off"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Tips (Optional)"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "acropolis_0_1_6",
+        "acropolis_1_1_6"
+      ],
+      "summary": {
+        "productCode": "341709P1",
+        "title": "Best of Athens & Acropolis Full Day Private Guided City Tour",
+        "productUrl": "https://www.viator.com/tours/Athens/Full-Day-Private-Tour-to-Saint-Porfyrios-Monastery-and-Private-Access-to-his-house/d496-341709P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "341709P1",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:15:49.300Z",
+          "guide": "included",
+          "languages": [
+            "en"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "pickup_listed",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "341709P1",
+                "checkedAt": "2026-10-17T21:15:49.300Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "341709P1",
+                "checkedAt": "2026-10-17T21:15:49.300Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "en"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG3",
+            "title": "Best of Athens & Acropolis",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "PRIVATE_TRANSPORTATION",
+            "category": "TRANSPORT_AMENITIES",
+            "description": null
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "English speaking licensed guide in Acropolis and Ancient Agora"
+          },
+          {
+            "type": "WIFI_ONBOARD",
+            "category": "TRANSPORT_AMENITIES",
+            "description": null
+          },
+          {
+            "type": "BOTTLED_WATER",
+            "category": "FOOD_AND_DRINK",
+            "description": null
+          },
+          {
+            "type": "ADMISSION_FEES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          },
+          {
+            "type": "AIR_CONDITIONED_VEHICLE",
+            "category": "TRANSPORT_AMENITIES",
+            "description": null
+          }
+        ],
+        "exclusions": [],
+        "pickupOptionType": "PICKUP_EVERYONE",
+        "startCount": 0,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "delphi_local_0_1_0",
+        "delphi_local_1_1_0"
+      ],
+      "summary": {
+        "productCode": "464406P12",
+        "title": "Mystic Deplhi Private Tour with Licensed Guide",
+        "productUrl": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "464406P12",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:18:18.578Z",
+          "guide": "included",
+          "languages": [
+            "el",
+            "en"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T21:18:18.578Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T21:18:18.578Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "el"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Mystic Deplhi Private Tour with Licensed Guide",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "el"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Complimentary Bottled Water"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Licensed Professional Tour Guide"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Transportation"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Meal and Beverages"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Personal Expenses"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance Fees"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": true,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "delphi_local_0_1_0",
+        "delphi_local_1_1_0"
+      ],
+      "summary": {
+        "productCode": "464406P5",
+        "title": "Mystic Delphi Private Tour with Licensed Guide and Tickets",
+        "productUrl": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "464406P5",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:18:18.443Z",
+          "guide": "included",
+          "languages": [
+            "en"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "unknown",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T21:18:18.443Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T21:18:18.443Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "en"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Mystic Delphi Private Tour with Licensed Guide and Tickets",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Complimentary Bottled Water"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Local Professional Tour Guide and Archeologist"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance Fee to Archeological Museum and Site of Delphi"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Meal and Beverages"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Personal Expenses"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "delphi_athens_0_1_0",
+        "delphi_athens_1_1_0",
+        "delphi_athens_2_1_0"
+      ],
+      "summary": {
+        "productCode": "59636P59",
+        "title": "2 Day Private Tour Of Delphi, Thermopylae & Meteora From Athens",
+        "productUrl": "https://www.viator.com/tours/Athens/2-Day-Private-Tour-Of-Delphi-Meteora-and-Thermopylae-From-Athens/d496-59636P59?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "59636P59",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:21:07.956Z",
+          "guide": "not_confirmed",
+          "languages": [],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "pickup_listed",
+          "effort": "easy",
+          "admission": "unknown",
+          "facts": [
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "59636P59",
+                "checkedAt": "2026-10-17T21:21:07.956Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "en"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG30",
+            "title": "Private, Delphi tickets incl.",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "All vehicles with Wi-Fi, A/C, Bottled Water"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Professional Tour Drivers with in-depth knowledge of ancient & modern Greek history"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Fast-Track entry tickets for the Delphi site & museum"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Transportation by private first class vehicle"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Fully Private 2-Day Tour"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Pick-up and drop-off service: Athens Hotel, Airbnb or Port"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Overnight Accommodation (option for AGT to suggest and make hotel reservation upon request)"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Food and drinks"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Airport pick-up and drop-off (additional cost, depending on vehicle type, on request basis)"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Tips & Gratuities"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Licensed tour guide to accompany guests into the site and museum (additional cost on request)"
+          }
+        ],
+        "pickupOptionType": "PICKUP_EVERYONE",
+        "startCount": 0,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": false
+    },
+    {
+      "observedCases": [
+        "acropolis_0_1_6",
+        "acropolis_1_1_6"
+      ],
+      "summary": {
+        "productCode": "63145P77",
+        "title": "Acropolis Guided Tour with Skip-the-Line Access",
+        "productUrl": "https://www.viator.com/tours/Athens/SKIP-THE-LINE-Acropolis-Evening-visit-with-Licensed-Guide/d496-63145P77?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "63145P77",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:15:49.484Z",
+          "guide": "included",
+          "languages": [
+            "en"
+          ],
+          "group": "shared",
+          "groupSize": 15,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "unknown",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "63145P77",
+                "checkedAt": "2026-10-17T21:15:49.484Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "63145P77",
+                "checkedAt": "2026-10-17T21:15:49.484Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "en"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Acropolis Guided Tour with Skip-the-Line Access",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Skip the Line Acropolis Access"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Acropolis Ticket"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Small Group Guided Acropolis"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Licensed Tour Guide"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Hotel pickup and drop-off"
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "meteora_0_1_6",
+        "meteora_2_1_0"
+      ],
+      "summary": {
+        "productCode": "6357P78",
+        "title": "Meteora Full Day Tour from Thessaloniki",
+        "productUrl": "https://www.viator.com/tours/Meteora/Meteora-Full-Day-Tour-from-Thessaloniki/d28822-6357P78?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "6357P78",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:23:57.674Z",
+          "guide": "not_confirmed",
+          "languages": [],
+          "group": "shared",
+          "groupSize": 50,
+          "pickup": "pickup_listed",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6357P78",
+                "checkedAt": "2026-10-17T21:23:57.674Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "el"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "DEFAULT",
+            "title": "Meteora Full Day Tour from Thessaloniki",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "el"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "English \u2013 speaking Guide"
+          },
+          {
+            "type": "AIR_CONDITIONED_VEHICLE",
+            "category": "TRANSPORT_AMENITIES",
+            "description": null
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance fees (5 euros per monastery, cash only)"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Tips"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Personal expenses"
+          },
+          {
+            "type": "LUNCH",
+            "category": "FOOD_AND_DRINK",
+            "description": null
+          }
+        ],
+        "pickupOptionType": "PICKUP_EVERYONE",
+        "startCount": 0,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": false
+    },
+    {
+      "observedCases": [
+        "meteora_0_1_0",
+        "meteora_2_1_0"
+      ],
+      "summary": {
+        "productCode": "6575P20",
+        "title": "Meteora Private Monastery Tour with a Licensed Guide",
+        "productUrl": "https://www.viator.com/tours/Meteora/Meteora-Private-Monastery-Tour-with-a-Licensed-Guide/d28822-6575P20?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "6575P20",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:23:57.363Z",
+          "guide": "included",
+          "languages": [
+            "el",
+            "en",
+            "es",
+            "fr",
+            "it",
+            "ro",
+            "ru"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "meeting_point",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T21:23:57.363Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T21:23:57.363Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "ru"
+          },
+          {
+            "type": "GUIDE",
+            "language": "el"
+          },
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "it"
+          },
+          {
+            "type": "GUIDE",
+            "language": "fr"
+          },
+          {
+            "type": "GUIDE",
+            "language": "ro"
+          },
+          {
+            "type": "GUIDE",
+            "language": "es"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "TG1",
+            "title": "Meteora Private Monastery Tour with a Licensed Guide",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "ru"
+              },
+              {
+                "type": "GUIDE",
+                "language": "it"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              },
+              {
+                "type": "GUIDE",
+                "language": "es"
+              },
+              {
+                "type": "GUIDE",
+                "language": "el"
+              },
+              {
+                "type": "GUIDE",
+                "language": "ro"
+              },
+              {
+                "type": "GUIDE",
+                "language": "fr"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "State licensed local guide"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Transportation to the meeting point"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance fees per monastery"
+          },
+          {
+            "type": "GRATUITIES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          }
+        ],
+        "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+        "startCount": 6,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    },
+    {
+      "observedCases": [
+        "meteora_1_1_0",
+        "meteora_2_1_6"
+      ],
+      "summary": {
+        "productCode": "6575PRIVATE",
+        "title": "Private Tour: Meteora Tour with Transport from Kalambaka",
+        "productUrl": "https://www.viator.com/tours/Meteora/Private-Tour-Meteora-Tour-with-Transport-from-Kalambaka/d28822-6575PRIVATE?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "6575PRIVATE",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:24:18.927Z",
+          "guide": "not_confirmed",
+          "languages": [],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "pickup_listed",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575PRIVATE",
+                "checkedAt": "2026-10-17T21:24:18.927Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "it"
+          },
+          {
+            "type": "GUIDE",
+            "language": "fr"
+          },
+          {
+            "type": "GUIDE",
+            "language": "ro"
+          },
+          {
+            "type": "GUIDE",
+            "language": "es"
+          }
+        ],
+        "optionCount": 1,
+        "options": [
+          {
+            "code": "DEFAULT",
+            "title": "Private Tour: Meteora Tour with Transport from Kalambaka",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "ro"
+              },
+              {
+                "type": "GUIDE",
+                "language": "es"
+              },
+              {
+                "type": "GUIDE",
+                "language": "fr"
+              },
+              {
+                "type": "GUIDE",
+                "language": "it"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": null,
+            "logisticsOverride": false
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "English speaking Guide"
+          },
+          {
+            "type": "BOTTLED_WATER",
+            "category": "FOOD_AND_DRINK",
+            "description": null
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Hotel pickup and drop-off to/from Kalambaka or Kastraki"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Transport by private vehicle"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Food and drinks"
+          },
+          {
+            "type": "GRATUITIES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          },
+          {
+            "type": "ENTRANCE_FEES",
+            "category": "FEES_AND_TAXES",
+            "description": null
+          }
+        ],
+        "pickupOptionType": "PICKUP_EVERYONE",
+        "startCount": 0,
+        "startMentionsAthens": false,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": false
+    },
+    {
+      "observedCases": [
+        "acropolis_1_1_6",
+        "acropolis_2_1_6"
+      ],
+      "summary": {
+        "productCode": "6956P27",
+        "title": "Private Tour: Athens Mythology Family Tour",
+        "productUrl": "https://www.viator.com/tours/Athens/Balade-culinaire-dans-athenes/d496-6956P27?mcid=42383&pid=P00320497&medium=api&api_version=2.0"
+      },
+      "detail": {
+        "productCode": "6956P27",
+        "status": "ACTIVE",
+        "conditions": {
+          "version": 1,
+          "checkedAt": "2026-10-17T21:16:53.867Z",
+          "guide": "included",
+          "languages": [
+            "fr"
+          ],
+          "group": "private",
+          "groupSize": null,
+          "pickup": "pickup_or_meeting",
+          "effort": "easy",
+          "admission": "some_not_included",
+          "facts": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6956P27",
+                "checkedAt": "2026-10-17T21:16:53.867Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6956P27",
+                "checkedAt": "2026-10-17T21:16:53.867Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        "languageGuides": [
+          {
+            "type": "GUIDE",
+            "language": "en"
+          },
+          {
+            "type": "GUIDE",
+            "language": "fr"
+          }
+        ],
+        "optionCount": 2,
+        "options": [
+          {
+            "code": "DEFAULT",
+            "title": "Tour in English",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "fr"
+              },
+              {
+                "type": "GUIDE",
+                "language": "en"
+              }
+            ],
+            "pickupOptionType": "PICKUP_AND_MEET_AT_START_POINT",
+            "logisticsOverride": true
+          },
+          {
+            "code": "TG1",
+            "title": "Tour in French",
+            "languageGuides": [
+              {
+                "type": "GUIDE",
+                "language": "fr"
+              }
+            ],
+            "pickupOptionType": "PICKUP_AND_MEET_AT_START_POINT",
+            "logisticsOverride": true
+          }
+        ],
+        "inclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Fun & educational activity material for kids"
+          },
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Licensed guide"
+          }
+        ],
+        "exclusions": [
+          {
+            "type": "OTHER",
+            "category": "OTHER",
+            "description": "Entrance fees to archaeological sites (we can prepurchase them for you)"
+          },
+          {
+            "type": "SNACKS",
+            "category": "FOOD_AND_DRINK",
+            "description": null
+          }
+        ],
+        "pickupOptionType": "PICKUP_AND_MEET_AT_START_POINT",
+        "startCount": 1,
+        "startMentionsAthens": true,
+        "startMentionsDelphi": false,
+        "excerptsTruncated": false,
+        "availability": "NOT_CHECKED",
+        "transport": "REQUIRES_SCOPED_REVIEW"
+      },
+      "qualifiesGuided": true
+    }
+  ]
+}

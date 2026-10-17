@@ -1,0 +1,58 @@
+{
+  "reviewedSourceCommit": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+  "workflowRun": 39064010454,
+  "workflowUrl": "https://github.com/onelionstudio-alt/greecebydan/actions/runs/39064010454",
+  "serverTests": {
+    "count": 38,
+    "status": "PASS"
+  },
+  "pythonTests": {
+    "count": 20,
+    "status": "PASS"
+  },
+  "browserSuites": {
+    "engines": [
+      "chromium",
+      "webkit"
+    ],
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "suites": [
+      "Culture recorded-response UI",
+      "Existing Boat/Wine card regression",
+      "Supplier cover boundaries/fallback"
+    ],
+    "status": "PASS",
+    "cultureAxeViolations": 0,
+    "keyboardAndComparison": "PASS"
+  },
+  "physicalIOSAndroid": false,
+  "newImplementationRemoteStaging": {
+    "status": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+    "workflowRun": 39064582890,
+    "scenarios": 14,
+    "sourceCommit": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+    "mobile": "Chromium/WebKit 390",
+    "desktop": "Chromium 1440",
+    "zeroAnalyticsRequests": true,
+    "zeroNewPhotoReviewAPIRequests": true
+  },
+  "productionDeployed": false,
+  "merged": false,
+  "limitations": [
+    "Recorded API fixtures are not fresh live API tests",
+    "No selected-date availability or final party price",
+    "Delphi visit destination is not an Athens departure guarantee",
+    "Guide inclusion is not proof of guiding inside every site",
+    "Olympia excluded; later categories unimplemented"
+  ],
+  "inventoryLimitations": {
+    "Acropolis": "Two qualified shared tours in the bounded sample; GUIDE language German only. No English-language or private Acropolis coverage established.",
+    "Delphi": "Three qualified private guided local visits; not an Athens-departure transport guarantee.",
+    "Meteora": "One qualified private guide product. Open mode returns three options with guide inclusion explicitly unconfirmed."
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "sourceCommit": "7c669f724c5ff72453757e4359d4c32816819353",
+  "implementationCI": {
+    "run": 39071278044,
+    "result": "PASS",
+    "nodeTests": 46,
+    "pythonTests": 23,
+    "browserEngines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "mode": "Recorded allowed response projection, not live frontend E2E"
+  },
+  "realInventoryAudit": {
+    "run": 39070052304,
+    "result": "PASS",
+    "baselineSource": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+    "http200Cases": 30,
+    "detailObservations": 124,
+    "distinctActiveProducts": 69,
+    "noDateAvailabilityOrPurchases": true
+  },
+  "newRuntimeLiveStaging": {
+    "result": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+    "run": 39071774889,
+    "artifact": 12115557616,
+    "sourceCommit": "7c669f724c5ff72453757e4359d4c32816819353",
+    "scenarios": 14,
+    "allSearchesHTTP200": true,
+    "sourceAndAssetHashesVerified": true,
+    "normalAnalyticsEventsRequests": 0,
+    "newPhotoReviewRequests": 0,
+    "enginesAndWidths": {
+      "Chromium": [
+        390,
+        1440
+      ],
+      "WebKit": [
+        390
+      ]
+    },
+    "actualDisplayed": {
+      "Acropolis": {
+        "count": 3,
+        "confirmedEnglish": 1,
+        "confirmedGerman": 2
+      },
+      "Delphi": {
+        "count": 3,
+        "confirmedEnglish": 3,
+        "transportFromAthensNotEstablished": true
+      },
+      "Meteora": {
+        "count": 2,
+        "confirmedEnglish": 2,
+        "sameDepartureNotEstablished": true
+      }
+    },
+    "manualAffiliatePopupAndCorrectProduct": true,
+    "manualDelphiSharedGuidedFreeCancellationSafeEmpty": true,
+    "limitations": [
+      "Place visited is not departure city",
+      "Meteora local visit and Thessaloniki day trip are different trip scopes",
+      "No English-only preference in the current UI",
+      "No date-specific availability or final party price verified",
+      "Physical iOS/Android not tested"
+    ],
+    "axeViolations": 0
+  },
+  "physicalIOSAndroid": "NOT_TESTED",
+  "productionDeployed": false,
+  "merged": false
+}
