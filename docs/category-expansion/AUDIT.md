@@ -182,8 +182,8 @@ and upstream error bodies are excluded. Public staging is not authentication;
 strict host/origin/cases, existing rate limiter, bounded requests and no-store/
 noindex contain the diagnostic. Remove it when the audit is complete.
 
-Local: 30 existing Worker/OAuth tests PASS; 5 new diagnostic boundary/integration
-unit tests PASS. Actual new-category API, Culture mobile/Chromium/WebKit and
+Local: 30 existing Worker/OAuth tests PASS; 7 new diagnostic/bundle boundary and integration
+tests PASS. Actual new-category API, Culture mobile/Chromium/WebKit and
 physical-device checks have **not** run. Physical iOS/Android unavailable.
 Do not reuse PR24 staging success as evidence for new-category correctness.
 

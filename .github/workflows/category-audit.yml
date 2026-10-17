@@ -1,0 +1,22 @@
+name: Category inventory and field audit (staging only, no deployment)
+on:
+  push:
+    branches: [audit/concierge-category-expansion]
+    paths: ['docs/category-expansion/RUN_CATEGORY_AUDIT']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: node scripts/category-audit/run-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: real-category-audit
+          path: category-audit-evidence/
