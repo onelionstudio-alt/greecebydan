@@ -4,7 +4,7 @@ The production site, ordinary Worker, Boat/Wine and supplier photo policy are
 unchanged. This package adds a read-only fixed-case audit to the existing
 staging preview. It does not enable Culture, Food, Transfer or Ferry selectors.
 
-## Owner action
+## Deployment procedure (completed)
 
 1. Cloudflare → Workers & Pages → **greecebydan-travel-api-staging**.
 2. Edit code → replace with `staging-category-audit.mjs` → Deploy.
@@ -58,5 +58,13 @@ value needs to be shared to clarify that.
   protected content/secret exclusion; no guessed taxonomy fallback.
 - Existing build: 13 published stories built without article changes.
 - Real initial responses: collected and reviewed (18 ACTIVE details).
-- Corrected Food taxonomy responses: **BLOCKED pending this replacement upload**.
+- Corrected Food taxonomy responses: **PASS — deployed revision 2, four cases and nine details HTTP 200**.
 - No Culture browser/device validation claimed before implementation exists.
+
+## Status: deployed and verified, 17 October 2026
+
+Owner confirmed revision 2 metadata. Follow-up run 39062034051 completed:
+taxonomy and three Food cases HTTP 200, nine selected details HTTP 200 / ACTIVE.
+Current Food lineage selection works for Athens, Naxos and Crete. No further
+upload is needed for Phase A. See LIVE-RESULTS.md for conflicts and scope limits.
+This staging diagnostic does not enable new categories or alter production.

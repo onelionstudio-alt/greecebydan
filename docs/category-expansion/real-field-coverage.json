@@ -623,6 +623,7 @@
         "name": "Food Tours"
       },
       "candidateCount": 50,
+      "workflowRun": 39062034051,
       "products": [
         {
           "productCode": "417834P1",
@@ -767,11 +768,149 @@
         "name": "Naxos"
       },
       "tag": {
-        "id": 13283,
+        "id": 12034,
         "name": "Cooking Classes"
       },
-      "candidateCount": 0,
-      "products": []
+      "candidateCount": 16,
+      "workflowRun": 39062034051,
+      "products": [
+        {
+          "productCode": "5649732P3",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 2
+        },
+        {
+          "productCode": "322117P2",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 2
+        },
+        {
+          "productCode": "5489474P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        }
+      ]
     },
     {
       "case": "food_crete",
@@ -781,11 +920,143 @@
         "name": "Crete"
       },
       "tag": {
-        "id": 13283,
+        "id": 12034,
         "name": "Cooking Classes"
       },
-      "candidateCount": 0,
-      "products": []
+      "candidateCount": 50,
+      "workflowRun": 39062034051,
+      "products": [
+        {
+          "productCode": "432159P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "364920P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            },
+            {
+              "language": "it",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 2
+        },
+        {
+          "productCode": "71256P2",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 2
+        }
+      ]
     },
     {
       "case": "transfers_athens",
@@ -912,5 +1183,13 @@
         }
       ]
     }
-  ]
+  ],
+  "followUp": {
+    "checkedAt": "2026-10-17T19:20:35.479Z",
+    "workflowRun": 39062034051,
+    "deployedSourceCommit": "a6d3f02c84f7741a7f9519f2c80c0ac94e68ad22",
+    "auditTaxonomyRevision": 2,
+    "httpCases": 4,
+    "successfulDetailRequests": 9
+  }
 }

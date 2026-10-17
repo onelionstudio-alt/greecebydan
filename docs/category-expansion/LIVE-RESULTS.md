@@ -88,5 +88,51 @@ selector or recommendation implementation is included.
 
 Six probe unit tests and two actual generated-preview isolation/integration tests
 pass, together with the 30 existing Worker/OAuth tests. These are not a Culture
-feature test suite. The corrected Food search is BLOCKED until the owner updates
-only the staging Worker with the new package documented in STAGING.md.
+feature test suite. The owner deployed revision 2 and the corrected Food audit PASSED collection:
+four cases HTTP 200 and nine ACTIVE product-detail responses. See below.
+
+## Follow-up completed: current Food lineage verified
+
+[Run 39062034051](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39062034051)
+checked deployed source a6d3f02c84f7741a7f9519f2c80c0ac94e68ad22, taxonomy
+revision 2, baseline hash and disabled legacy photos/events before requests.
+Four cases returned HTTP 200. All nine selected details were HTTP 200 / ACTIVE.
+Across both runs: 27 successful detail requests, 24 distinct products (three
+Athens products were intentionally rechecked). No date availability check.
+
+| Case | Resolved live tag | Candidates returned | Detail sample |
+| --- | --- | --- | --- |
+| Athens food | Food Tours 21567, Food & Drink lineage | 50 (page cap) | 417834P1, 101933P4, 342330P1 |
+| Naxos cooking | Cooking Classes 12034, Food & Drink lineage | 16 | 5649732P3, 322117P2, 5489474P1 |
+| Crete cooking | Cooking Classes 12034, Food & Drink lineage | 50 (page cap) | 432159P1, 364920P1, 71256P2 |
+
+The earlier zero counts were a probe tag-selection error. No account upgrade,
+new API permission or secret change was needed. Numbers above are returned
+candidates, not an exhaustive inventory or confirmed dates/seats.
+
+Field/condition observations for the later Food implementation:
+
+- Naxos 5649732P3 explicitly includes a cooking class, with 210-minute duration,
+  shared-tour maximum 15 and English/Greek GUIDE entries. Participation depth,
+  dietary accommodation and exact meeting details still need scoped evidence.
+- Naxos 322117P2 has privateTour=true but also a Small Group Tour option.
+  Never classify every option as private. Its health information excludes celiac
+  suitability; do not infer gluten-free accommodation from food/menu wording.
+- Naxos 5489474P1 lists a four-hour shared activity (maximum 14), English GUIDE,
+  lunch and a supplier dietary-request condition, while excluding private
+  transportation. Requests are not allergy guarantees. Audit excerpts truncate
+  long conditions, so full terms must be checked before a positive dietary claim.
+- Crete 432159P1 reports a five-hour shared activity with maximum eight and
+  English GUIDE; lunch alone does not establish hands-on participation.
+- Crete 364920P1 lists English/Italian at product level but one option only
+  English. A product-wide language union must not imply all options offer Italian.
+- Crete 71256P2 has both private and regular options with different pickup
+  policies. Product-level sharedTour/privateTour and transport inclusions cannot
+  be applied indiscriminately across options.
+- Athens food taxonomy still returns wine-only 342330P1; a food tag is not proof
+  of a food walk. Keep current Wine recommendations unchanged and reject this
+  mismatch from any future food-walk-specific selection.
+
+No further owner action or access grant is needed to finish Phase A. The next
+implementation scope is Culture only; Food/Transfers/Ferries remain unimplemented.
+Remove the temporary audit route when staging is replaced by the Culture preview.

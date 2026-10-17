@@ -2,7 +2,8 @@
 
 **Live audit collected: nine staging cases returned HTTP 200, including 18
 single-product details (all ACTIVE). See LIVE-RESULTS.md for reviewed limits.
-Food taxonomy must be corrected and rechecked before claiming inventory coverage.**
+Corrected Food taxonomy verified in a second run: nine additional ACTIVE
+detail responses, 24 distinct products across both runs.**
 Base: published main `b37919d2f57883aa2a772aa4b3f3f7d23aede68b` (PR23 cards,
 PR24 supplier covers). No production/main changes. No Culture implementation or
 Food/Transfer/Ferry feature has been enabled. Readiness below is deliberately
@@ -69,9 +70,9 @@ selected-date availability check. Exact evidence and limitations are in LIVE-RES
 | Delphi guided visit / day trip | Departure; transport; private/shared; language; tickets; walking | `198006P36`, `464406P5`, `464406P12`: ACTIVE private guided listings meeting locally; differing ticket/transport conditions | Licensed-guide inclusion is explicit. Ticket inclusion/exclusion differs. These results do not establish Athens departures or whole-day return transport | Destination is not departure. Medium-high; local visit supported; transported day-trip coverage needs further evidence |
 | Meteora guided/private visit | Departure; human-guide role; private/shared; duration; steps and admission | `356497P1` e-bike, `59728P9` photo tour, `368783P2` monastery tour: ACTIVE, explicit shared itineraries | Last product excludes guided visits inside monasteries and entrance fees; listing physical effort is moderate. Private inventory not sampled | Tags and GUIDE do not establish interior guiding; exclude activity mismatches. Medium-high; narrow shortlist, no stair/access guarantees |
 | Olympia archaeological visit | Departure; licensed site guide; transport; admission | `66179P12`, `141312P3`, `5647765P2`: ACTIVE private transport/escort listings | All three exclude licensed site guiding; admissions excluded. No qualifying guided archaeological recommendation established by sample | Driver/escort versus archaeological guide. Medium; **omit from initial release** pending stronger inventory |
-| Athens food walk | Walk/tasting vs cooking; language; group; dietary conditions | `417834P1`, `101933P4`: ACTIVE food walks; `342330P1`: ACTIVE wine-only candidate in same search | Group/language/dietary statements available; first explicitly limits vegan/gluten-free suitability. Broad food tags include wine-only products | Activity/negation and dietary scope required. Medium; corrected current-taxonomy search pending; implementation waits owner approval |
-| Naxos farm cooking | Hands-on vs demo; duration; language; transport; group; menu | Initial search on duplicate label ID13283 returned zero. Current lineage identifies ID12034; not yet queried | Zero is **inconclusive**, not absence of classes. Editorial candidate IDs remain unverified by this audit | Taxonomy ambiguity; activity/ingredient/allergy scope. Medium; re-probe before inventory claim; no implementation yet |
-| Crete cooking / tasting | Hands-on vs tasting; locality; language; transport | Same duplicate-tag problem; corrected ID12034 query pending | Inventory and conditions remain unconfirmed | Crete-wide destination does not establish meeting locality or transfer. Medium; re-probe, later separate approval |
+| Athens food walk | Walk/tasting vs cooking; language; group; dietary conditions | `417834P1`, `101933P4`: ACTIVE food walks; `342330P1`: ACTIVE wine-only candidate in same search | Group/language/dietary statements available; first explicitly limits vegan/gluten-free suitability. Broad food tags include wine-only products | Activity/negation and dietary scope required. Medium; current-taxonomy search verified; implementation waits owner approval |
+| Naxos farm cooking | Hands-on vs demo; duration; language; transport; group; menu | Corrected live tag12034 returns 16 candidates; ACTIVE details: `5649732P3`, `322117P2`, `5489474P1` | Cooking inclusion, duration, language, group/option fields available. Conflicting private/shared options and a celiac restriction observed | Taxonomy ambiguity; activity/ingredient/allergy scope. Medium; data access ready, participation/option/diet scope requires qualification; no implementation yet |
+| Crete cooking / tasting | Hands-on vs tasting; locality; language; transport | Corrected live tag12034 returns first 50 candidates; ACTIVE details: `432159P1`, `364920P1`, `71256P2` | Duration, group, language and option logistics available. Options differ in language and pickup; hands-on participation still needs explicit evidence | Crete-wide destination does not establish meeting locality or transfer. Medium; data access ready, later separate approval |
 | Athens airport/port/private transfers | Exact direction; party/luggage; child seats; timing; delay wait | `189416P13`, `323957P7`, `241463P2`: ACTIVE private transfer listings | Details include pickup, some luggage and on-request infant-seat statements. No universal capacity/wait/24h/final-price proof | Opposite direction or wrong destination must fail; seats available is not reserved. High; separate later PR and approval |
 | Ferries / island hopping | Provider-side route/date search initially | No configured integration/account entitlement. Official widgets and separate B2B API exist | Our approval, referral URL and API/widget rights unconfirmed; no live fare/timetable access claimed | Contract/tracking/privacy/CSP gate. Separate owner decision; no ferry feature in Culture PR |
 
@@ -110,7 +111,7 @@ waiting, contract changes and new editorial writing. Re-estimate after live audi
 
 | Step / proposed PR | Work | Estimate / release gate |
 | --- | --- | --- |
-| A: this audit branch | Code/schema review, matrix, bounded staging diagnostic | Initial audit prepared; 1–3 additional working hours to inspect real responses after staging deployment |
+| A: this audit branch | Code/schema review, matrix, bounded staging diagnostic | Completed: code/schema audit, two real staging runs, reviewed matrix and limits |
 | B: Culture & History only | Additive rules/DTO/UI; Acropolis, Delphi, Meteora; Olympia only if evidenced; regression, real staging, browser/mobile/a11y | 18–30 working hours; independent implementation PR, no merge/deploy without owner approval |
 | C1: Food & Cooking | Separate rules for hands-on cooking vs tasting, group/language/inclusions and explicit unknown dietary conditions | 12–20 working hours after Culture verification **and explicit owner confirmation** |
 | C2: Transfers & Day Trips | Route/type/option matching, capacity/baggage/seat uncertainty; transport-only versus excursion separation | 22–38 working hours; separate owner-approved PR; narrow or postpone unsupported criteria |
@@ -145,15 +146,14 @@ without local schedules, price cards or availability claims.
 
 ## Blockers and owner decisions
 
-1. **Initial data gate completed; Food correction pending:** existing `/search` rejects other kinds and
-   does not expose raw taxonomy/details. Key remains only in Cloudflare. Deploy
-   the prepared read-only audit preview to the existing staging Worker; never
-   production. Then test actual tags, Acropolis/Delphi/Meteora candidates and
-   single-product detail status/field coverage. Do not paste a key in chat.
-2. Initial actual inventory and detail endpoint access are confirmed as recorded
-   in LIVE-RESULTS.md. Food current-taxonomy inventory, representative guided
-   options and option-level suitability still need verification. If details are denied, show a summary-only
-   limitation or narrow the MVP; do not assume Full API upgrade is mandatory.
+1. **API access/data collection gate PASS:** two real staging runs completed;
+   24 distinct ACTIVE products, actual details and current Food taxonomy verified.
+   No owner access action or account upgrade is currently required.
+2. **Culture implementation/release gates remain:** guide-role qualification,
+   option conflicts, departure/transport scope, conservative admission and
+   accessibility handling, actual frontend staging and browser regression tests.
+   The bounded sample is not exhaustive; local Delphi tours do not prove Athens
+   departure products. Fail closed where a hard preference has no evidence.
 3. Ferry account approval/referral URL and permitted widget/API model require
    owner/account evidence; no secret value is needed in chat. Ferries need a
    separate explicit owner implementation decision regardless.
@@ -186,7 +186,7 @@ noindex contain the diagnostic. Remove it when the audit is complete.
 
 Local: 30 existing Worker/OAuth tests PASS; 8 diagnostic/bundle tests PASS after
 the taxonomy correction. Actual new-category API collection completed (18
-details); corrected Food cases still require staging upload. Culture
+details), with corrected Food follow-up (nine detail requests). Culture
 mobile/Chromium/WebKit and physical-device checks have **not** run. Physical iOS/Android unavailable.
 Do not reuse PR24 staging success as evidence for new-category correctness.
 
