@@ -31,7 +31,16 @@
     "keyboardAndComparison": "PASS"
   },
   "physicalIOSAndroid": false,
-  "newImplementationRemoteStaging": "BLOCKED: owner must deploy staging-pr25.mjs; prior category audit is not implementation E2E",
+  "newImplementationRemoteStaging": {
+    "status": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+    "workflowRun": 39064582890,
+    "scenarios": 14,
+    "sourceCommit": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+    "mobile": "Chromium/WebKit 390",
+    "desktop": "Chromium 1440",
+    "zeroAnalyticsRequests": true,
+    "zeroNewPhotoReviewAPIRequests": true
+  },
   "productionDeployed": false,
   "merged": false,
   "limitations": [
@@ -40,5 +49,10 @@
     "Delphi visit destination is not an Athens departure guarantee",
     "Guide inclusion is not proof of guiding inside every site",
     "Olympia excluded; later categories unimplemented"
-  ]
+  ],
+  "inventoryLimitations": {
+    "Acropolis": "Two qualified shared tours in the bounded sample; GUIDE language German only. No English-language or private Acropolis coverage established.",
+    "Delphi": "Three qualified private guided local visits; not an Athens-departure transport guarantee.",
+    "Meteora": "One qualified private guide product. Open mode returns three options with guide inclusion explicitly unconfirmed."
+  }
 }

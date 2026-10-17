@@ -4,7 +4,7 @@ Only the named existing staging Worker may receive this generated module. Do
 not paste it into greecebydan-travel-api, change production routes, merge the PR,
 or deploy the production website. The audit route is removed by this package.
 
-## Owner action after local/browser checks
+## Deployment procedure (completed by owner)
 
 1. Open `docs/culture-history/staging-pr25.mjs` on the PR branch in GitHub.
    Use **Download raw file** (download-arrow icon above the source), then open
@@ -46,3 +46,12 @@ The final production release requires a reviewed plain Worker deployment and
 CULTURE_ENABLED=true, followed by frontend publication. This is a future owner
 release decision, not an instruction to publish now. Keep current photo flags,
 affiliate settings and analytics off. No repository deployment is performed here.
+
+## Verification completed, 17 October 2026
+
+Owner deployed the exact manifest source/hash. Real workflow 39064582890 passed
+14 actual frontend/API scenarios, Chromium/WebKit mobile and Chromium desktop,
+comparison, accessibility, affiliate href integrity and normal-network hard-off
+checks. Reviewed results: PASS with the inventory limits in LIVE-VERIFICATION.md.
+No further owner staging deployment is needed for this source. Production/main
+remain unchanged; a separate owner release decision is still required.

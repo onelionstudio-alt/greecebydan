@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+  "apiSourceSha256": "0c16aedd028ade0593eb19bebd374eefdf2bd5a893b67edfaf41dbba78e3ea00",
+  "workflowRun": 39064582890,
+  "review": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+  "cases": 14,
+  "allSearchesHTTP200": true,
+  "axeViolations": 0,
+  "normalEventsRequests": 0,
+  "newPhotoReviewRequests": 0,
+  "scope": {
+    "Acropolis": "Two qualified shared tours in the bounded sample; GUIDE language German only. No English-language or private Acropolis coverage established.",
+    "Delphi": "Three qualified private guided local visits; not an Athens-departure transport guarantee.",
+    "Meteora": "One qualified private guide product. Open mode returns three options with guide inclusion explicitly unconfirmed."
+  },
+  "physicalIOSAndroid": "NOT_TESTED",
+  "ownerStagingAction": "COMPLETE; no new upload required",
+  "release": "Owner review/approval required; not merged or production deployed"
+}

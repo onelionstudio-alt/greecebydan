@@ -1,7 +1,7 @@
 # Culture & History — isolated implementation
 
-**Status: implementation and recorded-response/browser QA complete; real new
-frontend + Worker staging verification awaits the owner upload in STAGING.md.**
+**Status: implementation, recorded-response QA and actual deployed frontend +
+Worker staging verification complete. Owner release approval remains required.**
 
 Baseline: published main b37919d2f57883aa2a772aa4b3f3f7d23aede68b.
 Branch: feat/concierge-culture-history. No production deployment or merge.
@@ -108,16 +108,35 @@ Culture axe violations: zero; keyboard, comparison 2–3, empty/error/missing
 conditions and unexpected-network checks pass. See evidence/qa-summary.json.
 Screenshots labelled recorded are UI evidence, not live availability or live E2E.
 
-Real **implementation** staging E2E is BLOCKED until the owner replaces the audit
-bundle on the existing staging Worker. No secret or new binding is needed.
-The deployable preview is prepared after source review; see STAGING.md for the
-exact file/commit/hash. Then check each Culture place, strict and open filters,
-2–3 comparison when available, exact affiliate links, disabled analytics/legacy
-photo flags, and Boat/Wine regression with real responses. Do not bypass a
-Cloudflare/Viator block or call a synthetic response a live PASS.
+Real **implementation** staging E2E completed in [run 39064582890](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39064582890):
+14 scenarios on actual Cloudflare assets and API, no response substitution.
+Served frontend hashes and Worker source matched the reviewed manifest.
+Chromium 390/1440 and WebKit 390, two/three comparison where available,
+keyboard/axe, Boat/Wine article navigation, exact affiliate hrefs and disabled
+analytics/new-photo/review calls passed. Zero axe violations in checked regions.
 
-Not ready to merge/release until that real staging gate is closed. Keep the PR
-as draft until evidence and any selection limitations have been reviewed.
+Manual cloud-browser checks separately confirmed the Milos article prefill,
+three live boat results, three Delphi guide results, the actual Viator product
+landing for 464406P5 using its unchanged CTA URL, removal of that non-refundable
+listing under free-cancellation preference, and safe empty for shared + guided +
+free-cancellation Delphi. No purchase/date availability operation was performed.
+See LIVE-VERIFICATION.md and evidence/manual-live-checks.json for the exact
+popup instrumentation caveat and scopes; target URL/product is verified.
+
+Inventory limits requiring owner awareness:
+- Acropolis: two qualified shared tours in this bounded result set, both GUIDE
+  languages German. No English-guide or private Acropolis inventory established.
+  German is explicitly visible; do not advertise English Acropolis coverage.
+- Delphi: three private guided local visits. Departure from Athens not established.
+- Meteora: one private licensed-guide listing qualifies; open mode returns three
+  alternatives with guide inclusion explicitly unconfirmed. No padding to three.
+- This is a bounded sample, not the whole catalogue. Do not infer that other
+  products/languages do not exist. No date-specific seats/final prices verified.
+
+The previous owner-upload gate is closed; no new staging paste is needed.
+PR remains draft for owner review and release decision, with no main/production
+change. Physical iOS/Android remain unavailable; viewport/engine tests are not
+physical phone tests.
 
 ## Screenshots
 
@@ -131,3 +150,12 @@ search starting amounts, with units explicitly unknown.
 | --- | --- | --- | --- |
 | Mobile 390 | [Before](evidence/before-390.png) | [After](evidence/after-390-recorded.png) | [2–3 options](evidence/compare-390-recorded.png) |
 | Desktop 1440 | [Before](evidence/before-1440.png) | [After](evidence/after-1440-recorded.png) | [2–3 options](evidence/compare-1440-recorded.png) |
+
+## Actual deployed staging screenshots
+
+These use real API responses, not recorded fixtures:
+[Delphi mobile](evidence/real-chromium-culture-50420-guided-390.png),
+[Delphi desktop](evidence/real-chromium-culture-50420-guided-1440.png),
+[Acropolis mobile](evidence/real-chromium-culture-496-guided-390.png),
+[Meteora mobile](evidence/real-chromium-culture-28822-guided-390.png).
+The full 14-scenario artifact is attached to the real-staging workflow run.

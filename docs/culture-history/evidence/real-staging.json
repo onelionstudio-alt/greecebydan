@@ -1,0 +1,1385 @@
+{
+  "mode": "Real deployed frontend and Worker, actual permitted API responses, no purchases",
+  "testedAt": "2026-10-17T19:57:13.809Z",
+  "physicalDevices": false,
+  "checks": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "culture",
+      "place": "496",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "240841P1",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-and-Museum-Tour-with-a-Dutch-speaking-guide/d496-240841P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:57:15.757Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T19:57:15.757Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T19:57:15.757Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "240841P3",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-Tour-in-Dutch-or-German/d496-240841P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:57:16.143Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T19:57:16.143Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T19:57:16.143Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "culture",
+      "place": "50420",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "198006P36",
+          "url": "https://www.viator.com/tours/Delphi/Explore-the-mystical-ruins-in-Delphi-Greece/d50420-198006P36?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:57:37.825Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T19:57:37.825Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T19:57:37.825Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        {
+          "code": "464406P5",
+          "url": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:57:37.819Z",
+            "guide": "included",
+            "languages": [
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T19:57:37.819Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T19:57:37.819Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        {
+          "code": "464406P12",
+          "url": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:57:37.949Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T19:57:37.949Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T19:57:37.949Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "culture",
+      "place": "28822",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "6575P20",
+          "url": "https://www.viator.com/tours/Meteora/Meteora-Private-Monastery-Tour-with-a-Licensed-Guide/d28822-6575P20?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:58:00.196Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en",
+              "es",
+              "fr",
+              "it",
+              "ro",
+              "ru"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T19:58:00.196Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T19:58:00.196Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "culture",
+      "place": "28822",
+      "mood": "any",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "368783P2",
+          "url": "https://www.viator.com/tours/Meteora/Amazing-Morning-Meteora-Monasteries-Tour/d28822-368783P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:58:21.871Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": null,
+            "pickup": "pickup_listed",
+            "effort": "moderate",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "368783P2",
+                "checkedAt": "2026-10-17T19:58:21.871Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            },
+            {
+              "code": "culture_moderate",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "368783P2",
+                "checkedAt": "2026-10-17T19:58:21.871Z",
+                "field": "additionalInfo",
+                "value": "PHYSICAL_MEDIUM"
+              }
+            }
+          ]
+        },
+        {
+          "code": "438152P1",
+          "url": "https://www.viator.com/tours/Meteora/Majestic-Morning-Horseback-Tour-Meteora-with-Monastery-Ypapanti/d28822-438152P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:58:21.879Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": 6,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "438152P1",
+                "checkedAt": "2026-10-17T19:58:21.879Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "136367P3",
+          "url": "https://www.viator.com/tours/Meteora/Sunset-tour-at-Meteora/d28822-136367P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:58:22.019Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": 8,
+            "pickup": "pickup_or_meeting",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "136367P3",
+                "checkedAt": "2026-10-17T19:58:22.019Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "boat",
+      "place": "22323",
+      "article": "milos-boat-tours-if-you-get-seasick-which-boat-should-you-choose",
+      "source": "boat-milos",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "skipper"
+              }
+            }
+          ]
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ]
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "wine",
+      "place": "959",
+      "article": "how-to-taste-santorini-wine-without-driving",
+      "source": "wine-santorini",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ]
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "wine tasting"
+              }
+            }
+          ]
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "culture",
+      "place": "496",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "240841P1",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-and-Museum-Tour-with-a-Dutch-speaking-guide/d496-240841P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:59:28.529Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T19:59:28.529Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T19:59:28.529Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "240841P3",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-Tour-in-Dutch-or-German/d496-240841P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:59:29.051Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T19:59:29.051Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T19:59:29.051Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "culture",
+      "place": "50420",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "198006P36",
+          "url": "https://www.viator.com/tours/Delphi/Explore-the-mystical-ruins-in-Delphi-Greece/d50420-198006P36?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:59:50.605Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T19:59:50.605Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T19:59:50.605Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        {
+          "code": "464406P5",
+          "url": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:59:50.615Z",
+            "guide": "included",
+            "languages": [
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T19:59:50.615Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T19:59:50.615Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        {
+          "code": "464406P12",
+          "url": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T19:59:50.875Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T19:59:50.875Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T19:59:50.875Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "culture",
+      "place": "28822",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "6575P20",
+          "url": "https://www.viator.com/tours/Meteora/Meteora-Private-Monastery-Tour-with-a-Licensed-Guide/d28822-6575P20?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:00:14.274Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en",
+              "es",
+              "fr",
+              "it",
+              "ro",
+              "ru"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T20:00:14.274Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T20:00:14.274Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "culture",
+      "place": "28822",
+      "mood": "any",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "368783P2",
+          "url": "https://www.viator.com/tours/Meteora/Amazing-Morning-Meteora-Monasteries-Tour/d28822-368783P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:00:36.138Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": null,
+            "pickup": "pickup_listed",
+            "effort": "moderate",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "368783P2",
+                "checkedAt": "2026-10-17T20:00:36.138Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            },
+            {
+              "code": "culture_moderate",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "368783P2",
+                "checkedAt": "2026-10-17T20:00:36.138Z",
+                "field": "additionalInfo",
+                "value": "PHYSICAL_MEDIUM"
+              }
+            }
+          ]
+        },
+        {
+          "code": "438152P1",
+          "url": "https://www.viator.com/tours/Meteora/Majestic-Morning-Horseback-Tour-Meteora-with-Monastery-Ypapanti/d28822-438152P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:00:36.117Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": 6,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "438152P1",
+                "checkedAt": "2026-10-17T20:00:36.117Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "136367P3",
+          "url": "https://www.viator.com/tours/Meteora/Sunset-tour-at-Meteora/d28822-136367P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:00:36.266Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": 8,
+            "pickup": "pickup_or_meeting",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "136367P3",
+                "checkedAt": "2026-10-17T20:00:36.266Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "culture",
+      "place": "496",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "240841P1",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-and-Museum-Tour-with-a-Dutch-speaking-guide/d496-240841P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:01:05.235Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T20:01:05.235Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-17T20:01:05.235Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "240841P3",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-Tour-in-Dutch-or-German/d496-240841P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:01:05.660Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T20:01:05.660Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-17T20:01:05.660Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "culture",
+      "place": "50420",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "198006P36",
+          "url": "https://www.viator.com/tours/Delphi/Explore-the-mystical-ruins-in-Delphi-Greece/d50420-198006P36?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:01:28.086Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T20:01:28.086Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "198006P36",
+                "checkedAt": "2026-10-17T20:01:28.086Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        {
+          "code": "464406P5",
+          "url": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:01:28.089Z",
+            "guide": "included",
+            "languages": [
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T20:01:28.089Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P5",
+                "checkedAt": "2026-10-17T20:01:28.089Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        },
+        {
+          "code": "464406P12",
+          "url": "https://www.viator.com/tours/Delphi/Mystic-Delphi-Private-Tour/d50420-464406P12?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:01:28.240Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T20:01:28.240Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "464406P12",
+                "checkedAt": "2026-10-17T20:01:28.240Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "culture",
+      "place": "28822",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "6575P20",
+          "url": "https://www.viator.com/tours/Meteora/Meteora-Private-Monastery-Tour-with-a-Licensed-Guide/d28822-6575P20?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:01:50.884Z",
+            "guide": "included",
+            "languages": [
+              "el",
+              "en",
+              "es",
+              "fr",
+              "it",
+              "ro",
+              "ru"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T20:01:50.884Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "6575P20",
+                "checkedAt": "2026-10-17T20:01:50.884Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "culture",
+      "place": "28822",
+      "mood": "any",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "368783P2",
+          "url": "https://www.viator.com/tours/Meteora/Amazing-Morning-Meteora-Monasteries-Tour/d28822-368783P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:02:13.331Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": null,
+            "pickup": "pickup_listed",
+            "effort": "moderate",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "368783P2",
+                "checkedAt": "2026-10-17T20:02:13.331Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            },
+            {
+              "code": "culture_moderate",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "368783P2",
+                "checkedAt": "2026-10-17T20:02:13.331Z",
+                "field": "additionalInfo",
+                "value": "PHYSICAL_MEDIUM"
+              }
+            }
+          ]
+        },
+        {
+          "code": "438152P1",
+          "url": "https://www.viator.com/tours/Meteora/Majestic-Morning-Horseback-Tour-Meteora-with-Monastery-Ypapanti/d28822-438152P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:02:13.317Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": 6,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "438152P1",
+                "checkedAt": "2026-10-17T20:02:13.317Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "136367P3",
+          "url": "https://www.viator.com/tours/Meteora/Sunset-tour-at-Meteora/d28822-136367P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-17T20:02:13.603Z",
+            "guide": "not_confirmed",
+            "languages": [],
+            "group": "shared",
+            "groupSize": 8,
+            "pickup": "pickup_or_meeting",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "136367P3",
+                "checkedAt": "2026-10-17T20:02:13.603Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    }
+  ],
+  "network": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalEventsRequests": 0,
+      "newPhotoReviewRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalEventsRequests": 0,
+      "newPhotoReviewRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalEventsRequests": 0,
+      "newPhotoReviewRequests": 0
+    }
+  ],
+  "status": "COLLECTED_REQUIRES_INVENTORY_REVIEW"
+}
