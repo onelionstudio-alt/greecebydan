@@ -1,10 +1,11 @@
 {
-  "sourceCommit": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
-  "apiSourceSha256": "0c16aedd028ade0593eb19bebd374eefdf2bd5a893b67edfaf41dbba78e3ea00",
+  "sourceCommit": "7c669f724c5ff72453757e4359d4c32816819353",
+  "apiSourceSha256": "4a63e853d8ad4f96bfc40311d849c17fc6a778c21ca7933708bc2f96dbf6d856",
   "cultureEnabled": true,
   "apiPhotos": false,
   "interactionEvents": false,
   "supplierCovers": true,
-  "bundleSha256": "d1ff7c62c7c8e6f4aefbfb6a3d533e290d7caa447e311a3e786c5446d19ee28b",
-  "origin": "https://greecebydan-travel-api-staging.onelion-studio.workers.dev"
+  "origin": "https://greecebydan-travel-api-staging.onelion-studio.workers.dev",
+  "cultureInventoryFixRevision": 1,
+  "bundleSha256": "34c7707c66e55625abf1bb9e7c46bcc9ff49e54b31e502d185e20b07d1465437"
 }

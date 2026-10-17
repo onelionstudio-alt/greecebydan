@@ -1,57 +1,42 @@
-# PR25 isolated staging handoff — not production
+# PR25 inventory fix — staging handoff, not production
 
-Only the named existing staging Worker may receive this generated module. Do
-not paste it into greecebydan-travel-api, change production routes, merge the PR,
-or deploy the production website. The audit route is removed by this package.
+The baseline frontend E2E (39064582890) and expanded real inventory audit
+(39070052304, 30 HTTP-200 cases / 69 distinct products) are complete. The new
+cutoff/parser fixes have passed local tests, but require this new staging upload
+before their real frontend assertions can run. Production remains forbidden.
 
-## Deployment procedure (completed by owner)
-
-1. Open `docs/culture-history/staging-pr25.mjs` on the PR branch in GitHub.
-   Use **Download raw file** (download-arrow icon above the source), then open
-   the saved file in a text editor and copy all of it. It is a single module.
+1. Open `docs/culture-history/staging-pr25-selection.mjs` on the PR branch.
+   Copy the whole module using **Copy raw file**, or download and copy in an editor.
 2. Cloudflare → Workers & Pages → **greecebydan-travel-api-staging** → Edit code.
-   Replace the current audit module with this file and Deploy to that Worker.
-3. Preserve VIATOR_API_KEY and SEARCH_LIMIT. No secret in chat, new binding,
-   service/account grant or production setting is needed. The wrapper explicitly
-   sets Culture true, legacy API photos/events false and existing supplier
-   covers true, independent of conflicting staging flag values.
-4. Open `https://greecebydan-travel-api-staging.onelion-studio.workers.dev/_preview/meta`
-   and return its JSON. Expected values are in staging-manifest.json:
-   sourceCommit 840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab;
-   apiSourceSha256 0c16aedd028ade0593eb19bebd374eefdf2bd5a893b67edfaf41dbba78e3ea00;
-   cultureEnabled true, apiPhotos false, interactionEvents false,
-   supplierCovers true. No categoryAudit route should remain.
+   Replace the existing inventory-audit bundle and deploy to **that staging Worker**.
+   Keep VIATOR_API_KEY and SEARCH_LIMIT; no new secret or binding is needed.
+3. Open `https://greecebydan-travel-api-staging.onelion-studio.workers.dev/_preview/meta`.
+   Check against staging-manifest.json:
+   - sourceCommit `7c669f724c5ff72453757e4359d4c32816819353`
+   - apiSourceSha256 `4a63e853d8ad4f96bfc40311d849c17fc6a778c21ca7933708bc2f96dbf6d856`
+   - cultureInventoryFixRevision `1`, cultureEnabled `true`
+   - apiPhotos `false`, interactionEvents `false`, supplierCovers `true`
+4. Return that metadata response. The assistant then updates RUN_REAL_STAGING on
+   the PR branch to trigger the no-deployment workflow.
 
 Bundle SHA256:
-`d1ff7c62c7c8e6f4aefbfb6a3d533e290d7caa447e311a3e786c5446d19ee28b`.
+`34c7707c66e55625abf1bb9e7c46bcc9ff49e54b31e502d185e20b07d1465437`.
 
-## Assistant follow-up after metadata confirmation
+The preview preserves hard-off analytics/legacy photo API and existing strict
+supplier covers. It has no temporary `/__culture-inventory` route, no public
+arbitrary detail endpoint, and no publication or production side effect.
 
-Trigger the read-only workflow by updating docs/culture-history/RUN_REAL_STAGING
-on this feature branch. It uses the actual remotely served frontend and Worker,
-not an overlay or synthetic API body. It verifies manifest/source/asset hashes,
-Athens/Delphi/Meteora strict guide cases and Meteora open mode, existing
-article→Boat/Wine prefill and searches, safe empty results, available 2–3 compare,
-keyboard/axe and exact affiliate hrefs. Chromium 390/1440 and WebKit 390; local
-recorded-response QA additionally covers 320/768. Pacing preserves rate limits.
-No purchase, availability, review/photo API or analytics request.
+The updated real suite checks the actual served source/assets, at least one
+confirmed English Acropolis result, at least two confirmed-guide Meteora results,
+the explicit Delphi/Athens transport limitation, Boat/Wine article navigation,
+unknown price units, exact affiliate URLs, available 2–3 comparison, keyboard/axe,
+no overflow and no normal event/new-photo/review requests. Chromium 390/1440 and
+WebKit 390; recorded-response CI additionally covers 320/768. No purchase or date
+availability operation. Physical iOS/Android remain untested.
 
-Review actual recommendation coverage rather than declaring a safe empty as a
-commercially useful result. Do not merge until real staging and any unsupported
-conditions/limited inventory are reviewed. Physical iOS/Android remain untested.
-If a partner landing is blocked by the test environment, report that separately
-from Partner API status; do not bypass the block or claim landing verification.
+If the live API no longer provides those qualified products, record the actual
+failure/empty result rather than substituting fixture products or relaxing evidence.
+Keep the 28-second upstream deadline, two-concurrent detail cap and rate limiting.
 
-The final production release requires a reviewed plain Worker deployment and
-CULTURE_ENABLED=true, followed by frontend publication. This is a future owner
-release decision, not an instruction to publish now. Keep current photo flags,
-affiliate settings and analytics off. No repository deployment is performed here.
-
-## Verification completed, 17 October 2026
-
-Owner deployed the exact manifest source/hash. Real workflow 39064582890 passed
-14 actual frontend/API scenarios, Chromium/WebKit mobile and Chromium desktop,
-comparison, accessibility, affiliate href integrity and normal-network hard-off
-checks. Reviewed results: PASS with the inventory limits in LIVE-VERIFICATION.md.
-No further owner staging deployment is needed for this source. Production/main
-remain unchanged; a separate owner release decision is still required.
+Do not paste into `greecebydan-travel-api`, change production routes, merge PR25
+or publish the production frontend. Release still requires a separate owner decision.
