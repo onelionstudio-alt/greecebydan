@@ -63,11 +63,11 @@ filter. No party/date availability or final price lookup.
 
 ## Request and freshness budget
 
-One live /products/search, at most six fresh /products/{validated-code} reads,
-two concurrent, at most three rendered recommendations. The bound is six rather
-than the audit's preliminary three-detail estimate because actual exclusions
-reject nominally guided candidates. No extra page or unbounded fill-up request.
-Warm maximum seven requests; cold adds two auxiliaries (nine total). A 28-second
+One live /products/search, at most twelve fresh /products/{validated-code} reads,
+two concurrent, at most three rendered recommendations. The bounded window was
+extended from six after the real inventory audit found confirmed English Acropolis
+options immediately beyond the original cutoff. No extra page or unbounded fill-up request.
+Warm maximum thirteen requests; cold adds two auxiliaries (fifteen total). A 28-second
 Culture upstream deadline bounds auxiliaries/search/details; per fetch <=10s.
 No automatic retries or partial/stale fallback after an upstream failure. Keep
 preferences for manual retry. It may return fewer than three or no matches.
@@ -88,7 +88,7 @@ unchanged; no new review content is requested.
 ## Current selection limits
 
 - Culture-specific classification is deliberately conservative, not complete
-  inventory. First 50 search candidates, then at most six details; results may
+  inventory. First 50 search candidates, then at most twelve details; results may
   miss valid products or none may satisfy hard preferences.
 - Delphi currently searches the Delphi destination. Local guided visits do not
   establish an Athens-departure day trip. Do not describe this MVP as a verified
@@ -123,7 +123,7 @@ free-cancellation Delphi. No purchase/date availability operation was performed.
 See LIVE-VERIFICATION.md and evidence/manual-live-checks.json for the exact
 popup instrumentation caveat and scopes; target URL/product is verified.
 
-Inventory limits requiring owner awareness:
+Original baseline inventory observations (superseded for coverage by INVENTORY-REVIEW.md):
 - Acropolis: two qualified shared tours in this bounded result set, both GUIDE
   languages German. No English-guide or private Acropolis inventory established.
   German is explicitly visible; do not advertise English Acropolis coverage.
@@ -133,7 +133,9 @@ Inventory limits requiring owner awareness:
 - This is a bounded sample, not the whole catalogue. Do not infer that other
   products/languages do not exist. No date-specific seats/final prices verified.
 
-The previous owner-upload gate is closed; no new staging paste is needed.
+The original baseline staging gate was completed. The targeted inventory follow-up
+now requires the new selection-fix staging upload and real frontend run before
+release. See INVENTORY-REVIEW.md; earlier live checks do not validate the new runtime.
 PR remains draft for owner review and release decision, with no main/production
 change. Physical iOS/Android remain unavailable; viewport/engine tests are not
 physical phone tests.

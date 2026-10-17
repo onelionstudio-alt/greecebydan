@@ -40,10 +40,10 @@ test('option conflicts suppress group/pickup claims; absent data does not prove 
  assert.equal(cultureConditions({...detail(),additionalInfo:[{type:'PHYSICAL_EASY'},{type:'PHYSICAL_HARD'}]}).effort,'unknown');
  assert.equal(cultureConditions({...detail(),status:'INACTIVE'}),null);
 });
-test('bounded six-details/two-concurrent pipeline preserves exact affiliate URL and unknown price units',async()=>{
+test('bounded twelve-details/two-concurrent pipeline preserves exact affiliate URL and unknown price units',async()=>{
  let calls=0,concurrency=0,max=0;const products=Array.from({length:30},(_,i)=>summary('P'+i));
  const result=await cultureSearch(products,pref,'Athens',false,async code=>{calls++;concurrency++;max=Math.max(max,concurrency);await new Promise(r=>setTimeout(r,1));concurrency--;return detail(code)});
- assert.equal(calls,6);assert.equal(max,2);assert.equal(result.length,3);assert.equal(result[0].url,products[0].productUrl);assert.equal(result[0].priceBasis,'unknown');assert.equal(result[0].supplierCover,null);
+ assert.equal(calls,12);assert.equal(max,2);assert.equal(result.length,3);assert.equal(result[0].url,products[0].productUrl);assert.equal(result[0].priceBasis,'unknown');assert.equal(result[0].supplierCover,null);
  assert.ok(result[0].selectionEvidence.every(f=>f.evidence.productCode===result[0].productCode));assert.equal(result[0].culture.guide,'included');
  assert.deepEqual(selectionEvidence(summary(),pref),[]);
 });
@@ -73,4 +73,34 @@ test('Worker capability gate, destination scope, endpoint budget and safe API er
   const m=await worker.fetch(new Request('https://worker.example/destinations',{headers:{Origin:origin}}),env);assert.deepEqual((await m.json()).capabilities.cultureDestinations,[{id:'496',name:'Athens'}]);
   globalThis.fetch=async()=>new Response('SECRET_ERROR_BODY',{status:403});r=await worker.fetch(request(pref),env);assert.equal(r.status,502);assert.doesNotMatch(await r.text(),/SECRET/);
  }finally{globalThis.fetch=original}
+});
+
+const inventoryGuides=JSON.parse(fs.readFileSync(new URL('../tests/fixtures/culture-inventory-guide.json',import.meta.url))).products;
+test('real inventory recognizes explicit included English-speaking guide without asserting a licence',()=>{
+ const by=Object.fromEntries(inventoryGuides.map(p=>[p.productCode,p]));
+ for(const code of ['341709P1','63145P77','6357P78','6575PRIVATE']){
+  const c=cultureConditions(by[code]);assert.equal(c.guide,'included',code);assert.ok(c.languages.includes('en'),code);
+  assert.equal(c.facts.find(f=>f.code==='culture_guide').evidence.value,'GUIDE_INCLUDED');
+ }
+ for(const code of ['368783P2','123525P19'])assert.equal(cultureConditions(by[code]).guide,'not_confirmed',code);
+});
+test('English-speaking inclusion still requires common GUIDE English and rejects negatives, extras and conflicting options',()=>{
+ for(const t of ['English speaking Guide','English-speaking guide','English – speaking Guide','Local English speaking tour guide'])
+  assert.equal(cultureConditions({...detail(),inclusions:[{otherDescription:t}]}).guide,'included',t);
+ for(const t of ['English speaking driver','English speaking tour leader','English speaking guide on request','No English speaking guide','English speaking guide at additional cost','English speaking guide available','English speaking guide excluded','English speaking guide / driver','We can arrange an English speaking guide'])
+  assert.equal(cultureConditions({...detail(),inclusions:[{otherDescription:t}]}).guide,'not_confirmed',t);
+ const p={...detail(),inclusions:[{otherDescription:'English speaking Guide'}]};
+ assert.equal(cultureConditions({...p,exclusions:[{otherDescription:'Guide inside the monastery'}]}).guide,'not_confirmed');
+ assert.equal(cultureConditions({...p,productOptions:[{title:'French tour',languageGuides:[{type:'GUIDE',language:'fr'}]}]}).guide,'not_confirmed');
+ assert.equal(cultureConditions({...p,productOptions:[{title:'English audio',languageGuides:[{type:'AUDIO',language:'en'}]}]}).guide,'not_confirmed');
+ assert.equal(cultureConditions({...p,productOptions:[{title:'Audio tour',languageGuides:[{type:'GUIDE',language:'en'}]}]}).guide,'not_confirmed');
+});
+test('deeper window finds evidence-backed alternatives without padding or reading beyond twelve details',async()=>{
+ const products=Array.from({length:20},(_,i)=>summary('P'+i));const calls=[];
+ const result=await cultureSearch(products,pref,'Athens',false,async code=>{
+  calls.push(code);return {...detail(code),inclusions:Number(code.slice(1))<6?[]:[{otherDescription:'English speaking Guide'}]};
+ });
+ assert.equal(calls.length,12);assert.ok(!calls.includes('P12'));assert.equal(result.length,3);
+ assert.ok(result.every(p=>Number(p.productCode.slice(1))>=6&&p.culture.languages.includes('en')));
+ assert.ok(result.every(p=>p.url===products.find(s=>s.productCode===p.productCode).productUrl&&p.priceBasis==='unknown'));
 });

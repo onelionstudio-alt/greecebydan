@@ -153,11 +153,14 @@ export function cultureConditions(product, checkedAt = new Date().toISOString())
   const guideExcluded = excludes.some(i => /guid(?:e|ed|ing)/i.test(boundedText(i.otherDescription)));
   const uncertain = /\b(?:no|not|without|optional|extra|additional|request|surcharge|depending|subject|cannot|can't)\b/i;
   const explicitGuide = guideText.some(t => /\b(?:(?:licensed|professional|expert|local)\s+(?:(?:professional|licensed|tour|local)\s+){0,3}guide|tour guide)\b/i.test(t) && !uncertain.test(t));
+  // Explicit included English-speaking human guide is evidence too. Keep this
+  // separate from generic GUIDE metadata, drivers, leaders and title mentions.
+  const englishGuide = guideText.some(t => /\benglish\s*[-–—]?\s*speaking\s+(?:tour\s+)?guide\b/i.test(t) && !uncertain.test(t) && !/\b(?:driver|leader|escort|audio|excluded|unavailable|available|arranged|may|might|could|can|separately|fee|cost|payable|if)\b/i.test(t));
   const optionGuideConflict = options.some(o => /audio|self[- ]guided|driver[- ]only|without (?:a )?guide/i.test(boundedText(o.title)));
   const languageEntries = option => list(option?.languageGuides === undefined ? product.languageGuides : option.languageGuides).filter(g => g?.type === 'GUIDE' && /^[a-z]{2}(?:-[A-Z]{2})?$/.test(g.language || '')).map(g => g.language);
   const scopes = options.length ? options.map(languageEntries) : [languageEntries(product)];
   const languages = [...new Set(scopes[0] || [])].filter(l => scopes.every(s => s.includes(l))).sort().slice(0,12);
-  const guide = inspectable && explicitGuide && !guideExcluded && !optionGuideConflict && languages.length > 0;
+  const guide = inspectable && (explicitGuide || (englishGuide && languages.includes('en'))) && !guideExcluded && !optionGuideConflict && languages.length > 0;
   const titles = options.map(o => boundedText(o.title));
   const privateConflict = titles.some(t => /\bshared|small[- ]group|group tour\b/i.test(t));
   const sharedConflict = titles.some(t => /\bprivate\b/i.test(t));
@@ -196,11 +199,12 @@ export function cultureCandidates(products, pref, place) {
     if (pref.cancellation && !p.flags?.includes('FREE_CANCELLATION')) return false;
     try { const u = new URL(p.productUrl); if (u.protocol !== 'https:' || !['viator.com','www.viator.com'].includes(u.hostname) || u.username || u.password) return false; } catch { return false; }
     seen.add(p.productCode); return true;
-  }).slice(0,6);
+  }).slice(0,12);
 }
 export async function cultureSearch(products,pref,place,coversEnabled,detail) {
   const candidates = cultureCandidates(products,pref,place), eligible = [], conditions = new Map();
-  // Up to six fresh details, two at a time. No retries, stale content or extra pages.
+  // Up to twelve fresh details, two at a time, under the shared 28s deadline.
+  // Still at most three results; no retries, stale content or extra pages.
   for (let i=0;i<candidates.length;i+=2) {
     const batch = await Promise.all(candidates.slice(i,i+2).map(async summary => {
       const p = await detail(summary.productCode);
