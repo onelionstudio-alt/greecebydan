@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "840bcfb98044a4dc1aa2c14dfabc38b7d6aef7ab",
+  "apiSourceSha256": "0c16aedd028ade0593eb19bebd374eefdf2bd5a893b67edfaf41dbba78e3ea00",
+  "cultureEnabled": true,
+  "apiPhotos": false,
+  "interactionEvents": false,
+  "supplierCovers": true,
+  "bundleSha256": "d1ff7c62c7c8e6f4aefbfb6a3d533e290d7caa447e311a3e786c5446d19ee28b",
+  "origin": "https://greecebydan-travel-api-staging.onelion-studio.workers.dev"
+}
