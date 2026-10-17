@@ -2,6 +2,18 @@
 
 **Draft / do not merge / no production deployment.**
 
+## Current corrected staging bundle
+
+Use [staging-pr24-cdn-d22c0f5f.mjs](staging-pr24-cdn-d22c0f5f.mjs), not the older
+b2f45883 or provenance-only bundle. Expected sourceCommit:
+`d22c0f5f169d82056db78dd0f1cbb9cfe1a777d6`.
+Ordinary API SHA256 `a75b739ec6f30a0d70530bdc7230b5a358011f1851b181cce3b3ed0713547916`.
+Bundle SHA256 `a3d5ce7927728b4dbb73804585a7c8b62a22831a4475c1187822f9a6dda88029`.
+Flags: apiPhotos=false, interactionEvents=false, supplierCovers=true,
+imageProvenanceAudit=true. Deploy only to the existing staging Worker.
+Local 30 Node and 4 preview tests PASS; browser QA of the added host is running.
+Actual image display/performance/after evidence still requires this deployment.
+
 ## Confirmed cause and correction — 17 October
 
 [Real redacted provenance evidence](evidence/provenance-summary.json) from CI
