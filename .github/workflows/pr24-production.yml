@@ -1,0 +1,21 @@
+name: PR24 production verification (no deployment)
+on:
+  push:
+    branches: [qa/pr24-production-verification]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Verify real production Worker and disabled events
+        run: node tests/verify-pr24-production.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr24-production-verification
+          path: release-evidence/
