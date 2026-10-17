@@ -1,0 +1,40 @@
+name: Supplier cover QA (no deployment)
+on:
+  push:
+    branches: [feat/viator-supplier-cover-images]
+    paths: ['assets/**', 'travel-worker/**', 'tests/**', 'scripts/**', 'templates/**', '.github/workflows/supplier-covers.yml']
+permissions:
+  contents: read
+jobs:
+  covers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Build and unit tests
+        run: |
+          python -m pip install -r requirements.txt
+          node --test oauth-worker/worker.test.mjs travel-worker/worker.test.mjs travel-worker/supplier-cover.test.mjs
+          python scripts/build.py
+      - name: Install isolated browser QA
+        run: |
+          npm install --prefix "$RUNNER_TEMP/cover-qa" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/cover-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Existing card regression and supplier boundaries
+        env:
+          NODE_PATH: ${{ runner.temp }}/cover-qa/node_modules
+        run: |
+          node tests/browser-cards.cjs
+          node tests/browser-supplier-covers.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: supplier-cover-boundary-evidence
+          path: docs/supplier-cover-images/evidence/

@@ -186,7 +186,7 @@ test('card DTO preserves product identity and unknown facts; images are opt-in',
   assert.deepEqual(result.durationMinutes, { min: 240, max: 240 });
   assert.equal(result.image, null);
   assert.equal(result.departure, null);
-  assert.deepEqual(cardDetails(p, true).image, image.variants[0]);
+  assert.equal(cardDetails(p, true).image, null); // legacy gate cannot enable photos
   assert.equal(cardDetails({ ...p, images: [{ ...image, variants: [{ ...image.variants[0], url: 'https://evil.example/photo' }] }] }, true).image, null);
   assert.equal(cardDetails({ duration: { fixedDurationInMinutes: -1 } }).durationMinutes, null);
   assert.deepEqual(cardDetails({ duration: { variableDurationFromMinutes: 120, variableDurationToMinutes: 180 } }).durationMinutes, { min: 120, max: 180 });
