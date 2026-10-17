@@ -53,7 +53,17 @@ client supplier gate cannot activate legacy images or events.
 
 ## Isolated staging deployment
 
-Generated file will be linked here once local and CI checks pass. It packages
+Prepared bundle: [staging-pr24-b2f45883.mjs](staging-pr24-b2f45883.mjs).
+
+Local package checks PASS: syntax, wrong-host 404, public source metadata, and
+/events 503 even with the enabling analytics binding.
+
+API source SHA256: `9a889827d5a1fd1a902e79d178e7a964cf521c6143d72b087287883787b578ca`.
+Bundle SHA256: `7227fb4f046871a56984335a963823b5ad8197eb8a743174cf979b396b0016d8`.
+Runtime source b2f458831e71857ead87866013fb9e4efee52521; subsequent changes
+only repair browser-test races and document validation, not runtime assets.
+
+It packages
 only the reviewed branch frontend and ordinary API source; no API keys, image
 bytes or private email. Deploy **only** to
 `greecebydan-travel-api-staging`, preserving existing secrets and SEARCH_LIMIT.

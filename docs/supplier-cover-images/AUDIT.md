@@ -25,6 +25,7 @@ Official schema inspected on 17 October:
 - https://github.com/viator-docs/Viator-Partner-API-v2/blob/master/openapi/papiv2/components/schemas/ImageVariant.yaml
 - https://github.com/viator-docs/Viator-Partner-API-v2/blob/master/openapi/papiv2/components/schemas/ProductSummary.yaml
 - https://docs.viator.com/partner-api/technical/#operation/productsSearch
+- https://github.com/viator-docs/Viator-Partner-API-v2/blob/master/openapi/papiv2/paths/products@search.yaml
 - https://partnerresources.viator.com/travel-commerce/managing-product-availability-data/
 - https://partnerresources.viator.com/travel-commerce/levels-of-access/
 
