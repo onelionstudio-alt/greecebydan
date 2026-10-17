@@ -1,1 +1,1 @@
-Owner deployed provenance staging source 4656aae4 and supplied matching public metadata on 2026-10-17. Run redacted provenance audit only; this is not release approval.
+Owner deployed corrected CDN staging source d22c0f5f with matching public metadata on 2026-10-17. Run full real-image verification, not provenance-only. No production release authorized.
