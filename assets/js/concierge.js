@@ -1,6 +1,7 @@
 /* API data is deliberately loaded only at runtime, outside indexable HTML. */
 (() => {
-  const photosEnabled = document.querySelector('meta[name="gbd-api-photos"]')?.content === 'enabled';
+  const supplierCoversEnabled = document.querySelector('meta[name="gbd-supplier-covers"]')?.content === 'enabled';
+  let coverTimer;
   const API = 'https://greecebydan-travel-api.onelion-studio.workers.dev';
   const form = document.querySelector('#concierge-form');
   const status = document.querySelector('#concierge-status');
@@ -69,13 +70,39 @@
     link.setAttribute('aria-label', `Check details and dates on Viator for ${c.title} (opens a new tab)`);
     link.addEventListener('click', () => track('affiliate_click', {productCode:c.productCode})); return link;
   }
-  function clearCards() { cards = []; shortlist.clear(); toolbar.hidden = true; comparison.hidden = true; comparison.replaceChildren(); results.replaceChildren(); }
+  function expireCovers() {
+    clearTimeout(coverTimer);
+    const now = Date.now(); let next = Infinity;
+    results.querySelectorAll('.concierge-supplier-cover').forEach(img => {
+      const expires = Number(img.dataset.expiresAt);
+      if (!Number.isFinite(expires) || expires <= now) img.remove();
+      else next = Math.min(next, expires - now);
+    });
+    if (next !== Infinity) coverTimer = setTimeout(expireCovers, next + 1);
+  }
+  document.addEventListener('visibilitychange', expireCovers);
+  window.addEventListener('pageshow', expireCovers);
+  function renderCover(c, parent) {
+    const v = c.supplierCover, now = Date.now();
+    if (!supplierCoversEnabled || v?.source !== 'SUPPLIER_PROVIDED' || v.isCover !== true || !Number.isFinite(v.checkedAt) || !Number.isFinite(v.expiresAt) || v.expiresAt <= now || v.checkedAt > now + 30000 || v.expiresAt - v.checkedAt > 300000 || v.expiresAt <= v.checkedAt) return;
+    try {
+      const u = new URL(v.url);
+      if (typeof v.url !== 'string' || v.url.length > 2048 || v.url.trim() !== v.url || u.protocol !== 'https:' || !['media.tacdn.com','hare-media-cdn.tripadvisor.com', 'media-cdn.tripadvisor.com'].includes(u.hostname) || u.username || u.password || u.port || u.hash || !u.pathname.startsWith('/media/') || !/\.(jpg|jpeg|png|webp)$/i.test(u.pathname) || !Number.isInteger(v.width) || v.width < 300 || v.width > 1200 || !Number.isInteger(v.height) || v.height <= 0 || v.height > 4096) return;
+      const img = node('img','',parent); img.className='concierge-photo concierge-supplier-cover';
+      img.alt=`Tour image: ${c.title}`; img.width=v.width; img.height=v.height;
+      img.loading='lazy'; img.decoding='async'; img.referrerPolicy='no-referrer';
+      img.dataset.expiresAt=String(v.expiresAt);
+      img.addEventListener('error',()=>img.remove(),{once:true}); img.src=v.url;
+    } catch { /* Missing or untrusted media leaves the compact text card. */ }
+  }
+  function clearCards() { clearTimeout(coverTimer); cards = []; shortlist.clear(); toolbar.hidden = true; comparison.hidden = true; comparison.replaceChildren(); results.replaceChildren(); }
   function selectionChanged() {
     compareButton.textContent = `Compare selected (${shortlist.size})`; compareButton.disabled = shortlist.size < 2;
     compareHint.textContent = shortlist.size ? `${shortlist.size} selected. Compare confirmed differences.` : 'Choose two or three options to compare.';
     comparison.hidden = true;
   }
   function compare() {
+    expireCovers();
     const chosen = cards.filter(c => shortlist.has(c.productCode)); if (chosen.length < 2) return;
     comparison.replaceChildren();
     const heading = node('h3', 'What is different?', comparison); heading.id = 'comparison-heading'; heading.tabIndex = -1;
@@ -111,11 +138,7 @@
       const top = node('div','',article); top.className = 'concierge-card-top'; node('small', `Option ${index + 1}`,top);
       if (cards.length > 1) { const label = node('label','',top); label.className = 'concierge-compare-choice'; const input = node('input','',label); input.type = 'checkbox'; input.setAttribute('aria-label',`Compare ${c.title}`); node('span','Compare',label);
         input.addEventListener('change', () => { input.checked ? shortlist.add(c.productCode) : shortlist.delete(c.productCode); selectionChanged(); }); }
-      if (photosEnabled && c.image) {
-        try { const u = new URL(c.image.url); if (u.protocol === 'https:' && u.hostname === 'media.tacdn.com' && !u.username && !u.password && Number.isInteger(c.image.width) && Number.isInteger(c.image.height)) {
-          const img = node('img','',article); img.className='concierge-photo'; img.alt=''; img.width=c.image.width; img.height=c.image.height; img.loading='lazy'; img.decoding='async'; img.referrerPolicy='no-referrer'; img.addEventListener('error',()=>img.remove(),{once:true}); img.src=c.image.url;
-        } } catch { /* Optional media never blocks the text or link. */ }
-      }
+      renderCover(c,article);
       node('h3', c.title, article);
       if (c.ratingInfo) node('p',ratingText(c),article).className = 'concierge-rating';
       const facts=node('dl','',article); facts.className='concierge-facts'; node('dt','Duration',facts); node('dd',durationText(c),facts); node('dt','Departure',facts); node('dd','Check meeting point on Viator',facts);
@@ -128,6 +151,7 @@
       if (c.facts.length) { node('h4','Why shown · listing evidence',details); const list=node('ul','',details); c.facts.forEach(f => node('li',f.evidence.field === 'flags' ? `${f.text} Source: classification supplied by Viator.` : `${f.text} Source: Viator ${f.evidence.field} — “${f.evidence.value}”.`,list)); }
       node('p','Source: Viator listing data, not an independent inspection or suitability guarantee.',details).className='concierge-source';
     });
+    expireCovers();
     return cards.length;
   }
   async function api(path, options = {}) {

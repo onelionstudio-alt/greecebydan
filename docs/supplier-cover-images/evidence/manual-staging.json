@@ -1,0 +1,14 @@
+{
+  "mode": "Independent cloud browser; actual owner-deployed d22c0f5f staging; no asset overlay or API fixture",
+  "testedAt": "2026-10-17T14:42:40Z",
+  "workerSha256": "a75b739ec6f30a0d70530bdc7230b5a358011f1851b181cce3b3ed0713547916",
+  "boat": {"results":3,"observedLoadedImages":2,"naturalWidth":720,"sourceDimensions":[720,480],"cdn":"media-cdn.tripadvisor.com","textFallbackCards":1},
+  "wine": {"results":3,"observedLoadedImages":2,"naturalWidth":720,"sourceDimensions":[720,480],"cdn":"media-cdn.tripadvisor.com","textFallbackCards":1},
+  "comparison": "Two real Boat tours; duration/rating differences; unknown pricing excluded; text-first",
+  "partnerLanding": {"url":"https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0","h1":"Milos oneiro-kleftiko sailing experience with local guide","purchase":false},
+  "actualIdleExpiry": {"observedAt":"2026-10-17T14:42:40.315Z","remainingPhotos":0,"remainingCards":3,"remainingBookingLinks":3},
+  "legacyPhotos":"disabled",
+  "interactionEvents":"disabled",
+  "physicalDevices":false,
+  "limitations":"This browser observation does not identify the cause of the missing third photo; automated network evidence is required. Desktop cloud browser is not a physical iOS/Android test."
+}

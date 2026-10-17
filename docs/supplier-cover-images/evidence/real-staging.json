@@ -1,0 +1,2250 @@
+{
+  "auditOnly": false,
+  "mode": "Real remotely deployed PR24 frontend and Worker, direct API-supplied CDN images",
+  "testedAt": "2026-10-17T18:07:54.734Z",
+  "physicalDevices": false,
+  "checks": [
+    {
+      "engine": "chromium",
+      "width": 320,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 835,
+      "imagesReadyMs": 1131,
+      "scenarioWithComparisonAxeMs": 2145,
+      "performance": {
+        "observed": {
+          "cls": 0.31193055555555554,
+          "lcp": 104,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 169.89999999999418,
+            "transferSize": 125217
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 187,
+            "transferSize": 96420
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 188,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260477582,
+            "expiresAt": 1792260777582
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260477582,
+            "expiresAt": 1792260777582
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260477582,
+            "expiresAt": 1792260777582
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 320,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 598,
+      "imagesReadyMs": 809,
+      "scenarioWithComparisonAxeMs": 1679,
+      "performance": {
+        "observed": {
+          "cls": 0.3781665432098765,
+          "lcp": 96,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 25.5,
+            "transferSize": 90194
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 29.10000000000582,
+            "transferSize": 67764
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 202.10000000000582,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260479937,
+            "expiresAt": 1792260779937
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260479937,
+            "expiresAt": 1792260779937
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260479937,
+            "expiresAt": 1792260779937
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 548,
+      "imagesReadyMs": 855,
+      "scenarioWithComparisonAxeMs": 1862,
+      "performance": {
+        "observed": {
+          "cls": 0.182,
+          "lcp": 88,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 110,
+            "transferSize": 96420
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 93.39999999999418,
+            "transferSize": 125217
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 190.70000000001164,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260502454,
+            "expiresAt": 1792260802454
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260502454,
+            "expiresAt": 1792260802454
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260502454,
+            "expiresAt": 1792260802454
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 598,
+      "imagesReadyMs": 743,
+      "scenarioWithComparisonAxeMs": 1587,
+      "performance": {
+        "observed": {
+          "cls": 0.182,
+          "lcp": 68,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 25,
+            "transferSize": 90194
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 28.5,
+            "transferSize": 67764
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 60.5,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260504782,
+            "expiresAt": 1792260804782
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260504782,
+            "expiresAt": 1792260804782
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260504782,
+            "expiresAt": 1792260804782
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 768,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 582,
+      "imagesReadyMs": 800,
+      "scenarioWithComparisonAxeMs": 1845,
+      "performance": {
+        "observed": {
+          "cls": 0.24428240740740742,
+          "lcp": 96,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 107.10000000000582,
+            "transferSize": 96420
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 90.39999999999418,
+            "transferSize": 125217
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 108.29999999998836,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260527281,
+            "expiresAt": 1792260827281
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260527281,
+            "expiresAt": 1792260827281
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260527281,
+            "expiresAt": 1792260827281
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 768,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 610,
+      "imagesReadyMs": 761,
+      "scenarioWithComparisonAxeMs": 1635,
+      "performance": {
+        "observed": {
+          "cls": 0.24428240740740742,
+          "lcp": 72,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 25.099999999976717,
+            "transferSize": 90194
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 28.79999999998836,
+            "transferSize": 67764
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 59.39999999999418,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260529701,
+            "expiresAt": 1792260829701
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260529701,
+            "expiresAt": 1792260829701
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260529701,
+            "expiresAt": 1792260829701
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 600,
+      "imagesReadyMs": 916,
+      "scenarioWithComparisonAxeMs": 1973,
+      "performance": {
+        "observed": {
+          "cls": 0.10973027142811213,
+          "lcp": 96,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 196.89999999999418,
+            "transferSize": 96420
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 220.89999999999418,
+            "transferSize": 125217
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 226.19999999998254,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260552314,
+            "expiresAt": 1792260852314
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260552314,
+            "expiresAt": 1792260852314
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260552314,
+            "expiresAt": 1792260852314
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 563,
+      "imagesReadyMs": 723,
+      "scenarioWithComparisonAxeMs": 1596,
+      "performance": {
+        "observed": {
+          "cls": 0.10764129894868828,
+          "lcp": 72,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "visibility-state"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 37.70000000001164,
+            "transferSize": 67764
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 37.89999999999418,
+            "transferSize": 90194
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 62.60000000000582,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260554619,
+            "expiresAt": 1792260854619
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260554619,
+            "expiresAt": 1792260854619
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260554619,
+            "expiresAt": 1792260854619
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 320,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 939,
+      "imagesReadyMs": 1284,
+      "scenarioWithComparisonAxeMs": 2431,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 0,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260578848,
+            "expiresAt": 1792260878848
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260578848,
+            "expiresAt": 1792260878848
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260578848,
+            "expiresAt": 1792260878848
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 320,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 721,
+      "imagesReadyMs": 953,
+      "scenarioWithComparisonAxeMs": 1970,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 0,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260581732,
+            "expiresAt": 1792260881732
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260581732,
+            "expiresAt": 1792260881732
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260581732,
+            "expiresAt": 1792260881732
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 772,
+      "imagesReadyMs": 1032,
+      "scenarioWithComparisonAxeMs": 2097,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 0,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260604678,
+            "expiresAt": 1792260904678
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260604678,
+            "expiresAt": 1792260904678
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260604678,
+            "expiresAt": 1792260904678
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 607,
+      "imagesReadyMs": 759,
+      "scenarioWithComparisonAxeMs": 1765,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 0,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260607136,
+            "expiresAt": 1792260907136
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260607136,
+            "expiresAt": 1792260907136
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260607136,
+            "expiresAt": 1792260907136
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 768,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 728,
+      "imagesReadyMs": 1090,
+      "scenarioWithComparisonAxeMs": 2188,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 1,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260630029,
+            "expiresAt": 1792260930029
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260630029,
+            "expiresAt": 1792260930029
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260630029,
+            "expiresAt": 1792260930029
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 768,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 646,
+      "imagesReadyMs": 798,
+      "scenarioWithComparisonAxeMs": 1807,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 0,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260632723,
+            "expiresAt": 1792260932723
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260632723,
+            "expiresAt": 1792260932723
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260632723,
+            "expiresAt": 1792260932723
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "kind": "boat",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "345728P2",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg"
+        },
+        {
+          "code": "32830P5",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg"
+        },
+        {
+          "code": "32830P4",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg"
+        }
+      ],
+      "searchResponseMs": 805,
+      "imagesReadyMs": 1054,
+      "scenarioWithComparisonAxeMs": 2209,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "duration": 0,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260655634,
+            "expiresAt": 1792260955634
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260655634,
+            "expiresAt": 1792260955634
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260655634,
+            "expiresAt": 1792260955634
+          }
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "kind": "wine",
+      "status": "PASS",
+      "imageOutcomes": [
+        {
+          "code": "44792P8",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg"
+        },
+        {
+          "code": "396495P4",
+          "status": "LOADED",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg"
+        },
+        {
+          "code": "21559P6",
+          "status": "CDN_ERROR_TEXT_FALLBACK",
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg"
+        }
+      ],
+      "searchResponseMs": 633,
+      "imagesReadyMs": 816,
+      "scenarioWithComparisonAxeMs": 1931,
+      "performance": {
+        "observed": {
+          "cls": null,
+          "lcp": null,
+          "supported": [
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource"
+          ]
+        },
+        "images": [
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "duration": 0,
+            "transferSize": 0
+          },
+          {
+            "name": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "duration": 0,
+            "transferSize": 0
+          }
+        ]
+      },
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260658110,
+            "expiresAt": 1792260958110
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260658110,
+            "expiresAt": 1792260958110
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792260658110,
+            "expiresAt": 1792260958110
+          }
+        }
+      ],
+      "axeViolations": 0
+    }
+  ],
+  "network": [
+    {
+      "engine": "chromium",
+      "width": 320,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [],
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 320,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [],
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": []
+    },
+    {
+      "engine": "chromium",
+      "width": 768,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [],
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 768,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [],
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": []
+    },
+    {
+      "engine": "webkit",
+      "width": 320,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 320,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 768,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 768,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "normalUiEvents": 0,
+      "imageResponses": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+          "status": 200
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+          "status": 200
+        }
+      ],
+      "imageFailures": [
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+          "error": "Redirect was not allowed"
+        },
+        {
+          "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+          "error": "Redirect was not allowed"
+        }
+      ]
+    }
+  ],
+  "eventsGuard": {
+    "status": 503,
+    "body": {
+      "error": "Events disabled"
+    },
+    "note": "Separate invalid-body diagnostic, not a normal UI analytics request"
+  },
+  "status": "PASS"
+}

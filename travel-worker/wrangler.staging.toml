@@ -9,6 +9,7 @@ routes = []
 
 [vars]
 VIATOR_IMAGES_APPROVED = "false"
+SUPPLIER_COVERS_ENABLED = "false"
 INTERACTIONS_ENABLED = "false"
 
 [[ratelimits]]

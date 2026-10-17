@@ -55,21 +55,29 @@ export function includesWineTasting(product) {
     /\b(?:no|not|never|without|excluding|excluded|unavailable|closed|prohibited|forbidden|cannot|can't|isn't|isn’t|doesn't|doesn’t|don't|don’t|optional|extra|additional|surcharge|request|may|might|could|can|depending|subject|available|arranged|purchase|purchased|sold|separately|fee|payable|cost|own expense)\b/i.test(sentence));
 }
 
-export function cardDetails(product, imagesApproved = false) {
+export const SUPPLIER_COVER_TTL_MS = 300000;
+export function supplierCover(product, checkedAt = Date.now()) {
+  if (product.status !== undefined && product.status !== 'ACTIVE') return null;
+  const cover = Array.isArray(product.images) ? product.images.find(i => i?.imageSource === 'SUPPLIER_PROVIDED' && i.isCover === true) : null;
+  const variants = (Array.isArray(cover?.variants) ? cover.variants : []).filter(v => {
+    try {
+      if (typeof v?.url !== 'string' || v.url.length > 2048 || v.url.trim() !== v.url) return false;
+      const u = new URL(v.url);
+      return u.protocol === 'https:' && ['media.tacdn.com', 'hare-media-cdn.tripadvisor.com', 'media-cdn.tripadvisor.com'].includes(u.hostname) && !u.username && !u.password && !u.port && !u.hash && u.pathname.startsWith('/media/') && /\.(jpg|jpeg|png|webp)$/i.test(u.pathname) && Number.isInteger(v.width) && v.width >= 300 && v.width <= 1200 && Number.isInteger(v.height) && v.height > 0 && v.height <= 4096;
+    } catch { return false; }
+  }).sort((a,b) => Math.abs(a.width - 720) - Math.abs(b.width - 720));
+  const v = variants[0];
+  return v ? { source: 'SUPPLIER_PROVIDED', isCover: true, url: v.url, width: v.width, height: v.height, checkedAt, expiresAt: checkedAt + SUPPLIER_COVER_TTL_MS } : null;
+}
+
+export function cardDetails(product) {
   const duration = product.duration;
   const valid = n => Number.isFinite(n) && n > 0 && n <= 43200;
   let durationMinutes = null;
   if (valid(duration?.fixedDurationInMinutes)) durationMinutes = { min: duration.fixedDurationInMinutes, max: duration.fixedDurationInMinutes };
   else if (valid(duration?.variableDurationFromMinutes) && valid(duration?.variableDurationToMinutes) && duration.variableDurationToMinutes >= duration.variableDurationFromMinutes) durationMinutes = { min: duration.variableDurationFromMinutes, max: duration.variableDurationToMinutes };
-  let image = null;
-  // Only supplier cover variants returned by the Partner API. No scraping or proxy.
-  if (imagesApproved) {
-    const cover = Array.isArray(product.images) ? product.images.find(i => i?.isCover === true) : null;
-    const variants = (Array.isArray(cover?.variants) ? cover.variants : []).filter(v => {
-      try { const u = new URL(v.url); return u.protocol === 'https:' && u.hostname === 'media.tacdn.com' && !u.username && !u.password && Number.isInteger(v.width) && v.width >= 400 && v.width <= 1200 && Number.isInteger(v.height) && v.height > 0; } catch { return false; }
-    }).sort((a,b) => Math.abs(a.width - 720) - Math.abs(b.width - 720));
-    if (variants[0]) image = { url: variants[0].url, width: variants[0].width, height: variants[0].height };
-  }
+  // Retired legacy photo DTO. Only the separate supplierCover path may render.
+  const image = null;
   // Search results do not establish a meeting point. No destination-centre fallback.
   return { durationMinutes, image, departure: null };
 }
@@ -91,9 +99,10 @@ export function selectionEvidence(product, pref) {
   return facts;
 }
 
-export function recommendations(products, pref, imagesApproved = false) {
+export function recommendations(products, pref, supplierCoversEnabled = false) {
   const seen = new Set();
   return products.flatMap(p => {
+    if (p.status !== undefined && p.status !== 'ACTIVE') return [];
     const content = `${p.title || ''} ${p.description || ''}`.toLowerCase();
     if (!p.productCode || seen.has(p.productCode) || !p.title || !p.productUrl) return [];
     seen.add(p.productCode);
@@ -115,7 +124,7 @@ export function recommendations(products, pref, imagesApproved = false) {
     if (pref.style === 'private') reasons.push('Listed as a private experience.');
     if (pref.mood !== 'any') reasons.push({ sunset: 'Sunset is mentioned in the listing.', swimming: 'Swimming or snorkelling is mentioned.', food: 'Food or a pairing is mentioned.', vineyard: 'A winery or vineyard is mentioned.' }[pref.mood]);
     if (pref.cancellation) reasons.push('Listed with free cancellation; check the deadline.');
-    return [{ productCode: p.productCode, ...cardDetails(p, imagesApproved), title: p.title, url: p.productUrl, currency: p.pricing.currency, selectionEvidence: selectionEvidence(p, pref), fromPrice: price, priceBasis: priceBasis(p), rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
+    return [{ productCode: p.productCode, ...cardDetails(p), supplierCover: supplierCoversEnabled ? supplierCover(p) : null, title: p.title, url: p.productUrl, currency: p.pricing.currency, selectionEvidence: selectionEvidence(p, pref), fromPrice: price, priceBasis: priceBasis(p), rating, reviews, reason: reasons.join(' '), score: rating * Math.min(1, Math.log10(reviews + 1) / 2) }];
   }).sort((a, b) => b.score - a.score || a.fromPrice - b.fromPrice).slice(0, 3).map(({ score, ...p }) => p);
 }
 
@@ -291,8 +300,10 @@ export default {
       if (pref.cancellation) flags.push('FREE_CANCELLATION');
       if (flags.length) filtering.flags = flags;
       const body = { filtering, sorting: { sort: 'TRAVELER_RATING', order: 'DESCENDING' }, pagination: { start: 1, count: 50 }, currency: 'EUR' };
-      const data = await cached(request, env, '/products/search', 900, body);
-      return reply({ products: recommendations(data.products || [], pref, env.VIATOR_IMAGES_APPROVED === 'true') }, 200, origin);
+      const coversEnabled = env.SUPPLIER_COVERS_ENABLED === 'true';
+      // Live search model: no stored image metadata or stale search fallback.
+      const data = coversEnabled ? await viator('/products/search', env, body) : await cached(request, env, '/products/search', 900, body);
+      return reply({ products: recommendations(data.products || [], pref, coversEnabled) }, 200, origin);
     } catch {
       // Never return upstream bodies, request headers or API credentials.
       return reply({ error: 'Search temporarily unavailable' }, 502, origin);

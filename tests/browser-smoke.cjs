@@ -138,19 +138,15 @@ const server = http.createServer((req, res) => {
       await page.screenshot({path:path.join(screenshots,`after-results-${width}-UI-fixture.png`)});
       report.push(`Chromium viewport ${width}px: home/catalog/article/concierge horizontal overflow PASS`);
     }
-    // Photo success and failure are UI fixtures; never scrape a partner photo.
+    // Legacy photo feature must remain retired even with its meta gate enabled.
     product.image = {url:'https://media.tacdn.com/UI-test.svg',width:720,height:480};
-    await page.locator('#concierge-form button').click(); await page.locator('.concierge-photo').waitFor();
-    await page.locator('.concierge-photo').scrollIntoViewIfNeeded();
-    await page.waitForFunction(() => document.querySelector('.concierge-photo')?.naturalWidth > 0);
-    product.image.url = 'https://media.tacdn.com/missing-UI-test.svg';
     await page.locator('#concierge-form button').click(); await page.locator('.concierge-result').waitFor();
-    await page.waitForFunction(() => !document.querySelector('.concierge-photo'));
+    assert.equal(await page.locator('.concierge-photo').count(),0);
     assert.equal(await page.locator('.concierge-result .concierge-book').getAttribute('href'), product.url);
     collectorFails = true; await page.locator('.concierge-result .concierge-book').click();
     assert.equal(await page.locator('.concierge-result .concierge-book').getAttribute('href'), product.url);
     collectorFails = false; product.image = null;
-    report.push('Photo loads only from allowed host; broken photo removed; collector failure does not block affiliate action: PASS');
+    report.push('Legacy images ignored; collector failure does not block affiliate action: PASS');
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto(base + '/concierge/?kind=bad&place=%3Cscript%3E&profile=boat-choice&source=boat-milos');
     await page.locator('#concierge-form:not([hidden])').waitFor();

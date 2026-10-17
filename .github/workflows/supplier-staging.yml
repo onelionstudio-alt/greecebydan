@@ -1,0 +1,29 @@
+name: Supplier cover real staging QA (no deployment)
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/viator-supplier-cover-images]
+    paths: ['docs/supplier-cover-images/RUN_REAL_STAGING']
+permissions:
+  contents: read
+jobs:
+  real-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/cover-qa" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/cover-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Verify actual remote frontend, real API image DTO and CDN loads
+        env:
+          PHOTO_PROVENANCE_ONLY: 'false'
+          NODE_PATH: ${{ runner.temp }}/cover-qa/node_modules
+        run: node tests/browser-supplier-staging.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: real-supplier-staging-evidence
+          path: docs/supplier-cover-images/evidence/

@@ -28,7 +28,7 @@ jobs:
       - name: Verify publishing and draft removal
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Verify OAuth security and travel helpers
-        run: node --test oauth-worker/worker.test.mjs travel-worker/worker.test.mjs
+        run: node --test oauth-worker/worker.test.mjs travel-worker/worker.test.mjs travel-worker/supplier-cover.test.mjs
       - name: Build website
         run: python scripts/build.py
       - name: Install browser test tooling
