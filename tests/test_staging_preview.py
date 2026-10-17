@@ -13,6 +13,25 @@ spec.loader.exec_module(builder)
 
 
 class PreviewTest(unittest.TestCase):
+    def test_culture_enable_is_staging_only_and_hard_off_features_stay_off(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'concierge').mkdir()
+            (root/'concierge/index.html').write_text('<head></head><body>Culture preview</body>')
+            source="const SITE = 'https://greecebydan.com';\nexport default {async fetch(req,env){return Response.json({culture:env.CULTURE_ENABLED,events:env.INTERACTIONS_ENABLED,photos:env.VIATOR_IMAGES_APPROVED});}};"
+            for enabled in (False, True):
+                (root/'preview.mjs').write_text(builder.package(root,source,'unit','PR #25',True,enabled))
+                (root/'check.mjs').write_text("""import assert from 'node:assert/strict';import w from './preview.mjs';
+const o='https://greecebydan-travel-api-staging.onelion-studio.workers.dev';
+const env={CULTURE_ENABLED:'true',INTERACTIONS_ENABLED:'true',VIATOR_IMAGES_APPROVED:'true'};
+assert.equal((await w.fetch(new Request('https://greecebydan.com/health'),env)).status,404);
+const d=await(await w.fetch(new Request(o+'/health'),env)).json();
+assert.deepEqual(d,{culture:"""+json.dumps(str(enabled).lower())+""",events:'false',photos:'false'});
+const m=await(await w.fetch(new Request(o+'/_preview/meta'),env)).json();assert.equal(m.cultureEnabled,"""+json.dumps(enabled)+""");
+""")
+                r=subprocess.run(['node',str(root/'check.mjs')],capture_output=True,text=True)
+                self.assertEqual(r.returncode,0,r.stderr)
+
     def test_provenance_audit_does_not_expose_private_values_or_raw_urls(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

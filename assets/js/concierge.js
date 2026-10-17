@@ -39,14 +39,14 @@
     cancellation: { text: 'Listed with free cancellation; check the deadline.', flag: 'FREE_CANCELLATION' }
   };
   const cultureRules = {
-    culture_guide: {field:'inclusions',value:'GUIDE_INCLUDED',text:'Guide service listed as included. Confirm which sites it covers.'},
-    culture_private: {field:'itinerary.privateTour',value:'true',text:'Private itinerary listed; no conflicting group option found.'},
+    culture_guide: {field:'inclusions',value:'GUIDE_INCLUDED',text:'Guide service listed as included; check site coverage.'},
+    culture_private: {field:'itinerary.privateTour',value:'true',text:'Private itinerary listed.'},
     culture_shared: {field:'itinerary.privateTour',value:'false',text:'Shared-group itinerary listed.'},
-    culture_moderate: {field:'additionalInfo',value:'PHYSICAL_MEDIUM',text:'The supplier lists moderate physical effort. Check your requirements.'},
-    culture_hard: {field:'additionalInfo',value:'PHYSICAL_HARD',text:'The supplier lists demanding physical effort. Check your requirements.'}
+    culture_moderate: {field:'additionalInfo',value:'PHYSICAL_MEDIUM',text:'The supplier lists moderate physical effort.'},
+    culture_hard: {field:'additionalInfo',value:'PHYSICAL_HARD',text:'The supplier lists demanding physical effort.'}
   };
   const languageNames = {en:'English',de:'German',el:'Greek',fr:'French',it:'Italian',es:'Spanish',pt:'Portuguese',nl:'Dutch'};
-  const pickupNames = {meeting_point:'Meet at the listed start point',pickup_listed:'Pickup listed; confirm area and option',pickup_or_meeting:'Pickup or meeting point; confirm option',option_dependent:'Meeting / pickup differs by option',unknown:'Check meeting point on Viator'};
+  const pickupNames = {meeting_point:'Meeting point listed; confirm on Viator',pickup_listed:'Pickup listed; confirm area and option',pickup_or_meeting:'Pickup or meeting point; confirm option',option_dependent:'Meeting / pickup differs by option',unknown:'Check meeting point on Viator'};
   function cultureFor(product) {
     const c=product.culture, at=Date.parse(c?.checkedAt);
     if (product.category!=='culture' || c?.version!==1 || !Number.isFinite(at) || at>Date.now()+30000 || !['included','not_confirmed'].includes(c.guide) || !['private','shared','unknown'].includes(c.group) || !Object.hasOwn(pickupNames,c.pickup) || !['easy','moderate','hard','unknown'].includes(c.effort) || !['some_not_included','unknown'].includes(c.admission)) return null;
@@ -168,7 +168,7 @@
       const facts=node('dl','',article); facts.className='concierge-facts'; node('dt','Duration',facts); node('dd',durationText(c),facts); node('dt','Departure',facts); node('dd',c.culture?pickupNames[c.culture.pickup]:'Check meeting point on Viator',facts);
       if(c.culture) {
         node('dt','Guide languages listed',facts);node('dd',languageText(c)||'Not confirmed for every option',facts);
-        if(c.culture.admission==='some_not_included') node('p','Some admission fees are not included. Check the selected sites and option.',article).className='concierge-price-note';
+        if(c.culture.admission==='some_not_included') node('p','Some admission fees are not included.',article).className='concierge-price-note';
       }
       if (c.facts.length) node('p',c.facts[0].text,article).className='concierge-reason';
       node('p',priceText(c),article).className='concierge-price';

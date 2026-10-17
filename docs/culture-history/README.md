@@ -98,8 +98,8 @@ unchanged; no new review content is requested.
 ## Verification / release gate
 
 Local Worker/OAuth regression and new Culture tests: 38 PASS after hardening.
-Existing Python build/preview tests: 19 PASS before final source hardening (which
-only changes JS). Full CI repeats them and runs recorded-response Culture UI,
+Existing Python tests: 19 PASS; the additional Culture preview isolation test
+also passes locally (20 total). Full CI repeats them and runs recorded-response Culture UI,
 Boat/Wine cards and supplier boundaries in Chromium/WebKit at 320/390/768/1440.
 Screenshots labelled recorded are UI evidence, not live availability or live E2E.
 
