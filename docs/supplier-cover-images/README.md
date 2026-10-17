@@ -2,6 +2,21 @@
 
 **Draft / do not merge / no production deployment.**
 
+## Confirmed cause and correction — 17 October
+
+[Real redacted provenance evidence](evidence/provenance-summary.json) from CI
+39040867501 confirms SUPPLIER_PROVIDED + isCover true for all six selected
+Boat/Wine products, with integer 720x480 variants (also 360x240, 480x320 and
+others). The actual API returns `media-cdn.tripadvisor.com`, which was missing
+from the initial two-host allowlist. That is a confirmed rejection reason.
+The corrected Worker, frontend and img-src CSP add **only that exact host**.
+Unknown source, professional/non-cover photos, malicious lookalike subdomains,
+invalid URLs/dimensions and expired photos remain rejected. Original full URLs
+are still not rewritten. Thirty Node tests pass after this correction, including
+the new real-host and lookalike-host cases. The corrected build still needs
+owner staging deployment, direct CDN loading and full real UI/performance QA.
+The next workflow returns to full image verification (not provenance-only).
+
 ## Actual staging result — blocked, 17 October
 
 Owner deployed the correct original b2f45883 package; public hashes match.
@@ -37,7 +52,7 @@ client supplier gate cannot activate legacy images or events.
 
 - Exact `imageSource=SUPPLIER_PROVIDED` and `isCover=true` required. Missing or
   other sources are never inferred from a filename, cover flag or list position.
-- Original variant URL and dimensions; two allowlisted CDN hosts; around 720px
+- Original variant URL and dimensions; three exact allowlisted CDN hosts; around 720px
   wide, bounded dimensions, no URL rewriting, proxying or image storage.
 - Result cards only: 128px contained image, full subject, neutral title-based
   alt, dimensions, lazy loading, async decode and no referrer. No comparison
@@ -53,7 +68,7 @@ client supplier gate cannot activate legacy images or events.
   defensively. Fresh search replaces results, so removed products/photos cannot
   survive in our result cache. Idle page photos expire; this is not a claim of
   instant/continuous product-status monitoring.
-- Concierge img-src CSP permits self/data and the two exact CDN hosts. Other
+- Concierge img-src CSP permits self/data and the three exact CDN hosts. Other
   existing directives/Cloudflare policies must also permit images; validate on
   remote staging. The privacy draft now explains direct CDN processing.
 

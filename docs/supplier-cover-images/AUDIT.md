@@ -33,7 +33,10 @@ ProductSummary.images uses Image; imageSource can be SUPPLIER_PROVIDED or
 PROFESSIONAL. isCover means leading image **for that source**, not ownership.
 imageSource is optional, so unknown/missing source must fail closed. Variants
 contain original url and integer width/height. Official examples use
-media.tacdn.com and hare-media-cdn.tripadvisor.com. Actual account responses,
+media.tacdn.com and hare-media-cdn.tripadvisor.com. Subsequent real account
+provenance verification (run 39040867501) confirmed media-cdn.tripadvisor.com
+with SUPPLIER_PROVIDED cover variants for six Boat/Wine products. The corrected
+implementation adds this third exact CDN host. Actual account responses,
 CDN sizes and image loading remain a required real staging gate, not inferred
 from schema examples. No photo/review endpoint is needed.
 

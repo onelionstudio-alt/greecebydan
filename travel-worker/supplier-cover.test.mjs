@@ -16,10 +16,11 @@ test('only explicit supplier cover; ownership never inferred from isCover or pos
 test('strict CDN URLs/dimensions and original bytes; nearest supplied variant',()=>{
   const query=url+'?original=1&token=public-variant';
   assert.equal(supplierCover({...p,images:[{...image,variants:[{url:query,width:720,height:480}]}]}).url,query);
-  for(const bad of ['http://media.tacdn.com/media/x.jpg','https://media.tacdn.com.evil.example/media/x.jpg','https://user:pass@media.tacdn.com/media/x.jpg','https://media.tacdn.com:444/media/x.jpg','https://media.tacdn.com/media/x.svg','https://media.tacdn.com/other/x.jpg',url+'#fragment',' '+url,'javascript:alert(1)',null]) assert.equal(supplierCover({...p,images:[{...image,variants:[{url:bad,width:720,height:480}]}]}),null,String(bad));
+  for(const bad of ['http://media.tacdn.com/media/x.jpg','https://media.tacdn.com.evil.example/media/x.jpg','https://media-cdn.tripadvisor.com.evil.example/media/x.jpg','https://user:pass@media.tacdn.com/media/x.jpg','https://media.tacdn.com:444/media/x.jpg','https://media.tacdn.com/media/x.svg','https://media.tacdn.com/other/x.jpg',url+'#fragment',' '+url,'javascript:alert(1)',null]) assert.equal(supplierCover({...p,images:[{...image,variants:[{url:bad,width:720,height:480}]}]}),null,String(bad));
   for(const dims of [{width:0},{width:'720'},{height:0},{height:5000},{width:2400}]) assert.equal(supplierCover({...p,images:[{...image,variants:[{url,width:720,height:480,...dims}]}]}),null);
   assert.equal(supplierCover({...p,images:[{...image,variants:[{url:url.replace('720','400'),width:400,height:300},image.variants[0]]}]}).width,720);
   assert.equal(supplierCover({...p,images:[{...image,variants:[{url:'https://hare-media-cdn.tripadvisor.com/media/x.webp',width:720,height:480}]}]}).width,720);
+  assert.equal(supplierCover({...p,images:[{...image,variants:[{url:'https://media-cdn.tripadvisor.com/media/x.jpg',width:720,height:480}]}]}).url,'https://media-cdn.tripadvisor.com/media/x.jpg');
 });
 test('removed/replaced images never reused; expiry and inactive products fail closed',()=>{
   assert.deepEqual(supplierCover(p,1000),{source:'SUPPLIER_PROVIDED',isCover:true,url,width:720,height:480,checkedAt:1000,expiresAt:301000});

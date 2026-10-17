@@ -350,7 +350,7 @@ def build(source=ROOT, output=None):
     (output/'stories/index.html').write_text(page('Stories — '+s['site_title'],'Explore Greek places, food, history and travel stories.','/stories/',catalog(stories),s),encoding='utf-8')
     (output/'concierge').mkdir()
     concierge=(source/'templates/concierge.html').read_text(encoding='utf-8')
-    (output/'concierge/index.html').write_text(page('Your Greece Concierge — '+s['site_title'],'Find a boat trip or wine experience in Greece with two simple travel helpers.','/concierge/',concierge,s).replace('<head>', '<head><meta http-equiv="Content-Security-Policy" content="img-src &apos;self&apos; data: https://media.tacdn.com https://hare-media-cdn.tripadvisor.com">', 1),encoding='utf-8')
+    (output/'concierge/index.html').write_text(page('Your Greece Concierge — '+s['site_title'],'Find a boat trip or wine experience in Greece with two simple travel helpers.','/concierge/',concierge,s).replace('<head>', '<head><meta http-equiv="Content-Security-Policy" content="img-src &apos;self&apos; data: https://media.tacdn.com https://hare-media-cdn.tripadvisor.com https://media-cdn.tripadvisor.com">', 1),encoding='utf-8')
     routes=['/','/about/','/stories/','/concierge/']+['/'+x['slug']+'/' for x in stories]
     for name in ['contact','privacy','cookies','terms','affiliate-disclosure']:
         raw=(source/name/'index.html').read_text(encoding='utf-8')

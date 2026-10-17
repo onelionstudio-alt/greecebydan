@@ -63,7 +63,7 @@ export function supplierCover(product, checkedAt = Date.now()) {
     try {
       if (typeof v?.url !== 'string' || v.url.length > 2048 || v.url.trim() !== v.url) return false;
       const u = new URL(v.url);
-      return u.protocol === 'https:' && ['media.tacdn.com', 'hare-media-cdn.tripadvisor.com'].includes(u.hostname) && !u.username && !u.password && !u.port && !u.hash && u.pathname.startsWith('/media/') && /\.(jpg|jpeg|png|webp)$/i.test(u.pathname) && Number.isInteger(v.width) && v.width >= 300 && v.width <= 1200 && Number.isInteger(v.height) && v.height > 0 && v.height <= 4096;
+      return u.protocol === 'https:' && ['media.tacdn.com', 'hare-media-cdn.tripadvisor.com', 'media-cdn.tripadvisor.com'].includes(u.hostname) && !u.username && !u.password && !u.port && !u.hash && u.pathname.startsWith('/media/') && /\.(jpg|jpeg|png|webp)$/i.test(u.pathname) && Number.isInteger(v.width) && v.width >= 300 && v.width <= 1200 && Number.isInteger(v.height) && v.height > 0 && v.height <= 4096;
     } catch { return false; }
   }).sort((a,b) => Math.abs(a.width - 720) - Math.abs(b.width - 720));
   const v = variants[0];

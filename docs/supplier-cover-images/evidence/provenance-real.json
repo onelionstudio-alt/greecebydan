@@ -1,0 +1,811 @@
+{
+  "auditOnly": true,
+  "mode": "Real remotely deployed PR24 frontend and Worker, direct API-supplied CDN images",
+  "testedAt": "2026-10-17T14:28:59.713Z",
+  "physicalDevices": false,
+  "checks": [
+    {
+      "kind": "boat",
+      "status": "NO_ELIGIBLE_COVER",
+      "imageAudit": [
+        {
+          "productCode": "345728P2",
+          "images": [
+            {
+              "keys": [
+                "imageSource",
+                "caption",
+                "isCover",
+                "variants"
+              ],
+              "imageSource": "SUPPLIER_PROVIDED",
+              "isCover": true,
+              "variants": [
+                {
+                  "width": 100,
+                  "height": 100,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 200,
+                  "height": 200,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 400,
+                  "height": 400,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 360,
+                  "height": 240,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 480,
+                  "height": 320,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 540,
+                  "height": 360,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 674,
+                  "height": 446,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 720,
+                  "height": 480,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 210,
+                  "height": 118,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 75,
+                  "height": 75,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "productCode": "32830P5",
+          "images": [
+            {
+              "keys": [
+                "imageSource",
+                "caption",
+                "isCover",
+                "variants"
+              ],
+              "imageSource": "SUPPLIER_PROVIDED",
+              "isCover": true,
+              "variants": [
+                {
+                  "width": 100,
+                  "height": 100,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 200,
+                  "height": 200,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 400,
+                  "height": 400,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 360,
+                  "height": 240,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 480,
+                  "height": 320,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 540,
+                  "height": 360,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 674,
+                  "height": 446,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 720,
+                  "height": 480,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 210,
+                  "height": 118,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 75,
+                  "height": 75,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "productCode": "32830P4",
+          "images": [
+            {
+              "keys": [
+                "imageSource",
+                "caption",
+                "isCover",
+                "variants"
+              ],
+              "imageSource": "SUPPLIER_PROVIDED",
+              "isCover": true,
+              "variants": [
+                {
+                  "width": 100,
+                  "height": 100,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 200,
+                  "height": 200,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 400,
+                  "height": 400,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 360,
+                  "height": 240,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 480,
+                  "height": 320,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 540,
+                  "height": 360,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 674,
+                  "height": 446,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 720,
+                  "height": 480,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 210,
+                  "height": 118,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 75,
+                  "height": 75,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returnedCovers": [
+        {
+          "code": "345728P2",
+          "supplierCover": null
+        },
+        {
+          "code": "32830P5",
+          "supplierCover": null
+        },
+        {
+          "code": "32830P4",
+          "supplierCover": null
+        }
+      ]
+    },
+    {
+      "kind": "wine",
+      "status": "NO_ELIGIBLE_COVER",
+      "imageAudit": [
+        {
+          "productCode": "44792P8",
+          "images": [
+            {
+              "keys": [
+                "imageSource",
+                "caption",
+                "isCover",
+                "variants"
+              ],
+              "imageSource": "SUPPLIER_PROVIDED",
+              "isCover": true,
+              "variants": [
+                {
+                  "width": 100,
+                  "height": 100,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 200,
+                  "height": 200,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 400,
+                  "height": 400,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 360,
+                  "height": 240,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 480,
+                  "height": 320,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 540,
+                  "height": 360,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 674,
+                  "height": 446,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 720,
+                  "height": 480,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 210,
+                  "height": 118,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 75,
+                  "height": 75,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "productCode": "396495P4",
+          "images": [
+            {
+              "keys": [
+                "imageSource",
+                "caption",
+                "isCover",
+                "variants"
+              ],
+              "imageSource": "SUPPLIER_PROVIDED",
+              "isCover": true,
+              "variants": [
+                {
+                  "width": 100,
+                  "height": 100,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 200,
+                  "height": 200,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 400,
+                  "height": 400,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 360,
+                  "height": 240,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 480,
+                  "height": 320,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 540,
+                  "height": 360,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 674,
+                  "height": 446,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 720,
+                  "height": 480,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 210,
+                  "height": 118,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 75,
+                  "height": 75,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "productCode": "21559P6",
+          "images": [
+            {
+              "keys": [
+                "imageSource",
+                "caption",
+                "isCover",
+                "variants"
+              ],
+              "imageSource": "SUPPLIER_PROVIDED",
+              "isCover": true,
+              "variants": [
+                {
+                  "width": 100,
+                  "height": 100,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 200,
+                  "height": 200,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 400,
+                  "height": 400,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 360,
+                  "height": 240,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 480,
+                  "height": 320,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 540,
+                  "height": 360,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 674,
+                  "height": 446,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 720,
+                  "height": 480,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 210,
+                  "height": 118,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                },
+                {
+                  "width": 75,
+                  "height": 75,
+                  "urlHost": "media-cdn.tripadvisor.com",
+                  "protocol": "https:",
+                  "mediaPath": true,
+                  "extension": ".jpg",
+                  "credentials": false,
+                  "port": false,
+                  "fragment": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returnedCovers": [
+        {
+          "code": "44792P8",
+          "supplierCover": null
+        },
+        {
+          "code": "396495P4",
+          "supplierCover": null
+        },
+        {
+          "code": "21559P6",
+          "supplierCover": null
+        }
+      ]
+    }
+  ],
+  "status": "PROVENANCE_AUDIT_COMPLETE_NOT_RELEASE_APPROVAL"
+}

@@ -87,7 +87,7 @@
     if (!supplierCoversEnabled || v?.source !== 'SUPPLIER_PROVIDED' || v.isCover !== true || !Number.isFinite(v.checkedAt) || !Number.isFinite(v.expiresAt) || v.expiresAt <= now || v.checkedAt > now + 30000 || v.expiresAt - v.checkedAt > 300000 || v.expiresAt <= v.checkedAt) return;
     try {
       const u = new URL(v.url);
-      if (typeof v.url !== 'string' || v.url.length > 2048 || v.url.trim() !== v.url || u.protocol !== 'https:' || !['media.tacdn.com','hare-media-cdn.tripadvisor.com'].includes(u.hostname) || u.username || u.password || u.port || u.hash || !u.pathname.startsWith('/media/') || !/\.(jpg|jpeg|png|webp)$/i.test(u.pathname) || !Number.isInteger(v.width) || v.width < 300 || v.width > 1200 || !Number.isInteger(v.height) || v.height <= 0 || v.height > 4096) return;
+      if (typeof v.url !== 'string' || v.url.length > 2048 || v.url.trim() !== v.url || u.protocol !== 'https:' || !['media.tacdn.com','hare-media-cdn.tripadvisor.com', 'media-cdn.tripadvisor.com'].includes(u.hostname) || u.username || u.password || u.port || u.hash || !u.pathname.startsWith('/media/') || !/\.(jpg|jpeg|png|webp)$/i.test(u.pathname) || !Number.isInteger(v.width) || v.width < 300 || v.width > 1200 || !Number.isInteger(v.height) || v.height <= 0 || v.height > 4096) return;
       const img = node('img','',parent); img.className='concierge-photo concierge-supplier-cover';
       img.alt=`Tour image: ${c.title}`; img.width=v.width; img.height=v.height;
       img.loading='lazy'; img.decoding='async'; img.referrerPolicy='no-referrer';

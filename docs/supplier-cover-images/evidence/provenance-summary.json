@@ -1,0 +1,314 @@
+{
+  "source": "actual authenticated API via owner-deployed staging; no fixtures",
+  "run": 39040867501,
+  "testedAt": "2026-10-17T14:28:59.713Z",
+  "finding": "Confirmed blocker: the exact CDN host media-cdn.tripadvisor.com was missing from the initial allowlist. Actual image rendering and original full URL checks require the corrected staging build.",
+  "products": [
+    {
+      "kind": "boat",
+      "productCode": "345728P2",
+      "imageSource": "SUPPLIER_PROVIDED",
+      "isCover": true,
+      "hosts": [
+        "media-cdn.tripadvisor.com"
+      ],
+      "sizes": [
+        [
+          100,
+          100
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          400,
+          400
+        ],
+        [
+          360,
+          240
+        ],
+        [
+          480,
+          320
+        ],
+        [
+          540,
+          360
+        ],
+        [
+          674,
+          446
+        ],
+        [
+          720,
+          480
+        ],
+        [
+          210,
+          118
+        ],
+        [
+          75,
+          75
+        ]
+      ]
+    },
+    {
+      "kind": "boat",
+      "productCode": "32830P5",
+      "imageSource": "SUPPLIER_PROVIDED",
+      "isCover": true,
+      "hosts": [
+        "media-cdn.tripadvisor.com"
+      ],
+      "sizes": [
+        [
+          100,
+          100
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          400,
+          400
+        ],
+        [
+          360,
+          240
+        ],
+        [
+          480,
+          320
+        ],
+        [
+          540,
+          360
+        ],
+        [
+          674,
+          446
+        ],
+        [
+          720,
+          480
+        ],
+        [
+          210,
+          118
+        ],
+        [
+          75,
+          75
+        ]
+      ]
+    },
+    {
+      "kind": "boat",
+      "productCode": "32830P4",
+      "imageSource": "SUPPLIER_PROVIDED",
+      "isCover": true,
+      "hosts": [
+        "media-cdn.tripadvisor.com"
+      ],
+      "sizes": [
+        [
+          100,
+          100
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          400,
+          400
+        ],
+        [
+          360,
+          240
+        ],
+        [
+          480,
+          320
+        ],
+        [
+          540,
+          360
+        ],
+        [
+          674,
+          446
+        ],
+        [
+          720,
+          480
+        ],
+        [
+          210,
+          118
+        ],
+        [
+          75,
+          75
+        ]
+      ]
+    },
+    {
+      "kind": "wine",
+      "productCode": "44792P8",
+      "imageSource": "SUPPLIER_PROVIDED",
+      "isCover": true,
+      "hosts": [
+        "media-cdn.tripadvisor.com"
+      ],
+      "sizes": [
+        [
+          100,
+          100
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          400,
+          400
+        ],
+        [
+          360,
+          240
+        ],
+        [
+          480,
+          320
+        ],
+        [
+          540,
+          360
+        ],
+        [
+          674,
+          446
+        ],
+        [
+          720,
+          480
+        ],
+        [
+          210,
+          118
+        ],
+        [
+          75,
+          75
+        ]
+      ]
+    },
+    {
+      "kind": "wine",
+      "productCode": "396495P4",
+      "imageSource": "SUPPLIER_PROVIDED",
+      "isCover": true,
+      "hosts": [
+        "media-cdn.tripadvisor.com"
+      ],
+      "sizes": [
+        [
+          100,
+          100
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          400,
+          400
+        ],
+        [
+          360,
+          240
+        ],
+        [
+          480,
+          320
+        ],
+        [
+          540,
+          360
+        ],
+        [
+          674,
+          446
+        ],
+        [
+          720,
+          480
+        ],
+        [
+          210,
+          118
+        ],
+        [
+          75,
+          75
+        ]
+      ]
+    },
+    {
+      "kind": "wine",
+      "productCode": "21559P6",
+      "imageSource": "SUPPLIER_PROVIDED",
+      "isCover": true,
+      "hosts": [
+        "media-cdn.tripadvisor.com"
+      ],
+      "sizes": [
+        [
+          100,
+          100
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          400,
+          400
+        ],
+        [
+          360,
+          240
+        ],
+        [
+          480,
+          320
+        ],
+        [
+          540,
+          360
+        ],
+        [
+          674,
+          446
+        ],
+        [
+          720,
+          480
+        ],
+        [
+          210,
+          118
+        ],
+        [
+          75,
+          75
+        ]
+      ]
+    }
+  ]
+}
