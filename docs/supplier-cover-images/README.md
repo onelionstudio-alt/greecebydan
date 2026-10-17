@@ -1,0 +1,80 @@
+# PR #24 — supplier covers
+
+**Draft / do not merge / no production deployment.**
+
+## What changed
+
+See [the pre-implementation audit](AUDIT.md) for the redacted permission summary,
+current live-search architecture and official schema links. No private email is
+published. Only the new `supplierCover` DTO may render; the old `image` remains
+null. Worker `SUPPLIER_COVERS_ENABLED` is false in both configuration examples.
+Legacy `VIATOR_IMAGES_APPROVED` and `INTERACTIONS_ENABLED` remain false. The
+client supplier gate cannot activate legacy images or events.
+
+- Exact `imageSource=SUPPLIER_PROVIDED` and `isCover=true` required. Missing or
+  other sources are never inferred from a filename, cover flag or list position.
+- Original variant URL and dimensions; two allowlisted CDN hosts; around 720px
+  wide, bounded dimensions, no URL rewriting, proxying or image storage.
+- Result cards only: 128px contained image, full subject, neutral title-based
+  alt, dimensions, lazy loading, async decode and no referrer. No comparison
+  images, galleries, new reviews or recommendation changes.
+- A failed/invalid/missing/expired image removes itself; existing text/CTA remain.
+- When enabled, every search goes straight to `/products/search`. No cached
+  product/image response is reused and no stale fallback is served on failure.
+  Auxiliary taxonomy caches remain as before. No new Viator endpoints.
+- Five-minute visible-page expiry, also checked on visibility/pageshow and
+  comparison. No background API polling, persistent client storage or ingestion.
+- Search's official active-only contract is the status source; its ProductSummary
+  has no status field. An explicit INACTIVE/unexpected status is rejected
+  defensively. Fresh search replaces results, so removed products/photos cannot
+  survive in our result cache. Idle page photos expire; this is not a claim of
+  instant/continuous product-status monitoring.
+- Concierge img-src CSP permits self/data and the two exact CDN hosts. Other
+  existing directives/Cloudflare policies must also permit images; validate on
+  remote staging. The privacy draft now explains direct CDN processing.
+
+## Validation recorded so far
+
+- 30 Node Worker/OAuth tests: PASS locally (existing 25 + 5 supplier tests).
+- Existing full Python suite: 17 PASS; the new explicit supplier staging mode
+  was also tested separately (3 preview tests PASS).
+- Existing browser regression plus new synthetic boundary tests: CI pending.
+- The synthetic boundary tests exercise ownership, URL, expiry, broken images,
+  empty fallback, exact CTA, 2/3 comparison, keyboard focus, overflow and axe at
+  320/390/768/1440 in Chromium and WebKit. A mock pixel is only a test resource,
+  not a supplier photograph or permission evidence; no mock photo screenshots
+  are presented as before/after.
+- Real staged payload/CDN loading, actual before/after screenshots, observed
+  network/performance metrics and remote flags: **BLOCKED until owner deploys**.
+- Physical iOS/Android, VoiceOver/TalkBack and field performance: not tested.
+- This environment has not independently read the partner dashboard's named
+  access tier or certification status. Search/auxiliary endpoints were previously
+  verified; image payload capability still needs the new staged response.
+
+## Isolated staging deployment
+
+Generated file will be linked here once local and CI checks pass. It packages
+only the reviewed branch frontend and ordinary API source; no API keys, image
+bytes or private email. Deploy **only** to
+`greecebydan-travel-api-staging`, preserving existing secrets and SEARCH_LIMIT.
+Never deploy the staging bundle to `greecebydan-travel-api` or production routes.
+The wrapper rejects any other hostname and hard-forces legacy photos/events
+false. Only the explicit `--supplier-covers` packaging option enables the new
+supplier-only path. Public `/_preview/meta` records source and asset hashes.
+
+After owner deployment, run `tests/browser-supplier-staging.cjs` via the read-only
+staging QA workflow. Trigger by updating the RUN_REAL_STAGING marker on this
+branch. It uses no fixtures or asset overlay; verifies deployed hashes, actual
+DTO source/size/URL, direct CDN loads, text comparison, original affiliate URLs,
+flags, no extra API/review/events requests, axe and all four viewport widths in
+both engines. It records observed CLS/LCP and resource durations/transfer sizes,
+not a guaranteed Lighthouse score; cross-origin transfer sizes may be zero
+without Timing-Allow-Origin. Real before captures should use the published
+PR23 production frontend; after captures use actual deployed staging.
+
+## Gates still open
+
+Real payload provenance and eligible CDN variants; current account tier/status;
+real staging image loads and no unexpected request paths; actual before/after;
+performance observations. Publication stays blocked until these are resolved
+and the owner explicitly authorizes release. No production settings changed.
