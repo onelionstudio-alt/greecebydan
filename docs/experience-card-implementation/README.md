@@ -15,13 +15,13 @@ Separate implementation branch from main aa00b1d. PR #22 remains design document
 1. Existing Python/Node/build/browser regression, including dormant image/event fixture paths.
 2. New fixture QA in Chromium + WebKit at 320/390/768/1440, before/after with identical synthetic products, evidence validation, price-unit comparisons, legacy DTO, errors/recovery, safe URLs, focus and axe WCAG AA scans. Viewports are not real iOS/Android devices; axe is not a full accessibility certification.
 3. `browser-staging-live.cjs`: new built frontend served by an explicit browser asset overlay at the real staging origin, connected to the **actual deployed staging API**. Two searches maximum, no key/photos/events/purchase. This can confirm real-backend/old-DTO compatibility. It does not prove that the new UI/Worker was deployed remotely. Network/client restrictions are recorded BLOCKED, not passed off as an API outage or hidden by fixtures.
-4. Full deployment validation requires owner-authorized deployment of generated module **only** to `greecebydan-travel-api-staging`, metadata/hash check, article→prefill→search→comparison→actual partner URL; confirm flags false, images 0 and no /events/beacon/CDN photo requests. No purchase.
+4. Full deployed staging validation is now complete: owner deployed the generated module only to the existing staging Worker; metadata/assets, real frontend/Worker, article→context→search→comparison, optional-request guards and actual affiliate landing were checked. See deployed results below. No purchase.
 
 ## Staging procedure
 
 Use `scripts/build_staging_preview.py --review-label 'Experience Card implementation' --source-commit FULL_SHA --output docs/experience-card-implementation/staging-preview.generated.mjs` after the build. This only prepares a file. Wrapper is restricted to the exact existing staging hostname, hard-forces optional flags OFF, supplies noindex/no-store, excludes admin and preserves the core Worker behind staging-only SITE replacement. Review its metadata before deploying. Existing secrets/rate-limit bindings stay on staging; do not paste keys into code/chat. Never deploy this bundle to production.
 
-Owner step when generated file is ready: Cloudflare Workers → **greecebydan-travel-api-staging** → Edit code → replace with generated module → Deploy. Do not select `greecebydan-travel-api` (production). Then return only public `/_preview/meta` output or staging URL, with no secrets. The assistant can continue the public browser smoke afterwards. This is an authentication/deployment dependency, not a further approval request for already-authorized staging.
+Deployment procedure used by the owner: Cloudflare Workers → **greecebydan-travel-api-staging** → Edit code → replace with generated module → Deploy. Do not select `greecebydan-travel-api` (production). Then return only public `/_preview/meta` output or staging URL, with no secrets. The assistant can continue the public browser smoke afterwards. This is an authentication/deployment dependency, not a further approval request for already-authorized staging.
 
 ## Comparison with published concierge
 
@@ -48,7 +48,7 @@ Before/after screenshots are labelled **fixtures**, not live offers. Real remote
 | Axe WCAG A/AA, карточки на 390/1440 и сравнение на 390px | PASS для автоматических правил в проверенных состояниях; не полная сертификация доступности |
 | Новый frontend → существующий удалённый staging API → реальные Boat/Wine карточки и сравнение | PASS с явно описанным asset overlay; не развёртывание нового Worker |
 | API photos / events / сторонние запросы в проверенных сценариях | PASS: отсутствуют |
-| Новый frontend + новый Worker вместе развёрнуты в удалённом staging | BLOCKED: нет deploy-доступа Cloudflare; требуется загрузка владельцем файла ниже и последующий smoke |
+| Новый frontend + новый Worker вместе развёрнуты в удалённом staging | PASS — метаданные и четыре served asset hash совпали; Chromium/WebKit прошли без overlay/fixtures |
 | Физические iOS/Android, VoiceOver/TalkBack | Недоступны; WebKit/Chromium viewport-тесты не заменяют устройства |
 | Production deployment | Не выполнялся; deploy job SKIPPED, main не изменён |
 
@@ -56,7 +56,7 @@ Before/after screenshots are labelled **fixtures**, not live offers. Real remote
 
 [staging-pr23-611601ef.mjs](staging-pr23-611601ef.mjs) — **единственный актуальный файл**, прежний `staging-preview.generated.mjs` для этого PR больше не использовать.
 
-После проверки тестов загрузить только в Cloudflare Worker **greecebydan-travel-api-staging** через Edit code → Deploy. Существующие staging secrets/bindings сохранить. Production Worker `greecebydan-travel-api` не выбирать. Никаких ключей в чат или исходники.
+Для воспроизведения загрузки использовать только Cloudflare Worker **greecebydan-travel-api-staging** через Edit code → Deploy. Существующие staging secrets/bindings сохранить. Production Worker `greecebydan-travel-api` не выбирать. Никаких ключей в чат или исходники.
 
 Для проверки после загрузки открыть `https://greecebydan-travel-api-staging.onelion-studio.workers.dev/_preview/meta` и передать только публичный JSON:
 
@@ -66,7 +66,7 @@ Before/after screenshots are labelled **fixtures**, not live offers. Real remote
 - `apiPhotos=false`, `interactionEvents=false`
 - SHA256 всего module: `6c22eff0880383297d79496d6df57aced0b946cecc4ad236e3d6734980dfd214`
 
-Далее пройти обе статьи → context → реальная выдача → 2/3 сравнение → партнёрская ссылка без покупки. Проверить metadata, evidence-backed reasons нового Worker, unknown price basis, отсутствие изображений и аналитических запросов. Только после этого можно считать **полный deployed staging** завершённым. Разрешение на публикацию production всё равно требуется отдельно.
+Полный deployed staging завершён: обе статьи → context → реальная выдача → 2/3 сравнение; новые evidence-backed reasons и unknown price basis подтверждены. В независимом cloud browser обе партнёрские ссылки открыли правильные страницы Viator без покупки. Разрешение на публикацию production всё равно требуется отдельно.
 
 ### Скриншоты
 
@@ -75,6 +75,29 @@ Before/after screenshots are labelled **fixtures**, not live offers. Real remote
 - **Реальные ответы удалённого API, frontend через asset overlay:** [Milos](evidence/real-staging-boat-390.png), [Santorini](evidence/real-staging-wine-390.png), [Milos comparison](evidence/real-staging-boat-comparison-390.png), [Santorini comparison](evidence/real-staging-wine-comparison-390.png).
 - Машиночитаемые результаты: [UI tests](evidence/browser-cards.json), [real staging backend](evidence/staging-live.json).
 
-API карточки не подтверждают наличие мест, окончательную цену или условия конкретной опции. В live overlay со старым Worker причины намеренно скрыты, пока нет нового selectionEvidence. Свободный legacy reason не превращается в доказательство.
+API карточки не подтверждают наличие мест, окончательную цену или условия конкретной опции. В раннем live overlay со старым Worker причины намеренно скрывались; в новом deployed staging selectionEvidence и соответствующие reasons уже подтверждены. Свободный legacy reason не превращается в доказательство.
 
 Latest screenshot framing and live-backend comparison: [QA run 39022999847](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39022999847) PASS. Runtime files are byte-identical to verified commit 611601ef; later changes only affect screenshot tests and review artifacts. [Local bundle checks](evidence/staging-package.json) distinguish local hard-off verification from a remote deployment.
+
+
+## Полный deployed staging — PASS
+
+[CI 39024158341](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39024158341) проверяет **сам удалённый frontend и Worker**, без overlay и fixtures. Runtime остаётся 611601ef; добавлены только QA и отчёт.
+
+- Независимо прочитаны /_preview/meta и реально отданные JS/CSS/events.js/concierge HTML; хеши совпали с подготовленным bundle и JSON владельца. Noindex/no-store присутствуют.
+- Chromium 390/1440 и WebKit 390: обе статьи → правильный kind/destination → HTTP 200 destinations/search → по три реальных тура с selectionEvidence → сравнение 2 и 3 вариантов. Неизвестная единица цены не попала в различия. Горизонтального переполнения нет.
+- Axe A/AA в проверенных live состояниях: 0 нарушений. Это автоматический аудит, не проверка VoiceOver/TalkBack или физических телефонов.
+- В обычном UI: 0 events, 0 API photo requests, 0 RUM/beacon requests. Отдельный диагностический POST /events вернул 503 {error: Events disabled}; это намеренная проверка серверного запрета, не аналитическое событие.
+- Отдельный cloud browser: Milos 345728P2 и Santorini 44792P8 открыли соответствующий h1 на Viator с сохранёнными mcid/pid/medium/api_version. Milos сначала показал generic Something Went Wrong; один reload восстановил страницу. Это не подтверждает availability или commission settlement. Покупок нет.
+- Main и production не изменялись. PR остаётся draft для отдельного утверждения выпуска.
+
+[Полные deployed результаты](evidence/staging-deployed.json) · [Ручная проверка переходов](evidence/manual-deployed-journey.json)
+
+Свежие скриншоты **развёрнутого staging**:
+
+- [Milos / Chromium mobile](evidence/deployed-chromium-boat-390.png)
+- [Santorini / desktop](evidence/deployed-chromium-wine-1440.png)
+- [Три тура / mobile comparison](evidence/deployed-chromium-wine-compare-390.png)
+- [Santorini / WebKit mobile](evidence/deployed-webkit-wine-390.png)
+
+Рекомендация: оставшийся staging gate закрыт, интерфейс готов к финальному просмотру владельцем. Merge и production deployment только после отдельного разрешения. Фото и аналитика остаются OFF.

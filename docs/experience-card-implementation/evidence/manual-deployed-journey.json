@@ -1,0 +1,33 @@
+{
+  "mode": "Independent cloud-browser interaction with deployed staging; no overlay",
+  "sourceCommit": "611601ef2eb30d221fac94aaa78c5a1f44d19696",
+  "boat": {
+    "articlePrefill": "boat / 22323",
+    "products": 3,
+    "newEvidence": [
+      "description: skipper",
+      "description: crew"
+    ],
+    "comparison": 2,
+    "partnerUrl": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+    "landingH1": "Milos oneiro-kleftiko sailing experience with local guide",
+    "landing": "PASS after one reload of an initial generic Something Went Wrong page"
+  },
+  "wine": {
+    "articlePrefill": "wine / 959",
+    "products": 3,
+    "newEvidence": [
+      "title: Wine Tasting",
+      "description: wine tasting"
+    ],
+    "comparison": 3,
+    "partnerUrl": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+    "landingH1": "Cooking Class and Wine Tasting in Santorini",
+    "landing": "PASS"
+  },
+  "images": 0,
+  "clientFlags": "disabled/disabled",
+  "purchases": 0,
+  "physicalDevices": false,
+  "availabilityOrCommissionSettlementVerified": false
+}
