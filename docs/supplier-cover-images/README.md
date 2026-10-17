@@ -1,141 +1,144 @@
-# PR #24 — supplier covers
+# PR #24 — supplier cover implementation and verification
 
-**Draft / do not merge / no production deployment.**
+**Review only: no merge or production deployment is authorized.**
 
-## Current corrected staging bundle
+## Scope and permission
 
-Use [staging-pr24-cdn-d22c0f5f.mjs](staging-pr24-cdn-d22c0f5f.mjs), not the older
-b2f45883 or provenance-only bundle. Expected sourceCommit:
-`d22c0f5f169d82056db78dd0f1cbb9cfe1a777d6`.
-Ordinary API SHA256 `a75b739ec6f30a0d70530bdc7230b5a358011f1851b181cce3b3ed0713547916`.
-Bundle SHA256 `a3d5ce7927728b4dbb73804585a7c8b62a22831a4475c1187822f9a6dda88029`.
-Flags: apiPhotos=false, interactionEvents=false, supplierCovers=true,
-imageProvenanceAudit=true. Deploy only to the existing staging Worker.
-Local 30 Node and 4 preview tests PASS; browser QA of the added host is running.
-Actual image display/performance/after evidence still requires this deployment.
+Based on published PR #23 / main `d71f70347da33fc22d0c72a51784f79c459e0447`.
+See [audit and redacted Partner Support permission](AUDIT.md). No private
+correspondence, addresses, signatures or credentials are published.
 
-## Confirmed cause and correction — 17 October
+The real account returned explicit `SUPPLIER_PROVIDED`, `isCover:true` and
+integer image variants for all six selected Boat/Wine products. See
+[redacted provenance](evidence/provenance-summary.json). The real CDN is
+`media-cdn.tripadvisor.com`; its initial omission from our allowlist was found
+by real staging, then corrected in Worker, client and CSP. Only this exact host
+was added; no source checks were weakened. The other allowed hosts are
+`media.tacdn.com` and `hare-media-cdn.tripadvisor.com`.
 
-[Real redacted provenance evidence](evidence/provenance-summary.json) from CI
-39040867501 confirms SUPPLIER_PROVIDED + isCover true for all six selected
-Boat/Wine products, with integer 720x480 variants (also 360x240, 480x320 and
-others). The actual API returns `media-cdn.tripadvisor.com`, which was missing
-from the initial two-host allowlist. That is a confirmed rejection reason.
-The corrected Worker, frontend and img-src CSP add **only that exact host**.
-Unknown source, professional/non-cover photos, malicious lookalike subdomains,
-invalid URLs/dimensions and expired photos remain rejected. Original full URLs
-are still not rewritten. Thirty Node tests pass after this correction, including
-the new real-host and lookalike-host cases. The corrected build still needs
-owner staging deployment, direct CDN loading and full real UI/performance QA.
-The next workflow returns to full image verification (not provenance-only).
+## Minimal implementation
 
-## Actual staging result — blocked, 17 October
+- New `supplierCover` DTO and independent `SUPPLIER_COVERS_ENABLED` flag,
+  default false in both configuration examples. Legacy `image` stays null;
+  legacy photo API and interaction analytics remain disabled.
+- Explicit supplier source and cover flag; validated HTTPS URL, exact host,
+  `/media/` path, supported extension, bounded integer dimensions. Select one
+  original variant around 720px; no URL transformation, proxy or mirroring.
+- Results only: compact 128px contained image, neutral title-based alt,
+  width/height, lazy load, async decode, no-referrer. No image in comparison,
+  gallery, slider, new rating/review field or decorative placeholder.
+- Missing, rejected, failed or expired images leave the compact text card and
+  exact original affiliate CTA intact.
+- When enabled, every search goes directly to `/products/search`, bypassing
+  product/image response caching; upstream failure never serves stale results.
+  Existing destination/tag taxonomy caches and API endpoints are unchanged.
+- Visible photos expire after five minutes, also checked on resume and before
+  comparison. New searches replace old results. No background polling,
+  persistent client storage, catalogue ingestion or additional photo API.
+- Official search contract returns active products only; its summary has no
+  status field. Explicit INACTIVE/unexpected status is defensively excluded.
+  This is bounded live-search freshness, not continuous status monitoring.
+- Concierge img-src CSP allows only the three named CDN hosts plus existing
+  self/data. No API product content added to indexable built HTML.
+- Narrow Privacy Policy clarification explains direct CDN technical connection
+  data, no referrer, no mirroring/traveler photos, no interaction analytics.
+- `selectionEvidence` remains byte-for-byte identical to main. Boat/Wine
+  ranking, pricing, exact productUrl, comparison, CMS/OAuth, articles, routes,
+  SEO structure and existing disclosure are preserved.
 
-Owner deployed the correct original b2f45883 package; public hashes match.
-Real browser searches returned three Boat/Milos and three Wine/Santorini tours.
-Both safely render text cards without photos. The actual CI image gate
-39040390054 failed: no verifiable supplier covers in the returned DTO. This is
-not permission to weaken source/CDN checks. It does not yet identify which raw
-image field failed validation.
+## Remote staging identity
 
-A new staging-only diagnostic package is prepared:
-[staging-pr24-provenance-4656aae4.mjs](staging-pr24-provenance-4656aae4.mjs).
-Source commit `4656aae440bd4039b7d8cc0d378a3a631e9da4be`, ordinary API SHA256
-unchanged (`9a889827d5a1fd1a902e79d178e7a964cf521c6143d72b087287883787b578ca`).
-Bundle SHA256 `14b1ac6e04429650dd1bfd87f59711cc6eb712213c51ca33233cdc48de9363c9`.
-It adds only redacted image provenance to staging /search responses for the
-selected products: source/cover/dimensions/host/syntax indicators, no raw image
-URLs, captions, reviews, private field values, headers or secrets. The ordinary
-Worker source and runtime assets are unchanged. Public metadata adds
-`imageProvenanceAudit:true`; analytics and legacy photos stay forced false.
-New preview privacy/isolation tests: 4 PASS locally. Further owner staging
-replacement is required. The next real QA is provenance-only, not image release
-verification. Before/after photo improvement and performance remain unverified.
+Owner deployed [the corrected bundle](staging-pr24-cdn-d22c0f5f.mjs) to
+`greecebydan-travel-api-staging` only. Public metadata confirms:
 
+- Runtime source `d22c0f5f169d82056db78dd0f1cbb9cfe1a777d6`.
+- API SHA256 `a75b739ec6f30a0d70530bdc7230b5a358011f1851b181cce3b3ed0713547916`.
+- Bundle SHA256 `a3d5ce7927728b4dbb73804585a7c8b62a22831a4475c1187822f9a6dda88029`.
+- `apiPhotos:false`, `interactionEvents:false`, `supplierCovers:true`.
+- `imageProvenanceAudit:true`: staging-only redacted source/dimension/host
+  diagnostics; no raw unapproved URLs or private fields. Not in production API.
 
-## What changed
+Subsequent test/report commits do not change this runtime. No new deployment is
+needed for those commits. Older original/provenance-only bundles are historical
+and superseded. Preview rejects production hostname, has noindex/no-store and a
+visible staging banner, and hard-disables the legacy photo/events flags.
 
-See [the pre-implementation audit](AUDIT.md) for the redacted permission summary,
-current live-search architecture and official schema links. No private email is
-published. Only the new `supplierCover` DTO may render; the old `image` remains
-null. Worker `SUPPLIER_COVERS_ENABLED` is false in both configuration examples.
-Legacy `VIATOR_IMAGES_APPROVED` and `INTERACTIONS_ENABLED` remain false. The
-client supplier gate cannot activate legacy images or events.
+## Automated regression
 
-- Exact `imageSource=SUPPLIER_PROVIDED` and `isCover=true` required. Missing or
-  other sources are never inferred from a filename, cover flag or list position.
-- Original variant URL and dimensions; three exact allowlisted CDN hosts; around 720px
-  wide, bounded dimensions, no URL rewriting, proxying or image storage.
-- Result cards only: 128px contained image, full subject, neutral title-based
-  alt, dimensions, lazy loading, async decode and no referrer. No comparison
-  images, galleries, new reviews or recommendation changes.
-- A failed/invalid/missing/expired image removes itself; existing text/CTA remain.
-- When enabled, every search goes straight to `/products/search`. No cached
-  product/image response is reused and no stale fallback is served on failure.
-  Auxiliary taxonomy caches remain as before. No new Viator endpoints.
-- Five-minute visible-page expiry, also checked on visibility/pageshow and
-  comparison. No background API polling, persistent client storage or ingestion.
-- Search's official active-only contract is the status source; its ProductSummary
-  has no status field. An explicit INACTIVE/unexpected status is rejected
-  defensively. Fresh search replaces results, so removed products/photos cannot
-  survive in our result cache. Idle page photos expire; this is not a claim of
-  instant/continuous product-status monitoring.
-- Concierge img-src CSP permits self/data and the three exact CDN hosts. Other
-  existing directives/Cloudflare policies must also permit images; validate on
-  remote staging. The privacy draft now explains direct CDN processing.
+- [Full publishing regression 39041813042](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39041813042): PASS, 19 Python tests, 30 Node Worker/OAuth tests, existing browser smoke. Deploy skipped.
+- [Supplier boundary and existing card QA 39041808986](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39041808986): PASS, Chromium/WebKit at 320/390/768/1440, ownership/cover/URL/dimensions, removed/replaced/expired/broken images, INACTIVE, text fallback, exact affiliate URL, unchanged evidence/ranking/price rules, 2/3 comparison, keyboard focus, overflow and axe A/AA.
+- Synthetic boundary tests use a mock pixel only to exercise failure boundaries;
+  it is not permission evidence or a real supplier screenshot. Real staging
+  below uses actual remote frontend/API/CDN, without fixtures or asset overlay.
+- Preview isolation/privacy unit tests: 4 PASS (included in the 19 Python tests).
 
-## Validation recorded so far
+## Real staging and screenshots
 
-- 30 Node Worker/OAuth tests: PASS locally (existing 25 + 5 supplier tests).
-- Existing full Python suite: 17 PASS; the new explicit supplier staging mode
-  was also tested separately (3 preview tests PASS).
-- Existing browser regression plus new synthetic boundary tests: CI pending.
-- The synthetic boundary tests exercise ownership, URL, expiry, broken images,
-  empty fallback, exact CTA, 2/3 comparison, keyboard focus, overflow and axe at
-  320/390/768/1440 in Chromium and WebKit. A mock pixel is only a test resource,
-  not a supplier photograph or permission evidence; no mock photo screenshots
-  are presented as before/after.
-- Real staged payload/CDN loading, actual before/after screenshots, observed
-  network/performance metrics and remote flags: **BLOCKED until owner deploys**.
-- Physical iOS/Android, VoiceOver/TalkBack and field performance: not tested.
-- This environment has not independently read the partner dashboard's named
-  access tier or certification status. Search/auxiliary endpoints were previously
-  verified; image payload capability still needs the new staged response.
+[Real staging run 39041808944](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39041808944): PASS on deployed d22c0f5f runtime, all 16 Boat/Wine scenarios in Chromium/WebKit at 320/390/768/1440. [Raw real report](evidence/real-staging.json). Source/asset hashes, original affiliate URLs, comparison for two/three, zero axe violations and no extra photo/review/analytics calls passed. Separate `/events` invalid-body probe returned 503 `Events disabled`.
 
-## Isolated staging deployment
+Each scenario loaded two actual supplier covers (HTTP 200) and safely removed a third whose CDN request reported `Redirect was not allowed`. A later [read-only network probe](evidence/performance-baseline.json) identifies a CSP rejection at `dynamic-media-cdn.tripadvisor.com`. We have not approved that redirect destination in this PR; the strict existing CSP remains. No fallback image is invented. This is a known partial-CDN-coverage limitation, not an API provenance failure.
 
-Original bundle (superseded for diagnosis): [staging-pr24-b2f45883.mjs](staging-pr24-b2f45883.mjs).
+**A screenshot review then found a CSS specificity issue:** `.page img` overrode the intended 128px height. Runtime correction 1aab0a45 scopes the selector to `.concierge-result .concierge-supplier-cover`; both browser suites now assert the computed 128px height. The previous matrix proves API/CDN behavior but does not certify the final compact layout. The corrected package needs isolated staging replacement and one final real matrix.
 
-Local package checks PASS: syntax, wrong-host 404, public source metadata, and
-/events 503 even with the enabling analytics binding.
+Prior actual after captures remain [in the Actions artifact](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39041808944); they show the pre-correction taller photos. They must not be represented as final compact-layout screenshots.
 
-API source SHA256: `9a889827d5a1fd1a902e79d178e7a964cf521c6143d72b087287883787b578ca`.
-Bundle SHA256: `7227fb4f046871a56984335a963823b5ad8197eb8a743174cf979b396b0016d8`.
-Runtime source b2f458831e71857ead87866013fb9e4efee52521; subsequent changes
-only repair browser-test races and document validation, not runtime assets.
+Independent [manual cloud-browser observation](evidence/manual-staging.json):
+Boat and Wine each returned three real cards with two observed loaded 720x480
+supplier images and one text fallback. Actual two-tour comparison worked.
+The Oneiro CTA opened the matching Viator product with exact tracking parameters;
+no purchase was made. After five minutes, all images disappeared while all three
+cards and booking links remained. The manual observation alone does not identify
+why the third image was absent; use automated network evidence for that claim.
 
-It packages
-only the reviewed branch frontend and ordinary API source; no API keys, image
-bytes or private email. Deploy **only** to
-`greecebydan-travel-api-staging`, preserving existing secrets and SEARCH_LIMIT.
-Never deploy the staging bundle to `greecebydan-travel-api` or production routes.
-The wrapper rejects any other hostname and hard-forces legacy photos/events
-false. Only the explicit `--supplier-covers` packaging option enables the new
-supplier-only path. Public `/_preview/meta` records source and asset hashes.
+Published PR23 before captures: [mobile 390px](evidence/before-production-boat-390.png)
+and [desktop 1440px](evidence/before-production-boat-1440.png).
 
-After owner deployment, run `tests/browser-supplier-staging.cjs` via the read-only
-staging QA workflow. Trigger by updating the RUN_REAL_STAGING marker on this
-branch. It uses no fixtures or asset overlay; verifies deployed hashes, actual
-DTO source/size/URL, direct CDN loads, text comparison, original affiliate URLs,
-flags, no extra API/review/events requests, axe and all four viewport widths in
-both engines. It records observed CLS/LCP and resource durations/transfer sizes,
-not a guaranteed Lighthouse score; cross-origin transfer sizes may be zero
-without Timing-Allow-Origin. Real before captures should use the published
-PR23 production frontend; after captures use actual deployed staging.
+## Performance and limitations
 
-## Gates still open
+Gzipped concierge JS grows from 5,995 to 6,447 bytes (+452); CSS from 4,508 to
+4,512 (+4). No new frontend library, font or gallery. Direct CDN loading adds
+third-party requests and can fail; compact fallback is deliberate. Performance
+observations are lab samples, not field guarantees or a Lighthouse score.
+Cross-origin transfer sizes may be unavailable without Timing-Allow-Origin;
+unsupported LCP/CLS observations must be reported as unavailable, not zero.
 
-Real payload provenance and eligible CDN variants; current account tier/status;
-real staging image loads and no unexpected request paths; actual before/after;
-performance observations. Publication stays blocked until these are resolved
-and the owner explicitly authorizes release. No production settings changed.
+Real pre-correction samples: search responses 538–855ms and images settled
+684–1080ms in this CI environment. Chromium observed whole-navigation layout
+shift sums of 0.115–0.312; WebKit does not expose LCP/CLS here. Those figures
+include dynamic form/results/comparison updates and are not a photo-only CLS
+measurement. [Controlled actual baseline/staging probe 39056202814](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39056202814) records **zero observed layout shift** in both versions at 320/390px during the initial viewport and four seconds after results, before scripted scrolling/comparison. This does not prove field CWV or zero shift everywhere; it shows why the earlier whole-interaction sums cannot be attributed to photo loading alone. Two successful 720px images transferred 96,420 and 125,217 bytes (about 216 KiB total); the redirected image had unavailable transfer size. API samples: published baseline 154–211ms, staging 468–504ms. Different Workers/caching/requests make this observational, not an isolated photo latency benchmark. The enabled path deliberately fetches fresh search data instead of the legacy search cache.
+
+Physical iOS/Android, VoiceOver/TalkBack and field performance were not tested.
+The partner dashboard's named account tier/certification was not independently
+read; only actual existing search/auxiliary access and typed supplier image
+responses are confirmed. We do not claim Full/Booking access.
+
+Computed-height correction: [browser QA 39056101440](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39056101440) PASS in Chromium/WebKit at all four widths, including actual 128px computed height. All 30 Node tests also pass after this CSS-only runtime change.
+
+## Next isolated staging package
+
+[staging-pr24-compact-1aab0a45.mjs](staging-pr24-compact-1aab0a45.mjs)
+contains the CSS specificity correction only in runtime assets; no Worker API,
+ranking, evidence, price, affiliate or permission changes.
+
+- sourceCommit `1aab0a45510497f4829cee27b704e19e7f8c94b7`
+- API SHA256 unchanged: `a75b739ec6f30a0d70530bdc7230b5a358011f1851b181cce3b3ed0713547916`
+- bundle SHA256 `e87c148e299a98b5ab1486c6df99038c2b63e57e1a7cbc7c972dfcafd58b042c`
+- 376,811 bytes; syntax, source/flags/CSS metadata, events 503 even with enabling binding and production-host rejection all PASS locally. Flags stay legacy photos/events false and supplier covers true.
+
+Replace only the existing staging Worker's code, preserving secrets/bindings.
+Do not deploy to production. Final compact-layout screenshots and real staging
+assertions are BLOCKED until this owner action. No access key should be shared.
+
+## Failure history and release boundary
+
+Initial real run 39040390054 correctly rejected the then-unallowlisted real CDN.
+Provenance-only run 39040867501 identified it. Runtime correction d22c0f5f adds
+that exact host. Run 39041289885 exposed a test locator race when an image was
+removed by the intended fallback; the test now checks each card and records
+loaded versus fallback. Run 39041517887 timed out before the staging form loaded;
+no passing real matrix is inferred from that partial run. The successful 39041808944 run added
+HTTP/error diagnostics. Performance probe 39056101504 failed due to a test-only request-event API error; corrected probe 39056202814 succeeded. Failed runs are not silently counted as PASS.
+
+Do not merge, enable production supplier covers or deploy without explicit owner
+approval. PR #22, main and production are unchanged.

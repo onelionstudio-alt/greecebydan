@@ -1,0 +1,122 @@
+{
+  "testedAt": "2026-10-17T18:00:57.901Z",
+  "mode": "Actual published PR23 baseline versus actual isolated PR24 staging; lab samples, not field CWV",
+  "samples": [
+    {
+      "label": "baseline",
+      "width": 320,
+      "redirects": [],
+      "imageErrors": [],
+      "apiStatus": 200,
+      "searchMs": 211,
+      "shifts": [],
+      "observedCls": 0,
+      "images": [],
+      "resources": []
+    },
+    {
+      "label": "staging",
+      "width": 320,
+      "redirects": [],
+      "imageErrors": [
+        {
+          "host": "dynamic-media-cdn.tripadvisor.com",
+          "error": "csp"
+        }
+      ],
+      "apiStatus": 200,
+      "searchMs": 504,
+      "shifts": [],
+      "observedCls": 0,
+      "images": [
+        {
+          "height": "146.656px",
+          "width": "220px",
+          "complete": true,
+          "naturalWidth": 720
+        },
+        {
+          "height": "146.656px",
+          "width": "220px",
+          "complete": true,
+          "naturalWidth": 720
+        }
+      ],
+      "resources": [
+        {
+          "host": "media-cdn.tripadvisor.com",
+          "duration": 154.90000000000873,
+          "transferSize": 96420
+        },
+        {
+          "host": "media-cdn.tripadvisor.com",
+          "duration": 156.8000000000029,
+          "transferSize": 125217
+        },
+        {
+          "host": "media-cdn.tripadvisor.com",
+          "duration": 162.90000000000873,
+          "transferSize": 0
+        }
+      ]
+    },
+    {
+      "label": "baseline",
+      "width": 390,
+      "redirects": [],
+      "imageErrors": [],
+      "apiStatus": 200,
+      "searchMs": 154,
+      "shifts": [],
+      "observedCls": 0,
+      "images": [],
+      "resources": []
+    },
+    {
+      "label": "staging",
+      "width": 390,
+      "redirects": [],
+      "imageErrors": [
+        {
+          "host": "dynamic-media-cdn.tripadvisor.com",
+          "error": "csp"
+        }
+      ],
+      "apiStatus": 200,
+      "searchMs": 468,
+      "shifts": [],
+      "observedCls": 0,
+      "images": [
+        {
+          "height": "188.656px",
+          "width": "283px",
+          "complete": true,
+          "naturalWidth": 720
+        },
+        {
+          "height": "188.656px",
+          "width": "283px",
+          "complete": true,
+          "naturalWidth": 720
+        }
+      ],
+      "resources": [
+        {
+          "host": "media-cdn.tripadvisor.com",
+          "duration": 19.39999999999418,
+          "transferSize": 96420
+        },
+        {
+          "host": "media-cdn.tripadvisor.com",
+          "duration": 17.20000000001164,
+          "transferSize": 125217
+        },
+        {
+          "host": "media-cdn.tripadvisor.com",
+          "duration": 33.89999999999418,
+          "transferSize": 0
+        }
+      ]
+    }
+  ]
+}

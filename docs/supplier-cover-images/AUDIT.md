@@ -97,7 +97,7 @@ Do not change recommendations, evidence, pricing, CTA URLs, CMS, OAuth or SEO.
 - privacy page only if its current image description requires an accurate,
   narrowly scoped CDN-processing clarification; no analytics activation.
 - docs/supplier-cover-images: redacted audit, test report, deployment bundle
-  and before/after evidence; no private email or image binaries.
+  and before/after QA screenshots; no private email or mirrored supplier image files.
 
 ## Release gates
 
