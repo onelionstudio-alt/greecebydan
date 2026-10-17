@@ -1,0 +1,15 @@
+{
+  "fixtures": true,
+  "physicalPhones": false,
+  "checks": [
+    "chromium 320px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "chromium 390px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "chromium 768px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "chromium 1440px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "webkit 320px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "webkit 390px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "webkit 768px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "webkit 1440px: compact CTA, disclosure, differences, axe AA (390/1440), legacy DTO, evidence, focus return, missing data, errors, safe affiliate URL, no page overflow: PASS",
+    "No photo, analytics, collector or third-party requests: PASS"
+  ]
+}

@@ -34,4 +34,47 @@ Owner step when generated file is ready: Cloudflare Workers → **greecebydan-tr
 | Implicit EUR and unvalidated rating display | Additive explicit currency; defensive legacy adapter and numeric validation |
 | API photos/events OFF | Remain OFF; no placeholder or comparison tracking |
 
-Before/after screenshots are labelled **fixtures**, not live offers. Real remote results, if available, are separate. Remaining limitations and exact CI results will be recorded here and in the PR after validation. Do not merge until separate owner approval.
+Before/after screenshots are labelled **fixtures**, not live offers. Real remote results, if available, are separate. Exact results, evidence and remaining deployment dependency are recorded below. Do not merge until separate owner approval.
+
+
+## Итог проверки для PR #23
+
+Проверенный runtime: `611601ef2eb30d221fac94aaa78c5a1f44d19696`. Последующая правка тестового screenshot framing не меняет frontend, Worker или staging bundle.
+
+| Проверка | Результат |
+|---|---|
+| Python publishing/staging tests, Node Worker/OAuth, сборка 13 статей, прежний browser smoke | PASS — [regression run](https://github.com/onelionstudio-alt/greecebydan/actions/runs/38941073326) |
+| Chromium и WebKit, 320/390/768/1440px; keyboard disclosure/selection, focus return, старый DTO, неизвестные поля, ошибки, точные affiliate href | PASS — [implementation QA](https://github.com/onelionstudio-alt/greecebydan/actions/runs/38941065109) |
+| Axe WCAG A/AA, карточки на 390/1440 и сравнение на 390px | PASS для автоматических правил в проверенных состояниях; не полная сертификация доступности |
+| Новый frontend → существующий удалённый staging API → реальные Boat/Wine карточки и сравнение | PASS с явно описанным asset overlay; не развёртывание нового Worker |
+| API photos / events / сторонние запросы в проверенных сценариях | PASS: отсутствуют |
+| Новый frontend + новый Worker вместе развёрнуты в удалённом staging | BLOCKED: нет deploy-доступа Cloudflare; требуется загрузка владельцем файла ниже и последующий smoke |
+| Физические iOS/Android, VoiceOver/TalkBack | Недоступны; WebKit/Chromium viewport-тесты не заменяют устройства |
+| Production deployment | Не выполнялся; deploy job SKIPPED, main не изменён |
+
+### Готовый staging-файл
+
+[staging-pr23-611601ef.mjs](staging-pr23-611601ef.mjs) — **единственный актуальный файл**, прежний `staging-preview.generated.mjs` для этого PR больше не использовать.
+
+После проверки тестов загрузить только в Cloudflare Worker **greecebydan-travel-api-staging** через Edit code → Deploy. Существующие staging secrets/bindings сохранить. Production Worker `greecebydan-travel-api` не выбирать. Никаких ключей в чат или исходники.
+
+Для проверки после загрузки открыть `https://greecebydan-travel-api-staging.onelion-studio.workers.dev/_preview/meta` и передать только публичный JSON:
+
+- `purpose`: PR #23 isolated staging preview, not a production release
+- `sourceCommit`: `611601ef2eb30d221fac94aaa78c5a1f44d19696`
+- `apiSourceSha256`: `af38f06c0b3ffd365498be8d247b9ed4fd28f5b6a59845d7883163ceed051788`
+- `apiPhotos=false`, `interactionEvents=false`
+- SHA256 всего module: `6c22eff0880383297d79496d6df57aced0b946cecc4ad236e3d6734980dfd214`
+
+Далее пройти обе статьи → context → реальная выдача → 2/3 сравнение → партнёрская ссылка без покупки. Проверить metadata, evidence-backed reasons нового Worker, unknown price basis, отсутствие изображений и аналитических запросов. Только после этого можно считать **полный deployed staging** завершённым. Разрешение на публикацию production всё равно требуется отдельно.
+
+### Скриншоты
+
+- С одинаковыми UI fixtures: [mobile до](evidence/before-390-fixture.png) / [после](evidence/after-390-fixture.png), [desktop до](evidence/before-1440-fixture.png) / [после](evidence/after-1440-fixture.png).
+- Сравнение: [mobile](evidence/comparison-390-fixture.png), [desktop](evidence/comparison-1440-fixture.png).
+- **Реальные ответы удалённого API, frontend через asset overlay:** [Milos](evidence/real-staging-boat-390.png), [Santorini](evidence/real-staging-wine-390.png), [Milos comparison](evidence/real-staging-boat-comparison-390.png), [Santorini comparison](evidence/real-staging-wine-comparison-390.png).
+- Машиночитаемые результаты: [UI tests](evidence/browser-cards.json), [real staging backend](evidence/staging-live.json).
+
+API карточки не подтверждают наличие мест, окончательную цену или условия конкретной опции. В live overlay со старым Worker причины намеренно скрыты, пока нет нового selectionEvidence. Свободный legacy reason не превращается в доказательство.
+
+Latest screenshot framing and live-backend comparison: [QA run 39022999847](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39022999847) PASS. Runtime files are byte-identical to verified commit 611601ef; later changes only affect screenshot tests and review artifacts. [Local bundle checks](evidence/staging-package.json) distinguish local hard-off verification from a remote deployment.

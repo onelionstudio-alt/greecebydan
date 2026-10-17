@@ -1,0 +1,10 @@
+{
+  "test": "Local generated module validation, NOT remote deployment",
+  "source": "611601ef2eb30d221fac94aaa78c5a1f44d19696",
+  "apiSha": "af38f06c0b3ffd365498be8d247b9ed4fd28f5b6a59845d7883163ceed051788",
+  "photos": false,
+  "events": false,
+  "wrongHostStatus": 404,
+  "localEventsStatus": 503,
+  "checks": "PASS"
+}
