@@ -23,6 +23,36 @@ def package(site, worker_source, source_commit, review_label="PR #21", supplier_
     if not review_label.replace('#', '').replace(' ', '').isalnum() or len(review_label) > 40:
         raise ValueError('Invalid review label')
     original = worker_source
+    # Staging-only provenance diagnostics. Never expose raw upstream payloads,
+    # captions, review fields, headers, credentials or complete unapproved URLs.
+    photo_return = 'return reply({ products: recommendations(data.products || [], pref, coversEnabled) }, 200, origin);'
+    image_audit = supplier_covers and worker_source.count(photo_return) == 1
+    if image_audit:
+        worker_source = worker_source.replace(photo_return,
+            'return reply({ products: recommendations(data.products || [], pref, coversEnabled), imageAudit: stagingPhotoAudit(data.products || [], pref) }, 200, origin);')
+        worker_source += r'''
+function stagingPhotoAudit(products, pref) {
+  const selected = new Set(recommendations(products, pref, false).map(p => p.productCode));
+  return products.filter(p => selected.has(p.productCode)).slice(0,3).map(p => ({
+    productCode: p.productCode,
+    images: (Array.isArray(p.images) ? p.images : []).slice(0,20).map(i => ({
+      keys: Object.keys(i || {}).slice(0,20),
+      imageSource: typeof i?.imageSource === 'string' ? i.imageSource.slice(0,64) : null,
+      isCover: i?.isCover === true,
+      variants: (Array.isArray(i?.variants) ? i.variants : []).slice(0,20).map(v => {
+        let u; try { u = new URL(v.url); } catch {}
+        return {width: typeof v.width === 'number' ? v.width : null,
+          height: typeof v.height === 'number' ? v.height : null,
+          urlHost: u?.hostname || null, protocol: u?.protocol || null,
+          mediaPath: u?.pathname.startsWith('/media/') || false,
+          extension: u?.pathname.match(/\.[a-z0-9]+$/i)?.[0] || null,
+          credentials: Boolean(u?.username || u?.password),
+          port: Boolean(u?.port), fragment: Boolean(u?.hash)};
+      })
+    }))
+  }));
+}
+'''
     marker = "const SITE = 'https://greecebydan.com';"
     if worker_source.count(marker) != 1 or worker_source.count('export default {') != 1:
         raise ValueError('Unexpected Worker structure; do not silently patch it')
@@ -67,10 +97,13 @@ def package(site, worker_source, source_commit, review_label="PR #21", supplier_
         'apiSourceSha256': hashlib.sha256(original.encode()).hexdigest(),
         'origin': STAGING_ORIGIN,
         'apiPhotos': False, 'interactionEvents': False, 'supplierCovers': bool(supplier_covers),
+        'imageProvenanceAudit': image_audit,
         'changesFromSource': ['staging-only SITE origin', 'staging-only client API URL',
                               'noindex headers and preview banner', 'hard-off feature overrides'],
         'assetSha256': {k: hashlib.sha256(v[1].encode()).hexdigest() for k, v in assets.items()},
     }
+    if image_audit:
+        metadata['changesFromSource'].append('staging-only image provenance metadata; no raw unapproved URLs or private fields')
     prefix = '// GENERATED staging-only module. Never deploy to the production Worker.\n'
     prefix += f'const PREVIEW_ORIGIN = {json.dumps(STAGING_ORIGIN)};\n'
     prefix += f'const PREVIEW_ASSETS = {json.dumps(assets, ensure_ascii=False)};\n'

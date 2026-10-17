@@ -19,6 +19,7 @@ jobs:
           node "$RUNNER_TEMP/cover-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
       - name: Verify actual remote frontend, real API image DTO and CDN loads
         env:
+          PHOTO_PROVENANCE_ONLY: 'true'
           NODE_PATH: ${{ runner.temp }}/cover-qa/node_modules
         run: node tests/browser-supplier-staging.cjs
       - uses: actions/upload-artifact@v4
