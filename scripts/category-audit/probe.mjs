@@ -4,15 +4,32 @@ export const AUDIT_CASES = Object.freeze({
   culture_delphi: {destination:'Delphi', tags:['Historical Tours','Archaeology Tours','Cultural Tours'], subject:/delphi/i},
   culture_meteora: {destination:'Meteora', tags:['Historical Tours','Cultural Tours'], subject:/meteora/i},
   culture_olympia: {destination:'Olympia', tags:['Historical Tours','Archaeology Tours','Cultural Tours'], subject:/olympia/i},
-  food_athens: {destination:'Athens', tags:['Food Tours','Food & Drink'], subject:/food|tasting/i},
-  food_naxos: {destination:'Naxos', tags:['Cooking Classes','Cooking Class'], subject:/cook/i},
-  food_crete: {destination:'Crete', tags:['Cooking Classes','Cooking Class'], subject:/cook/i},
+  food_athens: {destination:'Athens', tags:['Food Tours','Food & Drink'], root:'Food & Drink', subject:/food|tasting/i},
+  food_naxos: {destination:'Naxos', tags:['Cooking Classes','Cooking Class'], root:'Food & Drink', subject:/cook/i},
+  food_crete: {destination:'Crete', tags:['Cooking Classes','Cooking Class'], root:'Food & Drink', subject:/cook/i},
   transfers_athens: {destination:'Athens', tags:['Airport & Hotel Transfers','Airport Transfers','Private Transfers'], subject:/airport|piraeus|transfer/i}
 });
 const text = v => typeof v==='string' ? v.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,160) : null;
 const duration = v => { const d=Object.fromEntries(['fixedDurationInMinutes','variableDurationFromMinutes','variableDurationToMinutes'].filter(k=>Number.isFinite(v?.[k])&&v[k]>0).map(k=>[k,v[k]]));return Object.keys(d).length?d:null; };
 const list = v => Array.isArray(v) ? v : [];
 const flag = v => typeof v==='boolean' ? v : null;
+// Duplicate English labels occur in the live taxonomy. Resolve lineage by live
+// root name, never by array order or an assumed numeric tag ID.
+export function selectAuditTag(tags, config) {
+  const nameOf=t=>t.allNamesByLocale?.en||t.allNamesByLocale?.['en-US']||'';
+  for(const label of config.tags) {
+    const candidates=tags.filter(t=>nameOf(t).toLowerCase()===label.toLowerCase());
+    if(!candidates.length)continue;
+    if(config.root) {
+      const roots=tags.filter(t=>nameOf(t)===config.root&&!(t.parentTagIds||[]).length);
+      if(roots.length!==1)return null;
+      const current=candidates.filter(t=>t.tagId===roots[0].tagId||(t.parentTagIds||[]).includes(roots[0].tagId));
+      return current.length===1?current[0]:null;
+    }
+    return candidates.length===1?candidates[0]:null;
+  }
+  return null;
+}
 export function auditSummary(p) {
   let url=null;try{const u=new URL(p.productUrl);if(u.protocol==='https:'&&['viator.com','www.viator.com'].includes(u.hostname)&&!u.username&&!u.password)url=p.productUrl}catch{}
   return {productCode:text(p.productCode),title:text(p.title),productUrl:url,tags:list(p.tags).filter(Number.isInteger),flags:list(p.flags).filter(x=>typeof x==='string').slice(0,20),duration:duration(p.duration),
@@ -44,8 +61,8 @@ export async function categoryAudit(request,env,origin,io) {
     const destinations=await io.destinations(),tags=await io.tags();
     const nameOf=t=>t.allNamesByLocale?.en||t.allNamesByLocale?.['en-US']||'';
     if(name==='taxonomy')return respond({purpose:'Category audit only; no recommendations',checkedAt:new Date().toISOString(),cases:Object.keys(AUDIT_CASES),destinations:destinations.filter(d=>Object.values(AUDIT_CASES).some(c=>c.destination===d.name)),tags:tags.filter(t=>/histor|cultur|archaeo|food|cook|transfer|day trips/i.test(nameOf(t))).slice(0,80).map(t=>({id:t.tagId,name:nameOf(t),parentTagIds:t.parentTagIds||[]}))});
-    const c=AUDIT_CASES[name],destination=destinations.find(d=>d.name===c.destination),tag=c.tags.map(n=>tags.find(t=>nameOf(t).toLowerCase()===n.toLowerCase())).find(Boolean);
-    if(!destination||!tag)return respond({case:name,status:'BLOCKED',reason:!destination?'Exact destination missing':'Exact allowed category tag missing',attemptedTagNames:c.tags});
+    const c=AUDIT_CASES[name],destination=destinations.find(d=>d.name===c.destination),tag=selectAuditTag(tags,c);
+    if(!destination||!tag)return respond({case:name,status:'BLOCKED',reason:!destination?'Exact destination missing':'Exact unambiguous category tag/lineage missing',attemptedTagNames:c.tags});
     const data=await io.search({filtering:{destination:destination.id,tags:[tag.tagId]},sorting:{sort:'TRAVELER_RATING',order:'DESCENDING'},pagination:{start:1,count:50},currency:'EUR'});
     const seen=new Set(),selected=list(data.products).filter(p=>c.subject.test(`${p.title||''} ${p.description||''}`)&&/^[A-Za-z0-9_-]{1,40}$/.test(p.productCode||'')&&!seen.has(p.productCode)&&seen.add(p.productCode)).slice(0,3);
     let detailAccessDenied=false;const products=[];for(const p of selected){const summary=auditSummary(p);if(!summary.productUrl)continue;const detail=await io.detail(p.productCode);products.push({summary,detailHttpStatus:detail.status,details:detail.status===200&&detail.data?.productCode===p.productCode?auditDetails(detail.data):null});if([401,403,429].includes(detail.status)){detailAccessDenied=true;break}}

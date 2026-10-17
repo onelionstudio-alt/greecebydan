@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {categoryAudit,auditDetails,auditSummary,AUDIT_CASES} from './probe.mjs';
+import {categoryAudit,auditDetails,auditSummary,AUDIT_CASES,selectAuditTag} from './probe.mjs';
 const origin='https://greecebydan-travel-api-staging.onelion-studio.workers.dev';
 const env={VIATOR_API_KEY:'TEST_ONLY',SEARCH_LIMIT:{limit:async()=>({success:true})}};
 const request=body=>new Request(origin+'/__category-audit',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -30,4 +30,16 @@ test('detail denial is recorded without inventing facts; errors, empty results, 
  d.search=async()=>({products:[]});x=await(await categoryAudit(request({case:'culture_athens'}),env,origin,d)).json();assert.deepEqual(x.products,[]);
  d.search=async()=>{throw Error('SECRET_UPSTREAM')};const r=await categoryAudit(request({case:'culture_athens'}),env,origin,d);assert.equal(r.status,502);assert.doesNotMatch(await r.text(),/SECRET_/);
  assert.equal((await categoryAudit(request({case:'taxonomy'}),{...env,SEARCH_LIMIT:{limit:async()=>({success:false})}},origin,d)).status,429)
+});
+
+test('duplicate live cooking/food labels use confirmed root lineage, independent of order',()=>{
+ const tag=(id,name,parents=[])=>({tagId:id,allNamesByLocale:{en:name},parentTagIds:parents});
+ const tags=[tag(13283,'Cooking Classes',[12694,12519]),tag(13112,'Cooking Classes',[12718,12520]),tag(21911,'Food & Drink'),tag(12034,'Cooking Classes',[21482,21911,21915]),tag(13285,'Food Tours',[12519]),tag(21567,'Food Tours',[21911])];
+ for(const a of [tags,[...tags].reverse()]){
+  assert.equal(selectAuditTag(a,AUDIT_CASES.food_naxos).tagId,12034);
+  assert.equal(selectAuditTag(a,AUDIT_CASES.food_athens).tagId,21567);
+ }
+ assert.equal(selectAuditTag(tags.filter(t=>t.tagId!==21911),AUDIT_CASES.food_naxos),null);
+ assert.equal(selectAuditTag([...tags,tag(999,'Cooking Classes',[21911])],AUDIT_CASES.food_naxos),null);
+ assert.equal(selectAuditTag([tag(1,'Historical Tours'),tag(2,'Historical Tours')],AUDIT_CASES.culture_athens),null);
 });

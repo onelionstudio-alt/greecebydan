@@ -31,7 +31,7 @@ async function auditProductDetail(code,env) {
     marker2="['/health', '/destinations', '/search', '/events'].includes(url.pathname)"
     if output.count(marker2)!=1:raise ValueError('Unexpected preview adapter')
     output=output.replace(marker2,"['/health', '/destinations', '/search', '/events', '/__category-audit'].includes(url.pathname)")
-    output=output.replace('const PREVIEW_META = {','const PREVIEW_META = {"categoryAudit":true,"baselineApiSha256":"'+hashlib.sha256(original.encode()).hexdigest()+'",',1)
+    output=output.replace('const PREVIEW_META = {','const PREVIEW_META = {"categoryAudit":true,"auditTaxonomyRevision":2,"baselineApiSha256":"'+hashlib.sha256(original.encode()).hexdigest()+'",',1)
     return output
 
 if __name__=='__main__':

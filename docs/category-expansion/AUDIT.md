@@ -1,7 +1,8 @@
 # Concierge category expansion — Phase A, 17 October 2026
 
-**Preliminary audit: production architecture and official schemas verified;
-new-category live account responses pending isolated staging probe.**
+**Live audit collected: nine staging cases returned HTTP 200, including 18
+single-product details (all ACTIVE). See LIVE-RESULTS.md for reviewed limits.
+Food taxonomy must be corrected and rechecked before claiming inventory coverage.**
 Base: published main `b37919d2f57883aa2a772aa4b3f3f7d23aede68b` (PR23 cards,
 PR24 supplier covers). No production/main changes. No Culture implementation or
 Food/Transfer/Ferry feature has been enabled. Readiness below is deliberately
@@ -25,9 +26,9 @@ conditional; an existing/public listing is not date-specific bookability.
   deliberately leaves departure unknown and price basis unknown.
 - Product details can supply these missing structures. Official access table
   permits single-product content even at Basic Access; therefore an upgrade
-  is **not assumed necessary**. Actual `/products/{product-code}` permission
-  and returned fields must be tested with this account before designing
-  filters around them. Search success is not evidence of named access tier.
+  is **not assumed necessary**. Actual `/products/{product-code}` returned HTTP 200 for 18 products in this
+  staging account. Their returned fields and conflicts were reviewed; this
+  does not identify the account’s commercial tier. Search success is not evidence of named access tier.
 - Current Experience Cards, safe productUrl rendering, errors, unknown pricing
   and two/three comparison can be reused. Frontend evidence accepts only four
   existing codes and title/description/flags provenance; new evidence needs
@@ -59,20 +60,20 @@ checkedAt and bounded evidence value; they are not independent inspections.
 
 ## Category matrix
 
-The Products column distinguishes existing editorial candidates from live API
-confirmation. No new-category product has yet passed this account's audit.
+Live observations below are a bounded sample, not an exhaustive catalogue or a
+selected-date availability check. Exact evidence and limitations are in LIVE-RESULTS.md.
 
-| Direction / traveller task | Useful first questions | Fields to verify | Products currently evidenced | Confirmed now | Unknown / main risk | Complexity / readiness |
-| --- | --- | --- | --- | --- | --- | --- |
-| Acropolis, Athens: human-guided visit versus ticket/audio option | Private/shared; guided option; duration | GUIDE vs AUDIO; itinerary stop/admission; options; logistics; physical info | No account response yet; do not invent product codes | Schema supports scoped guide/duration/private evidence | Site admission, guide inside Acropolis, timed entry, stairs, accessible route; tour title can conceal ticket/audio-only product | Medium-high; live-data gate |
-| Delphi: guided day trip or private visit | Departure place; private/shared; time available | Same + pickup/transport, itinerary duration and admission per stop | No account response yet | Single-product schema can carry relevant conditions | Athens versus Delphi meeting point; driver-only versus archaeological guide; tickets/transport options; walking surfaces | Medium-high; live-data gate |
-| Meteora: guided/private visit with understood access | Departure place; private/shared; duration; access needs | GUIDE, start/pickup, transport, additionalInfo, stop admissions/options | Existing article links `6575PRIVATE`, `9451P12`, `132551P9`; **not revalidated as live API products for this expansion** | Existing article/context infrastructure and candidate identities in repository | Guide inside monasteries, stairs, dress/entry, closures, chosen pickup and route; transport does not remove steps | Medium-high; live-data gate |
-| Ancient Olympia: archaeological experience | Departure place; guided/private; time | Archaeological topic + GUIDE + stop/admission + logistics | None yet | Schema only | Port excursion/transport-only can be mistaken for site guide; itinerary includes versus merely passes by | Medium; omit first release unless sufficient actual products/fields |
-| Athens food walks | Walk/taste versus cooking; duration; private/shared; language | Food taxonomy, explicit activity, GUIDE, group size, inclusions | None yet | Schema can describe duration/guide/inclusions | Wine-only, market shopping or generic sightseeing; dietary/allergy terms cannot be inferred | Medium; after Culture verification + owner confirmation |
-| Naxos farm cooking | Hands-on cooking; duration; language; meeting place | Cooking taxonomy + explicit participation, itinerary/inclusions/options, language | Article candidates `177192P1`, `420115P1`, `459053P1`; **no new live verification** | Existing editorial links and source article | Farm visit versus demo/class, transfers, actual group size, seasonal menu, dietary scope | Medium; after Culture + owner confirmation |
-| Crete cooking / local tasting | Cooking versus tasting; locality; language; duration | Same plus actual destination/pickup scope | None yet | Schema only | Crete is not a single meeting point; lunch alone is not a class; allergy safety unknown | Medium; after Food proof + owner confirmation |
-| Athens airport / port / private transfers; selected transport day trips | Exact route/direction; party size; luggage; child-seat need | Explicit route/option/vehicle conditions; pickup; additionalInfo; cancellation | None yet | Separate structured product details are possible in schema | Airport→city not airport→port; sightseeing not taxi; shared-tour size not vehicle capacity; flight delay/overnight/extra fees unknown | High; separate Transfer PR after owner approval; transport day trips remain Culture if sightseeing is the primary product |
-| Ferries / island hopping | Route/date on provider only until approved integration | Approved referral URL, official widget or separately contracted live API | No configured integration or verified account entitlements | Provider publicly offers live widgets and separate B2B API/MCP | Affiliate approval does not grant custom API rights; stale timetables/fares; tracking/cookie/CSP requirements | Referral low; live integration separate; implementation prohibited until separate owner decision |
+| Direction / traveller task | Useful questions / criteria | Available evidence and real products | Confirmed / unknown | Risk, complexity and readiness |
+| --- | --- | --- | --- | --- |
+| Athens / Acropolis guided visit | Private/shared; language; duration; tickets; meeting point; access needs | `240841P1`: ACTIVE, German GUIDE, explicit shared itinerary, entrance-fee inclusion; `349296P1`, `443226P3`: ACTIVE private listings with driver/site-guide exclusions | Details support private/shared, language, duration, inclusions/exclusions. Licensed guide inside sites is not established by GUIDE alone. All-option admission, timed entry and accessible route need scope checks | Driver/guide confusion and misleading skip-line title. Medium-high; implement conservatively after guide-role checks |
+| Delphi guided visit / day trip | Departure; transport; private/shared; language; tickets; walking | `198006P36`, `464406P5`, `464406P12`: ACTIVE private guided listings meeting locally; differing ticket/transport conditions | Licensed-guide inclusion is explicit. Ticket inclusion/exclusion differs. These results do not establish Athens departures or whole-day return transport | Destination is not departure. Medium-high; local visit supported; transported day-trip coverage needs further evidence |
+| Meteora guided/private visit | Departure; human-guide role; private/shared; duration; steps and admission | `356497P1` e-bike, `59728P9` photo tour, `368783P2` monastery tour: ACTIVE, explicit shared itineraries | Last product excludes guided visits inside monasteries and entrance fees; listing physical effort is moderate. Private inventory not sampled | Tags and GUIDE do not establish interior guiding; exclude activity mismatches. Medium-high; narrow shortlist, no stair/access guarantees |
+| Olympia archaeological visit | Departure; licensed site guide; transport; admission | `66179P12`, `141312P3`, `5647765P2`: ACTIVE private transport/escort listings | All three exclude licensed site guiding; admissions excluded. No qualifying guided archaeological recommendation established by sample | Driver/escort versus archaeological guide. Medium; **omit from initial release** pending stronger inventory |
+| Athens food walk | Walk/tasting vs cooking; language; group; dietary conditions | `417834P1`, `101933P4`: ACTIVE food walks; `342330P1`: ACTIVE wine-only candidate in same search | Group/language/dietary statements available; first explicitly limits vegan/gluten-free suitability. Broad food tags include wine-only products | Activity/negation and dietary scope required. Medium; corrected current-taxonomy search pending; implementation waits owner approval |
+| Naxos farm cooking | Hands-on vs demo; duration; language; transport; group; menu | Initial search on duplicate label ID13283 returned zero. Current lineage identifies ID12034; not yet queried | Zero is **inconclusive**, not absence of classes. Editorial candidate IDs remain unverified by this audit | Taxonomy ambiguity; activity/ingredient/allergy scope. Medium; re-probe before inventory claim; no implementation yet |
+| Crete cooking / tasting | Hands-on vs tasting; locality; language; transport | Same duplicate-tag problem; corrected ID12034 query pending | Inventory and conditions remain unconfirmed | Crete-wide destination does not establish meeting locality or transfer. Medium; re-probe, later separate approval |
+| Athens airport/port/private transfers | Exact direction; party/luggage; child seats; timing; delay wait | `189416P13`, `323957P7`, `241463P2`: ACTIVE private transfer listings | Details include pickup, some luggage and on-request infant-seat statements. No universal capacity/wait/24h/final-price proof | Opposite direction or wrong destination must fail; seats available is not reserved. High; separate later PR and approval |
+| Ferries / island hopping | Provider-side route/date search initially | No configured integration/account entitlement. Official widgets and separate B2B API exist | Our approval, referral URL and API/widget rights unconfirmed; no live fare/timetable access claimed | Contract/tracking/privacy/CSP gate. Separate owner decision; no ferry feature in Culture PR |
 
 ## Minimal architecture proposal — not implemented
 
@@ -144,13 +145,14 @@ without local schedules, price cards or availability claims.
 
 ## Blockers and owner decisions
 
-1. **Real new-category data gate:** existing `/search` rejects other kinds and
+1. **Initial data gate completed; Food correction pending:** existing `/search` rejects other kinds and
    does not expose raw taxonomy/details. Key remains only in Cloudflare. Deploy
    the prepared read-only audit preview to the existing staging Worker; never
    production. Then test actual tags, Acropolis/Delphi/Meteora candidates and
    single-product detail status/field coverage. Do not paste a key in chat.
-2. Actual new-category inventory, current supplier conditions and detail
-   entitlements remain unconfirmed. If details are denied, show a summary-only
+2. Initial actual inventory and detail endpoint access are confirmed as recorded
+   in LIVE-RESULTS.md. Food current-taxonomy inventory, representative guided
+   options and option-level suitability still need verification. If details are denied, show a summary-only
    limitation or narrow the MVP; do not assume Full API upgrade is mandatory.
 3. Ferry account approval/referral URL and permitted widget/API model require
    owner/account evidence; no secret value is needed in chat. Ferries need a
@@ -182,9 +184,10 @@ and upstream error bodies are excluded. Public staging is not authentication;
 strict host/origin/cases, existing rate limiter, bounded requests and no-store/
 noindex contain the diagnostic. Remove it when the audit is complete.
 
-Local: 30 existing Worker/OAuth tests PASS; 7 new diagnostic/bundle boundary and integration
-tests PASS. Actual new-category API, Culture mobile/Chromium/WebKit and
-physical-device checks have **not** run. Physical iOS/Android unavailable.
+Local: 30 existing Worker/OAuth tests PASS; 8 diagnostic/bundle tests PASS after
+the taxonomy correction. Actual new-category API collection completed (18
+details); corrected Food cases still require staging upload. Culture
+mobile/Chromium/WebKit and physical-device checks have **not** run. Physical iOS/Android unavailable.
 Do not reuse PR24 staging success as evidence for new-category correctness.
 
 ## Primary sources inspected

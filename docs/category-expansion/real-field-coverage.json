@@ -1,0 +1,916 @@
+{
+  "checkedAt": "2026-10-17T19:01:25.335Z",
+  "workflowRun": 39060633333,
+  "deployedSourceCommit": "9ac4202e1df8ff8777a9455cbdd59eb86cb4dbe2",
+  "purpose": "Field coverage only; no selected-date availability or recommendation approval",
+  "cases": [
+    {
+      "case": "culture_athens",
+      "httpStatus": 200,
+      "destination": {
+        "id": "496",
+        "name": "Athens"
+      },
+      "tag": {
+        "id": 12029,
+        "name": "Historical Tours"
+      },
+      "candidateCount": 50,
+      "products": [
+        {
+          "productCode": "349296P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "443226P3",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "240841P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "de",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 2
+        }
+      ]
+    },
+    {
+      "case": "culture_delphi",
+      "httpStatus": 200,
+      "destination": {
+        "id": "50420",
+        "name": "Delphi"
+      },
+      "tag": {
+        "id": 12029,
+        "name": "Historical Tours"
+      },
+      "candidateCount": 11,
+      "products": [
+        {
+          "productCode": "198006P36",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "464406P5",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "464406P12",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        }
+      ]
+    },
+    {
+      "case": "culture_meteora",
+      "httpStatus": 200,
+      "destination": {
+        "id": "28822",
+        "name": "Meteora"
+      },
+      "tag": {
+        "id": 12029,
+        "name": "Historical Tours"
+      },
+      "candidateCount": 50,
+      "products": [
+        {
+          "productCode": "356497P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "de",
+              "type": "GUIDE"
+            },
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "59728P9",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "368783P2",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        }
+      ]
+    },
+    {
+      "case": "culture_olympia",
+      "httpStatus": 200,
+      "destination": {
+        "id": "50252",
+        "name": "Olympia"
+      },
+      "tag": {
+        "id": 12029,
+        "name": "Historical Tours"
+      },
+      "candidateCount": 22,
+      "products": [
+        {
+          "productCode": "66179P12",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "141312P3",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "5647765P2",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "de",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            },
+            {
+              "language": "it",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "fr",
+              "type": "WRITTEN"
+            },
+            {
+              "language": "es",
+              "type": "WRITTEN"
+            }
+          ],
+          "optionCount": 2
+        }
+      ]
+    },
+    {
+      "case": "food_athens",
+      "httpStatus": 200,
+      "destination": {
+        "id": "496",
+        "name": "Athens"
+      },
+      "tag": {
+        "id": 21567,
+        "name": "Food Tours"
+      },
+      "candidateCount": 50,
+      "products": [
+        {
+          "productCode": "417834P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "el",
+              "type": "GUIDE"
+            },
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "101933P4",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": false,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        },
+        {
+          "productCode": "342330P1",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "languageGuides",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [
+            {
+              "language": "en",
+              "type": "GUIDE"
+            }
+          ],
+          "optionCount": 1
+        }
+      ]
+    },
+    {
+      "case": "food_naxos",
+      "httpStatus": 200,
+      "destination": {
+        "id": "50250",
+        "name": "Naxos"
+      },
+      "tag": {
+        "id": 13283,
+        "name": "Cooking Classes"
+      },
+      "candidateCount": 0,
+      "products": []
+    },
+    {
+      "case": "food_crete",
+      "httpStatus": 200,
+      "destination": {
+        "id": "960",
+        "name": "Crete"
+      },
+      "tag": {
+        "id": 13283,
+        "name": "Cooking Classes"
+      },
+      "candidateCount": 0,
+      "products": []
+    },
+    {
+      "case": "transfers_athens",
+      "httpStatus": 200,
+      "destination": {
+        "id": "496",
+        "name": "Athens"
+      },
+      "tag": {
+        "id": 12044,
+        "name": "Airport & Hotel Transfers"
+      },
+      "candidateCount": 50,
+      "products": [
+        {
+          "productCode": "189416P13",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [],
+          "optionCount": 1
+        },
+        {
+          "productCode": "323957P7",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "exclusions",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [],
+          "optionCount": 1
+        },
+        {
+          "productCode": "241463P2",
+          "detailHttpStatus": 200,
+          "status": "ACTIVE",
+          "fieldsPresent": [
+            "additionalInfo",
+            "bookingConfirmationSettings",
+            "bookingQuestions",
+            "bookingRequirements",
+            "cancellationPolicy",
+            "createdAt",
+            "description",
+            "destinations",
+            "images",
+            "inclusions",
+            "itinerary",
+            "language",
+            "lastUpdatedAt",
+            "logistics",
+            "pricingInfo",
+            "productCode",
+            "productOptions",
+            "productUrl",
+            "reviews",
+            "status",
+            "supplier",
+            "tags",
+            "ticketInfo",
+            "timeZone",
+            "title",
+            "translationInfo"
+          ],
+          "privateTour": true,
+          "languageGuides": [],
+          "optionCount": 1
+        }
+      ]
+    }
+  ]
+}

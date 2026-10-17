@@ -4,7 +4,7 @@ const origin='https://greecebydan-travel-api-staging.onelion-studio.workers.dev'
 const env={VIATOR_API_KEY:'NOT_A_REAL_KEY',SEARCH_LIMIT:{limit:async()=>({success:true})},VIATOR_IMAGES_APPROVED:'true',INTERACTIONS_ENABLED:'true'};
 const req=(path,body)=>new Request(origin+path,body?{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(body)}:{});
 test('generated preview keeps source metadata, photos policy and hard-off flags; rejects production host',async()=>{
- const m=await(await worker.fetch(req('/_preview/meta'),env)).json();assert.equal(m.categoryAudit,true);assert.equal(m.apiPhotos,false);assert.equal(m.interactionEvents,false);assert.equal(m.supplierCovers,true);assert.equal(m.baselineApiSha256,'a75b739ec6f30a0d70530bdc7230b5a358011f1851b181cce3b3ed0713547916');
+ const m=await(await worker.fetch(req('/_preview/meta'),env)).json();assert.equal(m.categoryAudit,true);assert.equal(m.auditTaxonomyRevision,2);assert.equal(m.apiPhotos,false);assert.equal(m.interactionEvents,false);assert.equal(m.supplierCovers,true);assert.equal(m.baselineApiSha256,'a75b739ec6f30a0d70530bdc7230b5a358011f1851b181cce3b3ed0713547916');
  assert.equal((await worker.fetch(new Request('https://greecebydan-travel-api.onelion-studio.workers.dev/__category-audit'),env)).status,404);
  const e=await worker.fetch(req('/events',{}),env);assert.equal(e.status,503);assert.deepEqual(await e.json(),{error:'Events disabled'});
  assert.equal((await worker.fetch(req('/__category-audit',{case:'invalid'}),env)).status,400)
