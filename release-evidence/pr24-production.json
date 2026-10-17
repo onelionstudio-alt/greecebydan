@@ -1,0 +1,121 @@
+{
+  "checkedAt": "2026-10-17T18:31:17.872Z",
+  "mode": "Read-only production release verification; real Worker/API; no purchase or valid interaction event",
+  "checks": [
+    {
+      "kind": "boat",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "345728P2",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "legacyImage": null,
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/42/22/20/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792261878803,
+            "expiresAt": 1792262178803
+          }
+        },
+        {
+          "code": "32830P5",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "legacyImage": null,
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/07/03/3d/b6.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792261878803,
+            "expiresAt": 1792262178803
+          }
+        },
+        {
+          "code": "32830P4",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "legacyImage": null,
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/1e/b9/b4.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792261878803,
+            "expiresAt": 1792262178803
+          }
+        }
+      ]
+    },
+    {
+      "kind": "wine",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "44792P8",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "legacyImage": null,
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/33/0b/40/3e/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792261879415,
+            "expiresAt": 1792262179415
+          }
+        },
+        {
+          "code": "396495P4",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "legacyImage": null,
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/r/34/41/77/09/caption.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792261879415,
+            "expiresAt": 1792262179415
+          }
+        },
+        {
+          "code": "21559P6",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "legacyImage": null,
+          "supplierCover": {
+            "source": "SUPPLIER_PROVIDED",
+            "isCover": true,
+            "url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/37/81/44.jpg",
+            "width": 720,
+            "height": 480,
+            "checkedAt": 1792261879415,
+            "expiresAt": 1792262179415
+          }
+        }
+      ]
+    }
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "ready": true
+    }
+  },
+  "eventsGuard": {
+    "status": 503,
+    "body": {
+      "error": "Events disabled"
+    }
+  },
+  "status": "PASS"
+}

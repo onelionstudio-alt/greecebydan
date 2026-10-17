@@ -1,0 +1,37 @@
+{
+  "checkedDate": "2026-10-17",
+  "mode": "Actual production Chrome browser; article links and real UI; no fixtures or purchase",
+  "boat": {
+    "results": 3,
+    "loadedCovers": 2,
+    "textFallbackCards": 1,
+    "computedHeight": "128px",
+    "naturalWidth": 720,
+    "objectFit": "contain"
+  },
+  "wine": {
+    "results": 3,
+    "loadedCovers": 2,
+    "textFallbackCards": 1,
+    "computedHeight": "128px",
+    "altPresent": true
+  },
+  "comparison": {
+    "two": true,
+    "three": true,
+    "unknownPricesExcluded": true
+  },
+  "affiliateLanding": {
+    "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+    "title": "Milos oneiro-kleftiko sailing experience with local guide",
+    "purchase": false
+  },
+  "frontendFlags": {
+    "supplierCovers": "enabled",
+    "apiPhotos": "disabled",
+    "interactionEvents": "disabled"
+  },
+  "injectedCloudflareBeaconScripts": 0,
+  "physicalDevices": false,
+  "normalUiNetworkTrace": "Not captured by this manual DOM check; actual server events guard verified separately by CI 39058444744"
+}
