@@ -1,1 +1,1 @@
-Run corrected d22c0f5f real staging verification, recording actual CDN failures as compact text fallback rather than assuming permanent CDN availability. No production approval.
+Verify corrected live supplier staging with preserved HTTP failure context; production before captures already retained from run 39041517887. No production changes.
