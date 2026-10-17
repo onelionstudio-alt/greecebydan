@@ -2,6 +2,30 @@
 
 **Draft / do not merge / no production deployment.**
 
+## Actual staging result — blocked, 17 October
+
+Owner deployed the correct original b2f45883 package; public hashes match.
+Real browser searches returned three Boat/Milos and three Wine/Santorini tours.
+Both safely render text cards without photos. The actual CI image gate
+39040390054 failed: no verifiable supplier covers in the returned DTO. This is
+not permission to weaken source/CDN checks. It does not yet identify which raw
+image field failed validation.
+
+A new staging-only diagnostic package is prepared:
+[staging-pr24-provenance-4656aae4.mjs](staging-pr24-provenance-4656aae4.mjs).
+Source commit `4656aae440bd4039b7d8cc0d378a3a631e9da4be`, ordinary API SHA256
+unchanged (`9a889827d5a1fd1a902e79d178e7a964cf521c6143d72b087287883787b578ca`).
+Bundle SHA256 `14b1ac6e04429650dd1bfd87f59711cc6eb712213c51ca33233cdc48de9363c9`.
+It adds only redacted image provenance to staging /search responses for the
+selected products: source/cover/dimensions/host/syntax indicators, no raw image
+URLs, captions, reviews, private field values, headers or secrets. The ordinary
+Worker source and runtime assets are unchanged. Public metadata adds
+`imageProvenanceAudit:true`; analytics and legacy photos stay forced false.
+New preview privacy/isolation tests: 4 PASS locally. Further owner staging
+replacement is required. The next real QA is provenance-only, not image release
+verification. Before/after photo improvement and performance remain unverified.
+
+
 ## What changed
 
 See [the pre-implementation audit](AUDIT.md) for the redacted permission summary,
@@ -53,7 +77,7 @@ client supplier gate cannot activate legacy images or events.
 
 ## Isolated staging deployment
 
-Prepared bundle: [staging-pr24-b2f45883.mjs](staging-pr24-b2f45883.mjs).
+Original bundle (superseded for diagnosis): [staging-pr24-b2f45883.mjs](staging-pr24-b2f45883.mjs).
 
 Local package checks PASS: syntax, wrong-host 404, public source metadata, and
 /events 503 even with the enabling analytics binding.
