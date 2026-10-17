@@ -2,8 +2,9 @@
 
 **No production release or merge.** Real inventory audit completed against the
 owner-deployed, isolated Cloudflare staging Worker. Small follow-up fixes are in
-this PR; their new frontend/runtime still require an owner staging upload and the
-updated real frontend suite. Do not confuse the completed audit with that gate.
+this PR; their new frontend/runtime have now passed the real staging suite
+[39071774889](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39071774889).
+The owner staging upload/check gate is complete; release approval is still required.
 
 ## Evidence and result
 
@@ -28,7 +29,7 @@ Repeated products across tags/windows are counted once.
 | Delphi from Athens, evidenced day trip example | English-speaking driver | Private day trip | Site guide **not confirmed** | 123525P19 explicitly includes private transport and pickup/drop-off in Athens/Piraeus | **1 transport example; 0 qualified guided tours** | Does not pass the included-guide filter. Ten Athens-cohort products inspected, not ten qualifying day trips |
 | Delphi from Athens, evidenced multi-day example | English-speaking driver | Private two-day Delphi/Thermopylae/Meteora | Site guide costs extra on request | 59636P59 explicitly includes private transport and Athens hotel/Airbnb/port pickup/drop-off | **1 multi-day example** | Separate from day trips; excluded from confirmed included-guide recommendations |
 | Meteora, current live baseline | English and six other GUIDE languages | Private local monastery visit | State-licensed local guide included | Transport **to the meeting point** excluded | **1** | 6575P20; no all-monastery or step-free guarantee |
-| Meteora, explicit guide phrases missed by parser | English; other GUIDE languages listed | 1 shared full-day listing + 1 private local tour | Explicit English-speaking Guide inclusion + common GUIDE English | Vehicle included on 6357P78; 6575PRIVATE includes private vehicle and Kalambaka/Kastraki hotel pickup/drop-off | **2 additional evidenced listings** | Parser fix passes recorded real API-field tests; new runtime live check pending. No licence/interior-guiding claim inferred. Thessaloniki departure in 6357P78 title still needs exact logistics confirmation |
+| Meteora, explicit guide phrases missed by parser | English; other GUIDE languages listed | 1 shared full-day listing + 1 private local tour | Explicit English-speaking Guide inclusion + common GUIDE English | Vehicle included on 6357P78; 6575PRIVATE includes private vehicle and Kalambaka/Kastraki hotel pickup/drop-off | **2 additional evidenced listings** | Parser fix passes recorded real API-field tests; 6357P78 now appears in the real fixed-runtime selection. 6575PRIVATE remains outside the tested default first-twelve window. No licence/interior-guiding claim inferred. Thessaloniki departure in 6357P78 title still needs exact logistics confirmation |
 
 ### Confirmed English Acropolis product codes
 
@@ -107,7 +108,9 @@ window can still miss valid listings; this is deliberately not a universal catal
 - Final follow-up CI [39071278044](https://github.com/onelionstudio-alt/greecebydan/actions/runs/39071278044):
   **PASS**, 46 Node + 23 Python tests, Chromium/WebKit 320/390/768/1440,
   Culture/Boat/Wine, keyboard/axe, comparison and supplier boundaries.
-  **Actual new runtime/frontend staging remains blocked until the owner uploads the selection preview**.
+  Actual new runtime/frontend staging **PASS**, run 39071774889: 14/14 scenarios,
+  matching source/assets, all searches HTTP 200, Chromium 390/1440 and WebKit 390,
+  axe zero, exact affiliate hrefs, comparison and network hard-off checks.
 - Physical iOS/Android NOT TESTED. Browser engine/viewports are not physical devices.
 
 Raw audit artifact `culture-inventory-audit` (124 observations) is attached to the
@@ -119,6 +122,34 @@ The fixture `tests/fixtures/culture-inventory-guide.json` contains the actual,
 non-truncated inclusion/exclusion/language fields for targeted classifier replay;
 no prices, dates or bookability are fabricated.
 
-Release remains blocked pending the updated real frontend run and owner approval.
+The updated real frontend gate is complete. Release remains subject to explicit owner approval.
 The temporary inventory route is absent from the new selection preview. Analytics
 and legacy photo API stay hard off; current supplier-cover settings are preserved.
+
+## Reviewed actual output after fixes
+
+All three tested browser/viewport combinations returned the same guided sets:
+
+| Place | Shown products | Confirmed guide languages / scope | Remaining limit |
+|---|---|---|---|
+| Acropolis | 240841P1, 240841P3, 341709P1 | Two German shared tours plus one English private tour | English-only filter is not implemented; broader audited English inventory is not all displayed |
+| Delphi | 198006P36, 464406P5, 464406P12 | Three private local visits, English on all three | No Athens transfer inferred; 464406P12 explicitly excludes transport |
+| Meteora | 6575P20, 6357P78 | Two included-guide products, English on both | One local one-hour visit and one 11-hour listing from Thessaloniki; not a common departure or equivalent itinerary |
+
+Manual checks confirmed the real Acropolis CTA opened a new Viator tab for
+341709P1 with the correct product heading and unchanged tracking URL. The old
+Saint-Porfyrios URL slug resolves to the current Acropolis product; it was not
+rewritten. No availability or purchase action was taken. A strict Delphi shared
++ guided + free-cancellation search safely returned empty and kept its filters.
+Meteora comparison showed confirmed group/duration/language/pickup-method
+differences and suppressed price comparison for unknown units.
+
+See `evidence/inventory-fix-real-staging.json`, `inventory-fix-manual-live.json`
+and `inventory-fix-qa.json`. The raw collector status intentionally remains
+COLLECTED_REQUIRES_INVENTORY_REVIEW; this section and reviewed QA record document
+the completed review instead of altering raw observations.
+
+Screenshots of the actual fixed staging viewport:
+[Mobile Meteora](evidence/inventory-fix-meteora-390.png) ·
+[Desktop Meteora](evidence/inventory-fix-meteora-1440.png).
+Full scenario screenshots are retained in the workflow artifact.

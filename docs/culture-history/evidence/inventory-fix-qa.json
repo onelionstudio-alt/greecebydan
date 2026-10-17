@@ -27,8 +27,51 @@
     "noDateAvailabilityOrPurchases": true
   },
   "newRuntimeLiveStaging": {
-    "result": "BLOCKED",
-    "reason": "Owner must upload staging-pr25-selection.mjs; updated real frontend assertions have not run against the fixed runtime"
+    "result": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+    "run": 39071774889,
+    "artifact": 12115557616,
+    "sourceCommit": "7c669f724c5ff72453757e4359d4c32816819353",
+    "scenarios": 14,
+    "allSearchesHTTP200": true,
+    "sourceAndAssetHashesVerified": true,
+    "normalAnalyticsEventsRequests": 0,
+    "newPhotoReviewRequests": 0,
+    "enginesAndWidths": {
+      "Chromium": [
+        390,
+        1440
+      ],
+      "WebKit": [
+        390
+      ]
+    },
+    "actualDisplayed": {
+      "Acropolis": {
+        "count": 3,
+        "confirmedEnglish": 1,
+        "confirmedGerman": 2
+      },
+      "Delphi": {
+        "count": 3,
+        "confirmedEnglish": 3,
+        "transportFromAthensNotEstablished": true
+      },
+      "Meteora": {
+        "count": 2,
+        "confirmedEnglish": 2,
+        "sameDepartureNotEstablished": true
+      }
+    },
+    "manualAffiliatePopupAndCorrectProduct": true,
+    "manualDelphiSharedGuidedFreeCancellationSafeEmpty": true,
+    "limitations": [
+      "Place visited is not departure city",
+      "Meteora local visit and Thessaloniki day trip are different trip scopes",
+      "No English-only preference in the current UI",
+      "No date-specific availability or final party price verified",
+      "Physical iOS/Android not tested"
+    ],
+    "axeViolations": 0
   },
   "physicalIOSAndroid": "NOT_TESTED",
   "productionDeployed": false,

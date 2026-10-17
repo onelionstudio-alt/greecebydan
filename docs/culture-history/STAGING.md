@@ -1,9 +1,10 @@
-# PR25 inventory fix — staging handoff, not production
+# PR25 inventory fix — staging verification complete, not production
 
 The baseline frontend E2E (39064582890) and expanded real inventory audit
 (39070052304, 30 HTTP-200 cases / 69 distinct products) are complete. The new
-cutoff/parser fixes have passed local tests, but require this new staging upload
-before their real frontend assertions can run. Production remains forbidden.
+cutoff/parser fixes have passed local/CI tests and real frontend staging run
+39071774889 (14/14 scenarios). The owner upload/check gate below is complete.
+Production remains forbidden; the procedure is retained for reproducibility.
 
 1. Open `docs/culture-history/staging-pr25-selection.mjs` on the PR branch.
    Copy the whole module using **Copy raw file**, or download and copy in an editor.
@@ -40,3 +41,8 @@ Keep the 28-second upstream deadline, two-concurrent detail cap and rate limitin
 
 Do not paste into `greecebydan-travel-api`, change production routes, merge PR25
 or publish the production frontend. Release still requires a separate owner decision.
+
+Completed 17 October 2026 UTC: source/hash matched, confirmed-English Acropolis
+and two-guide Meteora assertions passed, Delphi notice, Boat/Wine, comparisons,
+accessibility and network hard-off checks passed. No further upload is needed
+for this reviewed source. See INVENTORY-REVIEW.md for the actual scope limits.

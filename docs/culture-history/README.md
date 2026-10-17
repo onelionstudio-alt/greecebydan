@@ -134,8 +134,9 @@ Original baseline inventory observations (superseded for coverage by INVENTORY-R
   products/languages do not exist. No date-specific seats/final prices verified.
 
 The original baseline staging gate was completed. The targeted inventory follow-up
-now requires the new selection-fix staging upload and real frontend run before
-release. See INVENTORY-REVIEW.md; earlier live checks do not validate the new runtime.
+completed the new selection-fix staging upload and real frontend run 39071774889
+(14/14 PASS). See INVENTORY-REVIEW.md and evidence/inventory-fix-qa.json for the
+actual updated inventory, 46 Node / 23 Python CI and remaining scope limits.
 PR remains draft for owner review and release decision, with no main/production
 change. Physical iOS/Android remain unavailable; viewport/engine tests are not
 physical phone tests.
