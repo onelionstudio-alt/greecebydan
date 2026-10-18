@@ -24,6 +24,7 @@ window.CMS_MANUAL_INIT = true;
     script.onload = () => {
       window.CMS.registerPreviewStyle('/assets/css/style.css');
       window.CMS.registerEditorComponent(window.affiliateButtonComponent);
+      window.CMS.registerEditorComponent(window.viatorCardComponent);
       window.CMS.init({config: {backend: {base_url: endpoint.origin}}});
       document.getElementById('setup').hidden = true;
     };

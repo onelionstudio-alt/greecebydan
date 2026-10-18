@@ -84,7 +84,7 @@ function stagingPhotoAudit(products, pref) {
             text = text.replace('name="gbd-supplier-covers" content="enabled"', 'name="gbd-supplier-covers" content="' + ('enabled' if supplier_covers else 'disabled') + '"')
             text = text.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">', 1)
             text = text.replace('<body>', f'<body><aside style="padding:12px;background:#fff0bd;color:#222;text-align:center;font:14px Arial">STAGING · {review_label} review only · Legacy API photos and events disabled · supplier covers {'enabled' if supplier_covers else 'disabled'}</aside>', 1)
-        if route in ('/assets/js/concierge.js', '/assets/js/events.js'):
+        if route in ('/assets/js/concierge.js', '/assets/js/events.js', '/assets/js/article-offers.js'):
             text = text.replace(PRODUCTION_API, STAGING_ORIGIN)
             if PRODUCTION_API in text:
                 raise ValueError('Production API left in staging client')
