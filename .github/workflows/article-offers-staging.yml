@@ -1,0 +1,28 @@
+name: Article offer real staging QA (no deployment)
+on:
+  push:
+    branches: [qa/article-offers-staging]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/article-live" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/article-live/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Actual deployed article, product details and approved CDN cover
+        env:
+          NODE_PATH: ${{ runner.temp }}/article-live/node_modules
+        run: node tests/browser-article-offers-staging.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: article-offers-real-staging
+          path: docs/article-affiliate-cards/evidence/live/
