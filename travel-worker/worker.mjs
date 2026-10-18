@@ -18,10 +18,11 @@ export function greekDestinations(destinations) {
 
 export function preferences(data) {
   const culture = data?.kind === 'culture';
+  const transfer = data?.kind === 'transfer';
   const food = data?.kind === 'food';
-  if((culture || food) && Object.keys(data).some(k=>!['kind','destination','style','mood','budget','cancellation'].includes(k))) throw new Error('Invalid Culture fields');
-  const moods = food ? ['walk','cooking','tasting'] : culture ? ['guided'] : data?.kind === 'boat' ? ['sunset','swimming'] : ['food','vineyard'];
-  if (!data || typeof data !== 'object' || Array.isArray(data) || !['boat','wine','culture','food'].includes(data.kind) || !/^\d{1,8}$/.test(data.destination) || !['any','private',...((culture||food)?['shared']:[])].includes(data.style) || !['any',...moods].includes(data.mood) || !['0','75','150','300'].includes(String(data.budget)) || typeof data.cancellation !== 'boolean') throw new Error('Invalid preferences');
+  if((culture || food || transfer) && Object.keys(data).some(k=>!['kind','destination','style','mood','budget','cancellation'].includes(k))) throw new Error('Invalid Culture fields');
+  const moods = transfer ? ['airport_city','city_airport','airport_port','port_airport','daytrip'] : food ? ['walk','cooking','tasting'] : culture ? ['guided'] : data?.kind === 'boat' ? ['sunset','swimming'] : ['food','vineyard'];
+  if (!data || typeof data !== 'object' || Array.isArray(data) || !['boat','wine','culture','food','transfer'].includes(data.kind) || !/^\d{1,8}$/.test(data.destination) || !['any','private',...((culture||food||transfer)?['shared']:[])].includes(data.style) || !['any',...moods].includes(data.mood) || !['0','75','150','300'].includes(String(data.budget)) || typeof data.cancellation !== 'boolean') throw new Error('Invalid preferences');
   return {kind:data.kind,destination:data.destination,style:data.style,mood:data.mood,budget:Number(data.budget),cancellation:data.cancellation};
 }
 
@@ -301,6 +302,71 @@ export async function foodSearch(products,pref,place,coversEnabled,detail) {
   });
 }
 
+// Transfers use the existing bounded Live API model and card/URL rules.
+export function transferTag(tags,mood) {
+  const name=t=>(t.allNamesByLocale?.en||t.allNamesByLocale?.['en-US']||'').trim();
+  const day=mood==='daytrip', label=day?'Day Trips':['airport_port','port_airport'].includes(mood)?'Port Transfers':'Airport & Hotel Transfers';
+  const roots=tags.filter(t=>(day?['Tours by Duration','Tours, Sightseeing & Cruises']:['Transfers']).includes(name(t)));
+  const matches=tags.filter(t=>name(t)===label&&roots.some(r=>list(t.parentTagIds).includes(r.tagId)));
+  if(matches.length!==1)throw new Error('Transfer taxonomy unavailable or ambiguous');
+  return matches[0].tagId;
+}
+export function transferRoute(value) {
+  if(typeof value!=='string'||value.length>2000)return 'unknown';
+  const t=boundedText(value);
+  if(/\b(?:or|either|optional|request|not|without)\b|\//i.test(t))return 'unknown';
+  const airport='(?:Athens(?: International)? Airport|ATH Airport)',city='Athens (?:city(?: cent(?:re|er))?|cent(?:re|er))',port='Piraeus (?:cruise )?port';
+  const found=[];
+  for(const [route,a,b] of [['airport_city',airport,city],['city_airport',city,airport],['airport_port',airport,port],['port_airport',port,airport]])
+    if(new RegExp('\\b(?:from\\s+)?'+a+'\\s+(?:to|→)\\s+'+b+'\\b','i').test(t))found.push(route);
+  return found.length===1?found[0]:'unknown';
+}
+export function transferConditions(p,tagId,dayTrip,checkedAt=new Date().toISOString()) {
+  const common=cultureConditions(p,checkedAt),options=list(p?.productOptions),inc=list(p?.inclusions),exc=list(p?.exclusions);
+  if(!common||!list(p.tags).includes(tagId)||options.length<1||options.length>20||[...inc,...exc].some(i=>typeof i.otherDescription==='string'&&i.otherDescription.length>2000)||options.some(o=>[o.title,o.description].some(t=>typeof t==='string'&&t.length>2000)))return null;
+  const transportTypes=['PRIVATE_TRANSPORTATION','AIR_CONDITIONED_VEHICLE','PUBLIC_TRANSPORTATION'];
+  const transportText=/\b(?:private transportation|air[- ]conditioned (?:vehicle|van|bus)|(?:one[- ]way|round[- ]trip) transfer)\b/i;
+  const transport=inc.find(i=>transportTypes.includes(i.type)||(transportText.test(boundedText(i.otherDescription))&&!uncertain.test(boundedText(i.otherDescription))));
+  if(!transport||exc.some(i=>transportTypes.includes(i.type)||/\b(?:transportation|vehicle|transfers?)\b/i.test(boundedText(i.otherDescription))))return null;
+  const scopes=options.map(o=>[boundedText(o.title),boundedText(o.description)].filter(Boolean).join('. '));
+  const group=(common.group==='private'&&scopes.some(t=>/\bshared|small[- ]group|group tour\b/i.test(t)))||(common.group==='shared'&&scopes.some(t=>/\bprivate\b/i.test(t)))?'unknown':common.group;
+  const routes=options.map(o=>transferRoute([o.title,o.description].filter(Boolean).join('. ')));
+  let route=routes.every(r=>r===routes[0])?routes[0]:'unknown';
+  const itinerary=p.itinerary;
+  if(dayTrip) {
+    const d=cardDetails({duration:itinerary?.duration}).durationMinutes;
+    if(itinerary?.itineraryType!=='STANDARD'||!d||d.max>1440||!list(itinerary.itineraryItems).length)return null;
+    const includedAthensPickup=inc.some(i=>/\b(?:pick[- ]?up|departure)\b.{0,60}\b(?:from|in) Athens\b/i.test(boundedText(i.otherDescription))&&!uncertain.test(boundedText(i.otherDescription)));
+    const starts=options.map(o=>list((o.logistics===undefined?p.logistics:o.logistics)?.start));
+    const commonStart=starts.every(rows=>rows.some(r=>/^(?:(?:meeting|departure|pickup)(?: point)?[ :,-]+)?Athens\b/i.test(boundedText(r.description))&&!uncertain.test(boundedText(r.description))));
+    const pickupConflict=scopes.some(t=>/without (?:a )?pickup|no (?:hotel )?pickup|pickup (?:is )?(?:not included|optional)|(?:depart|start|pickup) from Thessaloniki|meet (?:at|in) (?:Delphi|Meteora)/i.test(t));
+    if(pickupConflict||(!commonStart&&!(includedAthensPickup&&options.every(o=>o.logistics===undefined))))return null;
+    route='athens_daytrip';
+  }else if(itinerary?.itineraryType!=='UNSTRUCTURED'||list(itinerary?.itineraryItems).length||/sightseeing|guided (?:city )?tour|multi[- ]day|visit (?:the )?(?:acropolis|delphi|meteora)/i.test([itinerary.unstructuredDescription,itinerary.unstructuredItinerary].filter(Boolean).join(' ')))return null;
+  const facts=[{code:'transfer_transport',evidence:{source:'viator_product',productCode:p.productCode,checkedAt,field:'inclusions',value:'TRANSPORT_LISTED'}}];
+  if(route!=='unknown')facts.push({code:'transfer_route',evidence:{source:'viator_product',productCode:p.productCode,checkedAt,field:dayTrip?'logistics.start/inclusions':'productOptions',value:route}});
+  const cancellation=scopes.some(t=>/non[- ]refundable|no refunds|all sales final/i.test(t))?'unknown':p.cancellationPolicy?.type;
+  return {version:1,checkedAt,type:dayTrip?'daytrip':'transfer',route,group,pickup:common.pickup,cancellationType:['STANDARD','CUSTOM','ALL_SALES_FINAL'].includes(cancellation)?cancellation:'unknown',capacity:'not_confirmed',luggage:'not_confirmed',childSeats:'not_confirmed',delayWaiting:'not_confirmed',operatingHours:'not_confirmed',facts};
+}
+export async function transferSearch(products,pref,place,coversEnabled,detail,tagId) {
+  if(place!=='Athens')return [];
+  const seen=new Set(),candidates=list(products).filter(p=>{
+    if(!/^[A-Za-z0-9_-]{1,40}$/.test(p?.productCode||'')||seen.has(p.productCode))return false;
+    seen.add(p.productCode);
+    return (p.status===undefined||p.status==='ACTIVE')&&Number.isFinite(p.pricing?.summary?.fromPrice)&&p.pricing.currency==='EUR'&&p.pricing.summary.fromPrice>=0&&(!pref.budget||p.pricing.summary.fromPrice<=pref.budget)&&(!pref.cancellation||p.flags?.includes('FREE_CANCELLATION'));
+  }).slice(0,12),eligible=[],conditions=new Map();
+  for(let i=0;i<candidates.length;i+=2){
+    const batch=await Promise.all(candidates.slice(i,i+2).map(async s=>{
+      const p=await detail(s.productCode);if(p?.productCode!==s.productCode)throw new Error('Product identity mismatch');
+      const c=transferConditions(p,tagId,pref.mood==='daytrip');
+      if(!c||(pref.style!=='any'&&c.group!==pref.style)||(pref.cancellation&&c.cancellationType!=='STANDARD')||(!['any','daytrip'].includes(pref.mood)&&c.route!==pref.mood))return null;
+      return {summary:{...s,status:p.status,images:p.images},conditions:c};
+    }));
+    for(const match of batch)if(match){eligible.push(match.summary);conditions.set(match.summary.productCode,match.conditions)}
+  }
+  return recommendations(eligible,{...pref,style:'any',mood:'any'},coversEnabled).map(p=>{const c=conditions.get(p.productCode);return {...p,category:'transfer',transfer:{...c,facts:undefined},selectionEvidence:[...p.selectionEvidence,...c.facts],reason:'Confirm the exact route, pickup, luggage and timing before booking.'}});
+}
+
 async function viator(path, env, body, deadline) {
   if (deadline !== undefined && deadline <= Date.now()) throw new Error('Search deadline exceeded');
   const response = await fetch(BASE + path, { method: body ? 'POST' : 'GET', headers: { 'exp-api-key': env.VIATOR_API_KEY, 'Accept': 'application/json;version=2.0', 'Accept-Language': 'en-US', ...(body ? { 'Content-Type': 'application/json' } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(deadline === undefined ? 10000 : Math.min(10000,Math.max(1,deadline-Date.now()))) });
@@ -461,28 +527,34 @@ export default {
       if (body.length > 2048) return reply({ error: 'Request too large' }, 413, origin);
       try { pref = preferences(JSON.parse(body)); } catch { return reply({ error: 'Invalid preferences' }, 400, origin); }
     }
-    const deadline = ['culture','food'].includes(pref?.kind) ? Date.now()+28000 : undefined;
+    const deadline = ['culture','food','transfer'].includes(pref?.kind) ? Date.now()+28000 : undefined;
     try {
       const raw = await cached(request, env, '/destinations', WEEK,undefined,deadline);
       const destinations = greekDestinations(raw.destinations || []);
-      if (route === '/destinations') return reply({ destinations, capabilities:{...(env.FOOD_ENABLED === 'true' ? {food:true,foodDestinations:destinations.filter(d=>FOOD_PLACES.includes(d.name))}:{}), ...(env.CULTURE_ENABLED === 'true' ? {culture:true,cultureDestinations:destinations.filter(d => Object.hasOwn(CULTURE_PLACES,d.name))} : {})} }, 200, origin);
+      if (route === '/destinations') return reply({ destinations, capabilities:{...(env.TRANSFERS_ENABLED==='true'?{transfers:true,transferDestinations:destinations.filter(d=>d.name==='Athens')}:{}), ...(env.FOOD_ENABLED === 'true' ? {food:true,foodDestinations:destinations.filter(d=>FOOD_PLACES.includes(d.name))}:{}), ...(env.CULTURE_ENABLED === 'true' ? {culture:true,cultureDestinations:destinations.filter(d => Object.hasOwn(CULTURE_PLACES,d.name))} : {})} }, 200, origin);
+      if(pref.kind==='transfer'&&env.TRANSFERS_ENABLED!=='true')return reply({error:'Transfers are not enabled'},400,origin);
       if (pref.kind === 'food' && env.FOOD_ENABLED !== 'true') return reply({error:'Food is not enabled'},400,origin);
       if (pref.kind === 'culture' && env.CULTURE_ENABLED !== 'true') return reply({error:'Culture is not enabled'},400,origin);
       if (!destinations.some(d => d.id === pref.destination)) return reply({ error: 'Choose a Greek destination' }, 400, origin);
       const place = destinations.find(d => d.id === pref.destination)?.name;
       if (pref.kind === 'culture' && !Object.hasOwn(CULTURE_PLACES,place)) return reply({error:'Choose Athens, Delphi or Meteora for Culture'},400,origin);
       if (pref.kind === 'food' && !FOOD_PLACES.includes(place)) return reply({error:'Choose Athens, Naxos or Crete for Food'},400,origin);
+      if(pref.kind==='transfer'&&place!=='Athens')return reply({error:'Choose Athens for Transfers'},400,origin);
       const tags = await cached(request, env, '/products/tags', WEEK,undefined,deadline);
-      const filtering = { destination: pref.destination, tags: [pref.kind==='food'?foodTag(tags.tags||[],pref.mood,place):category(tags.tags || [], pref.kind)] };
+      const filtering = { destination: pref.destination, tags: [pref.kind==='transfer'?transferTag(tags.tags||[],pref.mood):pref.kind==='food'?foodTag(tags.tags||[],pref.mood,place):category(tags.tags || [], pref.kind)] };
       if (pref.budget) filtering.highestPrice = pref.budget;
       const flags = [];
-      if (!['culture','food'].includes(pref.kind) && pref.style === 'private') flags.push('PRIVATE_TOUR');
+      if (!['culture','food','transfer'].includes(pref.kind) && pref.style === 'private') flags.push('PRIVATE_TOUR');
       if (pref.cancellation) flags.push('FREE_CANCELLATION');
       if (flags.length) filtering.flags = flags;
       const body = { filtering, sorting: { sort: 'TRAVELER_RATING', order: 'DESCENDING' }, pagination: { start: 1, count: 50 }, currency: 'EUR' };
       const coversEnabled = env.SUPPLIER_COVERS_ENABLED === 'true';
       // Live search model: no stored image metadata or stale search fallback.
-      const data = coversEnabled || ['culture','food'].includes(pref.kind) ? await viator('/products/search', env, body,deadline) : await cached(request, env, '/products/search', 900, body);
+      const data = coversEnabled || ['culture','food','transfer'].includes(pref.kind) ? await viator('/products/search', env, body,deadline) : await cached(request, env, '/products/search', 900, body);
+      if(pref.kind==='transfer'){
+        const products=await transferSearch(data.products||[],pref,place,coversEnabled,code=>viator('/products/'+encodeURIComponent(code),env,undefined,deadline),filtering.tags[0]);
+        return reply({products,limitedSelection:true,checkedAt:new Date().toISOString()},200,origin);
+      }
       if (pref.kind === 'food') {
         const products=await foodSearch(data.products||[],pref,place,coversEnabled,code=>viator('/products/'+encodeURIComponent(code),env,undefined,deadline));
         return reply({products,limitedSelection:true,checkedAt:new Date().toISOString()},200,origin);

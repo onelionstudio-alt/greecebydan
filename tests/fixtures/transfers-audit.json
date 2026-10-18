@@ -1,0 +1,539 @@
+{
+  "sourceRun": 39060633333,
+  "sourceArtifact": 12111113224,
+  "projectionOnly": true,
+  "warning": "Original permitted field projection: excerpts capped at 160 chars, no date availability, no option descriptions or raw location data. Not full raw responses.",
+  "case": {
+    "case": "transfers_athens",
+    "httpStatus": 200,
+    "data": {
+      "case": "transfers_athens",
+      "purpose": "Candidate/data audit, not recommendation or availability approval",
+      "checkedAt": "2026-10-17T19:04:14.278Z",
+      "destination": {
+        "id": "496",
+        "name": "Athens"
+      },
+      "tag": {
+        "id": 12044,
+        "name": "Airport & Hotel Transfers"
+      },
+      "candidateCount": 50,
+      "products": [
+        {
+          "summary": {
+            "productCode": "189416P13",
+            "title": "Private Limo Transfer From ATH Airport To Athens/Pireaus/Suburbs",
+            "productUrl": "https://www.viator.com/tours/Athens/Private-Transfer-From-Athens-Airport-To-Athens-Center-Suburbs/d496-189416P13?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+            "tags": [
+              12044,
+              367667,
+              20238,
+              367661,
+              367669
+            ],
+            "flags": [
+              "FREE_CANCELLATION",
+              "PRIVATE_TOUR"
+            ],
+            "duration": {
+              "fixedDurationInMinutes": 45
+            },
+            "priceBasis": "unknown",
+            "currency": "EUR",
+            "fromPrice": 180,
+            "fieldsPresent": [
+              "confirmationType",
+              "description",
+              "destinations",
+              "duration",
+              "flags",
+              "images",
+              "itineraryType",
+              "pricing",
+              "productCode",
+              "productUrl",
+              "reviews",
+              "tags",
+              "title",
+              "translationInfo"
+            ],
+            "availability": "Not checked for dates, option or party size; search eligibility only"
+          },
+          "detailHttpStatus": 200,
+          "details": {
+            "productCode": "189416P13",
+            "status": "ACTIVE",
+            "checkedAt": "2026-10-17T19:04:13.478Z",
+            "fieldsPresent": [
+              "additionalInfo",
+              "bookingConfirmationSettings",
+              "bookingQuestions",
+              "bookingRequirements",
+              "cancellationPolicy",
+              "createdAt",
+              "description",
+              "destinations",
+              "exclusions",
+              "images",
+              "inclusions",
+              "itinerary",
+              "language",
+              "lastUpdatedAt",
+              "logistics",
+              "pricingInfo",
+              "productCode",
+              "productOptions",
+              "productUrl",
+              "reviews",
+              "status",
+              "supplier",
+              "tags",
+              "ticketInfo",
+              "timeZone",
+              "title",
+              "translationInfo"
+            ],
+            "languageGuides": [],
+            "itinerary": {
+              "itineraryType": "UNSTRUCTURED",
+              "privateTour": true,
+              "maxTravelersInSharedTour": null,
+              "duration": {
+                "fixedDurationInMinutes": 45
+              },
+              "stopCount": 0,
+              "stops": []
+            },
+            "logistics": {
+              "startCount": 0,
+              "endCount": 1,
+              "pickupOptionType": "PICKUP_EVERYONE",
+              "startDescriptionsPresent": false,
+              "startLocationFields": []
+            },
+            "optionCount": 1,
+            "optionsTruncated": false,
+            "options": [
+              {
+                "code": "TG1",
+                "title": "Airport To Athens/Piraeus",
+                "logistics": null,
+                "languageGuides": []
+              }
+            ],
+            "inclusions": [
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "WiFi on board"
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "English Speaking Driver"
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "Mineral Cold Water"
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "Fuel and tolls"
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "Meet and Greet"
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "Mercedes Air-Conditioned Vehicle"
+              }
+            ],
+            "exclusions": [
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "Gratuities"
+              }
+            ],
+            "additionalInfo": [
+              {
+                "type": "STROLLER_ACCESSIBLE",
+                "description": "Infants and small children can ride in a pram or stroller"
+              },
+              {
+                "type": "PETS_WELCOME",
+                "description": "Service animals allowed"
+              },
+              {
+                "type": "INFANT_SEATS_AVAILABLE",
+                "description": "Specialized infant seats are available"
+              },
+              {
+                "type": "PHYSICAL_EASY",
+                "description": "Suitable for all physical fitness levels"
+              },
+              {
+                "type": "OTHER",
+                "description": "Infant seats are available on request if advised at time of booking"
+              },
+              {
+                "type": "OTHER",
+                "description": "Transport is wheelchair accessible however be prepared for uneven surfaces at the drop off/pick up places which may be difficult for those with walking disabili"
+              }
+            ],
+            "cancellationType": "STANDARD",
+            "protectedContentReturned": false,
+            "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+          }
+        },
+        {
+          "summary": {
+            "productCode": "323957P7",
+            "title": "Departure Transfer from Athens City to Athens Airport",
+            "productUrl": "https://www.viator.com/tours/Athens/Transfer-from-Athens-City-to-Athens-Airport/d496-323957P7?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+            "tags": [
+              21972,
+              12044,
+              367661,
+              367654,
+              367667,
+              367669,
+              20238,
+              22143,
+              367653
+            ],
+            "flags": [
+              "FREE_CANCELLATION",
+              "PRIVATE_TOUR"
+            ],
+            "duration": {
+              "fixedDurationInMinutes": 45
+            },
+            "priceBasis": "unknown",
+            "currency": "EUR",
+            "fromPrice": 40,
+            "fieldsPresent": [
+              "confirmationType",
+              "description",
+              "destinations",
+              "duration",
+              "flags",
+              "images",
+              "itineraryType",
+              "pricing",
+              "productCode",
+              "productUrl",
+              "reviews",
+              "tags",
+              "title",
+              "translationInfo"
+            ],
+            "availability": "Not checked for dates, option or party size; search eligibility only"
+          },
+          "detailHttpStatus": 200,
+          "details": {
+            "productCode": "323957P7",
+            "status": "ACTIVE",
+            "checkedAt": "2026-10-17T19:04:14.174Z",
+            "fieldsPresent": [
+              "additionalInfo",
+              "bookingConfirmationSettings",
+              "bookingQuestions",
+              "bookingRequirements",
+              "cancellationPolicy",
+              "createdAt",
+              "description",
+              "destinations",
+              "exclusions",
+              "images",
+              "inclusions",
+              "itinerary",
+              "language",
+              "lastUpdatedAt",
+              "logistics",
+              "pricingInfo",
+              "productCode",
+              "productOptions",
+              "productUrl",
+              "reviews",
+              "status",
+              "supplier",
+              "tags",
+              "ticketInfo",
+              "timeZone",
+              "title",
+              "translationInfo"
+            ],
+            "languageGuides": [],
+            "itinerary": {
+              "itineraryType": "UNSTRUCTURED",
+              "privateTour": true,
+              "maxTravelersInSharedTour": null,
+              "duration": {
+                "fixedDurationInMinutes": 45
+              },
+              "stopCount": 0,
+              "stops": []
+            },
+            "logistics": {
+              "startCount": 0,
+              "endCount": 1,
+              "pickupOptionType": "PICKUP_EVERYONE",
+              "startDescriptionsPresent": false,
+              "startLocationFields": []
+            },
+            "optionCount": 1,
+            "optionsTruncated": false,
+            "options": [
+              {
+                "code": "TG1",
+                "title": "Departure Transfer from Athens City to Athens Airport",
+                "logistics": null,
+                "languageGuides": []
+              }
+            ],
+            "inclusions": [
+              {
+                "category": "TRANSPORT_AMENITIES",
+                "type": "PRIVATE_TRANSPORTATION",
+                "description": null
+              },
+              {
+                "category": "TRANSPORT_AMENITIES",
+                "type": "WIFI_ONBOARD",
+                "description": null
+              },
+              {
+                "category": "FOOD_AND_DRINK",
+                "type": "BOTTLED_WATER",
+                "description": null
+              },
+              {
+                "category": "TRANSPORT_AMENITIES",
+                "type": "AIR_CONDITIONED_VEHICLE",
+                "description": null
+              }
+            ],
+            "exclusions": [
+              {
+                "category": "FEES_AND_TAXES",
+                "type": "GRATUITIES",
+                "description": null
+              }
+            ],
+            "additionalInfo": [
+              {
+                "type": "INFANT_SEATS_AVAILABLE",
+                "description": "Specialized infant seats are available"
+              },
+              {
+                "type": "PHYSICAL_EASY",
+                "description": "Suitable for all physical fitness levels"
+              },
+              {
+                "type": "OTHER",
+                "description": "Max luggage allowance: 1 big suitcase and 1 carry-on per person"
+              }
+            ],
+            "cancellationType": "STANDARD",
+            "protectedContentReturned": false,
+            "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+          }
+        },
+        {
+          "summary": {
+            "productCode": "241463P2",
+            "title": "Luxury Athens Airport Transfer with Mercedes Benz E -class",
+            "productUrl": "https://www.viator.com/tours/Athens/Athens-Airport-Transfers-with-new-Mercedes-Benz-E-Class/d496-241463P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+            "tags": [
+              21972,
+              367667,
+              20238,
+              367669,
+              367661,
+              12044
+            ],
+            "flags": [
+              "FREE_CANCELLATION",
+              "PRIVATE_TOUR"
+            ],
+            "duration": {
+              "variableDurationFromMinutes": 45,
+              "variableDurationToMinutes": 60
+            },
+            "priceBasis": "unknown",
+            "currency": "EUR",
+            "fromPrice": 75,
+            "fieldsPresent": [
+              "confirmationType",
+              "description",
+              "destinations",
+              "duration",
+              "flags",
+              "images",
+              "itineraryType",
+              "pricing",
+              "productCode",
+              "productUrl",
+              "reviews",
+              "tags",
+              "title",
+              "translationInfo"
+            ],
+            "availability": "Not checked for dates, option or party size; search eligibility only"
+          },
+          "detailHttpStatus": 200,
+          "details": {
+            "productCode": "241463P2",
+            "status": "ACTIVE",
+            "checkedAt": "2026-10-17T19:04:14.278Z",
+            "fieldsPresent": [
+              "additionalInfo",
+              "bookingConfirmationSettings",
+              "bookingQuestions",
+              "bookingRequirements",
+              "cancellationPolicy",
+              "createdAt",
+              "description",
+              "destinations",
+              "images",
+              "inclusions",
+              "itinerary",
+              "language",
+              "lastUpdatedAt",
+              "logistics",
+              "pricingInfo",
+              "productCode",
+              "productOptions",
+              "productUrl",
+              "reviews",
+              "status",
+              "supplier",
+              "tags",
+              "ticketInfo",
+              "timeZone",
+              "title",
+              "translationInfo"
+            ],
+            "languageGuides": [],
+            "itinerary": {
+              "itineraryType": "UNSTRUCTURED",
+              "privateTour": true,
+              "maxTravelersInSharedTour": null,
+              "duration": {
+                "variableDurationFromMinutes": 45,
+                "variableDurationToMinutes": 60
+              },
+              "stopCount": 0,
+              "stops": []
+            },
+            "logistics": {
+              "startCount": 1,
+              "endCount": 1,
+              "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+              "startDescriptionsPresent": true,
+              "startLocationFields": [
+                "ref"
+              ]
+            },
+            "optionCount": 1,
+            "optionsTruncated": false,
+            "options": [
+              {
+                "code": "TG1",
+                "title": "Luxury Athens Airport Transfer with Mercedes Benz E -class",
+                "logistics": null,
+                "languageGuides": []
+              }
+            ],
+            "inclusions": [
+              {
+                "category": "TRANSPORT_AMENITIES",
+                "type": "PRIVATE_TRANSPORTATION",
+                "description": null
+              },
+              {
+                "category": "FOOD_AND_DRINK",
+                "type": "BOTTLED_WATER",
+                "description": null
+              },
+              {
+                "category": "TRANSPORT_AMENITIES",
+                "type": "WIFI_ONBOARD",
+                "description": null
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "Multi phone chargers"
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "All Fees and Taxes"
+              },
+              {
+                "category": "TRANSPORT_AMENITIES",
+                "type": "AIR_CONDITIONED_VEHICLE",
+                "description": null
+              },
+              {
+                "category": "OTHER",
+                "type": "OTHER",
+                "description": "New Mercedes-Benz E-Class"
+              }
+            ],
+            "exclusions": [],
+            "additionalInfo": [
+              {
+                "type": "WHEELCHAIR_ACCESSIBLE",
+                "description": "Wheelchair accessible"
+              },
+              {
+                "type": "STROLLER_ACCESSIBLE",
+                "description": "Infants and small children can ride in a pram or stroller"
+              },
+              {
+                "type": "PETS_WELCOME",
+                "description": "Service animals allowed"
+              },
+              {
+                "type": "PUBLIC_TRANSPORTATION_NEARBY",
+                "description": "Public transportation options are available nearby"
+              },
+              {
+                "type": "INFANT_SEATS_AVAILABLE",
+                "description": "Specialized infant seats are available"
+              },
+              {
+                "type": "TRANSPORTATION_WHEELCHAIR_ACCESSIBLE",
+                "description": "Transportation options are wheelchair accessible"
+              },
+              {
+                "type": "SURFACES_WHEELCHAIR_ACCESSIBLE",
+                "description": "All areas and surfaces are wheelchair accessible"
+              },
+              {
+                "type": "PHYSICAL_EASY",
+                "description": "Suitable for all physical fitness levels"
+              }
+            ],
+            "cancellationType": "STANDARD",
+            "protectedContentReturned": false,
+            "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+          }
+        }
+      ],
+      "detailAccessDenied": false,
+      "detailLimit": 3,
+      "availabilityCalls": 0,
+      "automaticRetries": 0
+    }
+  }
+}
