@@ -1,7 +1,7 @@
 {
   "purpose": "Transfers preview isolated staging preview, not a production release",
-  "sourceCommit": "2affa0ba600e1a8e412ce7c966e23c782e9dd21e",
-  "apiSourceSha256": "56fcdc48803f42998cb944a6709b168fa50902b075255278a6eaf8affdc6c7e0",
+  "sourceCommit": "cb22380fc3c06cfa32a77f57e11602a123f0a274",
+  "apiSourceSha256": "a0b0141b7c396d449d70f799de4c1728465213b2e590f7032c30b849d08dfa44",
   "origin": "https://greecebydan-travel-api-staging.onelion-studio.workers.dev",
   "apiPhotos": false,
   "interactionEvents": false,
@@ -50,5 +50,5 @@
     "/the-lost-hippodrome-beneath-thessaloniki/index.html": "3997e9573fc0f1cad9e5b7b3b0c0ce6dae5481814cd25404175fc307b9c75d20",
     "/what-is-sparta-actually-like-today/index.html": "9f2ee7c4d38a503753f629cd916955c8c9ee6f203ca967111874736decef0153"
   },
-  "bundleSha256": "c7ca4ace7cdcfd1bfa513cbc1219c013d503a04d0a9951db00785097600dc1c7"
+  "bundleSha256": "39fc725064606c87469e235b20bdf4af25ae468c1f7cb014564fc658565a8c18"
 }

@@ -10,7 +10,7 @@ Do not merge PR26/27, change main, or deploy the production Worker/site.
 3. Open
    <https://greecebydan-travel-api-staging.onelion-studio.workers.dev/_preview/meta>
    and return that public JSON. Expected source commit is
-   `2affa0ba600e1a8e412ce7c966e23c782e9dd21e`, `transfersEnabled: true`,
+   `cb22380fc3c06cfa32a77f57e11602a123f0a274`, `transfersEnabled: true`,
    `foodEnabled: true`, `cultureEnabled: true`, `supplierCovers: true`,
    `apiPhotos: false`, `interactionEvents: false`.
 4. Stop there. This is not release approval. We will then run the prepared real
