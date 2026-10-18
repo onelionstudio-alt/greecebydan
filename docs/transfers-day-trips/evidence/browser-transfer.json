@@ -1,0 +1,66 @@
+[
+  {
+    "engine": "chromium",
+    "width": 320,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  },
+  {
+    "engine": "chromium",
+    "width": 768,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 320,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 768,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "status": "PASS",
+    "axeViolations": 0,
+    "source": "17 October permitted field projections; not live staging",
+    "physicalPhones": false
+  }
+]
