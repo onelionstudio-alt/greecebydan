@@ -18,7 +18,7 @@ Portable Markdown:
 ```
 ````
 
-The text above is **proposed preview copy only**, not an edit to an existing article. No real article was changed. Do not copy protected supplier descriptions into author fields. Existing plain links/buttons and end-of-article links remain valid.
+The text above is **proposed preview copy only**, not an edit to an existing article. No real article was changed. The PR proposes a factual Privacy notice update covering article product-code image checks and the existing direct-CDN processing; this is for owner review before release. Do not copy protected supplier descriptions into author fields. Existing plain links/buttons and end-of-article links remain valid.
 
 ## Data and fallback
 
