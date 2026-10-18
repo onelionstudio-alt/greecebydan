@@ -47,7 +47,7 @@
     culture_hard: {field:'additionalInfo',value:'PHYSICAL_HARD',text:'The supplier lists demanding physical effort.'}
   };
   const foodRules = {
-    food_cooking:{value:'COOKING_LISTED',text:'Cooking participation is described in the supplier’s included activity.'},
+    food_cooking:{value:'COOKING_LISTED',text:'A cooking activity is explicitly described by the supplier.'},
     food_walk:{value:'WALK_LISTED',text:'A food walking activity is described by the supplier.'},
     food_tasting:{value:'TASTING_LISTED',text:'Food tastings are explicitly described in the included activity.'}
   };
