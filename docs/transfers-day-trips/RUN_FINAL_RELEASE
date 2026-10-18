@@ -1,0 +1,4 @@
+Owner explicitly approved merge and production publication of Food PR26 and Transfers PR27 on 18 October 2026.
+Food merged as db41b3ad862c78e7e1dd3636889e020ece3c7022; PR27 retargeted to main without conflicts.
+Run final complete category regression before merging PR27. Runtime unchanged from reviewed cb22380 staging.
+2026-10-18T12:48:24.904Z

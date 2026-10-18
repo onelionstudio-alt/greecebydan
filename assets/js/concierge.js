@@ -10,6 +10,7 @@
   let context = null;
   let cultureDestinations = new Set();
   let foodDestinations = new Set();
+  let transferDestinations = new Set();
   const track = (name, extra = {}) => window.gbdEvent?.(name, { source: context?.source || 'direct', placement: 'concierge', kind: form.elements.kind.value, ...extra });
   let requestNumber = 0;
   let controller;
@@ -57,6 +58,13 @@
     if(product.category!=='food'||f?.version!==1||!Number.isFinite(at)||at>Date.now()+30000||!Array.isArray(f.activities)||!f.activities.length||f.activities.some(a=>!Object.hasOwn(foodActivities,a))||!['private','shared','unknown'].includes(f.group)||!Object.hasOwn(pickupNames,f.pickup)||f.dietary!=='not_confirmed')return null;
     return {...f,languages:Array.isArray(f.languages)?f.languages.filter(l=>typeof l==='string'&&/^[a-z]{2}(?:-[A-Z]{2})?$/.test(l)).slice(0,12):[],groupSize:Number.isInteger(f.groupSize)&&f.groupSize>0&&f.groupSize<=1000?f.groupSize:null,cancellationType:['STANDARD','CUSTOM','ALL_SALES_FINAL'].includes(f.cancellationType)?f.cancellationType:'unknown'};
   }
+  const transferRoutes={airport_city:'Athens airport → Athens city',city_airport:'Athens city → Athens airport',airport_port:'Athens airport → Piraeus port',port_airport:'Piraeus port → Athens airport',athens_daytrip:'Day trip departing from Athens',unknown:'Exact direction not confirmed'};
+  const transferRules={transfer_transport:{text:'Transportation is explicitly listed in the inclusions.'},transfer_route:{text:'The listed direction is consistent across inspected option data; confirm exact pickup and drop-off.'}};
+  function transferFor(product){
+    const t=product.transfer,at=Date.parse(t?.checkedAt);
+    if(product.category!=='transfer'||t?.version!==1||!Number.isFinite(at)||at>Date.now()+30000||!['transfer','daytrip'].includes(t.type)||!Object.hasOwn(transferRoutes,t.route)||!['private','shared','unknown'].includes(t.group)||!Object.hasOwn(pickupNames,t.pickup)||['capacity','luggage','childSeats','delayWaiting','operatingHours'].some(k=>t[k]!=='not_confirmed')||(t.type==='daytrip'&&t.route!=='athens_daytrip')||(t.type==='transfer'&&t.route==='athens_daytrip'))return null;
+    return t;
+  }
   const languageNames = {en:'English',de:'German',el:'Greek',fr:'French',it:'Italian',es:'Spanish',pt:'Portuguese',nl:'Dutch'};
   const pickupNames = {meeting_point:'Meeting point listed; confirm on Viator',pickup_listed:'Pickup listed; confirm area and option',pickup_or_meeting:'Pickup or meeting point; confirm option',option_dependent:'Meeting / pickup differs by option',unknown:'Check meeting point on Viator'};
   function cultureFor(product) {
@@ -67,17 +75,19 @@
   const languageText = c => c.culture?.guide==='included' && c.culture.languages.length ? c.culture.languages.map(l=>languageNames[l]||l).join(', ') : null;
   function evidenceFor(product) {
     if (!Array.isArray(product.selectionEvidence)) return [];
-    const seen = new Set(), culture=cultureFor(product), food=foodFor(product);
+    const seen = new Set(), culture=cultureFor(product), food=foodFor(product), transfer=transferFor(product);
     return product.selectionEvidence.filter(fact => {
       if (!fact || seen.has(fact.code)) return false;
       const e=fact.evidence, rule=Object.hasOwn(evidenceRules,fact.code)?evidenceRules[fact.code]:null, cr=Object.hasOwn(cultureRules,fact.code)?cultureRules[fact.code]:null;
       const fr=Object.hasOwn(foodRules,fact.code)?foodRules[fact.code]:null;
+      const tr=Object.hasOwn(transferRules,fact.code)?transferRules[fact.code]:null;
       let valid=false;
-      if(fr&&food) valid=e?.source==='viator_product'&&e.productCode===product.productCode&&e.checkedAt===food.checkedAt&&['inclusions','itinerary.activityInfo.description'].includes(e.field)&&e.value===fr.value&&food.activities.includes(fact.code.slice(5));
+      if(tr&&transfer) valid=e?.source==='viator_product'&&e.productCode===product.productCode&&e.checkedAt===transfer.checkedAt&&(fact.code==='transfer_transport'?e.field==='inclusions'&&e.value==='TRANSPORT_LISTED':transfer.route!=='unknown'&&e.value===transfer.route&&e.field===(transfer.type==='daytrip'?'logistics.start/inclusions':'productOptions'));
+      else if(fr&&food) valid=e?.source==='viator_product'&&e.productCode===product.productCode&&e.checkedAt===food.checkedAt&&['inclusions','itinerary.activityInfo.description'].includes(e.field)&&e.value===fr.value&&food.activities.includes(fact.code.slice(5));
       else if (cr && culture) valid=e?.source==='viator_product' && e.productCode===product.productCode && e.checkedAt===culture.checkedAt && e.field===cr.field && e.value===cr.value && ({culture_guide:culture.guide==='included',culture_private:culture.group==='private',culture_shared:culture.group==='shared',culture_moderate:culture.effort==='moderate',culture_hard:culture.effort==='hard'})[fact.code];
       else if (rule && e?.source==='viator_listing' && typeof e.value==='string' && e.value.length<=100) valid=rule.flag ? e.field==='flags'&&e.value===rule.flag : ['title','description'].includes(e.field)&&rule.pattern.test(e.value);
       if (valid) seen.add(fact.code); return valid;
-    }).slice(0,culture?6:4).map(fact=>({...fact,text:(foodRules[fact.code]||cultureRules[fact.code]||evidenceRules[fact.code]).text}));
+    }).slice(0,culture?6:4).map(fact=>({...fact,text:(transferRules[fact.code]||foodRules[fact.code]||cultureRules[fact.code]||evidenceRules[fact.code]).text}));
   }
   function normalise(product) {
     if (!product || typeof product.title !== 'string' || !product.title.trim() || typeof product.productCode !== 'string' || !/^[A-Za-z0-9_-]{1,40}$/.test(product.productCode)) return null;
@@ -89,7 +99,7 @@
     const currency = product.currency === undefined ? 'EUR' : product.currency;
     const price = Number.isFinite(product.fromPrice) && product.fromPrice >= 0 && typeof currency === 'string' && /^[A-Z]{3}$/.test(currency) ? product.fromPrice : null;
     const rating = Number.isFinite(product.rating) && product.rating > 0 && product.rating <= 5 && Number.isInteger(product.reviews) && product.reviews > 0 ? { value: product.rating, count: product.reviews } : null;
-    return { ...product, duration, currency, price, ratingInfo: rating, basis: ['per_person', 'per_group'].includes(product.priceBasis) ? product.priceBasis : 'unknown', culture: cultureFor(product), food:foodFor(product), facts: evidenceFor(product) };
+    return { ...product, duration, currency, price, ratingInfo: rating, basis: ['per_person', 'per_group'].includes(product.priceBasis) ? product.priceBasis : 'unknown', culture: cultureFor(product), food:foodFor(product), transfer:transferFor(product), facts: evidenceFor(product) };
   }
   const minutes = n => n % 60 === 0 ? `${n / 60} ${n === 60 ? 'hour' : 'hours'}` : `${n} minutes`;
   const durationText = c => c.duration ? (c.duration.min === c.duration.max ? minutes(c.duration.min) : `${minutes(c.duration.min)}–${minutes(c.duration.max)}`) : 'Check duration on Viator';
@@ -160,6 +170,13 @@
       consider('Meeting / pickup method',chosen.map(c=>c.food.pickup==='unknown'?null:pickupNames[c.food.pickup]));
       unknown.push('Allergies, dietary accommodation, exact ingredients and option-specific cancellation deadline');
     }
+    if(chosen.every(c=>c.transfer)){
+      consider('Service listed',chosen.map(c=>c.transfer.type==='daytrip'?'Day trip with transport':'Transfer'));
+      consider('Direction listed',chosen.map(c=>c.transfer.route==='unknown'?null:transferRoutes[c.transfer.route]));
+      consider('Group',chosen.map(c=>c.transfer.group==='unknown'?null:c.transfer.group));
+      consider('Meeting / pickup method',chosen.map(c=>c.transfer.pickup==='unknown'?null:pickupNames[c.transfer.pickup]));
+      unknown.push('Vehicle capacity, luggage, child seats, delayed-flight waiting, operating hours and exact pickup time');
+    }
     if (chosen.every(c => c.price !== null && c.basis !== 'unknown' && c.basis === chosen[0].basis && c.currency === chosen[0].currency)) consider('Starting price', chosen.map(priceText));
     else unknown.push('Comparable pricing unit and final party price — starting amounts are not compared');
     if (!different.length) node('p', 'No confirmed differences in the comparable fields returned. Check the full listings on Viator.', comparison);
@@ -186,11 +203,12 @@
       renderCover(c,article);
       node('h3', c.title, article);
       if (c.ratingInfo) node('p',ratingText(c),article).className = 'concierge-rating';
-      const facts=node('dl','',article); facts.className='concierge-facts'; node('dt','Duration',facts); node('dd',durationText(c),facts); node('dt','Departure',facts); node('dd',c.culture?pickupNames[c.culture.pickup]:c.food?pickupNames[c.food.pickup]:'Check meeting point on Viator',facts);
+      const facts=node('dl','',article); facts.className='concierge-facts'; node('dt',c.transfer?'Duration listed (traffic varies)':'Duration',facts); node('dd',durationText(c),facts); node('dt','Departure',facts); node('dd',c.culture?pickupNames[c.culture.pickup]:c.food?pickupNames[c.food.pickup]:c.transfer?pickupNames[c.transfer.pickup]:'Check meeting point on Viator',facts);
       if(c.culture) {
         node('dt','Guide languages listed',facts);node('dd',languageText(c)||'Not confirmed for every option',facts);
         if(c.culture.admission==='some_not_included') node('p','Some admission fees are not included.',article).className='concierge-price-note';
       }
+      if(c.transfer){node('dt','Direction listed',facts);node('dd',transferRoutes[c.transfer.route],facts);}
       if(c.food) {node('dt','Activity listed',facts);node('dd',c.food.activities.map(a=>foodActivities[a]).join(', '),facts);}
       if (c.facts.length) node('p',c.facts[0].text,article).className='concierge-reason';
       node('p',priceText(c),article).className='concierge-price';
@@ -207,6 +225,11 @@
         node('p',`Group: ${c.food.group}${c.food.groupSize?' · listed maximum '+c.food.groupSize:''}. Human-guide languages listed across inspected options: ${c.food.languages.map(l=>languageNames[l]||l).join(', ')||'not confirmed'}.`,details);
         node('p','Check how much cooking you do yourself, the walking distance, ingredients, drinks, meeting point and cancellation deadline for your selected option. Dietary requests are not allergy guarantees; ask the operator before booking.',details);
         node('p',`Product details checked: ${new Date(c.food.checkedAt).toLocaleString('en-GB',{timeZone:'UTC'})} UTC. This is not date availability.`,details).className='concierge-source';
+      }
+      if(c.transfer){
+        node('p',`Service: ${c.transfer.type==='daytrip'?'day trip with listed transport':'transfer listing'}. Group: ${c.transfer.group}. Confirm the direction for your selected option.`,details);
+        node('p','Vehicle capacity, luggage allowance, child seats, delayed-flight waiting, operating hours and exact pickup time are not confirmed here. Check them with the operator before booking. No fixed party fare or accessible-vehicle guarantee. For day trips, confirm site guides, admissions and return arrangements.',details);
+        node('p',`Product details checked: ${new Date(c.transfer.checkedAt).toLocaleString('en-GB',{timeZone:'UTC'})} UTC. This is not date or vehicle availability.`,details).className='concierge-source';
       }
       if (c.facts.length) { node('h4','Why shown · listing evidence',details); const list=node('ul','',details); c.facts.forEach(f => node('li',f.evidence.source==='viator_product' ? `${f.text} Source: Viator product details · ${f.evidence.field}.` : f.evidence.field === 'flags' ? `${f.text} Source: classification supplied by Viator.` : `${f.text} Source: Viator ${f.evidence.field} — “${f.evidence.value}”.`,list)); }
       node('p','Source: Viator listing data, not an independent inspection or suitability guarantee.',details).className='concierge-source';
@@ -236,13 +259,14 @@
     }
     if (form.elements.mood.selectedOptions[0].disabled) form.elements.mood.value = 'any';
     if (form.elements.style.selectedOptions[0].disabled) form.elements.style.value = 'any';
-    const culture=form.elements.kind.value==='culture',food=form.elements.kind.value==='food';
+    const culture=form.elements.kind.value==='culture',food=form.elements.kind.value==='food',transfer=form.elements.kind.value==='transfer';
     for(const option of form.elements.destination.options) {
-      option.hidden=Boolean(option.value)&&((culture&&!cultureDestinations.has(option.value))||(food&&!foodDestinations.has(option.value)));option.disabled=option.hidden;
+      option.hidden=Boolean(option.value)&&((culture&&!cultureDestinations.has(option.value))||(food&&!foodDestinations.has(option.value))||(transfer&&!transferDestinations.has(option.value)));option.disabled=option.hidden;
     }
     if(form.elements.destination.selectedOptions[0]?.disabled) form.elements.destination.value='';
     document.querySelector('[data-culture-note]').hidden=!culture;
     document.querySelector('[data-food-note]').hidden=!food;
+    document.querySelector('[data-transfer-note]').hidden=!transfer;
   }
   function invalidate() {
     requestNumber++;
@@ -283,6 +307,7 @@
         if (values.budget !== '0') suggestions.push('a higher budget or “Any budget”');
         if (values.style === 'private') suggestions.push('“Open to suggestions” instead of a private trip');
         if (values.mood !== 'any') suggestions.push('“Show me a few ideas” for what matters most');
+        if(values.kind==='transfer') suggestions.push('fewer requirements; the exact route or included transport may not be confirmed in this limited set');
         if(values.kind==='food') suggestions.push('fewer requirements; included activities may not be confirmed in this limited set');
         if(values.kind==='culture') suggestions.push('fewer requirements; guide, group or option conditions may not be confirmed in this limited set');
         feedback('Search complete — no clear matches in this set of results. ' + (suggestions.length ? 'Try ' + suggestions.join(', or ') + ', then search again.' : 'Try another destination, then search again.') + ' Your filters have not been changed.', 'empty', true);
@@ -314,6 +339,10 @@
       if(data.capabilities?.food===true && Array.isArray(data.capabilities.foodDestinations)) {
         foodDestinations=new Set(data.capabilities.foodDestinations.filter(p=>['Athens','Naxos','Crete'].includes(p.name)&&data.destinations.some(d=>String(d.id)===String(p.id)&&d.name===p.name)).map(p=>String(p.id)));
         if(foodDestinations.size){form.elements.kind.querySelector('[value="food"]').hidden=false;form.elements.kind.querySelector('[value="food"]').disabled=false;document.querySelector('[data-food-tool]').hidden=false;}
+      }
+      if(data.capabilities?.transfers===true&&Array.isArray(data.capabilities.transferDestinations)){
+        transferDestinations=new Set(data.capabilities.transferDestinations.filter(p=>p.name==='Athens'&&data.destinations.some(d=>String(d.id)===String(p.id)&&d.name===p.name)).map(p=>String(p.id)));
+        if(transferDestinations.size){form.elements.kind.querySelector('[value="transfer"]').hidden=false;form.elements.kind.querySelector('[value="transfer"]').disabled=false;document.querySelector('[data-transfer-tool]').hidden=false;}
       }
       for (const place of data.destinations) {
         const option = node('option', place.name, form.elements.destination);
