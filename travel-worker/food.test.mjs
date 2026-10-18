@@ -22,11 +22,11 @@ test('food activity needs explicit detail evidence, not title, menu, wine or a m
 });
 test('negative, optional, excluded, truncated and contradictory activities fail closed',()=>{
  for(const statement of ['Cooking class is optional.','No cooking class.','Cooking class available on request.','Cooking class for an additional fee.','Watch a cooking class demonstration.','Cooking class. Watch the chef only.']){const p=product();p.inclusions=[{otherDescription:statement}];assert.equal(conditions(p),null,statement)}
- for(const modify of [p=>p.exclusions=[{otherDescription:'Cooking class'}],p=>p.inclusions.push({otherDescription:'No cooking class.'}),p=>p.productOptions.push({title:'Dinner-only'}),p=>p.inclusions.push({otherDescription:'x'.repeat(2001)}),p=>p.productOptions=[],p=>p.productOptions=Array(21).fill(p.productOptions[0])]){const p=product();modify(p);assert.equal(conditions(p),null)}
+ for(const modify of [p=>p.exclusions=[{otherDescription:'Cooking class'}],p=>p.inclusions.push({otherDescription:'No cooking class.'}),p=>p.productOptions.push({title:'Dinner-only'}),p=>p.inclusions.push({otherDescription:'x'.repeat(2001)}),p=>p.productOptions[0].description='No cooking; tasting only',p=>p.exclusions=[{otherDescription:'No cooking'}],p=>p.productOptions[0].description='x'.repeat(2001),p=>p.productOptions=[],p=>p.productOptions=Array(21).fill(p.productOptions[0])]){const p=product();modify(p);assert.equal(conditions(p),null)}
 });
 test('common option languages and group conflicts never become broad guarantees',()=>{
  const p=product();p.languageGuides=[{type:'GUIDE',language:'en'},{type:'GUIDE',language:'it'}];p.productOptions.push({title:'Evening cooking class',languageGuides:[{type:'GUIDE',language:'el'}]});assert.deepEqual(conditions(p).languages,[]);
- p.itinerary.privateTour=true;p.productOptions[0].title='Small Group Tour';assert.equal(conditions(p).group,'unknown');
+ p.itinerary.privateTour=true;p.productOptions[0].description='Shared small-group activity';assert.equal(conditions(p).group,'unknown');
  p.status='INACTIVE';assert.equal(conditions(p),null);
 });
 test('authentic 17 October field projections: cooking inclusion, food walk, wine mismatch',()=>{

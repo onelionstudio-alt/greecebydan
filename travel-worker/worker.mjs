@@ -169,14 +169,16 @@ export function foodConditions(p, common, checkedAt = new Date().toISOString()) 
   if (description.length > 6000) return null;
   const fields = inc.map(i => ({field:'inclusions', value:text(i.otherDescription)}));
   if (description) fields.push({field:'itinerary.activityInfo.description', value:description});
-  const scopeTitles = options.map(o => text(o.title));
+  if(options.some(o=>typeof o.description==='string'&&o.description.length>2000))return null;
+  const scopeTitles = options.map(o => [text(o.title),text(o.description)].filter(Boolean).join('. '));
   const facts = [];
   const activities = [];
   for (const [activity, pattern] of Object.entries(patterns)) {
     // Check every complete source for contradictions, not just a matching excerpt.
     const relevant = [...fields.map(f => f.value), ...exc.map(i => text(i.otherDescription)), ...scopeTitles];
-    const conflict = exc.some(i => pattern.test(text(i.otherDescription))) || relevant.some(v =>
-      pattern.test(v) && uncertain.test(v));
+    const topic=({cooking:/\b(?:cook(?:ing)?|prepar(?:e|ing)|class|lesson|workshop)\b/i,walk:/\bwalk(?:ing)?\b/i,tasting:/\btast(?:e|ing|ings)\b/i})[activity];
+    const conflict = exc.some(i => topic.test(text(i.otherDescription))) || relevant.some(v =>
+      topic.test(v) && uncertain.test(v));
     const optionConflict = activity === 'cooking' && scopeTitles.some(t => /tasting[- ]only|demonstration|self[- ]guided|dinner[- ]only/i.test(t));
     const proof = fields.find(f => pattern.test(f.value) && !uncertain.test(f.value));
     if (!proof || conflict || optionConflict) continue;
@@ -189,7 +191,7 @@ export function foodConditions(p, common, checkedAt = new Date().toISOString()) 
   const scopes = options.map(languageEntries);
   const languages = [...new Set(scopes[0])].filter(l => scopes.every(s => s.includes(l))).sort().slice(0,12);
   // Option titles also contradict privateTour even when the overall product is private.
-  const group = common.group === 'private' && scopeTitles.some(t => /small[- ]group|shared|group tour/i.test(t)) ? 'unknown' : common.group;
+  const group = (common.group === 'private' && scopeTitles.some(t => /small[- ]group|shared|group tour/i.test(t))) || (common.group === 'shared' && scopeTitles.some(t=>/\bprivate\b/i.test(t))) ? 'unknown' : common.group;
   return {version:1,checkedAt,activities,languages,group,groupSize:group==='shared'?common.groupSize:null,pickup:common.pickup,
     dietary:'not_confirmed',ingredients:'not_confirmed',cancellationType:['STANDARD','CUSTOM','ALL_SALES_FINAL'].includes(p.cancellationPolicy?.type)?p.cancellationPolicy.type:'unknown',facts};
 }
