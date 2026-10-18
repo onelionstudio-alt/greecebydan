@@ -25,6 +25,8 @@ jobs:
           python -m unittest discover -s tests -p 'test_*.py'
           python scripts/build.py
           python scripts/build_article_card_preview.py
+          python scripts/build_staging_preview.py --source-commit "$GITHUB_SHA" --review-label "PR 28" --supplier-covers --culture --food --transfers --output "$RUNNER_TEMP/staging-pr28.mjs"
+          cp "$RUNNER_TEMP/staging-pr28.mjs" "$RUNNER_TEMP/staging-pr28.txt"
           npm install --prefix "$RUNNER_TEMP/article-qa" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
           node "$RUNNER_TEMP/article-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
       - name: Article offers and concierge regression
@@ -43,3 +45,5 @@ jobs:
           name: article-offers-qa
           path: |
             docs/article-affiliate-cards/evidence/
+            ${{ runner.temp }}/staging-pr28.mjs
+            ${{ runner.temp }}/staging-pr28.txt

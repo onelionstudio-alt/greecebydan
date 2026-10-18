@@ -37,10 +37,12 @@ Generate after committing the branch:
 ```sh
 python scripts/build.py
 python scripts/build_article_card_preview.py
-python scripts/build_staging_preview.py --help
+python scripts/build_staging_preview.py --source-commit <reviewed-40-character-SHA> --review-label "PR 28" --supplier-covers --culture --food --transfers --output /tmp/staging-pr28.mjs
 ```
 
 Package the normal staging wrapper with supplier covers and existing Culture/Food/Transfers enabled. The preview generator adds only `/article-card-preview/` to the temporary build, noindex and omitted from sitemap. The normal production build does not include it. The staging packager now rewrites `article-offers.js` to staging as well.
+
+The no-deployment QA artifact includes the complete `staging-pr28.mjs` and identical `.txt` alternative for the Cloudflare editor. In Cloudflare: Workers & Pages → `greecebydan-travel-api-staging` → Edit code → replace the main module with this file → Deploy. Then open `https://greecebydan-travel-api-staging.onelion-studio.workers.dev/_preview/meta` and `/article-card-preview/`. This action changes only the isolated staging Worker.
 
 A remote real-response test is still required after the owner replaces **only** `greecebydan-travel-api-staging` with the reviewed staging module. Keep production unchanged, existing secrets/bindings intact, `INTERACTIONS_ENABLED=false` and `VIATOR_IMAGES_APPROVED=false`. No additional API key or photo permission is needed. Verify the preview actual image or honest no-photo fallback, original product URL, inactive/error behavior, and no forbidden requests. Local/mock tests do not establish a live supplier cover for this specific product.
 
