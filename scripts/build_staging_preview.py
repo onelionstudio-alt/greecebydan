@@ -84,7 +84,7 @@ function stagingPhotoAudit(products, pref) {
             text = text.replace('name="gbd-supplier-covers" content="enabled"', 'name="gbd-supplier-covers" content="' + ('enabled' if supplier_covers else 'disabled') + '"')
             text = text.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">', 1)
             text = text.replace('<body>', f'<body><aside style="padding:12px;background:#fff0bd;color:#222;text-align:center;font:14px Arial">STAGING · {review_label} review only · Legacy API photos and events disabled · supplier covers {'enabled' if supplier_covers else 'disabled'}</aside>', 1)
-        if route in ('/assets/js/concierge.js', '/assets/js/events.js'):
+        if route in ('/assets/js/concierge.js', '/assets/js/events.js', '/assets/js/article-offers.js'):
             text = text.replace(PRODUCTION_API, STAGING_ORIGIN)
             if PRODUCTION_API in text:
                 raise ValueError('Production API left in staging client')
@@ -125,7 +125,7 @@ export default {
     const url = new URL(request.url);
     // Fail closed if someone pastes this bundle into another Worker.
     if (url.origin !== PREVIEW_ORIGIN) return previewResponse('Staging target only', 404);
-    if (['/health', '/destinations', '/search', '/events'].includes(url.pathname)) {
+    if (['/health', '/destinations', '/search', '/events', '/article-cover'].includes(url.pathname)) {
       // Browsers can omit Origin on a same-origin GET. Accept that browser
       // case only; explicit foreign origins still go through core rejection.
       if (url.pathname === '/destinations' && request.method === 'GET' &&

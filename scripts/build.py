@@ -1,6 +1,7 @@
 """Build a deployable static site from Decap's JSON content."""
 import argparse
 import hashlib
+import secrets
 from io import BytesIO
 import html
 import json
@@ -49,7 +50,8 @@ def url(value, image=False):
     raise ValueError('Links must use https://; images may also use /assets/...')
 
 def markdown(value):
-    rendered = md.render(value)
+    env = {'offer_nonce': secrets.token_hex(16)}
+    rendered = md.render(value, env)
     rendered = bleach.clean(rendered,
         tags={'p','h2','h3','h4','ul','ol','li','em','strong','a','blockquote',
               'br','hr','code','pre','img'},
@@ -60,7 +62,44 @@ def markdown(value):
         target = url(html.unescape(match.group(1)))
         label = match.group(2)
         return '<p class="affiliate-cta"><a class="affiliate-button" href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank">'+label+' <span aria-hidden="true">↗</span></a></p>'
-    return re.sub(r'<p><a rel="noopener noreferrer" href="([^"]+)" title="affiliate-button">([^<]+)</a></p>', button, rendered)
+    rendered = re.sub(r'<p><a rel="noopener noreferrer" href="([^"]+)" title="affiliate-button">([^<]+)</a></p>', button, rendered)
+    for i, offer in enumerate(env.get('article_offers', [])):
+        rendered = rendered.replace('<p>'+env['offer_nonce']+str(i)+'END</p>', offer, 1)
+    return rendered
+
+
+def article_offer(data):
+    """Editorial copy only. Supplier media is verified at runtime, never built in."""
+    if not isinstance(data, dict) or set(data) != {'title', 'text', 'url'}:
+        raise ValueError('Viator card needs title, text and url')
+    title, explanation = text(data, 'title'), text(data, 'text')
+    if not title or len(title) > 180 or len(explanation) > 500:
+        raise ValueError('Viator card title/text is missing or too long')
+    target = url(data['url'])
+    parsed = urlsplit(target)
+    match = re.search(r'/(?:d[0-9]+-|p-)([0-9]{1,12}P[0-9]{1,8})$', parsed.path)
+    if parsed.hostname != 'www.viator.com' or parsed.port or parsed.fragment or not match:
+        raise ValueError('Use the full Viator product affiliate URL')
+    return ('<aside class="article-offer" aria-label="Recommended experience" data-product-code="'+esc(match[1])+'">'
+            '<div class="article-offer-copy"><p class="article-offer-label">An experience to consider</p>'
+            '<h3>'+esc(title)+'</h3>'+('<p>'+esc(explanation)+'</p>' if explanation else '')+
+            '<a class="affiliate-button" href="'+esc(target)+'" rel="sponsored noopener noreferrer" target="_blank" '
+            'aria-label="'+esc('View on Viator: '+title+' (opens a new tab)')+'">View on Viator <span aria-hidden="true">↗</span></a>'
+            '<p class="article-offer-disclosure">Affiliate link · We may earn a commission. Confirm details and dates on Viator.</p></div></aside>')
+
+
+# Build the portable fenced component after sanitising normal Markdown. The
+# component itself permits only escaped author copy and a validated product link.
+_default_fence = md.renderer.rules['fence']
+def offer_fence(tokens, idx, options, env):
+    if tokens[idx].info.strip() == 'viator-card':
+        offers = env.setdefault('article_offers', [])
+        if len(offers) >= 3:
+            raise ValueError('At most three Viator cards per page')
+        offers.append(article_offer(json.loads(tokens[idx].content)))
+        return '<p>'+env['offer_nonce']+str(len(offers)-1)+'END</p>'
+    return _default_fence(tokens, idx, options, env)
+md.renderer.rules['fence'] = offer_fence
 
 def read(path):
     data = json.loads(path.read_text(encoding='utf-8'))
@@ -84,6 +123,8 @@ def footer(s):
 
 def page(title, description, route, main, s, image='', structured=None):
     canonical = SITE_URL + route
+    if 'class="article-offer"' in main:
+        main += '<script src="/assets/js/article-offers.js" defer></script>'
     schema='<script type="application/ld+json">'+json.dumps(structured,ensure_ascii=False).replace('<', '\\u003c')+'</script>' if structured else ''
     social_image = f'<meta property="og:image" content="{esc(SITE_URL+image if image.startswith("/") else image)}">' if image else ''
     return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="impact-site-verification" value="37535e28-c2d5-49a4-9c33-0cbce4256c05"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="gbd-interactions" content="disabled"><meta name="gbd-api-photos" content="disabled"><meta name="gbd-supplier-covers" content="enabled"><title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:type" content="'+('website' if route=='/' else 'article')+'">'+social_image+schema+'<link rel="icon" href="/favicon.svg"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/style.css"></head><body>'+header()+main+footer(s)+'<script src="/assets/js/main.js"></script></body></html>\n'
@@ -316,7 +357,7 @@ def build(source=ROOT, output=None):
         hero=story_image(story,hero=True)
         if hero and story['hero_image_ai']:
             hero='<figure class="story-image">'+hero+'<figcaption class="image-ai-caption">'+AI_IMAGE_LABEL+'</figcaption></figure>'
-        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+byline(story)+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] else '')+markdown(story['body'])+advisor_entry(source,slug)+'<!--RELATED_STORIES-->'+youtube(story['youtube_url'])
+        article='<main class="page"><article><span class="kicker">'+esc(story['region'])+' · Greece</span><h1>'+esc(story['title'])+'</h1><p class="story-subtitle">'+esc(story['subtitle'])+'</p>'+byline(story)+story_metadata(story)+hero+('<p class="note story-affiliate-disclosure">'+esc(s['affiliate_disclosure'])+'</p>' if 'affiliate-button' in story['body'] or '```viator-card' in story['body'] else '')+markdown(story['body'])+advisor_entry(source,slug)+'<!--RELATED_STORIES-->'+youtube(story['youtube_url'])
         story_links=affiliate_links(aff)
         if not story_links:
             story_links=affiliate_links([{'label':x.get('title',''), 'url':x.get('url','')} for x in links if x.get('enabled',True) and x.get('url')])

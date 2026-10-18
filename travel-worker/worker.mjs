@@ -515,12 +515,33 @@ export default {
     if (origin !== SITE) return reply({ error: 'Origin not allowed' }, 403);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...headers(origin), 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Max-Age': '86400' } });
     if (route === '/events') return eventRequest(request, env, origin);
-    if (!['/destinations', '/search'].includes(route)) return reply({ error: 'Not found' }, 404, origin);
-    if ((route === '/search' && request.method !== 'POST') || (route === '/destinations' && request.method !== 'GET')) return reply({ error: 'Method not allowed' }, 405, origin);
+    if (!['/destinations', '/search', '/article-cover'].includes(route)) return reply({ error: 'Not found' }, 404, origin);
+    if ((['/search','/article-cover'].includes(route) && request.method !== 'POST') || (route === '/destinations' && request.method !== 'GET')) return reply({ error: 'Method not allowed' }, 405, origin);
     if (!ready) return reply({ error: 'Setup incomplete' }, 503, origin);
     // Anonymous visitors share an IP allowance. This can affect shared networks.
     const { success } = await env.SEARCH_LIMIT.limit({ key: request.headers.get('CF-Connecting-IP') || 'unknown' });
     if (!success) return reply({ error: 'Please try again shortly' }, 429, origin);
+    if (route === '/article-cover') {
+      if (env.SUPPLIER_COVERS_ENABLED !== 'true') return reply({supplierCover:null}, 200, origin);
+      if (!request.headers.get('Content-Type')?.startsWith('application/json')) return reply({error:'JSON required'},415,origin);
+      const body = await request.text();
+      if (body.length > 128) return reply({error:'Request too large'},413,origin);
+      let code;
+      try {
+        const data=JSON.parse(body);
+        if (!data || Array.isArray(data) || Object.keys(data).length!==1 || typeof data.productCode!=='string' || !/^[0-9]{1,12}P[0-9]{1,8}$/.test(data.productCode)) throw new Error();
+        code=data.productCode;
+      } catch { return reply({error:'Invalid product code'},400,origin); }
+      try {
+        // One fresh permitted detail request, bounded by the existing IP limit.
+        // No photo/review endpoint, image proxy, retry or stored image metadata.
+        const product=await viator('/products/'+code,env);
+        if (product.productCode!==code) return reply({supplierCover:null},200,origin);
+        if (product.status==='INACTIVE') return reply({supplierCover:null,active:false},200,origin);
+        if (product.status!=='ACTIVE') return reply({supplierCover:null},200,origin);
+        return reply({supplierCover:supplierCover(product)},200,origin);
+      } catch { return reply({error:'Image temporarily unavailable'},502,origin); }
+    }
     let pref;
     if (route === '/search') {
       if (!request.headers.get('Content-Type')?.startsWith('application/json')) return reply({ error: 'JSON required' }, 415, origin);
