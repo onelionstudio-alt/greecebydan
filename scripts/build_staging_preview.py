@@ -125,7 +125,7 @@ export default {
     const url = new URL(request.url);
     // Fail closed if someone pastes this bundle into another Worker.
     if (url.origin !== PREVIEW_ORIGIN) return previewResponse('Staging target only', 404);
-    if (['/health', '/destinations', '/search', '/events'].includes(url.pathname)) {
+    if (['/health', '/destinations', '/search', '/events', '/article-cover'].includes(url.pathname)) {
       // Browsers can omit Origin on a same-origin GET. Accept that browser
       // case only; explicit foreign origins still go through core rejection.
       if (url.pathname === '/destinations' && request.method === 'GET' &&

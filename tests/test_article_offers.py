@@ -37,3 +37,16 @@ class ArticleOffers(unittest.TestCase):
     def test_regular_code_and_buttons_unchanged(self):
         self.assertIn('<pre><code>',builder.markdown('```json\n{}\n```'))
         self.assertIn('class="affiliate-button"',builder.markdown('[Old button](https://example.com/ "affiliate-button")'))
+
+    def test_staging_routes_and_rewrites_article_adapter(self):
+        spec=importlib.util.spec_from_file_location('preview',ROOT/'scripts/build_staging_preview.py')
+        preview=importlib.util.module_from_spec(spec);spec.loader.exec_module(preview)
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory);(output/'concierge').mkdir();(output/'assets/js').mkdir(parents=True)
+            (output/'concierge/index.html').write_text('<html><head></head><body></body></html>')
+            (output/'assets/js/article-offers.js').write_text("const api='"+preview.PRODUCTION_API+"';")
+            bundle=preview.package(output,(ROOT/'travel-worker/worker.mjs').read_text(),'a'*40,'PR 28',True,True,True,True)
+            self.assertIn("'/events', '/article-cover'].includes(url.pathname)",bundle)
+            self.assertIn("const api='"+preview.STAGING_ORIGIN+"';",bundle)
+            self.assertNotIn("const api='"+preview.PRODUCTION_API+"';",bundle)
