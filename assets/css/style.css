@@ -81,6 +81,6 @@
 .article-offer .article-offer-label{font:600 12px/1.5 Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin:0;color:#385a63}
 .article-offer .article-offer-disclosure{font:13px/1.6 Arial,sans-serif;color:#43575c;margin:12px 0 0}
 .article-offer .affiliate-button{display:inline-block;box-sizing:border-box;max-width:100%;min-height:44px}
-.article-offer-photo{display:block;flex:0 0 180px;width:180px;max-width:100%;height:140px;object-fit:contain;margin:0;border-radius:4px}
+.article-offer-photo{display:block;flex:0 0 180px;width:180px;max-width:100%;height:140px;max-height:140px;object-fit:contain;margin:0;border-radius:4px}
 .article-offer a:focus-visible{outline:3px solid #185e78;outline-offset:4px}
-@media(max-width:600px){.article-offer{flex-direction:column;gap:14px;padding:16px}.article-offer-photo{flex:none;width:100%;height:150px}}
+@media(max-width:600px){.article-offer{flex-direction:column;gap:14px;padding:16px}.article-offer-photo{flex:none;width:100%;height:150px;max-height:150px}}
