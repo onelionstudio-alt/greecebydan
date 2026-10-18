@@ -49,6 +49,7 @@ test('bounded fresh details, exact affiliate URL, unknown pricing and unavailabl
  await assert.rejects(foodSearch([products[0]],pref,'Athens',false,async()=>{throw Error('timeout')}));
  assert.deepEqual(await foodSearch([products[0]],{...pref,mood:'walk'},'Athens',false,async()=>products[0]),[]);
  assert.deepEqual(await foodSearch([products[0]],{...pref,cancellation:true},'Athens',false,async()=>({...products[0],cancellationPolicy:{type:'ALL_SALES_FINAL'}})),[]);
+ const noRefund={...products[0],productOptions:[{title:'Cooking class',description:'Non-refundable option'}]};assert.deepEqual(await foodSearch([products[0]],{...pref,cancellation:true},'Athens',false,async()=>noRefund),[]);
  assert.deepEqual(selectionEvidence(products[0],{...pref,style:'any'}),[]);
 });
 test('Worker Food feature gate and endpoint budget use only existing allowed paths',async()=>{

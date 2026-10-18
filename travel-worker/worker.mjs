@@ -193,7 +193,7 @@ export function foodConditions(p, common, checkedAt = new Date().toISOString()) 
   // Option titles also contradict privateTour even when the overall product is private.
   const group = (common.group === 'private' && scopeTitles.some(t => /small[- ]group|shared|group tour/i.test(t))) || (common.group === 'shared' && scopeTitles.some(t=>/\bprivate\b/i.test(t))) ? 'unknown' : common.group;
   return {version:1,checkedAt,activities,languages,group,groupSize:group==='shared'?common.groupSize:null,pickup:common.pickup,
-    dietary:'not_confirmed',ingredients:'not_confirmed',cancellationType:['STANDARD','CUSTOM','ALL_SALES_FINAL'].includes(p.cancellationPolicy?.type)?p.cancellationPolicy.type:'unknown',facts};
+    dietary:'not_confirmed',ingredients:'not_confirmed',cancellationType:scopeTitles.some(t=>/non[- ]refundable|no refunds|all sales final/i.test(t))?'unknown':['STANDARD','CUSTOM','ALL_SALES_FINAL'].includes(p.cancellationPolicy?.type)?p.cancellationPolicy.type:'unknown',facts};
 }
 
 // Culture uses fresh single-product content, never summaries as proof of inclusions.
@@ -290,7 +290,7 @@ export async function foodSearch(products,pref,place,coversEnabled,detail) {
       const p=await detail(s.productCode);
       if(p?.productCode!==s.productCode)throw new Error('Product identity mismatch');
       const c=foodConditions(p,cultureConditions(p));
-      if(!c || (pref.cancellation&&p.cancellationPolicy?.type!=='STANDARD') || (pref.mood!=='any'&&!c.activities.includes(pref.mood)) || (pref.style!=='any'&&c.group!==pref.style))return null;
+      if(!c || (pref.cancellation&&c.cancellationType!=='STANDARD') || (pref.mood!=='any'&&!c.activities.includes(pref.mood)) || (pref.style!=='any'&&c.group!==pref.style))return null;
       return {summary:{...s,status:p.status,images:p.images},conditions:c};
     }));
     for(const match of batch)if(match){eligible.push(match.summary);conditions.set(match.summary.productCode,match.conditions)}
