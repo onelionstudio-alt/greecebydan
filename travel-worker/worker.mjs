@@ -314,7 +314,7 @@ export function transferTag(tags,mood) {
 export function transferRoute(value) {
   if(typeof value!=='string'||value.length>2000)return 'unknown';
   const t=boundedText(value);
-  if(/\b(?:or|either|optional|request|not|without)\b|\//i.test(t))return 'unknown';
+  if(/\b(?:or|either|optional|request|not|without|return|via)\b|\bround[- ]?trip\b|\//i.test(t))return 'unknown';
   const airport='(?:Athens(?: International)? Airport|ATH Airport)',city='Athens (?:city(?: cent(?:re|er))?|cent(?:re|er))',port='Piraeus (?:cruise )?port';
   const found=[];
   for(const [route,a,b] of [['airport_city',airport,city],['city_airport',city,airport],['airport_port',airport,port],['port_airport',port,airport]])
