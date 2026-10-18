@@ -2,7 +2,7 @@ name: Transfers Day Trips QA (no deployment)
 on:
   push:
     branches: [feat/concierge-transfers-day-trips]
-    paths: ['assets/**', 'travel-worker/**', 'tests/**', 'scripts/**', 'templates/**', '.github/workflows/transfers.yml']
+    paths: ['assets/**', 'travel-worker/**', 'tests/**', 'scripts/**', 'templates/**', '.github/workflows/transfers.yml', 'docs/transfers-day-trips/RUN_FINAL_RELEASE']
   workflow_dispatch:
 permissions:
   contents: read
