@@ -12,7 +12,7 @@ try{for(const engine of [chromium,webkit]){const browser=await engine.launch();t
   if(u.pathname==='/article-cover'&&u.hostname==='greecebydan-travel-api.onelion-studio.workers.dev'){
     calls.push(route.request().postDataJSON());
     let cover={source:'SUPPLIER_PROVIDED',isCover:true,url:'https://media.tacdn.com/media/synthetic-boundary.png',width:720,height:480,checkedAt:Date.now(),expiresAt:Date.now()+299000};
-    if(mode==='traveler')cover.source='TRAVELER_PROVIDED';if(mode==='evil')cover.url='https://evil.test/media/x.jpg';if(mode==='expired')cover.expiresAt=Date.now()-1;if(mode==='short')cover.expiresAt=Date.now()+1500;
+    if(mode==='portrait'){cover.width=300;cover.height=4096}if(mode==='traveler')cover.source='TRAVELER_PROVIDED';if(mode==='evil')cover.url='https://evil.test/media/x.jpg';if(mode==='expired')cover.expiresAt=Date.now()-1;if(mode==='short')cover.expiresAt=Date.now()+1500;
     if(mode==='error')return route.fulfill({status:502,json:{error:'Image temporarily unavailable'}});
     return route.fulfill({json:{supplierCover:mode==='none'||mode==='inactive'?null:cover,...(mode==='inactive'?{active:false}:{})}});
   }
@@ -27,13 +27,14 @@ try{for(const engine of [chromium,webkit]){const browser=await engine.launch();t
  const url=await page.locator('.article-offer a').getAttribute('href');assert.match(url,/pid=P00320497&medium=api&api_version=2.0$/);
  const box=await page.locator('.article-offer').boundingBox();assert.ok(box.height<440);
  await page.locator('.article-offer').screenshot({path:path.join(out,engine.name()+'-'+width+'-text.png')});
- for(const state of ['valid','traveler','evil','expired','error','none','broken','short','inactive']){
+ for(const state of ['valid','portrait','traveler','evil','expired','error','none','broken','short','inactive']){
    mode=state;await visit();
-   if(['valid','short'].includes(state)){
+   if(['valid','portrait','short'].includes(state)){
      await page.locator('.article-offer img').waitFor();
      assert.equal(await page.locator('.article-offer img').getAttribute('alt'),'Tour image: Explore a Milos sailing option');
      assert.equal(await page.locator('.article-offer img').evaluate(e=>getComputedStyle(e).objectFit),'contain');
-     if(state==='valid'){
+     const imageBox=await page.locator('.article-offer img').boundingBox();assert.ok(imageBox.height<=(width<=600?150:140), 'Supplier image must remain compact even when article image styles override height');
+     if(state==='valid'||state==='portrait'){
        await new AxeBuilder({page}).include('.article-offer').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze().then(a=>assert.deepEqual(a.violations.map(v=>v.id),[]));
        // Boundary screenshot uses a deliberately synthetic one-pixel image, not a real tour photo.
        await page.locator('.article-offer').screenshot({path:path.join(out,engine.name()+'-'+width+'-synthetic-cover.png')});
@@ -46,7 +47,7 @@ try{for(const engine of [chromium,webkit]){const browser=await engine.launch();t
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
  }
  mode='none';await visit();await page.locator('.article-offer a').focus();assert.equal(await page.evaluate(()=>document.activeElement.matches('.article-offer a')),true);await page.keyboard.press('Tab');
- assert.ok(calls.every(c=>JSON.stringify(c)==='{"productCode":"345728P2"}'));assert.equal(calls.length,11);assert.deepEqual(forbidden,[]);assert.deepEqual(errors,[]);
+ assert.ok(calls.every(c=>JSON.stringify(c)==='{"productCode":"345728P2"}'));assert.equal(calls.length,12);assert.deepEqual(forbidden,[]);assert.deepEqual(errors,[]);
  report.push({engine:engine.name(),width,status:'PASS',realApi:false,photo:'synthetic boundary only',requests:calls.length});await context.close();
 }}finally{await browser.close()}}}finally{server.close();fs.writeFileSync(path.join(out,'browser.json'),JSON.stringify(report,null,2))}
 console.log('Article offer responsive, source, expiry, error, keyboard and axe boundaries: PASS');

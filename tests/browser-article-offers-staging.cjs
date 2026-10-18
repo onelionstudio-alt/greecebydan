@@ -2,7 +2,7 @@
 const {chromium,webkit}=require('playwright'),AxeBuilder=require('@axe-core/playwright').default;
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const origin='https://greecebydan-travel-api-staging.onelion-studio.workers.dev';
-const expected='672832ac7839729735c3f256648e835c168b069c';
+const expected='22b1c1268d2cb4eb971a9b1ba3cbd516747c4683';
 const out=path.resolve('docs/article-affiliate-cards/evidence/live');fs.mkdirSync(out,{recursive:true});
 const report={testedAt:new Date().toISOString(),sourceCommit:expected,mocks:false,physicalDevices:false,checks:[],status:'INCOMPLETE'};
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -35,6 +35,7 @@ for(const engine of [chromium,webkit]){
   await page.waitForFunction(()=>{const img=document.querySelector('.article-offer img');return img?.complete&&img.naturalWidth>0},null,{timeout:20000});
   assert.equal(await img.getAttribute('src'),cover.url);assert.equal(await img.getAttribute('referrerpolicy'),'no-referrer');assert.ok(await img.getAttribute('alt'));
   assert.equal(await img.evaluate(e=>getComputedStyle(e).objectFit),'contain');
+  const imageBox=await img.boundingBox();assert.ok(imageBox.height<=(width<=600?150:140), 'Actual supplier image exceeds the compact card height');
   assert.equal(await card.getAttribute('data-product-code'),'345728P2');
   const link=card.locator('a'),affiliate=await link.getAttribute('href');
   assert.equal(affiliate,'https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0');
@@ -47,7 +48,7 @@ for(const engine of [chromium,webkit]){
   const axe=await new AxeBuilder({page}).include('.article-offer').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();assert.deepEqual(axe.violations.map(v=>v.id),[]);
   await page.screenshot({path:path.join(out,`real-${engine.name()}-${width}.png`)});
   assert.deepEqual(forbidden,[]);assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);
-  report.checks.push({engine:engine.name(),width,status:'PASS',apiStatus:r.status(),cover,affiliate,network,axeViolations:0,elapsedMs:Date.now()-started});await context.close();
+  report.checks.push({engine:engine.name(),width,status:'PASS',apiStatus:r.status(),cover,affiliate,network,axeViolations:0,imageHeight:imageBox.height,elapsedMs:Date.now()-started});await context.close();
  }
  }finally{await browser.close()}
 }
