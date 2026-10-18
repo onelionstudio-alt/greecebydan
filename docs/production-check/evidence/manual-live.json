@@ -1,0 +1,12 @@
+{
+  "observedDate": "2026-10-18",
+  "recordedAt": "2026-10-18T13:54:17.688221+00:00",
+  "checks": [
+    "Production Food Naxos cooking returned9238P50 and5649732P3; actual2-card comparison opened with focus and unknown prices not compared",
+    "Production airport\u2192Piraeus port returned444139P7; actual CTA opened matching Viator URL/title with original tracking"
+  ],
+  "affiliateUrl": "https://www.viator.com/tours/Athens/Athens-Airport-Arrival-Luxury-Transfer-to-Piraeus/d496-444139P7?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+  "landingTitle": "Athens Airport to Athens or Piraeus Port Private Transfer 2026 - BOOK NOW",
+  "bookingOrAvailabilityAction": false,
+  "publicPagePhotosExtractedOrReused": false
+}

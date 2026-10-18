@@ -1,0 +1,119 @@
+{
+  "status": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+  "reviewedDate": "2026-10-18",
+  "origin": "https://greecebydan.com",
+  "api": "https://greecebydan-travel-api.onelion-studio.workers.dev",
+  "mainCommit": "6213a71af025953940203e052c50f5428c4cb6d9",
+  "runId": 39133021540,
+  "artifactId": 12138449277,
+  "cases": 14,
+  "allCasesPassed": true,
+  "normalAnalyticsRequests": 0,
+  "newPhotoReviewRequests": 0,
+  "disabledCollectorProbe": {
+    "status": 503,
+    "invalidEmptyPayload": true,
+    "eventStored": false
+  },
+  "physicalDevices": false,
+  "inventory": [
+    {
+      "kind": "food",
+      "destination": "50250",
+      "filter": "cooking",
+      "codes": [
+        "9238P50",
+        "5649732P3"
+      ]
+    },
+    {
+      "kind": "transfer",
+      "destination": "496",
+      "filter": "any",
+      "codes": [
+        "189416P13",
+        "323957P7",
+        "241463P2"
+      ]
+    },
+    {
+      "kind": "food",
+      "destination": "496",
+      "filter": "walk",
+      "codes": [
+        "101933P4"
+      ]
+    },
+    {
+      "kind": "food",
+      "destination": "496",
+      "filter": "tasting",
+      "codes": [
+        "417834P1",
+        "26368P30",
+        "388033P1"
+      ]
+    },
+    {
+      "kind": "food",
+      "destination": "960",
+      "filter": "cooking",
+      "codes": [
+        "364301P5"
+      ]
+    },
+    {
+      "kind": "transfer",
+      "destination": "496",
+      "filter": "city_airport",
+      "codes": [
+        "323957P7"
+      ]
+    },
+    {
+      "kind": "transfer",
+      "destination": "496",
+      "filter": "airport_port",
+      "codes": [
+        "444139P7"
+      ]
+    },
+    {
+      "kind": "culture",
+      "destination": "496",
+      "filter": "guided",
+      "codes": [
+        "240841P1",
+        "240841P3",
+        "341709P1"
+      ]
+    },
+    {
+      "kind": "boat",
+      "destination": "22323",
+      "filter": "any",
+      "codes": [
+        "345728P2",
+        "32830P5",
+        "32830P4"
+      ]
+    },
+    {
+      "kind": "wine",
+      "destination": "959",
+      "filter": "any",
+      "codes": [
+        "44792P8",
+        "396495P4",
+        "21559P6"
+      ]
+    }
+  ],
+  "limits": [
+    "Bounded first50 summaries/first12 eligible details, not exhaustive inventory or date availability",
+    "Two open Transfers suggestions retain unknown direction",
+    "Airport\u2192city, port\u2192airport and daytrip inventory limits were reviewed on staging; not reasserted as tested in this production run",
+    "No confirmed excursions outside Athens, vehicle capacity, baggage, child seats, delay waiting, hours or allergy accommodation",
+    "320/768 covered by pre-release regression; production run is Chromium390/1440 and WebKit390"
+  ]
+}
