@@ -75,10 +75,13 @@ feature gate and allowed endpoints. Recorded browser UI: Chromium/WebKit320/390/
 768/1440, keyboard/axe/overflow,2/3 comparison, forged evidence, safe empty/502/429,
 Food and existing category/photo regression. Physical iOS/Android unavailable.
 
-Real new frontend staging is BLOCKED until the owner replaces ONLY the named
-staging Worker with the generated module. No secrets in chat. Inspect real results
-and taxonomy before claiming this category is ready. Safe empty is not proof of
-sufficient assortment. Do not publish either PR merely because local tests pass.
+Real new frontend staging passed on18 October:14 real cases, HTTP200, no
+analytics/new photo/review calls, Chromium390/1440 and WebKit390. See
+LIVE-VERIFICATION.md and evidence/live-review.json for product matrix and limits.
+Airport→city and port→airport remain safe empty in the bounded window. Two
+one-day sightseeing results are named Athens city tours, not confirmed excursions
+outside Athens. Exact affiliate CTA444139P7 was manually followed and verified.
+No booking performed. Physical iOS/Android unavailable. Production is not authorized.
 
 Primary specification: https://docs.viator.com/partner-api/technical/ — inclusions,
 product options and routes, option logistics precedence, STANDARD/UNSTRUCTURED

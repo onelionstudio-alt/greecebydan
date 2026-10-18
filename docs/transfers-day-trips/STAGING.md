@@ -1,4 +1,8 @@
-# Owner action: isolated Transfers staging only
+# Isolated Transfers staging — owner upload completed
+
+Owner confirmed the matching metadata and the real run39127525426 passed.
+The upload steps below are retained for reproducibility; no further upload is
+needed for this reviewed runtime. See LIVE-VERIFICATION.md for inventory limits.
 
 Do not merge PR26/27, change main, or deploy the production Worker/site.
 

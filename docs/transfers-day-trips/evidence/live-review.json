@@ -1,0 +1,61 @@
+{
+  "status": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+  "reviewedAt": "2026-10-18",
+  "runtime": "cb22380fc3c06cfa32a77f57e11602a123f0a274",
+  "runId": 39127525426,
+  "artifactId": 12136223725,
+  "realCases": 14,
+  "allSearchesHttp200": true,
+  "inventory": [
+    {
+      "request": "any",
+      "count": 3,
+      "codes": [
+        "189416P13",
+        "323957P7",
+        "241463P2"
+      ]
+    },
+    {
+      "request": "city_airport",
+      "count": 1,
+      "codes": [
+        "323957P7"
+      ]
+    },
+    {
+      "request": "airport_city",
+      "count": 0,
+      "codes": []
+    },
+    {
+      "request": "airport_port",
+      "count": 1,
+      "codes": [
+        "444139P7"
+      ]
+    },
+    {
+      "request": "port_airport",
+      "count": 0,
+      "codes": []
+    },
+    {
+      "request": "daytrip",
+      "count": 2,
+      "codes": [
+        "349296P1",
+        "349296P5"
+      ]
+    }
+  ],
+  "limits": [
+    "First 50 search summaries / first 12 eligible details; not exhaustive inventory or date availability",
+    "Airport to Athens city and Piraeus port to airport returned no qualified matches",
+    "Two daytrip results are named Athens city sightseeing tours; travel outside Athens is not established",
+    "Two open suggestions retain unknown direction; no reverse-route inference",
+    "Capacity, luggage, child seats, delayed-flight waiting and operating hours not confirmed",
+    "Physical iOS/Android not tested"
+  ],
+  "productionRelease": "NOT_AUTHORIZED"
+}

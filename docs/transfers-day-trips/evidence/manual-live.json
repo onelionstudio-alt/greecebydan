@@ -1,0 +1,12 @@
+{
+  "observedDate": "2026-10-18",
+  "recordedAt": "2026-10-18T12:39:19.572637+00:00",
+  "path": "staging concierge form airport_port \u2192 returned 444139P7 card \u2192 actual booking CTA \u2192 Viator landing",
+  "url": "https://www.viator.com/tours/Athens/Athens-Airport-Arrival-Luxury-Transfer-to-Piraeus/d496-444139P7?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+  "heading": "Athens Airport to Piraeus Port Private Transfer with Meet & Greet",
+  "visibleProductCode": "444139P7",
+  "trackingUnchanged": true,
+  "availabilityOrBookingAction": false,
+  "publicPhotosExtractedOrReused": false,
+  "scope": "Identity/link verification only; no public-page terms or price copied into the recommendation DTO"
+}
