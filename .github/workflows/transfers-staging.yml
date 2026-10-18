@@ -1,0 +1,29 @@
+name: Transfers real staging QA (no deployment)
+on:
+  push:
+    branches: [feat/concierge-transfers-day-trips]
+    paths: ['docs/transfers-day-trips/RUN_REAL_STAGING']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/food-live" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/food-live/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Real frontend and API, no booking or production changes
+        env:
+          NODE_PATH: ${{ runner.temp }}/food-live/node_modules
+        run: node tests/browser-transfers-staging.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: transfers-real-staging
+          path: docs/transfers-day-trips/evidence/

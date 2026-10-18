@@ -27,7 +27,7 @@ test('Route is exact directed option wording; no title/geographic or variant gue
  const p=product();p.title='Athens Airport to Piraeus Port';p.productOptions=[{title:'Transfer'}];assert.equal(condition(p).route,'unknown');p.productOptions=[{title:'Athens Airport to Athens City'},{title:'Athens City to Athens Airport'}];assert.equal(condition(p).route,'unknown');
 });
 test('Included transport, ACTIVE, complete options and service type are required',()=>{
- for(const modify of [p=>p.status='INACTIVE',p=>p.inclusions=[],p=>p.exclusions=[{type:'PRIVATE_TRANSPORTATION'}],p=>p.inclusions=[{otherDescription:'Private transportation is optional'}],p=>p.productOptions=[],p=>p.productOptions=Array(21).fill({title:'Transfer'}),p=>p.productOptions[0].description='x'.repeat(2001),p=>p.tags=[],p=>p.itinerary.unstructuredDescription='Guided city tour with sightseeing']){const p=product();modify(p);assert.equal(condition(p),null)}
+ for(const modify of [p=>p.status='INACTIVE',p=>p.inclusions=[],p=>p.exclusions=[{type:'PRIVATE_TRANSPORTATION'}],p=>p.inclusions=[{otherDescription:'Private transportation is optional'}],p=>p.inclusions=[{type:'PRIVATE_TRANSPORTATION',otherDescription:'On request only'}],p=>p.productOptions[0].description='Transportation not included',p=>p.productOptions=[],p=>p.productOptions=Array(21).fill({title:'Transfer'}),p=>p.productOptions[0].description='x'.repeat(2001),p=>p.tags=[],p=>p.itinerary.unstructuredDescription='Guided city tour with sightseeing']){const p=product();modify(p);assert.equal(condition(p),null)}
  const c=condition(product());assert.equal(c.route,'city_airport');assert.equal(c.group,'private');for(const k of ['capacity','luggage','childSeats','delayWaiting','operatingHours'])assert.equal(c[k],'not_confirmed');
  const p=product();p.productOptions[0].description='Shared small-group transfer';assert.equal(condition(p).group,'unknown');
 });
@@ -43,6 +43,7 @@ test('Fresh bounded adapter keeps exact affiliate URL, unknown price and no fals
  const products=Array.from({length:20},(_,i)=>product('T'+i));let calls=0,active=0,max=0;
  const results=await transferSearch(products,pref,'Athens',false,async code=>{calls++;active++;max=Math.max(max,active);await new Promise(r=>setTimeout(r,1));active--;return products.find(p=>p.productCode===code)},20);
  assert.equal(calls,12);assert.equal(max,2);assert.equal(results.length,3);assert.equal(results[0].url,products[0].productUrl);assert.equal(results[0].priceBasis,'unknown');assert.equal(results[0].supplierCover,null);assert.equal(results[0].transfer.route,'city_airport');
+ const fresh=await transferSearch([{...products[0],duration:{fixedDurationInMinutes:999}}],pref,'Athens',false,async()=>products[0],20);assert.equal(fresh[0].durationMinutes.max,45);
  assert.deepEqual(await transferSearch([products[0]],{...pref,mood:'airport_port'},'Athens',false,async()=>products[0],20),[]);
  assert.deepEqual(await transferSearch([products[0]],pref,'Athens',true,async()=>({...products[0],status:'INACTIVE'}),20),[]);
  assert.deepEqual(await transferSearch([products[0]],{...pref,cancellation:true},'Athens',false,async()=>({...products[0],productOptions:[{title:'Non-refundable transfer'}]}),20),[]);

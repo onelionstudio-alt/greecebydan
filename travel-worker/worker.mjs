@@ -329,6 +329,7 @@ export function transferConditions(p,tagId,dayTrip,checkedAt=new Date().toISOStr
   const transport=inc.find(i=>transportTypes.includes(i.type)||(transportText.test(boundedText(i.otherDescription))&&!uncertain.test(boundedText(i.otherDescription))));
   if(!transport||exc.some(i=>transportTypes.includes(i.type)||/\b(?:transportation|vehicle|transfers?)\b/i.test(boundedText(i.otherDescription))))return null;
   const scopes=options.map(o=>[boundedText(o.title),boundedText(o.description)].filter(Boolean).join('. '));
+  if(inc.some(i=>transportTypes.includes(i.type)&&uncertain.test(boundedText(i.otherDescription)))||scopes.some(t=>/\b(?:transport(?:ation)?|vehicle|transfer)\b/i.test(t)&&/\b(?:no|without|optional|extra|additional|request)\b.{0,60}\b(?:transport(?:ation)?|vehicle|transfer)\b|\b(?:transport(?:ation)?|vehicle|transfer)\b.{0,60}\b(?:not included|optional|extra|additional|request|excluded)\b/i.test(t)))return null;
   const group=(common.group==='private'&&scopes.some(t=>/\bshared|small[- ]group|group tour\b/i.test(t)))||(common.group==='shared'&&scopes.some(t=>/\bprivate\b/i.test(t)))?'unknown':common.group;
   const routes=options.map(o=>transferRoute([o.title,o.description].filter(Boolean).join('. ')));
   let route=routes.every(r=>r===routes[0])?routes[0]:'unknown';
@@ -360,7 +361,7 @@ export async function transferSearch(products,pref,place,coversEnabled,detail,ta
       const p=await detail(s.productCode);if(p?.productCode!==s.productCode)throw new Error('Product identity mismatch');
       const c=transferConditions(p,tagId,pref.mood==='daytrip');
       if(!c||(pref.style!=='any'&&c.group!==pref.style)||(pref.cancellation&&c.cancellationType!=='STANDARD')||(!['any','daytrip'].includes(pref.mood)&&c.route!==pref.mood))return null;
-      return {summary:{...s,status:p.status,images:p.images},conditions:c};
+      return {summary:{...s,duration:p.itinerary?.duration,status:p.status,images:p.images},conditions:c};
     }));
     for(const match of batch)if(match){eligible.push(match.summary);conditions.set(match.summary.productCode,match.conditions)}
   }

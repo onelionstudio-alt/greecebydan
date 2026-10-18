@@ -1,0 +1,43 @@
+name: Transfers Day Trips QA (no deployment)
+on:
+  push:
+    branches: [feat/concierge-transfers-day-trips]
+    paths: ['assets/**', 'travel-worker/**', 'tests/**', 'scripts/**', 'templates/**', '.github/workflows/transfers.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          python -m pip install -r requirements.txt
+          node --test travel-worker/*.test.mjs oauth-worker/worker.test.mjs scripts/culture-inventory/probe.test.mjs
+          python -m unittest discover -s tests -p 'test_*.py'
+          python scripts/build.py
+          npm install --prefix "$RUNNER_TEMP/food-qa" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/food-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Transfers, Food, Boat, Wine, Culture, comparison and covers
+        env:
+          NODE_PATH: ${{ runner.temp }}/food-qa/node_modules
+        run: |
+          node tests/browser-transfers.cjs
+          node tests/browser-food.cjs
+          node tests/browser-cards.cjs
+          node tests/browser-culture.cjs
+          node tests/browser-supplier-covers.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: transfers-qa
+          path: docs/transfers-day-trips/evidence/

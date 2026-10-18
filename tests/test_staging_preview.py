@@ -32,6 +32,22 @@ const m=await(await w.fetch(new Request(o+'/_preview/meta'),env)).json();assert.
                 r=subprocess.run(['node',str(root/'check.mjs')],capture_output=True,text=True)
                 self.assertEqual(r.returncode,0,r.stderr)
 
+    def test_transfers_override_is_isolated_and_does_not_enable_events(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'concierge').mkdir()
+            (root/'concierge/index.html').write_text('<head></head><body>Transfers</body>')
+            source="const SITE = 'https://greecebydan.com';\nexport default {async fetch(req,env){return Response.json({transfers:env.TRANSFERS_ENABLED,food:env.FOOD_ENABLED,events:env.INTERACTIONS_ENABLED,photos:env.VIATOR_IMAGES_APPROVED});}};"
+            (root/'preview.mjs').write_text(builder.package(root,source,'unit','Transfers preview',True,True,True,True))
+            (root/'check.mjs').write_text("""import assert from 'node:assert/strict';import w from './preview.mjs';
+const o='https://greecebydan-travel-api-staging.onelion-studio.workers.dev';
+assert.deepEqual(await(await w.fetch(new Request(o+'/health'),{TRANSFERS_ENABLED:'false',INTERACTIONS_ENABLED:'true',VIATOR_IMAGES_APPROVED:'true'})).json(),{transfers:'true',food:'true',events:'false',photos:'false'});
+assert.equal((await w.fetch(new Request('https://greecebydan-travel-api.onelion-studio.workers.dev/health'),{})).status,404);
+assert.equal((await(await w.fetch(new Request(o+'/_preview/meta'),{})).json()).transfersEnabled,true);
+""")
+            r=subprocess.run(['node',str(root/'check.mjs')],capture_output=True,text=True)
+            self.assertEqual(r.returncode,0,r.stderr)
+
     def test_food_gate_is_staging_only_and_cannot_enable_events(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)
