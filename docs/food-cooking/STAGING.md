@@ -30,4 +30,5 @@ Local generation (no deployment):
 
 No production release or Transfers implementation is represented as complete at
 this handoff. After successful Food staging, proceed to a separate Transfers branch
-from current main without asking for another implementation approval.
+including the verified Food changes, without asking for another implementation approval.
+Keep the Transfers diff separately reviewable and resolve its dependency before any release.
