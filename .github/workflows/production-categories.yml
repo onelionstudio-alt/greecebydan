@@ -1,0 +1,28 @@
+name: Production categories browser verification (no deployment)
+on:
+  push:
+    branches: [qa/food-transfers-production]
+    paths: ['tests/browser-production-categories.cjs', '.github/workflows/production-categories.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/production-qa" --no-package-lock playwright@1.56.1 @axe-core/playwright@4.10.2
+          node "$RUNNER_TEMP/production-qa/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Actual public production UI and API, no bookings
+        env:
+          NODE_PATH: ${{ runner.temp }}/production-qa/node_modules
+        run: node tests/browser-production-categories.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: production-categories
+          path: docs/production-check/evidence/
