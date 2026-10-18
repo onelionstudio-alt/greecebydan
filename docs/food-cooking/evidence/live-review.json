@@ -1,0 +1,19 @@
+{
+  "status": "PASS_WITH_DOCUMENTED_INVENTORY_LIMITS",
+  "sourceCommit": "6df3a2c5e5200573b338e0e503a29e149435e68c",
+  "workflowRun": 39115674529,
+  "artifact": 12132805069,
+  "realCases": 11,
+  "uniqueFoodProducts": 7,
+  "allCasesHttp200": true,
+  "newEventsPhotoReviewCalls": 0,
+  "inventoryCounts": {
+    "Athens food walk": 1,
+    "Athens food tastings": 3,
+    "Naxos cooking": 2,
+    "Crete cooking": 1
+  },
+  "physicalIOSAndroidTested": false,
+  "availabilityForDatesChecked": false,
+  "productionDeployment": false
+}

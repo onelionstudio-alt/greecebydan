@@ -9,6 +9,7 @@
   const submit = form.querySelector('button');
   let context = null;
   let cultureDestinations = new Set();
+  let foodDestinations = new Set();
   const track = (name, extra = {}) => window.gbdEvent?.(name, { source: context?.source || 'direct', placement: 'concierge', kind: form.elements.kind.value, ...extra });
   let requestNumber = 0;
   let controller;
@@ -45,6 +46,17 @@
     culture_moderate: {field:'additionalInfo',value:'PHYSICAL_MEDIUM',text:'The supplier lists moderate physical effort.'},
     culture_hard: {field:'additionalInfo',value:'PHYSICAL_HARD',text:'The supplier lists demanding physical effort.'}
   };
+  const foodRules = {
+    food_cooking:{value:'COOKING_LISTED',text:'A cooking activity is explicitly described by the supplier.'},
+    food_walk:{value:'WALK_LISTED',text:'A food walking activity is described by the supplier.'},
+    food_tasting:{value:'TASTING_LISTED',text:'Food tastings are explicitly described in the included activity.'}
+  };
+  const foodActivities={cooking:'Cooking class',walk:'Food walk',tasting:'Food tastings'};
+  function foodFor(product) {
+    const f=product.food,at=Date.parse(f?.checkedAt);
+    if(product.category!=='food'||f?.version!==1||!Number.isFinite(at)||at>Date.now()+30000||!Array.isArray(f.activities)||!f.activities.length||f.activities.some(a=>!Object.hasOwn(foodActivities,a))||!['private','shared','unknown'].includes(f.group)||!Object.hasOwn(pickupNames,f.pickup)||f.dietary!=='not_confirmed')return null;
+    return {...f,languages:Array.isArray(f.languages)?f.languages.filter(l=>typeof l==='string'&&/^[a-z]{2}(?:-[A-Z]{2})?$/.test(l)).slice(0,12):[],groupSize:Number.isInteger(f.groupSize)&&f.groupSize>0&&f.groupSize<=1000?f.groupSize:null,cancellationType:['STANDARD','CUSTOM','ALL_SALES_FINAL'].includes(f.cancellationType)?f.cancellationType:'unknown'};
+  }
   const languageNames = {en:'English',de:'German',el:'Greek',fr:'French',it:'Italian',es:'Spanish',pt:'Portuguese',nl:'Dutch'};
   const pickupNames = {meeting_point:'Meeting point listed; confirm on Viator',pickup_listed:'Pickup listed; confirm area and option',pickup_or_meeting:'Pickup or meeting point; confirm option',option_dependent:'Meeting / pickup differs by option',unknown:'Check meeting point on Viator'};
   function cultureFor(product) {
@@ -55,15 +67,17 @@
   const languageText = c => c.culture?.guide==='included' && c.culture.languages.length ? c.culture.languages.map(l=>languageNames[l]||l).join(', ') : null;
   function evidenceFor(product) {
     if (!Array.isArray(product.selectionEvidence)) return [];
-    const seen = new Set(), culture=cultureFor(product);
+    const seen = new Set(), culture=cultureFor(product), food=foodFor(product);
     return product.selectionEvidence.filter(fact => {
       if (!fact || seen.has(fact.code)) return false;
       const e=fact.evidence, rule=Object.hasOwn(evidenceRules,fact.code)?evidenceRules[fact.code]:null, cr=Object.hasOwn(cultureRules,fact.code)?cultureRules[fact.code]:null;
+      const fr=Object.hasOwn(foodRules,fact.code)?foodRules[fact.code]:null;
       let valid=false;
-      if (cr && culture) valid=e?.source==='viator_product' && e.productCode===product.productCode && e.checkedAt===culture.checkedAt && e.field===cr.field && e.value===cr.value && ({culture_guide:culture.guide==='included',culture_private:culture.group==='private',culture_shared:culture.group==='shared',culture_moderate:culture.effort==='moderate',culture_hard:culture.effort==='hard'})[fact.code];
+      if(fr&&food) valid=e?.source==='viator_product'&&e.productCode===product.productCode&&e.checkedAt===food.checkedAt&&['inclusions','itinerary.activityInfo.description'].includes(e.field)&&e.value===fr.value&&food.activities.includes(fact.code.slice(5));
+      else if (cr && culture) valid=e?.source==='viator_product' && e.productCode===product.productCode && e.checkedAt===culture.checkedAt && e.field===cr.field && e.value===cr.value && ({culture_guide:culture.guide==='included',culture_private:culture.group==='private',culture_shared:culture.group==='shared',culture_moderate:culture.effort==='moderate',culture_hard:culture.effort==='hard'})[fact.code];
       else if (rule && e?.source==='viator_listing' && typeof e.value==='string' && e.value.length<=100) valid=rule.flag ? e.field==='flags'&&e.value===rule.flag : ['title','description'].includes(e.field)&&rule.pattern.test(e.value);
       if (valid) seen.add(fact.code); return valid;
-    }).slice(0,culture?6:4).map(fact=>({...fact,text:(cultureRules[fact.code]||evidenceRules[fact.code]).text}));
+    }).slice(0,culture?6:4).map(fact=>({...fact,text:(foodRules[fact.code]||cultureRules[fact.code]||evidenceRules[fact.code]).text}));
   }
   function normalise(product) {
     if (!product || typeof product.title !== 'string' || !product.title.trim() || typeof product.productCode !== 'string' || !/^[A-Za-z0-9_-]{1,40}$/.test(product.productCode)) return null;
@@ -75,7 +89,7 @@
     const currency = product.currency === undefined ? 'EUR' : product.currency;
     const price = Number.isFinite(product.fromPrice) && product.fromPrice >= 0 && typeof currency === 'string' && /^[A-Z]{3}$/.test(currency) ? product.fromPrice : null;
     const rating = Number.isFinite(product.rating) && product.rating > 0 && product.rating <= 5 && Number.isInteger(product.reviews) && product.reviews > 0 ? { value: product.rating, count: product.reviews } : null;
-    return { ...product, duration, currency, price, ratingInfo: rating, basis: ['per_person', 'per_group'].includes(product.priceBasis) ? product.priceBasis : 'unknown', culture: cultureFor(product), facts: evidenceFor(product) };
+    return { ...product, duration, currency, price, ratingInfo: rating, basis: ['per_person', 'per_group'].includes(product.priceBasis) ? product.priceBasis : 'unknown', culture: cultureFor(product), food:foodFor(product), facts: evidenceFor(product) };
   }
   const minutes = n => n % 60 === 0 ? `${n / 60} ${n === 60 ? 'hour' : 'hours'}` : `${n} minutes`;
   const durationText = c => c.duration ? (c.duration.min === c.duration.max ? minutes(c.duration.min) : `${minutes(c.duration.min)}–${minutes(c.duration.max)}`) : 'Check duration on Viator';
@@ -139,6 +153,13 @@
       consider('Physical effort listed',chosen.map(c=>c.culture.effort==='unknown'?null:c.culture.effort));
       unknown.push('Guide access inside each site; admission for every stop; stairs and accessible routes');
     }
+    if(chosen.every(c=>c.food)) {
+      consider('Listed activity',chosen.map(c=>c.food.activities.map(a=>foodActivities[a]).join(', ')));
+      consider('Group',chosen.map(c=>c.food.group==='unknown'?null:c.food.group));
+      consider('Listed human-guide languages',chosen.map(c=>c.food.languages.length?c.food.languages.map(l=>languageNames[l]||l).join(', '):null));
+      consider('Meeting / pickup method',chosen.map(c=>c.food.pickup==='unknown'?null:pickupNames[c.food.pickup]));
+      unknown.push('Allergies, dietary accommodation, exact ingredients and option-specific cancellation deadline');
+    }
     if (chosen.every(c => c.price !== null && c.basis !== 'unknown' && c.basis === chosen[0].basis && c.currency === chosen[0].currency)) consider('Starting price', chosen.map(priceText));
     else unknown.push('Comparable pricing unit and final party price — starting amounts are not compared');
     if (!different.length) node('p', 'No confirmed differences in the comparable fields returned. Check the full listings on Viator.', comparison);
@@ -165,11 +186,12 @@
       renderCover(c,article);
       node('h3', c.title, article);
       if (c.ratingInfo) node('p',ratingText(c),article).className = 'concierge-rating';
-      const facts=node('dl','',article); facts.className='concierge-facts'; node('dt','Duration',facts); node('dd',durationText(c),facts); node('dt','Departure',facts); node('dd',c.culture?pickupNames[c.culture.pickup]:'Check meeting point on Viator',facts);
+      const facts=node('dl','',article); facts.className='concierge-facts'; node('dt','Duration',facts); node('dd',durationText(c),facts); node('dt','Departure',facts); node('dd',c.culture?pickupNames[c.culture.pickup]:c.food?pickupNames[c.food.pickup]:'Check meeting point on Viator',facts);
       if(c.culture) {
         node('dt','Guide languages listed',facts);node('dd',languageText(c)||'Not confirmed for every option',facts);
         if(c.culture.admission==='some_not_included') node('p','Some admission fees are not included.',article).className='concierge-price-note';
       }
+      if(c.food) {node('dt','Activity listed',facts);node('dd',c.food.activities.map(a=>foodActivities[a]).join(', '),facts);}
       if (c.facts.length) node('p',c.facts[0].text,article).className='concierge-reason';
       node('p',priceText(c),article).className='concierge-price';
       if (c.price !== null) node('p', c.basis === 'unknown' ? 'Price basis not confirmed. Check the final price on Viator.' : 'Indicative starting price. Check the final price for your dates and party.',article).className='concierge-price-note';
@@ -180,6 +202,11 @@
         node('p',`Group: ${c.culture.group}${c.culture.groupSize?' · listed maximum '+c.culture.groupSize:''}. Physical effort: ${c.culture.effort==='unknown'?'not confirmed':c.culture.effort+' (supplier statement)'}.`,details);
         node('p','Check admission for each stop, which sites the guide enters, meeting and pickup conditions, language, stairs and accessible routes for your selected option. No skip-the-line or step-free guarantee.',details);
         node('p',`Product details checked: ${new Date(c.culture.checkedAt).toLocaleString('en-GB',{timeZone:'UTC'})} UTC. Conditions may change; this is not date availability.`,details).className='concierge-source';
+      }
+      if(c.food) {
+        node('p',`Group: ${c.food.group}${c.food.groupSize?' · listed maximum '+c.food.groupSize:''}. Human-guide languages listed across inspected options: ${c.food.languages.map(l=>languageNames[l]||l).join(', ')||'not confirmed'}.`,details);
+        node('p','Check how much cooking you do yourself, the walking distance, ingredients, drinks, meeting point and cancellation deadline for your selected option. Dietary requests are not allergy guarantees; ask the operator before booking.',details);
+        node('p',`Product details checked: ${new Date(c.food.checkedAt).toLocaleString('en-GB',{timeZone:'UTC'})} UTC. This is not date availability.`,details).className='concierge-source';
       }
       if (c.facts.length) { node('h4','Why shown · listing evidence',details); const list=node('ul','',details); c.facts.forEach(f => node('li',f.evidence.source==='viator_product' ? `${f.text} Source: Viator product details · ${f.evidence.field}.` : f.evidence.field === 'flags' ? `${f.text} Source: classification supplied by Viator.` : `${f.text} Source: Viator ${f.evidence.field} — “${f.evidence.value}”.`,list)); }
       node('p','Source: Viator listing data, not an independent inspection or suitability guarantee.',details).className='concierge-source';
@@ -204,17 +231,18 @@
   }
   function moodOptions() {
     for (const option of [...form.elements.mood.options,...form.elements.style.options]) {
-      option.hidden = Boolean(option.dataset.for && option.dataset.for !== form.elements.kind.value);
+      option.hidden = Boolean(option.dataset.for && !option.dataset.for.split(' ').includes(form.elements.kind.value));
       option.disabled = option.hidden;
     }
     if (form.elements.mood.selectedOptions[0].disabled) form.elements.mood.value = 'any';
     if (form.elements.style.selectedOptions[0].disabled) form.elements.style.value = 'any';
-    const culture=form.elements.kind.value==='culture';
+    const culture=form.elements.kind.value==='culture',food=form.elements.kind.value==='food';
     for(const option of form.elements.destination.options) {
-      option.hidden=culture && Boolean(option.value) && !cultureDestinations.has(option.value);option.disabled=option.hidden;
+      option.hidden=Boolean(option.value)&&((culture&&!cultureDestinations.has(option.value))||(food&&!foodDestinations.has(option.value)));option.disabled=option.hidden;
     }
     if(form.elements.destination.selectedOptions[0]?.disabled) form.elements.destination.value='';
     document.querySelector('[data-culture-note]').hidden=!culture;
+    document.querySelector('[data-food-note]').hidden=!food;
   }
   function invalidate() {
     requestNumber++;
@@ -255,6 +283,7 @@
         if (values.budget !== '0') suggestions.push('a higher budget or “Any budget”');
         if (values.style === 'private') suggestions.push('“Open to suggestions” instead of a private trip');
         if (values.mood !== 'any') suggestions.push('“Show me a few ideas” for what matters most');
+        if(values.kind==='food') suggestions.push('fewer requirements; included activities may not be confirmed in this limited set');
         if(values.kind==='culture') suggestions.push('fewer requirements; guide, group or option conditions may not be confirmed in this limited set');
         feedback('Search complete — no clear matches in this set of results. ' + (suggestions.length ? 'Try ' + suggestions.join(', or ') + ', then search again.' : 'Try another destination, then search again.') + ' Your filters have not been changed.', 'empty', true);
       }
@@ -281,6 +310,10 @@
       if(data.capabilities?.culture===true && Array.isArray(data.capabilities.cultureDestinations)) {
         cultureDestinations=new Set(data.capabilities.cultureDestinations.filter(p=>['Athens','Delphi','Meteora'].includes(p.name)&&data.destinations.some(d=>String(d.id)===String(p.id)&&d.name===p.name)).map(p=>String(p.id)));
         if(cultureDestinations.size) {form.elements.kind.querySelector('[value="culture"]').hidden=false;form.elements.kind.querySelector('[value="culture"]').disabled=false;document.querySelector('[data-culture-tool]').hidden=false;}
+      }
+      if(data.capabilities?.food===true && Array.isArray(data.capabilities.foodDestinations)) {
+        foodDestinations=new Set(data.capabilities.foodDestinations.filter(p=>['Athens','Naxos','Crete'].includes(p.name)&&data.destinations.some(d=>String(d.id)===String(p.id)&&d.name===p.name)).map(p=>String(p.id)));
+        if(foodDestinations.size){form.elements.kind.querySelector('[value="food"]').hidden=false;form.elements.kind.querySelector('[value="food"]').disabled=false;document.querySelector('[data-food-tool]').hidden=false;}
       }
       for (const place of data.destinations) {
         const option = node('option', place.name, form.elements.destination);

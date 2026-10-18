@@ -18,9 +18,10 @@ export function greekDestinations(destinations) {
 
 export function preferences(data) {
   const culture = data?.kind === 'culture';
-  if(culture && Object.keys(data).some(k=>!['kind','destination','style','mood','budget','cancellation'].includes(k))) throw new Error('Invalid Culture fields');
-  const moods = culture ? ['guided'] : data?.kind === 'boat' ? ['sunset','swimming'] : ['food','vineyard'];
-  if (!data || typeof data !== 'object' || Array.isArray(data) || !['boat','wine','culture'].includes(data.kind) || !/^\d{1,8}$/.test(data.destination) || !['any','private',...(culture?['shared']:[])].includes(data.style) || !['any',...moods].includes(data.mood) || !['0','75','150','300'].includes(String(data.budget)) || typeof data.cancellation !== 'boolean') throw new Error('Invalid preferences');
+  const food = data?.kind === 'food';
+  if((culture || food) && Object.keys(data).some(k=>!['kind','destination','style','mood','budget','cancellation'].includes(k))) throw new Error('Invalid Culture fields');
+  const moods = food ? ['walk','cooking','tasting'] : culture ? ['guided'] : data?.kind === 'boat' ? ['sunset','swimming'] : ['food','vineyard'];
+  if (!data || typeof data !== 'object' || Array.isArray(data) || !['boat','wine','culture','food'].includes(data.kind) || !/^\d{1,8}$/.test(data.destination) || !['any','private',...((culture||food)?['shared']:[])].includes(data.style) || !['any',...moods].includes(data.mood) || !['0','75','150','300'].includes(String(data.budget)) || typeof data.cancellation !== 'boolean') throw new Error('Invalid preferences');
   return {kind:data.kind,destination:data.destination,style:data.style,mood:data.mood,budget:Number(data.budget),cancellation:data.cancellation};
 }
 
@@ -139,6 +140,62 @@ export function recommendations(products, pref, supplierCoversEnabled = false) {
   }).sort((a, b) => b.score - a.score || a.fromPrice - b.fromPrice).slice(0, 3).map(({ score, ...p }) => p);
 }
 
+// Food adapter is bundled into the existing Worker; no new upstream endpoints.
+export const FOOD_PLACES = Object.freeze(['Athens', 'Naxos', 'Crete']);
+const array = v => Array.isArray(v) ? v : [];
+const text = v => typeof v === 'string' ? v.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() : '';
+const uncertain = /\b(?:no|not|without|optional|extra|additional|request|surcharge|may|might|could|can|depending|subject|excluded|unavailable|demonstration|watch(?:ing)?|separately|fee|cost|if)\b/i;
+const patterns = {
+  cooking: /\b(?:hands[- ]on cooking|cooking (?:class(?:es)?|lesson(?:s)?|workshop)|(?:you|guests|participants) (?:will )?(?:cook|prepare (?:the |your |a )?(?:meal|dishes|food)))\b/i,
+  walk: /\b(?:food (?:and culinary )?walking (?:tour|experience)|(?:guided )?(?:food|culinary) walk|walking food tour)\b/i,
+  tasting: /\b(?:food(?:\s*(?:&|and)\s*drink)? tastings?|tastings? of (?:Greek |local )?(?:food|delicacies|specialties))\b/i
+};
+export function foodTag(tags, mood, place) {
+  const label = mood === 'cooking' || (mood === 'any' && place !== 'Athens') ? 'Cooking Classes' : 'Food Tours';
+  const name = t => t.allNamesByLocale?.en || t.allNamesByLocale?.['en-US'] || '';
+  const roots = tags.filter(t => name(t) === 'Food & Drink' && !array(t.parentTagIds).length);
+  if (roots.length !== 1) throw new Error('Food taxonomy unavailable');
+  const matches = tags.filter(t => name(t) === label && array(t.parentTagIds).includes(roots[0].tagId));
+  if (matches.length !== 1) throw new Error('Ambiguous Food taxonomy');
+  return matches[0].tagId;
+}
+export function foodConditions(p, common, checkedAt = new Date().toISOString()) {
+  const options = array(p?.productOptions), inc = array(p?.inclusions), exc = array(p?.exclusions);
+  if (p?.status !== 'ACTIVE' || !common || options.length < 1 || options.length > 20 ||
+      [...inc, ...exc].some(i => typeof i.otherDescription === 'string' && i.otherDescription.length > 2000)) return null;
+  const itinerary = p.itinerary;
+  // The ACTIVITY description is documented; menus alone never establish cooking.
+  const description = itinerary?.itineraryType === 'ACTIVITY' ? text(itinerary.activityInfo?.description) : '';
+  if (description.length > 6000) return null;
+  const fields = inc.map(i => ({field:'inclusions', value:text(i.otherDescription)}));
+  if (description) fields.push({field:'itinerary.activityInfo.description', value:description});
+  if(options.some(o=>typeof o.description==='string'&&o.description.length>2000))return null;
+  const scopeTitles = options.map(o => [text(o.title),text(o.description)].filter(Boolean).join('. '));
+  const facts = [];
+  const activities = [];
+  for (const [activity, pattern] of Object.entries(patterns)) {
+    // Check every complete source for contradictions, not just a matching excerpt.
+    const relevant = [...fields.map(f => f.value), ...exc.map(i => text(i.otherDescription)), ...scopeTitles];
+    const topic=({cooking:/\b(?:cook(?:ing)?|prepar(?:e|ing)|class|lesson|workshop)\b/i,walk:/\bwalk(?:ing)?\b/i,tasting:/\btast(?:e|ing|ings)\b/i})[activity];
+    const conflict = exc.some(i => topic.test(text(i.otherDescription))) || relevant.some(v =>
+      topic.test(v) && uncertain.test(v));
+    const optionConflict = activity === 'cooking' && scopeTitles.some(t => /tasting[- ]only|demonstration|self[- ]guided|dinner[- ]only/i.test(t));
+    const proof = fields.find(f => pattern.test(f.value) && !uncertain.test(f.value));
+    if (!proof || conflict || optionConflict) continue;
+    activities.push(activity);
+    facts.push({code:'food_'+activity,evidence:{source:'viator_product',productCode:p.productCode,checkedAt,field:proof.field,value:activity.toUpperCase()+'_LISTED'}});
+  }
+  if (!activities.length) return null;
+  const languageEntries = o => array(o.languageGuides === undefined ? p.languageGuides : o.languageGuides)
+    .filter(g => g?.type === 'GUIDE' && /^[a-z]{2}(?:-[A-Z]{2})?$/.test(g.language || '')).map(g => g.language);
+  const scopes = options.map(languageEntries);
+  const languages = [...new Set(scopes[0])].filter(l => scopes.every(s => s.includes(l))).sort().slice(0,12);
+  // Option titles also contradict privateTour even when the overall product is private.
+  const group = (common.group === 'private' && scopeTitles.some(t => /small[- ]group|shared|group tour/i.test(t))) || (common.group === 'shared' && scopeTitles.some(t=>/\bprivate\b/i.test(t))) ? 'unknown' : common.group;
+  return {version:1,checkedAt,activities,languages,group,groupSize:group==='shared'?common.groupSize:null,pickup:common.pickup,
+    dietary:'not_confirmed',ingredients:'not_confirmed',cancellationType:scopeTitles.some(t=>/non[- ]refundable|no refunds|all sales final/i.test(t))?'unknown':['STANDARD','CUSTOM','ALL_SALES_FINAL'].includes(p.cancellationPolicy?.type)?p.cancellationPolicy.type:'unknown',facts};
+}
+
 // Culture uses fresh single-product content, never summaries as proof of inclusions.
 export const CULTURE_PLACES = Object.freeze({Athens:'acropolis',Delphi:'(?:delphi|deplhi)',Meteora:'meteora'});
 const list = value => Array.isArray(value) ? value : [];
@@ -218,6 +275,29 @@ export async function cultureSearch(products,pref,place,coversEnabled,detail) {
   return recommendations(eligible,{...pref,style:'any',mood:'any'},coversEnabled).map(p => {
     const c = conditions.get(p.productCode);
     return {...p,category:'culture',culture:{...c,facts:undefined},selectionEvidence:[...p.selectionEvidence,...c.facts],reason:'Compare the listed guide, group and admission conditions before booking.'};
+  });
+}
+
+export async function foodSearch(products,pref,place,coversEnabled,detail) {
+  if (!FOOD_PLACES.includes(place)) return [];
+  const seen=new Set(), candidates=list(products).filter(p=>{
+    if (!/^[A-Za-z0-9_-]{1,40}$/.test(p?.productCode||'') || seen.has(p.productCode)) return false;
+    seen.add(p.productCode);
+    return (p.status===undefined||p.status==='ACTIVE') && Number.isFinite(p.pricing?.summary?.fromPrice) && p.pricing.currency==='EUR' && p.pricing.summary.fromPrice>=0 && (!pref.budget||p.pricing.summary.fromPrice<=pref.budget) && (!pref.cancellation||p.flags?.includes('FREE_CANCELLATION'));
+  }).slice(0,12), eligible=[], conditions=new Map();
+  for(let i=0;i<candidates.length;i+=2) {
+    const batch=await Promise.all(candidates.slice(i,i+2).map(async s=>{
+      const p=await detail(s.productCode);
+      if(p?.productCode!==s.productCode)throw new Error('Product identity mismatch');
+      const c=foodConditions(p,cultureConditions(p));
+      if(!c || (pref.cancellation&&c.cancellationType!=='STANDARD') || (pref.mood!=='any'&&!c.activities.includes(pref.mood)) || (pref.style!=='any'&&c.group!==pref.style))return null;
+      return {summary:{...s,status:p.status,images:p.images},conditions:c};
+    }));
+    for(const match of batch)if(match){eligible.push(match.summary);conditions.set(match.summary.productCode,match.conditions)}
+  }
+  return recommendations(eligible,{...pref,style:'any',mood:'any'},coversEnabled).map(p=>{
+    const c=conditions.get(p.productCode);
+    return {...p,category:'food',food:{...c,facts:undefined},selectionEvidence:[...p.selectionEvidence,...c.facts],reason:'Compare the listed activity and option conditions before booking.'};
   });
 }
 
@@ -381,26 +461,32 @@ export default {
       if (body.length > 2048) return reply({ error: 'Request too large' }, 413, origin);
       try { pref = preferences(JSON.parse(body)); } catch { return reply({ error: 'Invalid preferences' }, 400, origin); }
     }
-    const deadline = pref?.kind === 'culture' ? Date.now()+28000 : undefined;
+    const deadline = ['culture','food'].includes(pref?.kind) ? Date.now()+28000 : undefined;
     try {
       const raw = await cached(request, env, '/destinations', WEEK,undefined,deadline);
       const destinations = greekDestinations(raw.destinations || []);
-      if (route === '/destinations') return reply({ destinations, ...(env.CULTURE_ENABLED === 'true' ? {capabilities:{culture:true,cultureDestinations:destinations.filter(d => Object.hasOwn(CULTURE_PLACES,d.name))}} : {}) }, 200, origin);
+      if (route === '/destinations') return reply({ destinations, capabilities:{...(env.FOOD_ENABLED === 'true' ? {food:true,foodDestinations:destinations.filter(d=>FOOD_PLACES.includes(d.name))}:{}), ...(env.CULTURE_ENABLED === 'true' ? {culture:true,cultureDestinations:destinations.filter(d => Object.hasOwn(CULTURE_PLACES,d.name))} : {})} }, 200, origin);
+      if (pref.kind === 'food' && env.FOOD_ENABLED !== 'true') return reply({error:'Food is not enabled'},400,origin);
       if (pref.kind === 'culture' && env.CULTURE_ENABLED !== 'true') return reply({error:'Culture is not enabled'},400,origin);
       if (!destinations.some(d => d.id === pref.destination)) return reply({ error: 'Choose a Greek destination' }, 400, origin);
       const place = destinations.find(d => d.id === pref.destination)?.name;
       if (pref.kind === 'culture' && !Object.hasOwn(CULTURE_PLACES,place)) return reply({error:'Choose Athens, Delphi or Meteora for Culture'},400,origin);
+      if (pref.kind === 'food' && !FOOD_PLACES.includes(place)) return reply({error:'Choose Athens, Naxos or Crete for Food'},400,origin);
       const tags = await cached(request, env, '/products/tags', WEEK,undefined,deadline);
-      const filtering = { destination: pref.destination, tags: [category(tags.tags || [], pref.kind)] };
+      const filtering = { destination: pref.destination, tags: [pref.kind==='food'?foodTag(tags.tags||[],pref.mood,place):category(tags.tags || [], pref.kind)] };
       if (pref.budget) filtering.highestPrice = pref.budget;
       const flags = [];
-      if (pref.kind !== 'culture' && pref.style === 'private') flags.push('PRIVATE_TOUR');
+      if (!['culture','food'].includes(pref.kind) && pref.style === 'private') flags.push('PRIVATE_TOUR');
       if (pref.cancellation) flags.push('FREE_CANCELLATION');
       if (flags.length) filtering.flags = flags;
       const body = { filtering, sorting: { sort: 'TRAVELER_RATING', order: 'DESCENDING' }, pagination: { start: 1, count: 50 }, currency: 'EUR' };
       const coversEnabled = env.SUPPLIER_COVERS_ENABLED === 'true';
       // Live search model: no stored image metadata or stale search fallback.
-      const data = coversEnabled || pref.kind === 'culture' ? await viator('/products/search', env, body,deadline) : await cached(request, env, '/products/search', 900, body);
+      const data = coversEnabled || ['culture','food'].includes(pref.kind) ? await viator('/products/search', env, body,deadline) : await cached(request, env, '/products/search', 900, body);
+      if (pref.kind === 'food') {
+        const products=await foodSearch(data.products||[],pref,place,coversEnabled,code=>viator('/products/'+encodeURIComponent(code),env,undefined,deadline));
+        return reply({products,limitedSelection:true,checkedAt:new Date().toISOString()},200,origin);
+      }
       if (pref.kind === 'culture') {
         const products = await cultureSearch(data.products || [],pref,place,coversEnabled,code=>viator('/products/'+encodeURIComponent(code),env,undefined,deadline));
         return reply({products,limitedSelection:true,checkedAt:new Date().toISOString()},200,origin);

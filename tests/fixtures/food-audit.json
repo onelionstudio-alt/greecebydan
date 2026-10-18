@@ -1,0 +1,1804 @@
+{
+  "recordedAt": "2026-10-17T19:20:35.479Z",
+  "workflowRun": 39062034051,
+  "source": "Permitted staging API field projection; text capped at 160 chars by the original audit; not full raw product responses or date availability. Tests consume only short inclusion and option fields, not omitted activity descriptions.",
+  "cases": [
+    {
+      "case": "food_athens",
+      "httpStatus": 200,
+      "data": {
+        "case": "food_athens",
+        "purpose": "Candidate/data audit, not recommendation or availability approval",
+        "checkedAt": "2026-10-17T19:20:57.336Z",
+        "destination": {
+          "id": "496",
+          "name": "Athens"
+        },
+        "tag": {
+          "id": 21567,
+          "name": "Food Tours"
+        },
+        "candidateCount": 50,
+        "products": [
+          {
+            "summary": {
+              "productCode": "417834P1",
+              "title": "The Greek Food Experience (Max 8 persons)",
+              "productUrl": "https://www.viator.com/tours/Athens/The-Greek-Food-Experience-MAX-8-people/d496-417834P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                20757,
+                22083,
+                12046,
+                21860,
+                11938,
+                11929,
+                367661,
+                20245,
+                21911,
+                21972,
+                367663
+              ],
+              "flags": [
+                "FREE_CANCELLATION",
+                "LIKELY_TO_SELL_OUT"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 240
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 108,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "417834P1",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:20:57.150Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "exclusions",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "el",
+                  "type": "GUIDE"
+                },
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "STANDARD",
+                "privateTour": false,
+                "maxTravelersInSharedTour": 8,
+                "duration": {
+                  "fixedDurationInMinutes": 240
+                },
+                "stopCount": 9,
+                "stops": [
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "We will stroll through the streets of Athens City Center while visiting traditional Greek street food vendors; true Athenian icons, multi-generational family bu"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Mitropoleos Square is one of the most charming squares in the historic center of Athens, located just a few minutes' walk from Syntagma Square and the Plaka dis"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "This beautiful and vibrant square used to be the home of the city\u2019s flower market. Only a couple flower vendors remain, as the rest have been replaced by caf\u00e9 b"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Sample Menu: The ultimate Greek street food dessert: Loukoumades, aka \u201choney puffs\u201d in the best place for 100 years. Aiolou street is a historical central paved"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Visit the vibrant open fish and meat market of the city! Sample Menu: Souvlaki, our national street food. There are hundreds of Souvlaki places, but a handful o"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Sample menu: PDO (Protected Destination of Origin) Greek cheeses, unique meats like pastourma and Tsipouro. Mecca of Athens\u2019 spice and herb stores. Small, famil"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Psyri or Psiri is central, trendy & unconventional! It is a colorful neoclassical neighborhood known for its artisans, specialty stores, restaurants, bars, tave"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Sample menu: Greek Honey tasting. 3 distinct delicious varieties. Kotzia Square is surrounded by lovely neoclassical buildings among which the old town hall. he"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": true,
+                    "description": "Located in the shadow of the Acropolis, the Monastiraki neighborhood is a blend of architectural styles, eras and cultures, sitting adjacent to the districts of"
+                  }
+                ]
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 1,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG1",
+                  "title": "The Greek Food Experience (Max 8 persons)",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "el",
+                      "type": "GUIDE"
+                    },
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "The kind & knowledgeable local guide sharing culinary, cultural & historical stories & anecdotes."
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Groups of maximum 8 people"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "A friendly bunch of travelers from around the world!"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "All food & drink tastings (more than enough for lunch) Visit 8-10 locations & taste 10+ specialties)"
+                }
+              ],
+              "exclusions": [
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Gratuities / Tips for our amazing tour guides, which is always greatly appreciated!"
+                }
+              ],
+              "additionalInfo": [
+                {
+                  "type": "STROLLER_ACCESSIBLE",
+                  "description": "Infants and small children can ride in a pram or stroller"
+                },
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "PUBLIC_TRANSPORTATION_NEARBY",
+                  "description": "Public transportation options are available nearby"
+                },
+                {
+                  "type": "INFANTS_MUST_SIT_ON_LAPS",
+                  "description": "Infants are required to sit on an adult\u2019s lap"
+                },
+                {
+                  "type": "NO_BACK_PROBLEMS",
+                  "description": "Not recommended for travelers with spinal injuries"
+                },
+                {
+                  "type": "PHYSICAL_EASY",
+                  "description": "Suitable for all physical fitness levels"
+                },
+                {
+                  "type": "OTHER",
+                  "description": "You will get an orientation of the city of Athens, and plenty of tips from our local guide"
+                },
+                {
+                  "type": "HEALTH_OTHER",
+                  "description": "This tour is suitable for vegetarians, but not for vegans or those who follow a gluten free diet. There is only one stop where there is no alternative to meat."
+                },
+                {
+                  "type": "HEALTH_OTHER",
+                  "description": "What to wear: Sunscreen, comfortable shoes & weather-appropriate clothing"
+                },
+                {
+                  "type": "HEALTH_OTHER",
+                  "description": "What to bring: A bottle of water, your appetite, wanderlust and curiosity"
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          },
+          {
+            "summary": {
+              "productCode": "101933P4",
+              "title": "Classic Athens Food Tour with Local Drink & Market Visit",
+              "productUrl": "https://www.viator.com/tours/Athens/Traditional-Greek-Food-Tasting/d496-101933P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                367661,
+                12046,
+                20245,
+                21972,
+                11938,
+                21911,
+                367663,
+                11929,
+                21860
+              ],
+              "flags": [
+                "FREE_CANCELLATION"
+              ],
+              "duration": {
+                "variableDurationFromMinutes": 180,
+                "variableDurationToMinutes": 240
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 59,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "101933P4",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:20:57.257Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "exclusions",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "STANDARD",
+                "privateTour": false,
+                "maxTravelersInSharedTour": 10,
+                "duration": {
+                  "variableDurationFromMinutes": 180,
+                  "variableDurationToMinutes": 240
+                },
+                "stopCount": 3,
+                "stops": [
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Syntagma is the central square of Athens. The square is named after the Constitution that Otto, the first King of Greece, was obliged to grant after a popular a"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "The Central Market (also called Varvakios Agora) is located between Monastiraki and Omonoia Square and is a must see if you like to explore the Greek culture an"
+                  },
+                  {
+                    "admissionIncluded": "NOT_APPLICABLE",
+                    "passByWithoutStopping": false,
+                    "description": "Evripidou Street, full of secret treasures and distinctive scents that come from the mix of foods and spices wafting from the open-fronted stores, closely linke"
+                  }
+                ]
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 1,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG1",
+                  "title": "Street Food Tour 7 tastings",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "English-speaking local gastronomy expert"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Guided food and culinary walking experience"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Complimentary digital recipes of selected tastings, sent after the tour"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "One traditional local beverage"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Intimate small-group setting"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Comfortable, leisurely-paced city walk"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "A rich selection of Greek sweet and savory specialties"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Opportunities for photos along the way"
+                }
+              ],
+              "exclusions": [
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Hotel pickup and drop-off"
+                },
+                {
+                  "category": "FEES_AND_TAXES",
+                  "type": "GRATUITIES",
+                  "description": null
+                }
+              ],
+              "additionalInfo": [
+                {
+                  "type": "STROLLER_ACCESSIBLE",
+                  "description": "Infants and small children can ride in a pram or stroller"
+                },
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "PUBLIC_TRANSPORTATION_NEARBY",
+                  "description": "Public transportation options are available nearby"
+                },
+                {
+                  "type": "PHYSICAL_EASY",
+                  "description": "Suitable for all physical fitness levels"
+                },
+                {
+                  "type": "OTHER",
+                  "description": "We are doing our tours only to small groups with a maximum capacity of 10 people."
+                },
+                {
+                  "type": "OTHER",
+                  "description": "Some of the markets and vendors that we visit close after lunchtime, so the walk can only occur in the morning"
+                },
+                {
+                  "type": "OTHER",
+                  "description": "Please advise in advance if vegetarian options are required. The tour is vegetarian-friendly as vegetarians have options in every spot. However, there are limit"
+                },
+                {
+                  "type": "OTHER",
+                  "description": "There will be plenty of food on the tour, so you only need a light breakfast"
+                },
+                {
+                  "type": "OTHER",
+                  "description": "In an effort to ensure that you will avoid any kind of discomfort and most importantly that you will feel comfortable, our guides may change order of the sites "
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          },
+          {
+            "summary": {
+              "productCode": "342330P1",
+              "title": "Acropolis Private Wine Tasting @ Finewine store",
+              "productUrl": "https://www.viator.com/tours/Athens/The-FineWine-Store-Experience-under-Acropolis/d496-342330P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                367654,
+                367653,
+                367667,
+                22111,
+                367661,
+                11891,
+                21972,
+                21911
+              ],
+              "flags": [
+                "FREE_CANCELLATION",
+                "PRIVATE_TOUR"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 90
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 56,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "342330P1",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:20:57.336Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "exclusions",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "ACTIVITY",
+                "privateTour": true,
+                "maxTravelersInSharedTour": null,
+                "duration": {
+                  "fixedDurationInMinutes": 90
+                },
+                "stopCount": 0,
+                "stops": []
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 1,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG1",
+                  "title": "Acropolis Private Wine Tasting @ Finewine store",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "ALCOHOLIC_BEVERAGES",
+                  "description": null
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "All Fees and Taxes"
+                }
+              ],
+              "exclusions": [
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Extra drinks (by the glass or by the bottle) are additionally charged"
+                }
+              ],
+              "additionalInfo": [
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "PUBLIC_TRANSPORTATION_NEARBY",
+                  "description": "Public transportation options are available nearby"
+                },
+                {
+                  "type": "NO_PREGNANT",
+                  "description": "Not recommended for pregnant travelers"
+                },
+                {
+                  "type": "NO_HEART_PROBLEMS",
+                  "description": "Not recommended for travelers with poor cardiovascular health"
+                },
+                {
+                  "type": "PHYSICAL_EASY",
+                  "description": "Suitable for all physical fitness levels"
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          }
+        ],
+        "detailAccessDenied": false,
+        "detailLimit": 3,
+        "availabilityCalls": 0,
+        "automaticRetries": 0
+      }
+    },
+    {
+      "case": "food_naxos",
+      "httpStatus": 200,
+      "data": {
+        "case": "food_naxos",
+        "purpose": "Candidate/data audit, not recommendation or availability approval",
+        "checkedAt": "2026-10-17T19:21:18.003Z",
+        "destination": {
+          "id": "50250",
+          "name": "Naxos"
+        },
+        "tag": {
+          "id": 12034,
+          "name": "Cooking Classes"
+        },
+        "candidateCount": 16,
+        "products": [
+          {
+            "summary": {
+              "productCode": "5649732P3",
+              "title": "Estate Cooking Class and Farm to Table Lunch Ktima Korres Yastra",
+              "productUrl": "https://www.viator.com/tours/Naxos/Estate-Cooking-Class-and-Farm-to-Table-Lunch-Ktima-Korres-Yastra/d50250-5649732P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                21911,
+                367661,
+                12034,
+                12046,
+                367667,
+                11890,
+                11891,
+                21578,
+                21571
+              ],
+              "flags": [
+                "FREE_CANCELLATION",
+                "NEW_ON_VIATOR"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 210
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 110,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "5649732P3",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:21:17.828Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "el",
+                  "type": "GUIDE"
+                },
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "ACTIVITY",
+                "privateTour": false,
+                "maxTravelersInSharedTour": 15,
+                "duration": {
+                  "fixedDurationInMinutes": 210
+                },
+                "stopCount": 0,
+                "stops": []
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 2,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG1",
+                  "title": "10AM - Morning Session",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "el",
+                      "type": "GUIDE"
+                    },
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                },
+                {
+                  "code": "TG2",
+                  "title": "2:15PM - Afternoon Session",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "el",
+                      "type": "GUIDE"
+                    },
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Cooking class"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Guided Tour"
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "ALCOHOLIC_BEVERAGES",
+                  "description": null
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "LUNCH",
+                  "description": null
+                }
+              ],
+              "exclusions": [],
+              "additionalInfo": [
+                {
+                  "type": "INFANT_SEATS_AVAILABLE",
+                  "description": "Specialized infant seats are available"
+                },
+                {
+                  "type": "NO_PREGNANT",
+                  "description": "Not recommended for pregnant travelers"
+                },
+                {
+                  "type": "NO_HEART_PROBLEMS",
+                  "description": "Not recommended for travelers with poor cardiovascular health"
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          },
+          {
+            "summary": {
+              "productCode": "322117P2",
+              "title": "18th Century Watermill Cooking Experience in Potamia",
+              "productUrl": "https://www.viator.com/tours/Naxos/18th-Century-Watermill-Baking-Experience/d50250-322117P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                12034,
+                367667,
+                21911,
+                367658,
+                367661
+              ],
+              "flags": [
+                "FREE_CANCELLATION",
+                "PRIVATE_TOUR"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 300
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 120,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "322117P2",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:21:17.891Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "exclusions",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "el",
+                  "type": "GUIDE"
+                },
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "ACTIVITY",
+                "privateTour": true,
+                "maxTravelersInSharedTour": null,
+                "duration": {
+                  "fixedDurationInMinutes": 300
+                },
+                "stopCount": 0,
+                "stops": []
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": false,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 2,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG2",
+                  "title": "Small Group Tour",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "el",
+                      "type": "GUIDE"
+                    },
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                },
+                {
+                  "code": "TG1",
+                  "title": "18th Century Watermill Cooking Experience in Potamia",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "el",
+                      "type": "GUIDE"
+                    },
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "ALCOHOLIC_BEVERAGES",
+                  "description": null
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "LUNCH",
+                  "description": null
+                }
+              ],
+              "exclusions": [
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Gratuities"
+                }
+              ],
+              "additionalInfo": [
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "INFANTS_MUST_SIT_ON_LAPS",
+                  "description": "Infants are required to sit on an adult\u2019s lap"
+                },
+                {
+                  "type": "HEALTH_OTHER",
+                  "description": "Not recommended for people with celiac disease"
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          },
+          {
+            "summary": {
+              "productCode": "5489474P1",
+              "title": "Cooking Experience Live Music and Traditional Dance in Naxos",
+              "productUrl": "https://www.viator.com/tours/Naxos/Naxos-Cooking-experience-in-a-historic-setting-nearby-Kouros/d50250-5489474P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                21860,
+                22083,
+                12046,
+                21972,
+                367652,
+                21571,
+                11890,
+                367667,
+                20757,
+                367654,
+                12034,
+                21578,
+                21911,
+                367661,
+                367658,
+                367659,
+                367653
+              ],
+              "flags": [
+                "FREE_CANCELLATION",
+                "LIKELY_TO_SELL_OUT"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 240
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 100,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "5489474P1",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:21:18.003Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "exclusions",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "ACTIVITY",
+                "privateTour": false,
+                "maxTravelersInSharedTour": 14,
+                "duration": {
+                  "fixedDurationInMinutes": 240
+                },
+                "stopCount": 0,
+                "stops": []
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 1,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG1",
+                  "title": "Cooking Experience Live Music and Traditional Dance in Naxos",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "ALCOHOLIC_BEVERAGES",
+                  "description": null
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "English Guide"
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "Homemade sweets and drinks"
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "LUNCH",
+                  "description": null
+                }
+              ],
+              "exclusions": [
+                {
+                  "category": "TRANSPORT_AMENITIES",
+                  "type": "PRIVATE_TRANSPORTATION",
+                  "description": null
+                }
+              ],
+              "additionalInfo": [
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "INFANT_SEATS_AVAILABLE",
+                  "description": "Specialized infant seats are available"
+                },
+                {
+                  "type": "HEALTH_OTHER",
+                  "description": "We can accommodate dietary restrictions such as vegetarian, vegan, gluten-free, etc. Or if you have dietary requirements. Please indicate it to the special requ"
+                },
+                {
+                  "type": "HEALTH_OTHER",
+                  "description": "We only serve alcoholic drinks for travelers 18 years old and above. Minor travelers below 18 years old will be served non-alcoholic drinks."
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          }
+        ],
+        "detailAccessDenied": false,
+        "detailLimit": 3,
+        "availabilityCalls": 0,
+        "automaticRetries": 0
+      }
+    },
+    {
+      "case": "food_crete",
+      "httpStatus": 200,
+      "data": {
+        "case": "food_crete",
+        "purpose": "Candidate/data audit, not recommendation or availability approval",
+        "checkedAt": "2026-10-17T19:21:38.776Z",
+        "destination": {
+          "id": "960",
+          "name": "Crete"
+        },
+        "tag": {
+          "id": 12034,
+          "name": "Cooking Classes"
+        },
+        "candidateCount": 50,
+        "products": [
+          {
+            "summary": {
+              "productCode": "432159P1",
+              "title": "Authentic Cretan Cooking Class & Farm Experience in Chania, Crete",
+              "productUrl": "https://www.viator.com/tours/Chania/Veggera/d4251-432159P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                21911,
+                367659,
+                11969,
+                12034,
+                21423,
+                367652,
+                21469,
+                21753,
+                367667,
+                11902,
+                11903,
+                22143,
+                21860,
+                12046,
+                21972,
+                367661,
+                367653,
+                367654
+              ],
+              "flags": [
+                "FREE_CANCELLATION"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 300
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 121.63,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "432159P1",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:21:38.572Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "ACTIVITY",
+                "privateTour": false,
+                "maxTravelersInSharedTour": 8,
+                "duration": {
+                  "fixedDurationInMinutes": 300
+                },
+                "stopCount": 0,
+                "stops": []
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 1,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG1",
+                  "title": "Authentic Cretan Cooking Class & Farm Experience in Chania, Crete",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "LUNCH",
+                  "description": null
+                }
+              ],
+              "exclusions": [],
+              "additionalInfo": [
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "NO_HEART_PROBLEMS",
+                  "description": "Not recommended for travelers with poor cardiovascular health"
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          },
+          {
+            "summary": {
+              "productCode": "364920P1",
+              "title": "Cooking Lesson in Heraclion",
+              "productUrl": "https://www.viator.com/tours/Crete/Cooking-Lesson-in-Heraclion/d960-364920P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                21860,
+                367654,
+                12034,
+                22143,
+                21972,
+                21911,
+                367661,
+                367653,
+                367667
+              ],
+              "flags": [
+                "FREE_CANCELLATION"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 240
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 95,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "364920P1",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:21:38.643Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                },
+                {
+                  "language": "it",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "ACTIVITY",
+                "privateTour": false,
+                "maxTravelersInSharedTour": 8,
+                "duration": {
+                  "fixedDurationInMinutes": 240
+                },
+                "stopCount": 0,
+                "stops": []
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 2,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG1",
+                  "title": "Cooking Lesson in Heraclion",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "it",
+                      "type": "GUIDE"
+                    },
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                },
+                {
+                  "code": "TG3",
+                  "title": "Afternoon Cooking",
+                  "logistics": null,
+                  "languageGuides": [
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "SODA_POP",
+                  "description": null
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "ALCOHOLIC_BEVERAGES",
+                  "description": null
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "SNACKS",
+                  "description": null
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "COFFEE_AND_TEA",
+                  "description": null
+                }
+              ],
+              "exclusions": [],
+              "additionalInfo": [
+                {
+                  "type": "WHEELCHAIR_ACCESSIBLE",
+                  "description": "Wheelchair accessible"
+                },
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "PUBLIC_TRANSPORTATION_NEARBY",
+                  "description": "Public transportation options are available nearby"
+                },
+                {
+                  "type": "INFANTS_MUST_SIT_ON_LAPS",
+                  "description": "Infants are required to sit on an adult\u2019s lap"
+                },
+                {
+                  "type": "INFANT_SEATS_AVAILABLE",
+                  "description": "Specialized infant seats are available"
+                },
+                {
+                  "type": "TRANSPORTATION_WHEELCHAIR_ACCESSIBLE",
+                  "description": "Transportation options are wheelchair accessible"
+                },
+                {
+                  "type": "SURFACES_WHEELCHAIR_ACCESSIBLE",
+                  "description": "All areas and surfaces are wheelchair accessible"
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          },
+          {
+            "summary": {
+              "productCode": "71256P2",
+              "title": "Cretan Traditional Cooking Lessons",
+              "productUrl": "https://www.viator.com/tours/Crete/Cretan-Traditional-Cooking-Lessons/d960-71256P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+              "tags": [
+                21860,
+                12034,
+                367667,
+                367661,
+                367668,
+                21911
+              ],
+              "flags": [
+                "FREE_CANCELLATION"
+              ],
+              "duration": {
+                "fixedDurationInMinutes": 300
+              },
+              "priceBasis": "unknown",
+              "currency": "EUR",
+              "fromPrice": 110,
+              "fieldsPresent": [
+                "confirmationType",
+                "description",
+                "destinations",
+                "duration",
+                "flags",
+                "images",
+                "itineraryType",
+                "pricing",
+                "productCode",
+                "productUrl",
+                "reviews",
+                "tags",
+                "title",
+                "translationInfo"
+              ],
+              "availability": "Not checked for dates, option or party size; search eligibility only"
+            },
+            "detailHttpStatus": 200,
+            "details": {
+              "productCode": "71256P2",
+              "status": "ACTIVE",
+              "checkedAt": "2026-10-17T19:21:38.776Z",
+              "fieldsPresent": [
+                "additionalInfo",
+                "bookingConfirmationSettings",
+                "bookingQuestions",
+                "bookingRequirements",
+                "cancellationPolicy",
+                "createdAt",
+                "description",
+                "destinations",
+                "images",
+                "inclusions",
+                "itinerary",
+                "language",
+                "languageGuides",
+                "lastUpdatedAt",
+                "logistics",
+                "pricingInfo",
+                "productCode",
+                "productOptions",
+                "productUrl",
+                "reviews",
+                "status",
+                "supplier",
+                "tags",
+                "ticketInfo",
+                "timeZone",
+                "title",
+                "translationInfo"
+              ],
+              "languageGuides": [
+                {
+                  "language": "en",
+                  "type": "GUIDE"
+                }
+              ],
+              "itinerary": {
+                "itineraryType": "ACTIVITY",
+                "privateTour": false,
+                "maxTravelersInSharedTour": 14,
+                "duration": {
+                  "fixedDurationInMinutes": 300
+                },
+                "stopCount": 0,
+                "stops": []
+              },
+              "logistics": {
+                "startCount": 1,
+                "endCount": 1,
+                "pickupOptionType": "PICKUP_AND_MEET_AT_START_POINT",
+                "startDescriptionsPresent": true,
+                "startLocationFields": [
+                  "ref"
+                ]
+              },
+              "optionCount": 2,
+              "optionsTruncated": false,
+              "options": [
+                {
+                  "code": "TG2",
+                  "title": "PRIVATE CRETAN COOKING CLASS",
+                  "logistics": {
+                    "startCount": 1,
+                    "endCount": 1,
+                    "pickupOptionType": "MEET_EVERYONE_AT_START_POINT",
+                    "startDescriptionsPresent": true,
+                    "startLocationFields": [
+                      "ref"
+                    ]
+                  },
+                  "languageGuides": [
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                },
+                {
+                  "code": "TG1",
+                  "title": "Cretan Traditional Cooking Lessons",
+                  "logistics": {
+                    "startCount": 1,
+                    "endCount": 1,
+                    "pickupOptionType": "PICKUP_AND_MEET_AT_START_POINT",
+                    "startDescriptionsPresent": true,
+                    "startLocationFields": [
+                      "ref"
+                    ]
+                  },
+                  "languageGuides": [
+                    {
+                      "language": "en",
+                      "type": "GUIDE"
+                    }
+                  ]
+                }
+              ],
+              "inclusions": [
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "ALCOHOLIC_BEVERAGES",
+                  "description": null
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "SNACKS",
+                  "description": null
+                },
+                {
+                  "category": "OTHER",
+                  "type": "OTHER",
+                  "description": "All Fees and Taxes"
+                },
+                {
+                  "category": "FOOD_AND_DRINK",
+                  "type": "DINNER",
+                  "description": null
+                },
+                {
+                  "category": "TRANSPORT_AMENITIES",
+                  "type": "AIR_CONDITIONED_VEHICLE",
+                  "description": null
+                }
+              ],
+              "exclusions": [],
+              "additionalInfo": [
+                {
+                  "type": "WHEELCHAIR_ACCESSIBLE",
+                  "description": "Wheelchair accessible"
+                },
+                {
+                  "type": "STROLLER_ACCESSIBLE",
+                  "description": "Infants and small children can ride in a pram or stroller"
+                },
+                {
+                  "type": "PETS_WELCOME",
+                  "description": "Service animals allowed"
+                },
+                {
+                  "type": "INFANTS_MUST_SIT_ON_LAPS",
+                  "description": "Infants are required to sit on an adult\u2019s lap"
+                },
+                {
+                  "type": "INFANT_SEATS_AVAILABLE",
+                  "description": "Specialized infant seats are available"
+                }
+              ],
+              "cancellationType": "STANDARD",
+              "protectedContentReturned": false,
+              "note": "Supplier listing data, not independent verification. No meeting address, stair count, dietary guarantee or availability inferred. Descriptive excerpts capped at 160 characters."
+            }
+          }
+        ],
+        "detailAccessDenied": false,
+        "detailLimit": 3,
+        "availabilityCalls": 0,
+        "automaticRetries": 0
+      }
+    }
+  ]
+}

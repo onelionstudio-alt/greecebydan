@@ -1,0 +1,918 @@
+{
+  "mode": "Real deployed frontend and Worker, actual permitted API responses, no purchases",
+  "testedAt": "2026-10-18T09:32:18.078Z",
+  "physicalDevices": false,
+  "checks": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "food",
+      "place": "496",
+      "mood": "walk",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "101933P4",
+          "title": "Classic Athens Food Tour with Local Drink & Market Visit",
+          "url": "https://www.viator.com/tours/Athens/Traditional-Greek-Food-Tasting/d496-101933P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:32:19.735Z",
+            "activities": [
+              "walk"
+            ],
+            "languages": [
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 10,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_walk",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "101933P4",
+                "checkedAt": "2026-10-18T09:32:19.735Z",
+                "field": "inclusions",
+                "value": "WALK_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "food",
+      "placeName": "Naxos",
+      "mood": "cooking",
+      "place": "50250",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "9238P50",
+          "title": "Walking Tour and Cooking Class on Naxos with Local Market Visit",
+          "url": "https://www.viator.com/tours/Naxos/Naxos-A-Taste-of-Naxos-visit-the-local-market-cooking-class/d50250-9238P50?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:32:41.818Z",
+            "activities": [
+              "cooking"
+            ],
+            "languages": [
+              "el",
+              "en",
+              "ru"
+            ],
+            "group": "shared",
+            "groupSize": 8,
+            "pickup": "option_dependent",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_cooking",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "9238P50",
+                "checkedAt": "2026-10-18T09:32:41.818Z",
+                "field": "itinerary.activityInfo.description",
+                "value": "COOKING_LISTED"
+              }
+            }
+          ]
+        },
+        {
+          "code": "5649732P3",
+          "title": "Estate Cooking Class and Farm to Table Lunch Ktima Korres Yastra",
+          "url": "https://www.viator.com/tours/Naxos/Estate-Cooking-Class-and-Farm-to-Table-Lunch-Ktima-Korres-Yastra/d50250-5649732P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:32:41.728Z",
+            "activities": [
+              "cooking"
+            ],
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 15,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_cooking",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "5649732P3",
+                "checkedAt": "2026-10-18T09:32:41.728Z",
+                "field": "inclusions",
+                "value": "COOKING_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "food",
+      "place": "496",
+      "mood": "tasting",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "417834P1",
+          "title": "The Greek Food Experience (Max 8 persons)",
+          "url": "https://www.viator.com/tours/Athens/The-Greek-Food-Experience-MAX-8-people/d496-417834P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:33:04.139Z",
+            "activities": [
+              "tasting"
+            ],
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 8,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_tasting",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "417834P1",
+                "checkedAt": "2026-10-18T09:33:04.139Z",
+                "field": "inclusions",
+                "value": "TASTING_LISTED"
+              }
+            }
+          ]
+        },
+        {
+          "code": "26368P30",
+          "title": "Private Athens Morning Food Tour (15+ tastings) - Best Seller",
+          "url": "https://www.viator.com/tours/Athens/Private-Athens-For-Foodies-More-Than-A-Greek-Food-Tour/d496-26368P30?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:33:04.305Z",
+            "activities": [
+              "tasting"
+            ],
+            "languages": [
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_tasting",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "26368P30",
+                "checkedAt": "2026-10-18T09:33:04.305Z",
+                "field": "inclusions",
+                "value": "TASTING_LISTED"
+              }
+            }
+          ]
+        },
+        {
+          "code": "388033P1",
+          "title": "Private Walking Tour in Athens City Center with Food",
+          "url": "https://www.viator.com/tours/Athens/Private-morning-tour-in-Athens-with-Christos-and-Christina/d496-388033P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:33:04.429Z",
+            "activities": [
+              "tasting"
+            ],
+            "languages": [
+              "de",
+              "el",
+              "en",
+              "es"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_tasting",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "388033P1",
+                "checkedAt": "2026-10-18T09:33:04.429Z",
+                "field": "inclusions",
+                "value": "TASTING_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "food",
+      "place": "960",
+      "mood": "cooking",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "364301P5",
+          "title": "Cretan Flavors - Cooking Lessons and Wine Olive Oil Tasting",
+          "url": "https://www.viator.com/tours/Heraklion/Traditional-Cretan-Food-Lessons-Small-Group/d961-364301P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:33:26.562Z",
+            "activities": [
+              "cooking"
+            ],
+            "languages": [
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 12,
+            "pickup": "pickup_listed",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_cooking",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "364301P5",
+                "checkedAt": "2026-10-18T09:33:26.562Z",
+                "field": "itinerary.activityInfo.description",
+                "value": "COOKING_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "culture",
+      "place": "496",
+      "mood": "guided",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "240841P1",
+          "title": "Acropolis & Acropolis Museum Group tour in German",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-and-Museum-Tour-with-a-Dutch-speaking-guide/d496-240841P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:33:47.990Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-18T09:33:47.990Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P1",
+                "checkedAt": "2026-10-18T09:33:47.990Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "240841P3",
+          "title": "Athens : Acropolis Guided Tour in German",
+          "url": "https://www.viator.com/tours/Athens/Acropolis-Tour-in-Dutch-or-German/d496-240841P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:33:48.213Z",
+            "guide": "included",
+            "languages": [
+              "de"
+            ],
+            "group": "shared",
+            "groupSize": 20,
+            "pickup": "meeting_point",
+            "effort": "easy",
+            "admission": "unknown"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-18T09:33:48.213Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_shared",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "240841P3",
+                "checkedAt": "2026-10-18T09:33:48.213Z",
+                "field": "itinerary.privateTour",
+                "value": "false"
+              }
+            }
+          ]
+        },
+        {
+          "code": "341709P1",
+          "title": "Best of Athens & Acropolis Full Day Private Guided City Tour",
+          "url": "https://www.viator.com/tours/Athens/Full-Day-Private-Tour-to-Saint-Porfyrios-Monastery-and-Private-Access-to-his-house/d496-341709P1?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "culture": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:33:48.469Z",
+            "guide": "included",
+            "languages": [
+              "en"
+            ],
+            "group": "private",
+            "groupSize": null,
+            "pickup": "pickup_listed",
+            "effort": "easy",
+            "admission": "some_not_included"
+          },
+          "evidence": [
+            {
+              "code": "culture_guide",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "341709P1",
+                "checkedAt": "2026-10-18T09:33:48.469Z",
+                "field": "inclusions",
+                "value": "GUIDE_INCLUDED"
+              }
+            },
+            {
+              "code": "culture_private",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "341709P1",
+                "checkedAt": "2026-10-18T09:33:48.469Z",
+                "field": "itinerary.privateTour",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "boat",
+      "place": "22323",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "345728P2",
+          "title": "Milos oneiro-kleftiko sailing experience with local guide",
+          "url": "https://www.viator.com/tours/Milos/Milos-oneiro/d22323-345728P2?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "skipper"
+              }
+            }
+          ]
+        },
+        {
+          "code": "32830P5",
+          "title": "Milos Small-Group Full-Day Cruise with Snorkelling and Lunch",
+          "url": "https://www.viator.com/tours/Milos/Discover-Milos-sailing-snorkelling-and-cave-exploration-cruise-in-small-group/d22323-32830P5?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ]
+        },
+        {
+          "code": "32830P4",
+          "title": "Best of Milos and Poliegos Catamaran snorkelling Cruise with BBQ",
+          "url": "https://www.viator.com/tours/Milos/Around-Milos-and-Poliegos-catamaran-cruise/d22323-32830P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "evidence": [
+            {
+              "code": "crew",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "crew"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "kind": "wine",
+      "place": "959",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "44792P8",
+          "title": "Cooking Class and Wine Tasting in Santorini",
+          "url": "https://www.viator.com/tours/Santorini/Eat-like-local-Cooking-class-and-wine-tasting/d959-44792P8?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ]
+        },
+        {
+          "code": "396495P4",
+          "title": "Santorini Daytime Wine Tour | 3 Wineries & 12 Tastings",
+          "url": "https://www.viator.com/tours/Santorini/Private-Daytime-Wine-Tour/d959-396495P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "description",
+                "value": "wine tasting"
+              }
+            }
+          ]
+        },
+        {
+          "code": "21559P6",
+          "title": "Santorini: 4hr Private Wine Tasting Tour",
+          "url": "https://www.viator.com/tours/Santorini/Traditional-Taste-of-Santorini-Private-Tour/d959-21559P6?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "evidence": [
+            {
+              "code": "wine_tasting",
+              "evidence": {
+                "source": "viator_listing",
+                "field": "title",
+                "value": "Wine Tasting"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "food",
+      "place": "496",
+      "mood": "walk",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "101933P4",
+          "title": "Classic Athens Food Tour with Local Drink & Market Visit",
+          "url": "https://www.viator.com/tours/Athens/Traditional-Greek-Food-Tasting/d496-101933P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:34:53.743Z",
+            "activities": [
+              "walk"
+            ],
+            "languages": [
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 10,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_walk",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "101933P4",
+                "checkedAt": "2026-10-18T09:34:53.743Z",
+                "field": "inclusions",
+                "value": "WALK_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "kind": "food",
+      "placeName": "Naxos",
+      "mood": "cooking",
+      "place": "50250",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "9238P50",
+          "title": "Walking Tour and Cooking Class on Naxos with Local Market Visit",
+          "url": "https://www.viator.com/tours/Naxos/Naxos-A-Taste-of-Naxos-visit-the-local-market-cooking-class/d50250-9238P50?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:35:16.559Z",
+            "activities": [
+              "cooking"
+            ],
+            "languages": [
+              "el",
+              "en",
+              "ru"
+            ],
+            "group": "shared",
+            "groupSize": 8,
+            "pickup": "option_dependent",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_cooking",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "9238P50",
+                "checkedAt": "2026-10-18T09:35:16.559Z",
+                "field": "itinerary.activityInfo.description",
+                "value": "COOKING_LISTED"
+              }
+            }
+          ]
+        },
+        {
+          "code": "5649732P3",
+          "title": "Estate Cooking Class and Farm to Table Lunch Ktima Korres Yastra",
+          "url": "https://www.viator.com/tours/Naxos/Estate-Cooking-Class-and-Farm-to-Table-Lunch-Ktima-Korres-Yastra/d50250-5649732P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:35:16.481Z",
+            "activities": [
+              "cooking"
+            ],
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 15,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_cooking",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "5649732P3",
+                "checkedAt": "2026-10-18T09:35:16.481Z",
+                "field": "inclusions",
+                "value": "COOKING_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "food",
+      "place": "496",
+      "mood": "walk",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "101933P4",
+          "title": "Classic Athens Food Tour with Local Drink & Market Visit",
+          "url": "https://www.viator.com/tours/Athens/Traditional-Greek-Food-Tasting/d496-101933P4?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:35:43.901Z",
+            "activities": [
+              "walk"
+            ],
+            "languages": [
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 10,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_walk",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "101933P4",
+                "checkedAt": "2026-10-18T09:35:43.901Z",
+                "field": "inclusions",
+                "value": "WALK_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "kind": "food",
+      "placeName": "Naxos",
+      "mood": "cooking",
+      "place": "50250",
+      "status": "PASS",
+      "products": [
+        {
+          "code": "9238P50",
+          "title": "Walking Tour and Cooking Class on Naxos with Local Market Visit",
+          "url": "https://www.viator.com/tours/Naxos/Naxos-A-Taste-of-Naxos-visit-the-local-market-cooking-class/d50250-9238P50?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:36:06.883Z",
+            "activities": [
+              "cooking"
+            ],
+            "languages": [
+              "el",
+              "en",
+              "ru"
+            ],
+            "group": "shared",
+            "groupSize": 8,
+            "pickup": "option_dependent",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_cooking",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "9238P50",
+                "checkedAt": "2026-10-18T09:36:06.883Z",
+                "field": "itinerary.activityInfo.description",
+                "value": "COOKING_LISTED"
+              }
+            }
+          ]
+        },
+        {
+          "code": "5649732P3",
+          "title": "Estate Cooking Class and Farm to Table Lunch Ktima Korres Yastra",
+          "url": "https://www.viator.com/tours/Naxos/Estate-Cooking-Class-and-Farm-to-Table-Lunch-Ktima-Korres-Yastra/d50250-5649732P3?mcid=42383&pid=P00320497&medium=api&api_version=2.0",
+          "priceBasis": "unknown",
+          "food": {
+            "version": 1,
+            "checkedAt": "2026-10-18T09:36:06.716Z",
+            "activities": [
+              "cooking"
+            ],
+            "languages": [
+              "el",
+              "en"
+            ],
+            "group": "shared",
+            "groupSize": 15,
+            "pickup": "meeting_point",
+            "dietary": "not_confirmed",
+            "ingredients": "not_confirmed",
+            "cancellationType": "STANDARD"
+          },
+          "evidence": [
+            {
+              "code": "food_cooking",
+              "evidence": {
+                "source": "viator_product",
+                "productCode": "5649732P3",
+                "checkedAt": "2026-10-18T09:36:06.716Z",
+                "field": "inclusions",
+                "value": "COOKING_LISTED"
+              }
+            }
+          ]
+        }
+      ],
+      "axeViolations": 0
+    }
+  ],
+  "network": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalEventsRequests": 0,
+      "newPhotoReviewRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalEventsRequests": 0,
+      "newPhotoReviewRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "api": [
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        },
+        {
+          "path": "/destinations",
+          "status": 200
+        },
+        {
+          "path": "/search",
+          "status": 200
+        }
+      ],
+      "normalEventsRequests": 0,
+      "newPhotoReviewRequests": 0
+    }
+  ],
+  "status": "COLLECTED_REQUIRES_INVENTORY_REVIEW"
+}

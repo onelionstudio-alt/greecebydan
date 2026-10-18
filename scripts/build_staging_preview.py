@@ -19,7 +19,7 @@ TEXT_TYPES = {
 }
 
 
-def package(site, worker_source, source_commit, review_label="PR #21", supplier_covers=False, culture_enabled=False):
+def package(site, worker_source, source_commit, review_label="PR #21", supplier_covers=False, culture_enabled=False, food_enabled=False):
     if not review_label.replace('#', '').replace(' ', '').isalnum() or len(review_label) > 40:
         raise ValueError('Invalid review label')
     original = worker_source
@@ -99,6 +99,7 @@ function stagingPhotoAudit(products, pref) {
         'apiPhotos': False, 'interactionEvents': False, 'supplierCovers': bool(supplier_covers),
         'imageProvenanceAudit': image_audit,
         'cultureEnabled': bool(culture_enabled),
+        'foodEnabled': bool(food_enabled),
         'changesFromSource': ['staging-only SITE origin', 'staging-only client API URL',
                               'noindex headers and preview banner', 'hard-off feature overrides'],
         'assetSha256': {k: hashlib.sha256(v[1].encode()).hexdigest() for k, v in assets.items()},
@@ -133,7 +134,7 @@ export default {
         request = new Request(request, {headers});
       }
       const response = await stagingApi.fetch(request, {
-        ...env, VIATOR_IMAGES_APPROVED: 'false', INTERACTIONS_ENABLED: 'false', SUPPLIER_COVERS_ENABLED: PREVIEW_META.supplierCovers ? 'true' : 'false', CULTURE_ENABLED: PREVIEW_META.cultureEnabled ? 'true' : 'false'
+        ...env, VIATOR_IMAGES_APPROVED: 'false', INTERACTIONS_ENABLED: 'false', SUPPLIER_COVERS_ENABLED: PREVIEW_META.supplierCovers ? 'true' : 'false', CULTURE_ENABLED: PREVIEW_META.cultureEnabled ? 'true' : 'false', FOOD_ENABLED: PREVIEW_META.foodEnabled ? 'true' : 'false'
       }, ctx);
       const headers = new Headers(response.headers);
       for (const [k,v] of Object.entries(previewHeaders)) headers.set(k,v);
@@ -163,11 +164,12 @@ def main():
     parser.add_argument('--review-label', default='PR #21')
     parser.add_argument('--supplier-covers', action='store_true', help='Enable ONLY strict supplier cover images on staging')
     parser.add_argument('--culture', action='store_true', help='Enable only Culture extension on isolated staging')
+    parser.add_argument('--food', action='store_true', help='Enable Food only on isolated staging')
     args = parser.parse_args()
     commit = args.source_commit or subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     if len(commit) != 40 or any(c not in '0123456789abcdef' for c in commit):
         raise ValueError('source commit must be a full SHA-1')
-    output = package(args.site, (ROOT / 'travel-worker/worker.mjs').read_text(), commit, args.review_label, args.supplier_covers, args.culture)
+    output = package(args.site, (ROOT / 'travel-worker/worker.mjs').read_text(), commit, args.review_label, args.supplier_covers, args.culture, args.food)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(output)
     print(f'Packaged staging preview: {args.output.name} ({len(output.encode())} bytes)')
