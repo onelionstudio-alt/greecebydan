@@ -73,3 +73,9 @@
 @media(max-width:650px){.concierge .concierge-compare-toolbar{display:block}.concierge-compare-toolbar span{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.concierge-compare-toolbar button{width:100%;min-width:0}}
 
 .concierge-result .concierge-book{text-decoration:none}
+
+/* Keep mobile story cards readable without oversized, one-word title lines. */
+@media(max-width:760px){
+  .feature-copy h3{font-size:clamp(28px,8vw,32px);line-height:1.15;margin:12px 0}
+  .feature-copy p{font-size:18px;line-height:1.6}
+}
