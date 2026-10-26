@@ -1,0 +1,27 @@
+name: Production mobile typography check (no deployment)
+on:
+  push:
+    branches: [qa/mobile-story-production]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/typography" --no-package-lock playwright@1.56.1
+          node "$RUNNER_TEMP/typography/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Actual published frontend and approved CSS, no mocks
+        env:
+          NODE_PATH: ${{ runner.temp }}/typography/node_modules
+        run: node scripts/mobile-production-check.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: production-mobile-typography
+          path: /tmp/typography-production/
