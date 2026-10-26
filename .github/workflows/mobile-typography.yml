@@ -1,0 +1,35 @@
+name: Mobile typography visual check (no deployment)
+on:
+  push:
+    branches: [qa/mobile-story-headings]
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: |
+          pip install -r requirements.txt
+          python scripts/build.py
+          git show 938a403e59810567bc70e4a1cdd3c1497e7af6c5:assets/css/style.css > /tmp/before.css
+          npm install --prefix "$RUNNER_TEMP/typography" --no-package-lock playwright@1.56.1
+          node "$RUNNER_TEMP/typography/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Check responsive card typography and capture before and after
+        env:
+          NODE_PATH: ${{ runner.temp }}/typography/node_modules
+        run: node scripts/mobile-typography-check.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-story-typography
+          path: /tmp/typography-evidence/
