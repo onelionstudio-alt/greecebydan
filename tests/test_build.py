@@ -56,6 +56,20 @@ class EditorialIntegrity(unittest.TestCase):
         self.assertIn('passenger cap needs confirmation',milos['body'])
         self.assertIn('No date-specific availability or final price has been confirmed',milos['body'])
 
+    def test_santorini_cruise_and_family_wine_articles_are_distinct(self):
+        records = {
+            'which-santorini-cruise-should-you-choose-if-you-dislike-loud-music':
+                'Which Santorini Cruise Should You Choose If You Dislike Loud Music?',
+            'can-you-join-a-santorini-wine-tour-with-children':
+                'Can You Join a Santorini Wine Tour With Children?',
+        }
+        for slug, expected_title in records.items():
+            with self.subTest(slug=slug):
+                data = json.loads((ROOT / 'content/stories' / (slug + '.json')).read_text(encoding='utf-8'))
+                self.assertTrue(data['published'])
+                self.assertEqual(data['title'], expected_title)
+                self.assertTrue(data['body'].strip())
+
 class DisabledRelease(unittest.TestCase):
     def test_worker_flags_and_staging_isolation(self):
         import tomllib
