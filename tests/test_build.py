@@ -70,6 +70,21 @@ class EditorialIntegrity(unittest.TestCase):
                 self.assertEqual(data['title'], expected_title)
                 self.assertTrue(data['body'].strip())
 
+    def test_knossos_and_sifnos_are_distinct_published_articles(self):
+        records = {
+            'knossos-palace-from-heraklion-bus-tour-or-taxi':
+                'Knossos Palace From Heraklion: Bus, Tour or Taxi?',
+            'why-sifnos-became-greeces-quiet-food-island':
+                'Why Sifnos Became Greece’s Quiet Food Island',
+        }
+        for slug, expected_title in records.items():
+            with self.subTest(slug=slug):
+                data = json.loads((ROOT / 'content/stories' / (slug + '.json')).read_text(encoding='utf-8'))
+                self.assertTrue(data['published'])
+                self.assertEqual(data['title'], expected_title)
+                self.assertTrue(data['body'].strip())
+        self.assertFalse((ROOT / 'content/stories/why-sifnos-became-greece’s-quiet-food-island.json').exists())
+
 class DisabledRelease(unittest.TestCase):
     def test_worker_flags_and_staging_isolation(self):
         import tomllib
