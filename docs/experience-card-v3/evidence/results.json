@@ -1,0 +1,11 @@
+{
+  "fixture": "Recorded examples + explicitly synthetic states; not a live API test",
+  "physicalDevices": false,
+  "checks": [
+    "360px: cards, no horizontal page overflow, 2/3 item comparison, missing data, state recovery, attribution: PASS",
+    "390px: cards, no horizontal page overflow, 2/3 item comparison, missing data, state recovery, attribution: PASS",
+    "768px: cards, no horizontal page overflow, 2/3 item comparison, missing data, state recovery, attribution: PASS",
+    "1440px: cards, no horizontal page overflow, 2/3 item comparison, missing data, state recovery, attribution: PASS",
+    "Zero HTTP requests: no API, photos, fonts, telemetry or collectors: PASS"
+  ]
+}
